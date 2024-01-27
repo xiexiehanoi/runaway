@@ -49,6 +49,7 @@ sourceSets {
 */
 
 processResources {
+    dependsOn("copyPrivate")
     dependsOn "copyReactFile"
     //dependsOn "appNpmInstall"
 }
