@@ -86,3 +86,10 @@ task installReact(type: Exec) {
     }
 }
 
+task copyPrivate(type: Copy) {
+    copy {
+        from "./runaway-private"
+        include "*.yml"
+        into "src/main/resources"
+    }
+}
