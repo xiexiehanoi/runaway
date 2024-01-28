@@ -1,8 +1,16 @@
 import React, {useEffect, useState} from 'react';
 
-function getGeoLocation() {
+function startRun() {
     if (window.Android) {
-        window.Android.getGeoLocation();
+        console.log("Function startRun");
+        window.Android.startRun();
+    }
+}
+
+function stopRun() {
+    if (window.Android) {
+        console.log("Function stopRun");
+        window.Android.stopRun();
     }
 }
 
@@ -10,6 +18,8 @@ function Running() {
     const [geoLocationList, setGeoLocationList] = useState([]);
 
     useEffect(() => {
+        startRun();
+
         const handleGeoLocationCallback = (e) => {
             let obj = JSON.parse(e.detail)
             let latitude = obj["latitude"]
@@ -20,18 +30,10 @@ function Running() {
         window.addEventListener("onGeoLocationCallback", handleGeoLocationCallback);
 
         return () => {
+            stopRun();
             window.removeEventListener("onGeoLocationCallback", handleGeoLocationCallback);
         };
     }, []);
-
-    useEffect(() => {
-        const intervalId = setInterval(() => {
-            getGeoLocation();
-            console.log("Function called every 1 second");
-        }, 1000);
-        return () => clearInterval(intervalId);
-    }, []);
-
 
     return (
         <div>
