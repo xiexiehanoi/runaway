@@ -1,0 +1,4 @@
+ncp.accessKey= "ncp 엑세스키"
+ncp.secretkey= "ncp 시크릿키"
+ncp.regionName=kr-standard
+ncp.endPoint=https://kr.object.ncloudstorage.com
