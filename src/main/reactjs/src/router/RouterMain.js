@@ -10,6 +10,7 @@ const RouterMain = () => {
             <Routes>
                 <Route path="/running" element={<Running />}  />
             </Routes>
+            <h4>개발 서버 배포 테스중입니다.</h4>
         </div>
     );
 };
