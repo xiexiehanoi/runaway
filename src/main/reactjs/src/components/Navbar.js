@@ -1,7 +1,7 @@
 import React from 'react';
-import {Link} from "react-router-dom";
+import { Link } from 'react-router-dom';
 
-function Main() {
+const Navbar = () => {
     return (
         <div>
             Main
@@ -10,6 +10,6 @@ function Main() {
             </p>
         </div>
     );
-}
+};
 
-export default Main;
+export default Navbar;
