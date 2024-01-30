@@ -17,11 +17,8 @@ function stopRun() {
 
 function Running() {
     const [geoLocationList, setGeoLocationList] = useState([]);
-    const isTracking = useState(false);
 
     useEffect(() => {
-        //startRun();
-
         const handleGeoLocationCallback = (e) => {
             let obj = JSON.parse(e.detail)
             let latitude = obj["latitude"]
@@ -32,7 +29,6 @@ function Running() {
         window.addEventListener("onGeoLocationCallback", handleGeoLocationCallback);
 
         return () => {
-            //stopRun();
             window.removeEventListener("onGeoLocationCallback", handleGeoLocationCallback);
         };
     }, []);
