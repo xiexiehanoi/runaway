@@ -1,24 +1,26 @@
 import React, {useEffect, useState} from 'react';
 
 function startRun() {
+    console.log("Function startRun");
     if (window.Android) {
-        console.log("Function startRun");
         window.Android.startRun();
     }
 }
 
 function stopRun() {
+    console.log("Function stopRun");
+
     if (window.Android) {
-        console.log("Function stopRun");
         window.Android.stopRun();
     }
 }
 
 function Running() {
     const [geoLocationList, setGeoLocationList] = useState([]);
+    const isTracking = useState(false);
 
     useEffect(() => {
-        startRun();
+        //startRun();
 
         const handleGeoLocationCallback = (e) => {
             let obj = JSON.parse(e.detail)
@@ -30,7 +32,7 @@ function Running() {
         window.addEventListener("onGeoLocationCallback", handleGeoLocationCallback);
 
         return () => {
-            stopRun();
+            //stopRun();
             window.removeEventListener("onGeoLocationCallback", handleGeoLocationCallback);
         };
     }, []);
@@ -38,6 +40,10 @@ function Running() {
     return (
         <div>
             Running
+            <button onClick={startRun}>Start Run</button>
+            <button onClick={stopRun}>Stop Run</button>
+            <button onClick={stopRun}>Mock Data</button> {/* TODO: Make Mock */}
+
             <ul>
                 {geoLocationList.map((location, index) => (
                     <li key={index}>
