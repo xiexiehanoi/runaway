@@ -15,6 +15,16 @@ function stopRun() {
     }
 }
 
+function generateMockData(count) {
+    const lastLatitude = 37.7749 + count * 0.1;
+    const lastLongitude = -122.4194 - count * 0.1;
+
+    return {
+        latitude: lastLatitude,
+        longitude: lastLongitude,
+    };
+}
+
 function Running() {
     const [geoLocationList, setGeoLocationList] = useState([]);
 
@@ -33,12 +43,29 @@ function Running() {
         };
     }, []);
 
+    const handleMockDataClick = () => {
+        const totalMockDataCount = 30;
+        let currentCount = 0;
+
+        const addMockDataWithDelay = () => {
+            if (currentCount < totalMockDataCount) {
+                const newMockData = generateMockData(currentCount);
+                setGeoLocationList((prevList) => [...prevList, newMockData]);
+
+                currentCount++;
+                setTimeout(addMockDataWithDelay, 5000);
+            }
+        };
+
+        addMockDataWithDelay();
+    };
+
     return (
         <div>
             Running
             <button onClick={startRun}>Start Run</button>
             <button onClick={stopRun}>Stop Run</button>
-            <button onClick={stopRun}>Mock Data</button> {/* TODO: Make Mock */}
+            <button onClick={handleMockDataClick}>Mock Data</button>
 
             <ul>
                 {geoLocationList.map((location, index) => (
