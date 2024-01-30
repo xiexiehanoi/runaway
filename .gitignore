@@ -37,3 +37,4 @@ out/
 .vscode/
 
 application.yml
+src/main/resources/static/
