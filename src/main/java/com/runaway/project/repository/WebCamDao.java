@@ -1,4 +1,4 @@
-package com.runaway.project.service;
+package com.runaway.project.repository;
 
 import com.github.sarxos.webcam.Webcam;
 import com.github.sarxos.webcam.WebcamDiscoveryEvent;
@@ -7,22 +7,26 @@ import com.github.sarxos.webcam.WebcamEvent;
 import com.github.sarxos.webcam.WebcamListener;
 import com.github.sarxos.webcam.WebcamPicker;
 import com.github.sarxos.webcam.WebcamResolution;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Repository;
 
+import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.imageio.ImageIO;
-
-public class WebCamService implements WebcamListener, WebcamDiscoveryListener {
+@Repository
+@AllArgsConstructor
+public class WebCamDao implements WebcamListener, WebcamDiscoveryListener {
+    private WebCamDaoInter webCamDaoInter;
 
     private Webcam webcam = null;
     private WebcamPicker webcamPicker = null;
     private List<Webcam> availableWebcams = new ArrayList<>();
 
-    public WebCamService() {
+    public WebCamDao() {
         Webcam.addDiscoveryListener(this);
         initializeWebcam();
     }
@@ -30,7 +34,7 @@ public class WebCamService implements WebcamListener, WebcamDiscoveryListener {
     private void initializeWebcam() {
         webcamPicker = new WebcamPicker();
         webcam = webcamPicker.getSelectedWebcam(); // Use the selected webcam
-         if (webcam != null) {
+        if (webcam != null) {
             //webcam = availableWebcams.get(0); // Use the first available webcam
             webcam.setViewSize(WebcamResolution.VGA.getSize());
             webcam.addWebcamListener(this);
