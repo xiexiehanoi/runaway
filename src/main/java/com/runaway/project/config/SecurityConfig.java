@@ -33,15 +33,15 @@ public class SecurityConfig {
 
         http
                 .oauth2Login((oauth2) -> oauth2
-                        .loginPage("/")
                         .userInfoEndpoint((userInfoEndpointConfig) -> userInfoEndpointConfig
                                 .userService(customOAuth2UserService)));
 
-        http
-                .authorizeHttpRequests((auth) -> auth
-                        .requestMatchers("/oauth2/**", "/login/**").permitAll()
-                        .anyRequest().authenticated());
+/*
+        http.authorizeHttpRequests((auth) -> auth
+            .requestMatchers("/", "/oauth2/**", "/login/**").permitAll()
+            .anyRequest().authenticated());
 
+*/
 
 
         return http.build();

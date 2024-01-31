@@ -14,6 +14,9 @@ const Navbar = () => {
             <p>
                 <Link to="/login">로그인 페이지</Link>
             </p>
+            <p>
+                <Link to="/webcam">Webcam</Link>
+            </p>
         </div>
     );
 };
