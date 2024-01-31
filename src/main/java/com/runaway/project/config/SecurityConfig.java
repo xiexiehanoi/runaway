@@ -36,12 +36,11 @@ public class SecurityConfig {
                         .userInfoEndpoint((userInfoEndpointConfig) -> userInfoEndpointConfig
                                 .userService(customOAuth2UserService)));
 
-/*
-        http.authorizeHttpRequests((auth) -> auth
-            .requestMatchers("/", "/oauth2/**", "/login/**").permitAll()
-            .anyRequest().authenticated());
+        http
+                .authorizeHttpRequests((auth) -> auth
+                        .requestMatchers("/", "/oauth2/**", "/login/**").permitAll()
+                        .anyRequest().authenticated());
 
-*/
 
 
         return http.build();

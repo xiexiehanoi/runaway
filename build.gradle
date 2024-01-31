@@ -27,17 +27,9 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation group: 'io.awspring.cloud', name: 'spring-cloud-starter-aws', version: '2.4.4'
-
     implementation group: 'com.amazonaws', name: 'aws-java-sdk-s3', version: '1.12.416'
-// https://mvnrepository.com/artifact/xuggle/xuggle-xuggler - 웹캠
-//    implementation group: 'xuggle', name: 'xuggle-xuggler', version: '5.4'
-    implementation group: 'com.github.sarxos', name: 'webcam-capture', version: '0.3.12'
-
-    // https://mvnrepository.com/artifact/xuggle/xuggle-xuggler
-//    implementation 'xuggle:xuggle-xuggler:5.4'
-
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
-
+    compileOnly 'org.projectlombok:lombok'
     runtimeOnly 'com.mysql:mysql-connector-j'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
