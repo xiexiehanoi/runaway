@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 
 const Map = ({ locations }) => {
-    const map = null;
+    let map = null;
 
     useEffect(() => {
         const script = document.createElement('script');
@@ -14,7 +14,7 @@ const Map = ({ locations }) => {
                 zoomControl: true, // 확대/축소 컨트롤 활성화
             };
 
-            const map = new window.naver.maps.Map('map', mapOptions);
+            map = new window.naver.maps.Map('map', mapOptions);
         };
     }, []);
 
