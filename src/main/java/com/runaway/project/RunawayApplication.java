@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 
 @SpringBootApplication
-@EntityScan(basePackages = "com.runaway.project.dto")
+@EntityScan(basePackages = "com.runaway.project.*")
 public class RunawayApplication {
 
 	public static void main(String[] args) {
