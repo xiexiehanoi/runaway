@@ -6,7 +6,14 @@ const Map = ({ locations }) => {
 
     // 현재 위치로 이동하는 함수
     const moveToCurrentLocation = () => {
+
+        if (!map) {
+            console.error('지도가 아직 로드되지 않았습니다.');
+            return;
+        }
+
         if (locations.length > 0) {
+
             const currentLocation = locations[locations.length - 1];
             const center = new window.naver.maps.LatLng(currentLocation.latitude, currentLocation.longitude);
             map.setCenter(center);
@@ -33,24 +40,24 @@ const Map = ({ locations }) => {
             };
 
             const newMap = new window.naver.maps.Map('map', mapOptions);
-
-            // 지도에 버튼 추가
-            const locationButton = document.createElement('button');
-            locationButton.innerText = '현재 위치로 이동';
-            locationButton.style.position = 'absolute';
-            locationButton.style.top = '10px';
-            locationButton.style.left = '10px';
-            locationButton.style.zIndex = 5;
-            locationButton.addEventListener('click', moveToCurrentLocation);
-
-            document.getElementById('map').appendChild(locationButton);
-
             setMap(newMap);
         };
     }, []);
 
     useEffect(() => {
         if (!map || locations.length === 0) return;
+
+        // 지도에 버튼 추가
+        const locationButton = document.createElement('button');
+        locationButton.innerText = '현재 위치로 이동';
+        locationButton.style.position = 'absolute';
+        locationButton.style.top = '10px';
+        locationButton.style.left = '10px';
+        locationButton.style.zIndex = 5;
+        locationButton.addEventListener('click', moveToCurrentLocation);
+
+        document.getElementById('map').appendChild(locationButton);
+
 
         if (polyline) {
             polyline.setMap(null); // 기존 폴리라인 제거
@@ -71,10 +78,18 @@ const Map = ({ locations }) => {
         setPolyline(newPolyline);
 
 
-
     }, [map, locations]);
 
-    return <div id="map" style={{ width: '100%', height: '400px' }}></div>;
+    return (
+        <div id="map" style={{ width: '100%', height: '400px' }}>
+            <button
+                onClick={moveToCurrentLocation}
+                style={{ position: 'absolute', top: '10px', left: '10px', zIndex: 5 }}
+            >
+                현재 위치로 이동
+            </button>
+        </div>
+    );
 };
 
 export default Map;
