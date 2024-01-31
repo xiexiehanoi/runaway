@@ -15,8 +15,7 @@ const Map = ({ locations }) => {
             };
 
             const newMap = new window.naver.maps.Map('map', mapOptions);
-
-            setMap(newMap); // 생성된 지도 인스턴스 저장
+            setMap(newMap);
         };
     }, []);
 
@@ -32,7 +31,7 @@ const Map = ({ locations }) => {
             map: map
         });
 
-    }, [locations]);
+    }, [map, locations]);
 
     return <div id="map" style={{ width: '100%', height: '400px' }}></div>;
 };
