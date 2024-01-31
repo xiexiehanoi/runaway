@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 
 const Map = ({ locations }) => {
-    const [map, setMap] = useState(null); // 지도 인스턴스를 저장할 상태
+    const map = null;
 
     useEffect(() => {
         const script = document.createElement('script');
@@ -14,9 +14,7 @@ const Map = ({ locations }) => {
                 zoomControl: true, // 확대/축소 컨트롤 활성화
             };
 
-            const newMap = new window.naver.maps.Map('map', mapOptions);
-
-            setMap(newMap); // 생성된 지도 인스턴스 저장
+            const map = new window.naver.maps.Map('map', mapOptions);
         };
     }, []);
 
