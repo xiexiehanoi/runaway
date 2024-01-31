@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+import Map from '../map/Map';
 
 function startRun() {
     console.log("Function startRun");
@@ -63,17 +64,25 @@ function Running() {
     return (
         <div>
             Running
+
             <button onClick={startRun}>Start Run</button>
             <button onClick={stopRun}>Stop Run</button>
             <button onClick={handleMockDataClick}>Mock Data</button>
 
-            <ul>
-                {geoLocationList.map((location, index) => (
-                    <li key={index}>
-                        위도: {location.latitude}, 경도: {location.longitude}
-                    </li>
-                ))}
-            </ul>
+
+            <div>
+                <Map locations={geoLocationList} /> {/* MapComponent에 위치 데이터 전달 */}
+            </div>
+
+            {/*<ul>*/}
+            {/*    {geoLocationList.map((location, index) => (*/}
+            {/*        <li key={index}>*/}
+
+            {/*            위도: {location.latitude}, 경도: {location.longitude}*/}
+            {/*        </li>*/}
+            {/*    ))}*/}
+            {/*</ul>*/}
+
         </div>
     );
 }
