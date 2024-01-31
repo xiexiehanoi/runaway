@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 const Map = ({ locations }) => {
-    let map = null;
+    const [map, setMap] = useState(null); // 지도 인스턴스를 저장할 상태
 
     useEffect(() => {
         const script = document.createElement('script');
@@ -14,7 +14,8 @@ const Map = ({ locations }) => {
                 zoomControl: true, // 확대/축소 컨트롤 활성화
             };
 
-            map = new window.naver.maps.Map('map', mapOptions);
+            const newMap = new window.naver.maps.Map('map', mapOptions);
+            setMap(newMap);
         };
     }, []);
 
@@ -30,7 +31,7 @@ const Map = ({ locations }) => {
             map: map
         });
 
-    }, [locations]);
+    }, [map, locations]);
 
     return <div id="map" style={{ width: '100%', height: '400px' }}></div>;
 };
