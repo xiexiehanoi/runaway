@@ -1,7 +1,6 @@
 import React from 'react';
 import Navbar from '../components/Navbar';
 import Running from '../components/running/Running';
-import WebCam from '../components/Webcam/WebCam';
 import { Route, Routes } from 'react-router-dom';
 import MyPage from '../components/login/MyPage';
 import LoginPage from '../components/login/LoginPage';
@@ -12,15 +11,14 @@ import NaverLogin from '../components/login/NaverLogin';
 const RouterMain = () => {
     return (
         <div>
-            <Navbar />
+            <Navbar/>
             <Routes>
-                <Route path="/running" element={<Running />} />
-                <Route path="/my" element={<MyPage />} />
+                <Route path="/running" element={<Running />}  />
+                <Route path="/my" element={<MyPage/>}/>
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/authkakao" element={<KakaoLogin />} />
                 <Route path="/authgoogle" element={<GoogleLogin />} />
-                <Route path="/authnaver" element={<NaverLogin />} />
-                <Route path="/webcam" element={<WebCam />} />
+                <Route path="/authnaver" element={<NaverLogin />}/>
             </Routes>
             <h4>개발 서버 배포 테스중입니다.</h4>
         </div>
