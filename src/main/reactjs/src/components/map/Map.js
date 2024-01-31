@@ -2,8 +2,26 @@ import React, { useEffect, useState } from 'react';
 
 const Map = ({ locations }) => {
     const [map, setMap] = useState(null); // 지도 인스턴스를 저장할 상태
+    const [polyline, setPolyline] = useState(null);
+
+    // 현재 위치로 이동하는 함수
+    const moveToCurrentLocation = () => {
+        if (locations.length > 0) {
+            const currentLocation = locations[locations.length - 1];
+            const center = new window.naver.maps.LatLng(currentLocation.latitude, currentLocation.longitude);
+            map.setCenter(center);
+        } else {
+            alert('현재 위치 정보가 없습니다.');
+        }
+    };
+
 
     useEffect(() => {
+
+        // 스크립트 태그가 이미 존재하는지 확인
+        const existingScript = document.querySelector('script[src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=38q1h3iyts"]');
+        if (existingScript) return;
+
         const script = document.createElement('script');
         script.async = true;
         script.src = 'https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=38q1h3iyts';
@@ -15,21 +33,44 @@ const Map = ({ locations }) => {
             };
 
             const newMap = new window.naver.maps.Map('map', mapOptions);
+
+            // 지도에 버튼 추가
+            const locationButton = document.createElement('button');
+            locationButton.innerText = '현재 위치로 이동';
+            locationButton.style.position = 'absolute';
+            locationButton.style.top = '10px';
+            locationButton.style.left = '10px';
+            locationButton.style.zIndex = 5;
+            locationButton.addEventListener('click', moveToCurrentLocation);
+
+            document.getElementById('map').appendChild(locationButton);
+
             setMap(newMap);
         };
     }, []);
 
     useEffect(() => {
-        if (!map) return;
+        if (!map || locations.length === 0) return;
 
-        const initialPath = locations.map(loc => new window.naver.maps.LatLng(loc.latitude, loc.longitude));
-        new window.naver.maps.Polyline({
-            path: initialPath,
+        if (polyline) {
+            polyline.setMap(null); // 기존 폴리라인 제거
+        }
+
+        const latLonPath = locations.map(loc => new window.naver.maps.LatLng(loc.latitude, loc.longitude));
+        const newPolyline = new window.naver.maps.Polyline({
+            path: latLonPath,
             strokeColor: '#5347AA',
             strokeOpacity: 0.8,
             strokeWeight: 3,
+            strokeStyle: 'solid', // 변경 가능: 'solid', 'shortdash', 'shortdot', 'shortdashdot', 등
+            strokeLineCap: 'round', // 변경 가능: 'butt', 'round', 'square'
+            strokeLineJoin: 'round', // 변경 가능: 'miter', 'round', 'bevel'
             map: map
         });
+
+        setPolyline(newPolyline);
+
+
 
     }, [map, locations]);
 

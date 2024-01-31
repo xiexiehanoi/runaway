@@ -74,14 +74,14 @@ function Running() {
                 <Map locations={geoLocationList} /> {/* MapComponent에 위치 데이터 전달 */}
             </div>
 
-            {/*<ul>*/}
-            {/*    {geoLocationList.map((location, index) => (*/}
-            {/*        <li key={index}>*/}
+            <ul>
+                {geoLocationList.map((location, index) => (
+                    <li key={index}>
 
-            {/*            위도: {location.latitude}, 경도: {location.longitude}*/}
-            {/*        </li>*/}
-            {/*    ))}*/}
-            {/*</ul>*/}
+                        위도: {location.latitude}, 경도: {location.longitude}
+                    </li>
+                ))}
+            </ul>
 
         </div>
     );
