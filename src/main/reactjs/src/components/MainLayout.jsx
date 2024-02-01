@@ -14,7 +14,9 @@ const MainLayout = ({ children }) => {
       title: "Home",
       icon: "dashboardIcon",
       filledIcon: "dashboardIconFilled",
-      route: "/running",
+      route: "/home"
+
+
     },
     {
       title: "Story",

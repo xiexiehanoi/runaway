@@ -7,7 +7,7 @@ const WebCam = () => {
         <div>
             <h4 className='alert alert-info'>Webcam</h4>
             <div>
-                <Webcam />
+                <Webcam mirrored={true}/>
             </div>
         </div>
     );
