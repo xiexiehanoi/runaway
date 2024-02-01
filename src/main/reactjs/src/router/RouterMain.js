@@ -1,5 +1,4 @@
 import React from 'react';
-import Navbar from '../components/Navbar';
 import Running from '../components/running/Running';
 import WebCam from '../components/Webcam/WebCam';
 import { Route, Routes } from 'react-router-dom';
