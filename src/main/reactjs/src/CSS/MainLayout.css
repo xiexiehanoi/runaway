@@ -20,9 +20,9 @@ body {
 
 #Iphone-header {
     background-color: rgba(99, 122, 159, 0.5);
-    height: 50px;
+    height: 49px;
     width: 282px;
-    top: 2%;
+    top: 2.2%;
     left: 6%;
     z-index: -1;
     overflow: hidden;
@@ -43,7 +43,7 @@ body {
     position: absolute;
     left: -3%;
     top: 9.85%;
-    z-index: -5;
+    z-index: 1;
     background-color: rgba(99, 122, 159, 0.5);
     font-family: Lato;
 }
