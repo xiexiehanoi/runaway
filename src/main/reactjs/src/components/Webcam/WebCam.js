@@ -4,6 +4,9 @@ const WebCam = () => {
     return (
         <div>
             <h4 className='alert alert-info'>Webcam</h4>
+            <div>
+
+            </div>
         </div>
     );
 };
