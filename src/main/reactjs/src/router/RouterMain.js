@@ -8,12 +8,19 @@ import KakaoLogin from '../components/login/KakaoLogin';
 import GoogleLogin from '../components/login/GoogleLogin';
 import NaverLogin from '../components/login/NaverLogin';
 import MainLayout from '../components/MainLayout';
+import Home from '../components/Home';
+import Exercise from '../components/exercise/exercise';
 
 const RouterMain = () => {
     return (
-        <MainLayout>
+        
+       
+        <MainLayout>       
             <Routes>
+                <Route path="/home" element={<Home />} />
+                <Route path="/" element={<Home />} />
                 <Route path="/running" element={<Running />} />
+                <Route path="/exercise" element={<Exercise />} />
                 <Route path="/my" element={<MyPage />} />
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/authkakao" element={<KakaoLogin />} />
@@ -22,6 +29,7 @@ const RouterMain = () => {
                 <Route path="/webcam" element={<WebCam />} />
             </Routes>
         </MainLayout>
+        
     );
 };
 
