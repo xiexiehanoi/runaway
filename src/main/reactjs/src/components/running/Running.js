@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import Map from '../map/Map';
+import RunningMap from "./RunningMap";
 
 function startRun() {
     console.log("Function startRun");
@@ -71,7 +71,7 @@ function Running() {
 
 
             <div>
-                <Map locations={geoLocationList} /> {/* MapComponent에 위치 데이터 전달 */}
+                <RunningMap path={geoLocationList}/>          
             </div>
 
             {/*<ul>*/}
