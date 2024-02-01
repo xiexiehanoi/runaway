@@ -1,16 +1,16 @@
 import React from 'react';
 import './WebCamStyle.css';
-import WebCamImage from "./WebCamImage";
-// import WebcamVideo from "./WebCamVideo";
+// import WebCamImage from "./WebCamImage";
+import WebcamVideo from "./WebCamVideo";
 
 
 const WebCam = () => {
     return (
         <div className='WebCamApp'>
             <h4 className='alert alert-info'>Webcam</h4>
-            <WebCamImage />
+            {/* <WebCamImage /> */}
 
-            {/* <WebcamVideo/> */}
+            <WebcamVideo />
         </div>
     );
 };

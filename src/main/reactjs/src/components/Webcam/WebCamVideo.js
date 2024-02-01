@@ -31,7 +31,7 @@ const WebCamVideo = () => {
     const handleStopCaptureClick = useCallback(() => {
         mediaRecorderRef.current.stop();
         setCapturing(false);
-    }, [mediaRecorderRef, webcamRef, setCapturing]);
+    }, [mediaRecorderRef, setCapturing]);
 
     const handleDownload = useCallback(() => {
         if (recordedChunks.length) {
