@@ -5,6 +5,7 @@ import { Container as MapDiv } from 'react-naver-maps'
 
 function RunningMap({path}) {
     const naverMap = useNavermaps()
+    const polylinePath = path.map(loc => new window.naver.maps.LatLng(loc.latitude, loc.longitude));
 
     return (
         <MapDiv
@@ -13,9 +14,14 @@ function RunningMap({path}) {
                 height: '600px',
             }}
         >
-            <NaverMap> 
+            <NaverMap
+                defaultCenter={ 
+                    new naverMap.LatLng(37.359924641705476, 127.1148204803467)
+                }
+            > 
                 <Polyline
-                    path={path}
+                    path={polylinePath}
+                    strokeColor="#5347AA"
                 >
                     
                 </Polyline>
