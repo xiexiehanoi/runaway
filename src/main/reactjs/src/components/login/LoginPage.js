@@ -38,6 +38,9 @@ const LoginPage = () => {
             <button className="btn btn-back" type="button">
               <i className="fas fa-undo"></i> Back
             </button>
+            <button className="btn btn-go" type="button">
+              <i className="fas fa-sign-in-alt"></i> 회원가입
+            </button>
           </div>
           <div>
             <a href="../member/doFindLoginIdForm">ID 찾기</a> / <a href="../member/doFindLoginPwForm">PW 찾기</a>

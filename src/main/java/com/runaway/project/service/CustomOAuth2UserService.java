@@ -1,10 +1,7 @@
 package com.runaway.project.service;
 
-import com.runaway.project.dto.login.CustomOAuth2User;
-import com.runaway.project.dto.login.GoogleResponse;
-import com.runaway.project.dto.login.NaverResponse;
-import com.runaway.project.dto.login.OAuth2Response;
-import com.runaway.project.entity.login.UserEntity;
+import com.runaway.project.dto.login.*;
+
 import com.runaway.project.repository.login.UserRepository;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
@@ -46,16 +43,16 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         }
 
         String username = oAuth2Response.getProvider()+" "+oAuth2Response.getProviderId();
-        UserEntity existData = userRepository.findByUsername(username);
+        UserDto existData = userRepository.findByUsername(username);
 
         String role = "ROLE_USER";
         if(existData == null){
-            UserEntity userEntity = new UserEntity();
-            userEntity.setUsername(username);
-            userEntity.setEmail(oAuth2Response.getEmail());
-            userEntity.setRole("ROLE_USER");
+            UserDto userDto = new UserDto();
+            userDto.setUsername(username);
+            userDto.setEmail(oAuth2Response.getEmail());
+            userDto.setRole("ROLE_USER");
 
-            userRepository.save(userEntity);
+            userRepository.save(userDto);
         }
         else{
             existData.setUsername(username);
