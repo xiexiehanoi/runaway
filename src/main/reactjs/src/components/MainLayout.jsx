@@ -14,7 +14,9 @@ const MainLayout = ({ children }) => {
       title: "Home",
       icon: "dashboardIcon",
       filledIcon: "dashboardIconFilled",
-      route: "/home",
+      route: "/home"
+
+
     },
     {
       title: "Story",
@@ -52,34 +54,6 @@ const MainLayout = ({ children }) => {
 
     return () => window.removeEventListener("resize", updateOffset);
   }, [activeTab]);
-
-//   function adjustScreenHeight() {
-//     var viewportHeight = window.innerHeight;
-//     var tabBarHeight = 70; 
-//     var screenElement = document.querySelector("#screen");
-//     screenElement.style.height = viewportHeight - tabBarHeight + "px";
-//   }
-
-//   function handleResize() {
-//     const mobileScreenWidth = 768;
-//     var screenElement = document.querySelector("#screen");
-
-//     if (window.innerWidth <= mobileScreenWidth) {
-//       adjustScreenHeight();
-//     } else {
-//       screenElement.style.height = "500"; 
-//     }
-//   }
-
-//   useEffect(() => {
-//     window.addEventListener("load", handleResize);
-//     window.addEventListener("resize", handleResize);
-
-//     return () => {
-//       window.removeEventListener("load", handleResize);
-//       window.removeEventListener("resize", handleResize);
-//     };
-//   }, []);
 
   return (
     <>
@@ -205,7 +179,7 @@ const MainLayout = ({ children }) => {
                   <line
                     fill="none"
                     strokeMiterlimit="10"
-                    x1="4"
+                    x1="4"  
                     y1="2"
                     x2="8"
                     y2="2"
