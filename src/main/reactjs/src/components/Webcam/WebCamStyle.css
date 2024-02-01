@@ -1,0 +1,32 @@
+.WebCamContainer {
+    align-items: center;
+    min-height: 100vh;
+    margin: 0 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+button.WebCamBtn {
+    margin-top: 10px;
+    padding: 10px 40px;
+    border: none;
+    background-color: rgb(6, 191, 233);
+    color: #fff;
+    border-radius: 25px;
+    cursor: pointer;
+}
+
+img.WebCamImg {
+    width: 400px;
+    object-fit: cover;
+    height: 400px;
+}
+
+.WebCamApp {
+    display: flex;
+    align-items: center;
+    width: 150vw;
+    justify-content: center;
+    background-color: #262b36;
+}
