@@ -174,19 +174,16 @@ body {
         background-image: none;
     }
 
-    #screen-container {
-        height: 100vh;
-        width: 100vw;
-    }    
+    .main-container {
+        display: block;
+    }
 
     #screen {
         display: block;
-        position: relative;
+        position: static;
         overflow-y: auto;
-        width: 100%;
-        height: 90%;
-        left: 0vh;
-        top: 0vh;
+        width: 100vw;
+        height: 90vh;
         z-index: 1000;
         background-color: rgba(99, 122, 159, 0.5);
     }
@@ -194,8 +191,8 @@ body {
     .tabbar {
         display: block;
         position: fixed;
-        width: 100%;
-        height: 10%;
+        width: 100vw;
+        height: 10vh;
         top: 90vh;
         left: 0vh;
         align-items: center;
