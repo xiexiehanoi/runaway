@@ -1,5 +1,6 @@
 package com.runaway.project.config;
 
+import com.runaway.project.oauth2.CustomClientRegistrationRepository;
 import com.runaway.project.service.CustomOAuth2UserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,10 +14,12 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
 
     private final CustomOAuth2UserService customOAuth2UserService;
+    private final CustomClientRegistrationRepository customClientRegistrationRepository;
 
-    public SecurityConfig(CustomOAuth2UserService customOAuth2UserService) {
+    public SecurityConfig(CustomOAuth2UserService customOAuth2UserService, CustomClientRegistrationRepository customClientRegistrationRepository) {
 
         this.customOAuth2UserService = customOAuth2UserService;
+        this.customClientRegistrationRepository = customClientRegistrationRepository;
     }
 
     @Bean
@@ -33,13 +36,16 @@ public class SecurityConfig {
 
         http
                 .oauth2Login((oauth2) -> oauth2
+                        .loginPage("/login")
+                        .clientRegistrationRepository(customClientRegistrationRepository.clientRegistrationRepository())
                         .userInfoEndpoint((userInfoEndpointConfig) -> userInfoEndpointConfig
                                 .userService(customOAuth2UserService)));
 
-        http
-                .authorizeHttpRequests((auth) -> auth
-                        .requestMatchers("/", "/oauth2/**", "/login/**").permitAll()
-                        .anyRequest().authenticated());
+
+//        http.authorizeHttpRequests((auth) -> auth
+//            .requestMatchers("/", "/static/**", "/public/**","/oauth2/**", "/login/**").permitAll()
+//            .anyRequest().authenticated());
+//
 
 
 

@@ -18,4 +18,9 @@ public class LoginController {
 
         return "my";
     }
+
+    @GetMapping("/login")
+    public String loginPage(){
+        return "LoginPage";
+    }
 }
