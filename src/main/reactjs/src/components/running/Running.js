@@ -87,7 +87,7 @@ function Running() {
             <button onClick={handleMockDataClick}>Mock Data</button>
 
             <div>
-                <RunningMap path={geoLocationList}/>          
+                <RunningMap path={geoLocationList}/>      
             </div>
 
         </div>
