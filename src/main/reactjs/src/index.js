@@ -3,13 +3,17 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 import Root from './router/Root';
+import {NavermapsProvider} from "react-naver-maps";
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <div>
-    <Root/>
-  </div>
+    <NavermapsProvider ncpClientId="38q1h3iyts">
+        <div>
+            <Root/>
+        </div>
+    </NavermapsProvider>
+
 );
 
 // If you want to start measuring performance in your app, pass a function
