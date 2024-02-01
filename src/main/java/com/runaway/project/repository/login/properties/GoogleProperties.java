@@ -16,8 +16,4 @@ public class GoogleProperties {
     private String redirectUri;
     private String authorizationGrantType;
     private List<String> scope;
-
-    public GoogleProperties(){
-        System.out.println("asdfasdf:"+clientId);
-    }
 }
