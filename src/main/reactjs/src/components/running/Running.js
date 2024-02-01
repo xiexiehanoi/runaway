@@ -16,14 +16,29 @@ function stopRun() {
     }
 }
 
-function generateMockData(count) {
-    const lastLatitude = 37.7749 + count * 0.1;
-    const lastLongitude = -122.4194 - count * 0.1;
 
-    return {
-        latitude: lastLatitude,
-        longitude: lastLongitude,
-    };
+const MockDataList = [
+    {latitude: 37.359924641705476, longitude: 127.1148204803467},
+    {latitude: 37.36343797188166, longitude: 127.11486339569092},
+    {latitude: 37.368520071054576, longitude: 127.11473464965819},
+    {latitude: 37.3685882848096, longitude: 127.1088123321533},
+    {latitude: 37.37295383612657, longitude: 127.10876941680907},
+    {latitude: 37.38001321351567, longitude: 127.11851119995116},
+    {latitude: 37.378546827477855, longitude: 127.11984157562254},
+    {latitude: 37.376637072444105, longitude: 127.12052822113036},
+    {latitude: 37.37530703574853, longitude: 127.12190151214598},
+    {latitude: 37.371657839593894, longitude: 127.11645126342773},
+    {latitude: 37.36855417793982, longitude: 127.1207857131958},
+];
+
+function generateMockData(count) {
+    console.log(MockDataList.length);
+    if (count < MockDataList.length) {
+        return MockDataList[count]
+    }
+    else {
+        return {}
+    }
 }
 
 function Running() {
@@ -45,7 +60,7 @@ function Running() {
     }, []);
 
     const handleMockDataClick = () => {
-        const totalMockDataCount = 30;
+        const totalMockDataCount = MockDataList.length;
         let currentCount = 0;
 
         const addMockDataWithDelay = () => {
@@ -69,19 +84,9 @@ function Running() {
             <button onClick={stopRun}>Stop Run</button>
             <button onClick={handleMockDataClick}>Mock Data</button>
 
-
             <div>
                 <RunningMap path={geoLocationList}/>          
             </div>
-
-            {/*<ul>*/}
-            {/*    {geoLocationList.map((location, index) => (*/}
-            {/*        <li key={index}>*/}
-
-            {/*            위도: {location.latitude}, 경도: {location.longitude}*/}
-            {/*        </li>*/}
-            {/*    ))}*/}
-            {/*</ul>*/}
 
         </div>
     );
