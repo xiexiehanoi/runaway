@@ -194,7 +194,7 @@ body {
         position: static;
         overflow-y: auto;
         width: 100vw;
-        height: 80vh;
+        height: 90vh;
         z-index: 1000;
         background-color: rgba(99, 122, 159, 0.5);
         padding-bottom: 10%;
