@@ -1,22 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import RunningMap from "./RunningMap";
 
-function startRun() {
-    console.log("Function startRun");
-    if (window.Android) {
-        window.Android.startRun();
-    }
-}
-
-function stopRun() {
-    console.log("Function stopRun");
-
-    if (window.Android) {
-        window.Android.stopRun();
-    }
-}
-
-
 const MockDataList = [
     {latitude: 37.359924641705476, longitude: 127.1148204803467},
     {latitude: 37.36343797188166, longitude: 127.11486339569092},
@@ -43,6 +27,24 @@ function generateMockData(count) {
 
 function Running() {
     const [geoLocationList, setGeoLocationList] = useState([]);
+
+    const startRun = () => {
+        console.log("Function startRun");
+        setGeoLocationList([])
+
+        if (window.Android) {
+            window.Android.startRun();
+        }
+    }
+
+    const stopRun = () => {
+        console.log("Function stopRun");
+
+        if (window.Android) {
+            window.Android.stopRun();
+        }
+    }
+    
 
     useEffect(() => {
         const handleGeoLocationCallback = (e) => {
