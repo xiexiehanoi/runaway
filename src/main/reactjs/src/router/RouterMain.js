@@ -10,7 +10,8 @@ import NaverLogin from '../components/login/NaverLogin';
 import MainLayout from '../components/MainLayout';
 import Home from '../components/Home';
 import Exercise from '../components/exercise/exercise';
-
+import ExerciseChallenge from '../components/challenge/ExerciseChallenge';
+import RunningChallenge from '../components/challenge/RunningChallenge';
 const RouterMain = () => {
     return (
         
@@ -20,7 +21,9 @@ const RouterMain = () => {
                 <Route path="/home" element={<Home />} />
                 <Route path="/" element={<Home />} />
                 <Route path="/running" element={<Running />} />
+                <Route path="/runningchallenge" element={<RunningChallenge />} />
                 <Route path="/exercise" element={<Exercise />} />
+                <Route path="/exercisechallenge" element={<ExerciseChallenge />} />
                 <Route path="/my" element={<MyPage />} />
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/authkakao" element={<KakaoLogin />} />
