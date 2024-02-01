@@ -8,11 +8,11 @@ import LoginPage from '../components/login/LoginPage';
 import KakaoLogin from '../components/login/KakaoLogin';
 import GoogleLogin from '../components/login/GoogleLogin';
 import NaverLogin from '../components/login/NaverLogin';
+import MainLayout from '../components/MainLayout';
 
 const RouterMain = () => {
     return (
-        <div>
-            <Navbar />
+        <MainLayout>
             <Routes>
                 <Route path="/running" element={<Running />} />
                 <Route path="/my" element={<MyPage />} />
@@ -22,8 +22,7 @@ const RouterMain = () => {
                 <Route path="/authnaver" element={<NaverLogin />} />
                 <Route path="/webcam" element={<WebCam />} />
             </Routes>
-            <h4>개발 서버 배포 테스중입니다.</h4>
-        </div>
+        </MainLayout>
     );
 };
 

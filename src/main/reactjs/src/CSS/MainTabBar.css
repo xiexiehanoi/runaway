@@ -1,0 +1,191 @@
+.tabbar ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    position: relative;
+    z-index: 1;
+}
+
+.tabbar ul li {
+    position: relative;
+    flex-grow: 1;
+}
+
+.tabbar ul li a {
+    cursor: pointer;
+    display: table;
+    position: relative;
+    display: flex;
+    z-index: 1;
+    justify-content: center;
+    align-items: center;
+    height: 60px;
+    -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+}
+
+.tabbar ul li a div,
+.tabbar ul li a span,
+.tabbar ul li a svg {
+    width: 20px;
+    height: 20px;
+    display: block;
+    -webkit-backface-visibility: hidden;
+}
+
+.tabbar ul li a div {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -84%);
+}
+
+.tabbar ul li a div span {
+    width: 20px;
+    bottom: 0;
+    left: 0;
+    transform-origin: 50% 50%;
+    position: absolute;
+    overflow: hidden;
+    z-index: 1;
+    background: #fff;
+    transform: scale(0.94);
+    transform-origin: 0 100%;
+    animation: down 0.3s linear forwards;
+}
+
+.tabbar ul li a div span svg {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+}
+
+.tabbar ul li a div span:first-child {
+    height: 20px;
+}
+
+.tabbar ul li a div span:first-child svg {
+    transition: fill 0.3s ease, stroke 0.3s ease;
+    fill: #99A3BA;
+    stroke: #99A3BA;
+}
+
+.tabbar ul li a div span:last-child {
+    height: 0;
+    z-index: 5;
+    transition: height 0.25s ease;
+}
+
+.tabbar ul li a div span:last-child svg {
+    fill: #5628EE;
+    stroke: #5628EE;
+}
+
+.tabbar ul li a strong {
+    font-size: 10px;
+    font-weight: 600;
+    margin-top: 28px;
+    color: #99A3BA;
+    transition: all 0.3s ease;
+}
+
+.tabbar ul li a:hover div span:first-child svg {
+    fill: #6C7486;
+    stroke: #6C7486;
+}
+
+.tabbar ul li.active a {
+    z-index: 5;
+}
+
+.tabbar ul li.active a div span {
+    animation: high 0.35s linear forwards 0.05s;
+}
+
+.tabbar ul li.active a div span:last-child {
+    height: 20px;
+    transition: height 0.3s ease 0.25s;
+}
+
+.tabbar ul li.active a strong {
+    opacity: 0;
+    transform: scale(0.6);
+}
+
+.tabbar em {
+    --offset: 0;
+    border-radius: 50%;
+    display: block;
+    width: 6px;
+    height: 6px;
+    position: absolute;
+    bottom: 30%;
+    left: 0.4%;
+    z-index: 4;
+    transition: transform 0.4s ease;
+    background: black;
+    opacity: 0.7;
+    transform: translateX(var(--offset));
+}
+
+@keyframes high {
+    0% {
+        transform: rotate(0deg) scale(0.94);
+    }
+
+    33% {
+        transform: rotate(8deg);
+    }
+
+    66% {
+        transform: rotate(8deg) translateY(-1px);
+    }
+
+    100% {
+        transform: rotate(0deg) scale(1) translateY(-1px);
+    }
+}
+
+@keyframes down {
+    0% {
+        transform: rotate(0deg) scale(1) translateY(-1px);
+    }
+
+    33% {
+        transform: rotate(8deg);
+    }
+
+    66% {
+        transform: rotate(8deg) translateY(0);
+    }
+
+    100% {
+        transform: rotate(0deg) scale(0.94) translateY(0);
+    }
+}
+
+html {
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+}
+
+* {
+    box-sizing: inherit;
+}
+
+*:before,
+*:after {
+    box-sizing: inherit;
+}
+
+body .dribbble {
+    position: fixed;
+    display: block;
+    right: 20px;
+    bottom: 20px;
+}
+
+body .dribbble img {
+    display: block;
+    height: 28px;
+}
