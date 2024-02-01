@@ -42,10 +42,10 @@ public class SecurityConfig {
                                 .userService(customOAuth2UserService)));
 
 
-        http.authorizeHttpRequests((auth) -> auth
-            .requestMatchers("/oauth2/**", "/login/**").permitAll()
-            .anyRequest().authenticated());
-
+//        http.authorizeHttpRequests((auth) -> auth
+//            .requestMatchers("/", "/static/**", "/public/**","/oauth2/**", "/login/**").permitAll()
+//            .anyRequest().authenticated());
+//
 
 
 
