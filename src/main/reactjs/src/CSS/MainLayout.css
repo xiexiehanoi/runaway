@@ -1,0 +1,198 @@
+@import url(https://fonts.googleapis.com/css?family=Lato);
+@import url(https://fonts.googleapis.com/css2?family=Anton&family=Dancing+Script&family=Edu+TAS+Beginner&family=Nanum+Brush+Script&family=Noto+Serif+KR:wght@200&display=swap);
+
+body {
+    font-family: Lato;
+    background: #f5f5f5;
+}
+
+#Iphone {
+    background-image: url("https://qr.io/assets/img/iphone-14.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 319px;
+    height: 640px;
+    position: relative;
+    top: -10%;
+    left: -9%;
+    z-index: 1;
+}
+
+#Iphone-header {
+    background-color: rgba(99, 122, 159, 0.5);
+    height: 49px;
+    width: 282px;
+    top: 2.2%;
+    left: 6%;
+    z-index: -1;
+    overflow: hidden;
+    position: absolute;
+    border-top-left-radius: 40px;
+    border-top-right-radius: 40px;
+}
+
+#phone-container {
+    position: relative;
+}
+
+#screen {
+    width: 282px;
+    height: 500px;
+    box-sizing: border-box;
+    overflow: hidden;
+    position: absolute;
+    left: -3%;
+    top: 9.85%;
+    z-index: 1;
+    background-color: rgba(99, 122, 159, 0.5);
+    font-family: Lato;
+}
+
+.operator-name {
+    position: absolute;
+    top: 26%;
+    left: 13%;
+    opacity: 0.8;
+}
+
+.operator-5g {
+    position: absolute;
+    top: 26%;
+    left: 70%;
+    opacity: 0.8;
+}
+
+.battery {
+    width: 30px;
+    height: 20px;
+    border: 2px solid rgb(102, 122, 159);
+    border-radius: 4px;
+    text-align: center;
+    color: rgb(0, 0, 0);
+    background: rgb(254, 254, 254);
+    font-weight: bold;
+    position: absolute;
+    top: 29%;
+    left: 81%;
+    text-shadow: none;
+    font-size: 0.7em;
+}
+
+.QRcode {
+    width: 200px;
+}
+
+.main-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    position: relative;
+}
+
+#text {
+    color: #353541;
+}
+
+#text h1 {
+    margin: 0;
+    font-size: 4.5em;
+    line-height: 1.1em;
+    text-transform: uppercase;
+}
+
+#text h2 {
+    font-size: 2em;
+    font-style: italic;
+    margin: 0;
+    text-transform: uppercase;
+    margin-top: 10%;
+    margin-left: 3%;
+    font-family: Anton;
+}
+
+#text h3 {
+    opacity: 0.3;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 0.9em;
+    margin-top: 30px;
+}
+
+.QRcode {
+    margin-top: 10%;
+}
+
+/* 
+#pullmenu-icon {
+    width: 40px;
+    height: 5px;
+    background: #353541;
+    margin-top: 69px;
+    position: relative;
+    margin-bottom: 40px;
+    left: 6px;
+}
+
+#pullmenu-icon:before {
+    width: 40px;
+    height: 5px;
+    background: #353541;
+    content: "";
+    position: absolute;
+    top: 10px;
+}
+
+#pullmenu-icon:after {
+    width: 22px;
+    height: 5px;
+    background: #353541;
+    content: "";
+    position: absolute;
+    top: 20px;
+    left: 9px;
+} */
+
+.tabbar {
+    border-radius: 6px;
+    width: 282px;
+    background: #fff;
+    height: 70px;
+    padding: 0 4px;
+    box-shadow: 0 4px 12px -1px rgba(18, 22, 33, 0.08);
+    position: absolute;
+    right: 15%;
+    top: 88%;
+    align-items: center;
+}
+
+@media screen and (max-width: 768px) {
+
+    #Iphone,
+    #text {
+        display: none;
+        background-image: none;
+    }
+
+    #screen {
+        display: block;
+        width: 100vw;
+        height: 91vh;
+        position: fixed;
+        top: 0vh;
+        left: 0;
+        overflow-y: auto;
+        z-index: 1000;
+        background-color: rgba(99, 122, 159, 0.5);
+    }
+
+    .tabbar {
+        display: block;
+        width: 100vw;
+        height: 9vh;
+        position: fixed;
+        top: 91%;
+        left: 0%;
+        align-items: center;
+    }
+}
