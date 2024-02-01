@@ -14,18 +14,19 @@ const MainLayout = ({ children }) => {
       title: "Home",
       icon: "dashboardIcon",
       filledIcon: "dashboardIconFilled",
-      route:"/running"
+      route: "/running"
     },
     {
       title: "Story",
       icon: "cameraIcon",
       filledIcon: "cameraIconFilled",
+      route: "/webcam"
     },
     {
       title: "Rank",
       icon: "filesIcon",
       filledIcon: "filesIconFilled",
-      route:"/login"
+      route: "/login"
     },
     {
       title: "Profile",

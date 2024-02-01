@@ -1,4 +1,4 @@
-.Container {
+.WebCamContainer {
     align-items: center;
     min-height: 100vh;
     margin: 0 10px;
@@ -7,7 +7,7 @@
     justify-content: center;
 }
 
-button {
+button.WebCamBtn {
     margin-top: 10px;
     padding: 10px 40px;
     border: none;
@@ -17,13 +17,13 @@ button {
     cursor: pointer;
 }
 
-img {
+img.WebCamImg {
     width: 400px;
     object-fit: cover;
     height: 400px;
 }
 
-.App {
+.WebCamApp {
     display: flex;
     align-items: center;
     width: 150vw;
