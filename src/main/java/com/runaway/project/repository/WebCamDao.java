@@ -40,7 +40,7 @@ public class WebCamDao implements WebcamListener, WebcamDiscoveryListener {
             webcam.addWebcamListener(this);
         } else {
             System.out.println("카메라를 찾을 수 없습니다...");
-            System.exit(1);
+            //System.exit(1);
         }
     }
 
