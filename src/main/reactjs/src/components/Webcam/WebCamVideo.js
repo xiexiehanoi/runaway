@@ -52,14 +52,16 @@ const WebCamVideo = () => {
 
     return (
         <div className="WebCamContainer">
-            <Webcam audio={false} ref={webcamRef} />
+            <Webcam audio={false} ref={webcamRef}
+                height={500} />
             {capturing ? (
-                <button className="WebCamBtn" onClick={handleStopCaptureClick}>Stop Capture</button>
+                <button className="WebCamStopBtn" onClick={handleStopCaptureClick}>Stop Capture</button>
             ) : (
-                <button className="WebCamBtn" onClick={handleStartCaptureClick}>Start Capture</button>
+                <button className="WebCamStartBtn"
+                    onClick={handleStartCaptureClick}>Start Capture</button>
             )}
             {recordedChunks.length > 0 && (
-                <button className="WebCamBtn" onClick={handleDownload}>Download</button>
+                <button className="WebCamVideoDownloadBtn" onClick={handleDownload}>Download</button>
             )}
         </div>
     );
