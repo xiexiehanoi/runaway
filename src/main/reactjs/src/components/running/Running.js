@@ -73,6 +73,18 @@ function Running() {
         }
     }
 
+    const resetRun = () => {
+       
+        if (isRunning) {
+            clearInterval(intervalId);
+            setIsRunning(false);
+            setTimer(0);
+        }else{
+            setTimer(0);
+        }
+        
+    };
+
     function onNavigatorCallback(pos) {
         const latitude = pos.coords.latitude;
         const longitude = pos.coords.longitude;
@@ -137,6 +149,7 @@ function Running() {
 
             <button onClick={startRun}>Start Run</button>
             <button onClick={stopRun}>Stop Run</button>
+            <button onClick={resetRun}>Reset Run</button> 
             <button onClick={handleMockDataClick}>Mock Data</button>
 
             <div>
