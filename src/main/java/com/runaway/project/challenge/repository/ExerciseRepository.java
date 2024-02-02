@@ -1,6 +1,6 @@
-package com.runaway.project.repository.challenge;
+package com.runaway.project.challenge.repository;
 
-import com.runaway.project.dto.challenge.ExerciseDto;
+import com.runaway.project.challenge.dto.ExerciseDto;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ExerciseRepository extends JpaRepository<ExerciseDto,Long> {
