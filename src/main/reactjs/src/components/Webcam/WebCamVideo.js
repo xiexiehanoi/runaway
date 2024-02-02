@@ -51,7 +51,8 @@ const WebCamVideo = () => {
     }, [recordedChunks]);
 
     const videoConstraints = {
-        aspectRatio: 360 / 740,
+        // aspectRatio: 360 / 740,
+        aspectRatio: window.innerWidth <= 768 ? (360 / 740) : (window.innerHeight / window.innerWidth),
         facingMode: "user",
         width: { min: 360 },
         height: { min: 740 }
