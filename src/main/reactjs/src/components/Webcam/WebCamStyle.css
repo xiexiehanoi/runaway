@@ -1,10 +1,28 @@
-.WebCamContainer {
+/* .WebCamContainer {
     align-items: center;
     min-height: 100vh;
     margin: 0 10px;
     display: flex;
     flex-direction: column;
     justify-content: center;
+} */
+
+.WebCamContainer {
+    /* align-items: center;
+    min-height: 100vh;
+    margin: 0 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; */
+    width: 282px;
+    height: 500px;
+    box-sizing: border-box;
+    overflow: hidden;
+    position: absolute;
+    left: -10%;
+    top: 9.85%;
+    z-index: 1;
+    background-color: rgba(99, 122, 159, 0.5);
 }
 
 button.WebCamBtn {

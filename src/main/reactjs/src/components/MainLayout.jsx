@@ -67,6 +67,7 @@ const MainLayout = ({ children }) => {
             </div>
           </div>
 
+          <div id="screen-container">
             <div id="screen">{children}</div>
 
             <nav className="tabbar">
@@ -178,7 +179,7 @@ const MainLayout = ({ children }) => {
                   <line
                     fill="none"
                     strokeMiterlimit="10"
-                    x1="4"
+                    x1="4"  
                     y1="2"
                     x2="8"
                     y2="2"
@@ -329,6 +330,7 @@ const MainLayout = ({ children }) => {
               </symbol>
             </svg>
           </div>
+        </div>
 
         <div id="text">
           <div id="pullmenu-icon"></div>
