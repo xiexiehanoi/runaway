@@ -35,7 +35,7 @@ function WebCamImage() {
             ) : (
                 <>
                     <img src={img} alt="screenshot" className="WebCamImg" />
-                    <button onClick={() => setImg(null)}>Recapture</button>
+                    <button className="WebCamBtn" onClick={() => setImg(null)}>Recapture</button>
                 </>
             )}
         </div>
