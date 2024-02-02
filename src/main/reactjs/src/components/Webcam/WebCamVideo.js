@@ -31,7 +31,7 @@ const WebCamVideo = () => {
     const handleStopCaptureClick = useCallback(() => {
         mediaRecorderRef.current.stop();
         setCapturing(false);
-    }, [mediaRecorderRef, webcamRef, setCapturing]);
+    }, [mediaRecorderRef, setCapturing]);
 
     const handleDownload = useCallback(() => {
         if (recordedChunks.length) {
@@ -51,17 +51,19 @@ const WebCamVideo = () => {
     }, [recordedChunks]);
 
     return (
-        <>
-            <Webcam audio={false} ref={webcamRef} />
+        <div className="WebCamContainer">
+            <Webcam audio={false} ref={webcamRef}
+                height={500} />
             {capturing ? (
-                <button className="WebCamBtn" onClick={handleStopCaptureClick}>Stop Capture</button>
+                <button className="WebCamStopBtn" onClick={handleStopCaptureClick}>Stop Capture</button>
             ) : (
-                <button className="WebCamBtn" onClick={handleStartCaptureClick}>Start Capture</button>
+                <button className="WebCamStartBtn"
+                    onClick={handleStartCaptureClick}>Start Capture</button>
             )}
             {recordedChunks.length > 0 && (
-                <button className="WebCamBtn" onClick={handleDownload}>Download</button>
+                <button className="WebCamVideoDownloadBtn" onClick={handleDownload}>Download</button>
             )}
-        </>
+        </div>
     );
 };
 

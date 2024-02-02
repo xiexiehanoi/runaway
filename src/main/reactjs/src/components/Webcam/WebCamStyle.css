@@ -1,10 +1,28 @@
-.WebCamContainer {
+/* .WebCamContainer {
     align-items: center;
     min-height: 100vh;
     margin: 0 10px;
     display: flex;
     flex-direction: column;
     justify-content: center;
+} */
+
+.WebCamContainer {
+    /* align-items: center;
+    min-height: 100vh;
+    margin: 0 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; */
+    width: 282px;
+    height: 500px;
+    box-sizing: border-box;
+    overflow: hidden;
+    position: absolute;
+    left: 0%;
+    top: 0%;
+    z-index: 1;
+    background-color: rgba(99, 122, 159, 0.5);
 }
 
 button.WebCamBtn {
@@ -15,6 +33,55 @@ button.WebCamBtn {
     color: #fff;
     border-radius: 25px;
     cursor: pointer;
+    z-index: 2;
+}
+
+button.WebCamStartBtn {
+    margin-top: 10px;
+    padding: 10px 40px;
+    border: none;
+    background-color: rgb(6, 191, 233);
+    color: #fff;
+    border-radius: 25px;
+    cursor: pointer;
+    z-index: 2;
+    position: absolute;
+    top: 75%;
+    width: 186px;
+    left: 50%;
+    margin-left: -93px;
+}
+
+button.WebCamStopBtn {
+    margin-top: 10px;
+    padding: 10px 40px;
+    border: none;
+    background-color: rgb(6, 191, 233);
+    color: #fff;
+    border-radius: 25px;
+    cursor: pointer;
+    z-index: 2;
+    position: absolute;
+    top: 75%;
+    width: 186px;
+    left: 50%;
+    margin-left: -93px;
+}
+
+button.WebCamVideoDownloadBtn {
+    margin-top: 10px;
+    padding: 10px 40px;
+    border: none;
+    background-color: rgb(6, 191, 233);
+    color: #fff;
+    border-radius: 25px;
+    cursor: pointer;
+    z-index: 2;
+    position: absolute;
+    top: 85%;
+    width: 186px;
+    left: 50%;
+    margin-left: -93px;
 }
 
 img.WebCamImg {
