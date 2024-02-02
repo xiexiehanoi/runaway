@@ -6,12 +6,12 @@ import WebcamVideo from "./WebCamVideo";
 
 const WebCam = () => {
     return (
-        <div className='WebCamApp'>
+        <span className='WebCamApp'>
             {/* <h4 className='alert alert-info'>Webcam</h4> */}
             {/* <WebCamImage /> */}
 
             <WebcamVideo />
-        </div>
+        </span>
     );
 };
 
