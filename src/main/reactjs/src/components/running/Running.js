@@ -26,7 +26,8 @@ function generateMockData(count) {
 }
 
 function Running() {
-    const [geoLocationList, setGeoLocationList] = useState([]);
+    const [geoLocationList, setGeoLocationList] = useState([])
+    const [initialLocation, setInitialLocation] = useState({})
 
     const startRun = () => {
         console.log("Function startRun");
@@ -44,9 +45,32 @@ function Running() {
             window.Android.stopRun();
         }
     }
+
+    function onNavigatorCallback(pos) {
+        const latitude = pos.coords.latitude;
+        const longitude = pos.coords.longitude;
+        
+        setInitialLocation({ latitude, longitude })
+    }
     
 
     useEffect(() => {
+        if (navigator.geolocation) {
+            navigator.permissions.query( { name: "geolocation" })
+            .then(function (result) {
+                console.log(result)
+                if (result.state === "granted") {
+                    navigator.geolocation.getCurrentPosition(onNavigatorCallback, null, null);
+                }
+                else if (result.state === "prompt") {
+                    navigator.geolocation.getCurrentPosition(onNavigatorCallback, null, null);
+                }
+            })
+        }
+        else {
+            console.log("Geolocation is not supported by this browser.");
+        }
+
         const handleGeoLocationCallback = (e) => {
             let obj = JSON.parse(e.detail)
             let latitude = obj["latitude"]
@@ -87,7 +111,7 @@ function Running() {
             <button onClick={handleMockDataClick}>Mock Data</button>
 
             <div>
-                <RunningMap path={geoLocationList}/>      
+                <RunningMap path={geoLocationList} initialLocation={initialLocation}/>      
             </div>
         </div>
     );
