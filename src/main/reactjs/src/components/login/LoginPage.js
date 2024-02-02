@@ -1,7 +1,9 @@
 import React from 'react';
 import '../../CSS/Login.css'
+import {useNavigate} from "react-router-dom";
 
 const LoginPage = () => {
+    const navi = useNavigate();
 
     return (
       <div className="mobile-section-login">
@@ -38,7 +40,9 @@ const LoginPage = () => {
             <button className="btn btn-back" type="button">
               <i className="fas fa-undo"></i> Back
             </button>
-            <button className="btn btn-go" type="button">
+            <button className="btn btn-go" type="button" onClick={() => {
+                navi("/signup")
+            }}>
               <i className="fas fa-sign-in-alt"></i> 회원가입
             </button>
           </div>
