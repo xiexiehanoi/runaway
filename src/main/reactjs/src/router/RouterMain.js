@@ -12,6 +12,7 @@ import Home from '../components/Home';
 import Exercise from '../components/exercise/exercise';
 import ExerciseChallenge from '../components/challenge/ExerciseChallenge';
 import RunningChallenge from '../components/challenge/RunningChallenge';
+import SignUpForm from '../components/signup/SignUpForm';
 const RouterMain = () => {
     return (
         
@@ -30,6 +31,7 @@ const RouterMain = () => {
                 <Route path="/authgoogle" element={<GoogleLogin />} />
                 <Route path="/authnaver" element={<NaverLogin />} />
                 <Route path="/webcam" element={<WebCam />} />
+                <Route path="/signup" element={<SignUpForm />} />
             </Routes>
         </MainLayout>
         
