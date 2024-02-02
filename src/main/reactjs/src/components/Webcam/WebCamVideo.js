@@ -50,10 +50,23 @@ const WebCamVideo = () => {
         }
     }, [recordedChunks]);
 
+    const videoConstraints = {
+        // aspectRatio: 360 / 740,
+        aspectRatio: window.innerWidth <= 768 ? (360 / 740) : (window.innerHeight / window.innerWidth),
+        facingMode: "user",
+        width: { min: 360 },
+        height: { min: 740 }
+    };
+
     return (
         <div className="WebCamContainer">
-            <Webcam audio={false} ref={webcamRef}
-                height={500} />
+            <Webcam
+                audio={false} //나중에 true 로 바꿔야 오디오도 녹음 됨
+                ref={webcamRef}
+                // height={740}
+                style={{ width: '100vw', height: '100vh' }}
+                videoConstraints={videoConstraints}
+            />
             {capturing ? (
                 <button className="WebCamStopBtn" onClick={handleStopCaptureClick}>Stop Capture</button>
             ) : (
