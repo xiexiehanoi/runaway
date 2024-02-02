@@ -1,7 +1,8 @@
-package com.runaway.project.controller;
+package com.runaway.project.challenge.controller;
 
-import com.runaway.project.dao.challenge.ExerciseDao;
-import com.runaway.project.dto.challenge.ExerciseDto;
+import com.runaway.project.challenge.dto.ExerciseDto;
+import com.runaway.project.challenge.dao.ExerciseDao;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
