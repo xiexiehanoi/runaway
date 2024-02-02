@@ -45,7 +45,7 @@ body {
     z-index: 1;
     background-color: rgba(99, 122, 159, 0.5);
     font-family: Lato;
-    overflow:auto;
+    overflow: auto;
 }
 
 .operator-name {
