@@ -7,6 +7,15 @@ const WebCamVideo = () => {
     const [capturing, setCapturing] = useState(false);
     const [recordedChunks, setRecordedChunks] = useState([]);
 
+    const handleDataAvailable = useCallback(
+        ({ data }) => {
+            if (data.size > 0) {
+                setRecordedChunks((prev) => prev.concat(data));
+            }
+        },
+        [setRecordedChunks]
+    );
+
     const handleStartCaptureClick = useCallback(() => {
         setCapturing(true);
         mediaRecorderRef.current = new MediaRecorder(webcamRef.current.stream, {
@@ -17,16 +26,8 @@ const WebCamVideo = () => {
             handleDataAvailable
         );
         mediaRecorderRef.current.start();
-    }, [webcamRef, setCapturing, mediaRecorderRef]);
+    }, [webcamRef, setCapturing, mediaRecorderRef, handleDataAvailable]);
 
-    const handleDataAvailable = useCallback(
-        ({ data }) => {
-            if (data.size > 0) {
-                setRecordedChunks((prev) => prev.concat(data));
-            }
-        },
-        [setRecordedChunks]
-    );
 
     const handleStopCaptureClick = useCallback(() => {
         mediaRecorderRef.current.stop();
@@ -52,19 +53,23 @@ const WebCamVideo = () => {
 
     const videoConstraints = {
         // aspectRatio: 360 / 740,
-        aspectRatio: window.innerWidth <= 768 ? (360 / 740) : (window.innerHeight / window.innerWidth),
+        aspectRatio: window.innerWidth <= 768 && window.innerWidth > 360 ?
+            (window.innerWidth / window.innerHeight) : (360 / 740),
+        // aspectRatio:
+        //     window.innerHeight / window.innerWidth,
         facingMode: "user",
         width: { min: 360 },
         height: { min: 740 }
     };
 
     return (
-        <div className="WebCamContainer">
+        <span className="WebCamContainer">
             <Webcam
+
                 audio={false} //나중에 true 로 바꿔야 오디오도 녹음 됨
                 ref={webcamRef}
                 // height={740}
-                style={{ width: '100vw', height: '100vh' }}
+                // style={{ width: '100vw', height: '100vh' }}
                 videoConstraints={videoConstraints}
             />
             {capturing ? (
@@ -74,9 +79,10 @@ const WebCamVideo = () => {
                     onClick={handleStartCaptureClick}>Start Capture</button>
             )}
             {recordedChunks.length > 0 && (
-                <button className="WebCamVideoDownloadBtn" onClick={handleDownload}>Download</button>
+                <button className="WebCamVideoDownloadBtn"
+                    onClick={handleDownload}>Download</button>
             )}
-        </div>
+        </span>
     );
 };
 
