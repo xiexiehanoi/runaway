@@ -7,6 +7,7 @@ const WebCamVideo = () => {
     const [capturing, setCapturing] = useState(false);
     const [recordedChunks, setRecordedChunks] = useState([]);
 
+
     const handleDataAvailable = useCallback(
         ({ data }) => {
             if (data.size > 0) {
@@ -18,7 +19,8 @@ const WebCamVideo = () => {
 
     const handleStartCaptureClick = useCallback(() => {
         setCapturing(true);
-        mediaRecorderRef.current = new MediaRecorder(webcamRef.current.stream, {
+        const stream = webcamRef.current.video.srcObject;
+        mediaRecorderRef.current = new MediaRecorder(stream, {
             mimeType: "video/webm"
         });
         mediaRecorderRef.current.addEventListener(
@@ -59,7 +61,7 @@ const WebCamVideo = () => {
         //     window.innerHeight / window.innerWidth,
         facingMode: "user",
         width: { min: 360 },
-        height: { min: 740 }
+        height: { min: 720 }
     };
 
     return (
