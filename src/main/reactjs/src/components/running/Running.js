@@ -31,7 +31,7 @@ function Running() {
     const [timer, setTimer] = useState(0); // 타이머를 위한 상태
     const [isRunning, setIsRunning] = useState(false); // 타이머가 실행 중인지 확인하는 상태
     const [intervalId, setIntervalId] = useState(null); // setInterval의 ID를 저장
-
+    const [distance, setDistance] = useState(0)
 
     // 초 단위의 타이머 값을 00:00 형식으로 변환하는 함수
     const formatTime = (time) => {
@@ -91,6 +91,22 @@ function Running() {
 
         setInitialLocation({ latitude, longitude })
     }
+
+    useEffect(() => {
+        if (geoLocationList.length <= 1) return;
+        const R = 6371;
+        const toRad = (value) => (value * Math.PI) / 180;
+        const {latitude: lat1, longitude: lon1} = geoLocationList[geoLocationList.length -1]
+        const {latitude: lat2, longitude: lon2} = geoLocationList[geoLocationList.length -2]
+
+        const dLat = toRad(lat2 - lat1);
+        const dLon = toRad(lon2 - lon1);
+        const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) + Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
+        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        const tmpDistance = R * c;
+
+        setDistance(distance + tmpDistance)        
+    }, [geoLocationList])
 
 
     useEffect(() => {
@@ -157,6 +173,9 @@ function Running() {
             </div>
             <div>
                 시간: {formatTime(timer)}
+            </div>
+            <div>
+                거리 : {Math.round(distance * 1000) / 1000 } Km
             </div>
         </div>
     );
