@@ -213,6 +213,8 @@ const WebCamVideo = () => {
                 // videoConstraints={videoConstraints}
                 videoConstraints={{
                     facingMode: 'user',
+                    aspectRatio: window.innerWidth <= 768 && window.innerWidth > 360 ?
+                        window.innerWidth / window.innerHeight : 360 / 740,
                     width: window.innerWidth <= 768 && window.innerWidth > 360 ? window.innerWidth : 360,
                     height: window.innerWidth <= 768 && window.innerWidth > 360 ? window.innerHeight : 720,
                 }}
