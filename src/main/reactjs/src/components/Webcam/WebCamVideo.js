@@ -8,41 +8,77 @@ const WebCamVideo = () => {
     const [recordedChunks, setRecordedChunks] = useState([]);
 
 
-    const handleDataAvailable = useCallback(
-        ({ data }) => {
-            if (data.size > 0) {
-                setRecordedChunks((prev) => prev.concat(data));
-            }
-        },
-        [setRecordedChunks]
-    );
+    // const handleDataAvailable = useCallback(
+    //     ({ data }) => {
+    //         if (data.size > 0) {
+    //             // setRecordedChunks((prev) => prev.concat(data));
+    //             setRecordedChunks(prev => [...prev, data]);
+    //         }
+    //     },
+    //     [setRecordedChunks]
+    // );
 
-    useEffect(() => {
-        const initializeMediaRecorder = async () => {
+    const initializeMediaRecorder = useCallback(async () => {
+        try {
+            const devices = await navigator.mediaDevices.enumerateDevices();
+            const videoInputDevices = devices.filter((device) => device.kind === 'videoinput');
+
+            if (videoInputDevices.length === 0) {
+                alert('해당 기기에 카메라가 발견되지 않았습니다. 카메라를 연결해주세요.');
+                return;
+            }
+
+            // if (webcamRef.current && webcamRef.current.video && webcamRef.current.video.srcObject) {
             if (webcamRef.current && webcamRef.current.video && webcamRef.current.video.srcObject) {
-                const stream = webcamRef.current.video.srcObject;
                 // mediaRecorderRef.current = new MediaRecorder(webcamRef.current.stream, {
+                const stream = webcamRef.current.video.srcObject;
                 mediaRecorderRef.current = new MediaRecorder(stream, {
                     mimeType: "video/webm"
                 });
-                mediaRecorderRef.current.addEventListener(
-                    "dataavailable",
-                    handleDataAvailable
-                );
+                // mediaRecorderRef.current.addEventListener(
+                //     "dataavailable",
+                //     handleDataAvailable
+                // );
+                // mediaRecorderRef.current.ondataavailable = handleDataAvailable;
+                // mediaRecorderRef.current.addEventListener("dataavailable", (event) => {
+                mediaRecorderRef.current.ondataavailable = (event) => {
+                    if (event.data.size > 0) {
+                        setRecordedChunks((prev) => [...prev, event.data]);
+                    }
+                };
             }
-        };
+        } catch (error) {
+            console.error('Error initializing media recorder:', error);
+        }
+    }, [webcamRef, mediaRecorderRef, setRecordedChunks]);
 
-        initializeMediaRecorder();
-    }, [webcamRef, mediaRecorderRef, handleDataAvailable]);
+    // useEffect(() => {
+    //     const initializeMediaRecorder = async () => {
+    //         if (webcamRef.current && webcamRef.current.video && webcamRef.current.video.srcObject) {
+    //             const stream = webcamRef.current.video.srcObject;
+    //             // mediaRecorderRef.current = new MediaRecorder(webcamRef.current.stream, {
+    //             mediaRecorderRef.current = new MediaRecorder(stream, {
+    //                 mimeType: "video/webm"
+    //             });
+    //             mediaRecorderRef.current.addEventListener(
+    //                 "dataavailable",
+    //                 handleDataAvailable
+    //             );
+    //         }
+    //     };
+
+    //     initializeMediaRecorder();
+    // }, [webcamRef, mediaRecorderRef, handleDataAvailable]);
 
     const handleStartCaptureClick = useCallback(() => {
         setCapturing(true);
+        initializeMediaRecorder();
         if (mediaRecorderRef.current) {
             mediaRecorderRef.current.start();
         }
         // setCapturing(true);
         // mediaRecorderRef.current.start();
-    }, [setCapturing, mediaRecorderRef]);
+    }, [setCapturing, initializeMediaRecorder, mediaRecorderRef]);
 
     // const handleStartCaptureClick = useCallback(() => {
     //     setCapturing(true);
@@ -60,20 +96,19 @@ const WebCamVideo = () => {
 
     const handleStopCaptureClick = useCallback(() => {
         if (mediaRecorderRef.current) {
-            mediaRecorderRef.current.addEventListener(
-                "dataavailable",
-                handleDataAvailable
-            );
+            // mediaRecorderRef.current.addEventListener(
+            //     "dataavailable",
+            //     handleDataAvailable
+            // );
             mediaRecorderRef.current.stop();
         }
         setCapturing(false);
         // mediaRecorderRef.current.stop();
         // setCapturing(false);
-    }, [mediaRecorderRef, setCapturing, handleDataAvailable]);
+        // }, [mediaRecorderRef, setCapturing, handleDataAvailable]);
+        setRecordedChunks(prev => [...prev]); // This line triggers an update
+    }, [mediaRecorderRef, setCapturing, setRecordedChunks]);
 
-    useEffect(() => {
-        console.log(recordedChunks);
-    }, [recordedChunks]);
 
     const handleDownload = useCallback(() => {
         if (recordedChunks.length) {
@@ -92,10 +127,14 @@ const WebCamVideo = () => {
         }
     }, [recordedChunks]);
 
+    useEffect(() => {
+        console.log(recordedChunks);
+    }, [recordedChunks]);
+
     const videoConstraints = {
         // aspectRatio: 360 / 740,
         aspectRatio: window.innerWidth <= 768 && window.innerWidth > 360 ?
-            (window.innerWidth / window.innerHeight) : (360 / 740),
+            window.innerWidth / window.innerHeight : 360 / 740,
         // aspectRatio:
         //     window.innerHeight / window.innerWidth,
         facingMode: "user",
@@ -116,7 +155,8 @@ const WebCamVideo = () => {
                 videoConstraints={videoConstraints}
             />
             {capturing ? (
-                <button className="WebCamStopBtn" onClick={handleStopCaptureClick}>Stop Capture</button>
+                <button className="WebCamStopBtn"
+                    onClick={handleStopCaptureClick}>Stop Capture</button>
             ) : (
                 <button className="WebCamStartBtn"
                     onClick={handleStartCaptureClick}>Start Capture</button>
