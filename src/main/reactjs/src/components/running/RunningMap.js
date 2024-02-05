@@ -37,11 +37,8 @@ function RunningMapComponent({path, initialLocation}) {
                             map.setCenter(it.getAt(it.length -1))
                         }
                     }}
-                    
                 >
-                    
                 </Polyline>
-
             </NaverMap>
     )
 }
