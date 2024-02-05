@@ -53,31 +53,44 @@ const WebCamVideo = () => {
 
     useEffect(() => {
         const initializeMediaRecorder = async () => {
-            if (webcamRef.current && webcamRef.current.video && webcamRef.current.video.srcObject) {
-                const stream = webcamRef.current.video.srcObject;
-                // mediaRecorderRef.current = new MediaRecorder(webcamRef.current.stream, {
-                mediaRecorderRef.current = new MediaRecorder(stream, {
-                    mimeType: "video/webm"
-                });
 
-                // mediaRecorderRef.current.addEventListener(
-                //     "dataavailable",
-                //     handleDataAvailable
-                // );
+            try {
+                const devices = await navigator.mediaDevices.enumerateDevices();
+                const videoInputDevices = devices.filter((device) => device.kind === 'videoinput');
 
-                mediaRecorderRef.current.ondataavailable = handleDataAvailable;
+                if (videoInputDevices.length === 0) {
+                    alert('해당 기기에 카메라가 발견되지 않았습니다. 카메라를 연결해주세요.');
+                    return;
+                }
 
-                mediaRecorderRef.current.onstop = () => {
-                    // Handle the stop event if needed
-                    setCapturing(false);
-                };
+                if (webcamRef.current && webcamRef.current.video && webcamRef.current.video.srcObject) {
+                    const stream = webcamRef.current.video.srcObject;
+                    // mediaRecorderRef.current = new MediaRecorder(webcamRef.current.stream, {
+                    mediaRecorderRef.current = new MediaRecorder(stream, {
+                        mimeType: "video/webm"
+                    });
 
-                mediaRecorderRef.current.onstart = () => {
-                    // Handle the start event if needed
-                    setCapturing(true);
-                };
+                    // mediaRecorderRef.current.addEventListener(
+                    //     "dataavailable",
+                    //     handleDataAvailable
+                    // );
 
-                // mediaRecorderRef.current.start();
+                    mediaRecorderRef.current.ondataavailable = handleDataAvailable;
+
+                    mediaRecorderRef.current.onstop = () => {
+                        // Handle the stop event if needed
+                        setCapturing(false);
+                    };
+
+                    mediaRecorderRef.current.onstart = () => {
+                        // Handle the start event if needed
+                        setCapturing(true);
+                    };
+
+                    // mediaRecorderRef.current.start();
+                }
+            } catch (error) {
+                console.error('Error initializing media recorder:', error);
             }
         };
 
