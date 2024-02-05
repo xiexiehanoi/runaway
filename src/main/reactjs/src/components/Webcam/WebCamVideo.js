@@ -60,12 +60,23 @@ const WebCamVideo = () => {
                     mimeType: "video/webm"
                 });
 
-                mediaRecorderRef.current.addEventListener(
-                    "dataavailable",
-                    handleDataAvailable
-                );
+                // mediaRecorderRef.current.addEventListener(
+                //     "dataavailable",
+                //     handleDataAvailable
+                // );
 
-                mediaRecorderRef.current.start();
+                mediaRecorderRef.current.ondataavailable = handleDataAvailable;
+
+                mediaRecorderRef.current.onstop = () => {
+                    // Handle the stop event if needed
+                };
+
+                mediaRecorderRef.current.onstart = () => {
+                    // Handle the start event if needed
+                    setCapturing(true);
+                };
+
+                // mediaRecorderRef.current.start();
             }
         };
 
@@ -73,7 +84,6 @@ const WebCamVideo = () => {
     }, [webcamRef, mediaRecorderRef, handleDataAvailable]);
 
     const handleStartCaptureClick = useCallback(() => {
-        setCapturing(true);
         // initializeMediaRecorder();
         if (mediaRecorderRef.current) {
             if (mediaRecorderRef.current.state === "recording") {
@@ -82,12 +92,14 @@ const WebCamVideo = () => {
                 // mediaRecorderRef.current.start();
                 mediaRecorderRef.current.stop();
             }
+            setRecordedChunks([]);
             mediaRecorderRef.current.start();
+            // setCapturing(true);
         }
         // setRecordedChunks([]);
         // setCapturing(true);
         // mediaRecorderRef.current.start();
-    }, [setCapturing, mediaRecorderRef]);
+    }, [setRecordedChunks, mediaRecorderRef]);
 
     // const handleStartCaptureClick = useCallback(() => {
     //     setCapturing(true);
@@ -138,22 +150,22 @@ const WebCamVideo = () => {
         }
     }, [recordedChunks]);
 
-    useEffect(() => {
-        console.log("Recorded chunks:", recordedChunks);
-    }, [recordedChunks]);
+    // useEffect(() => {
+    //     console.log("Recorded chunks:", recordedChunks);
+    // }, [recordedChunks]);
 
-    const videoConstraints = {
-        // aspectRatio: 360 / 740,
-        aspectRatio: window.innerWidth <= 768 && window.innerWidth > 360 ?
-            window.innerWidth / window.innerHeight : 360 / 740,
-        // aspectRatio:
-        //     window.innerHeight / window.innerWidth,
-        facingMode: "user",
-        // width: { min: 360 },
-        // height: { min: 720 }
-        width: window.innerWidth <= 768 && window.innerWidth > 360 ? window.innerWidth : 360,
-        height: window.innerWidth <= 768 && window.innerWidth > 360 ? window.innerHeight : 720,
-    };
+    // const videoConstraints = {
+    //     // aspectRatio: 360 / 740,
+    //     aspectRatio: window.innerWidth <= 768 && window.innerWidth > 360 ?
+    //         window.innerWidth / window.innerHeight : 360 / 740,
+    //     // aspectRatio:
+    //     //     window.innerHeight / window.innerWidth,
+    //     facingMode: "user",
+    //     // width: { min: 360 },
+    //     // height: { min: 720 }
+    //     width: window.innerWidth <= 768 && window.innerWidth > 360 ? window.innerWidth : 360,
+    //     height: window.innerWidth <= 768 && window.innerWidth > 360 ? window.innerHeight : 720,
+    // };
 
     return (
         <span className="WebCamContainer">
@@ -163,7 +175,12 @@ const WebCamVideo = () => {
                 ref={webcamRef}
                 // height={740}
                 // style={{ width: '100vw', height: '100vh' }}
-                videoConstraints={videoConstraints}
+                // videoConstraints={videoConstraints}
+                videoConstraints={{
+                    facingMode: 'user',
+                    width: window.innerWidth <= 768 && window.innerWidth > 360 ? window.innerWidth : 360,
+                    height: window.innerWidth <= 768 && window.innerWidth > 360 ? window.innerHeight : 720,
+                }}
             />
             {capturing ? (
                 <button className="WebCamStopBtn"
