@@ -8,77 +8,86 @@ const WebCamVideo = () => {
     const [recordedChunks, setRecordedChunks] = useState([]);
 
 
-    // const handleDataAvailable = useCallback(
-    //     ({ data }) => {
-    //         if (data.size > 0) {
-    //             // setRecordedChunks((prev) => prev.concat(data));
-    //             setRecordedChunks(prev => [...prev, data]);
-    //         }
-    //     },
-    //     [setRecordedChunks]
-    // );
-
-    const initializeMediaRecorder = useCallback(async () => {
-        try {
-            const devices = await navigator.mediaDevices.enumerateDevices();
-            const videoInputDevices = devices.filter((device) => device.kind === 'videoinput');
-
-            if (videoInputDevices.length === 0) {
-                alert('해당 기기에 카메라가 발견되지 않았습니다. 카메라를 연결해주세요.');
-                return;
-            }
-
-            // if (webcamRef.current && webcamRef.current.video && webcamRef.current.video.srcObject) {
-            if (webcamRef.current && webcamRef.current.video && webcamRef.current.video.srcObject) {
-                // mediaRecorderRef.current = new MediaRecorder(webcamRef.current.stream, {
-                const stream = webcamRef.current.video.srcObject;
-                mediaRecorderRef.current = new MediaRecorder(stream, {
-                    mimeType: "video/webm"
-                });
-                // mediaRecorderRef.current.addEventListener(
-                //     "dataavailable",
-                //     handleDataAvailable
-                // );
-                // mediaRecorderRef.current.ondataavailable = handleDataAvailable;
-                // mediaRecorderRef.current.addEventListener("dataavailable", (event) => {
-                mediaRecorderRef.current.ondataavailable = (event) => {
-                    if (event.data.size > 0) {
-                        setRecordedChunks((prev) => [...prev, event.data]);
-                    }
-                };
-            }
-        } catch (error) {
-            console.error('Error initializing media recorder:', error);
+    const handleDataAvailable = useCallback(({ data }) => {
+        console.log("Data Available:", data);
+        if (data.size > 0) {
+            // setRecordedChunks((prev) => prev.concat(data));
+            setRecordedChunks((prev) => [...prev, data]);
         }
-    }, [webcamRef, mediaRecorderRef, setRecordedChunks]);
+    }, [setRecordedChunks]);
 
-    // useEffect(() => {
-    //     const initializeMediaRecorder = async () => {
+    // const initializeMediaRecorder = useCallback(async () => {
+    //     try {
+    //         const devices = await navigator.mediaDevices.enumerateDevices();
+    //         const videoInputDevices = devices.filter((device) => device.kind === 'videoinput');
+
+    //         if (videoInputDevices.length === 0) {
+    //             alert('해당 기기에 카메라가 발견되지 않았습니다. 카메라를 연결해주세요.');
+    //             return;
+    //         }
+
+    //         // if (webcamRef.current && webcamRef.current.video && webcamRef.current.video.srcObject) {
     //         if (webcamRef.current && webcamRef.current.video && webcamRef.current.video.srcObject) {
-    //             const stream = webcamRef.current.video.srcObject;
     //             // mediaRecorderRef.current = new MediaRecorder(webcamRef.current.stream, {
+    //             const stream = webcamRef.current.video.srcObject;
     //             mediaRecorderRef.current = new MediaRecorder(stream, {
     //                 mimeType: "video/webm"
     //             });
-    //             mediaRecorderRef.current.addEventListener(
-    //                 "dataavailable",
-    //                 handleDataAvailable
-    //             );
+    //             // mediaRecorderRef.current.addEventListener(
+    //             //     "dataavailable",
+    //             //     handleDataAvailable
+    //             // );
+    //             mediaRecorderRef.current.ondataavailable = handleDataAvailable;
+    //             // mediaRecorderRef.current.addEventListener("dataavailable", (event) => {
+    //             // mediaRecorderRef.current.ondataavailable = (event) => {
+    //             //     if (event.data.size > 0) {
+    //             //         console.log("Data available:", event.data);
+    //             //         setRecordedChunks((prev) => [...prev, event.data]);
+    //             //     }
+    //             // };
     //         }
-    //     };
-
-    //     initializeMediaRecorder();
+    //     } catch (error) {
+    //         console.error('Error initializing media recorder:', error);
+    //     }
     // }, [webcamRef, mediaRecorderRef, handleDataAvailable]);
+
+    useEffect(() => {
+        const initializeMediaRecorder = async () => {
+            if (webcamRef.current && webcamRef.current.video && webcamRef.current.video.srcObject) {
+                const stream = webcamRef.current.video.srcObject;
+                // mediaRecorderRef.current = new MediaRecorder(webcamRef.current.stream, {
+                mediaRecorderRef.current = new MediaRecorder(stream, {
+                    mimeType: "video/webm"
+                });
+
+                mediaRecorderRef.current.addEventListener(
+                    "dataavailable",
+                    handleDataAvailable
+                );
+
+                mediaRecorderRef.current.start();
+            }
+        };
+
+        initializeMediaRecorder();
+    }, [webcamRef, mediaRecorderRef, handleDataAvailable]);
 
     const handleStartCaptureClick = useCallback(() => {
         setCapturing(true);
-        initializeMediaRecorder();
+        // initializeMediaRecorder();
         if (mediaRecorderRef.current) {
+            if (mediaRecorderRef.current.state === "recording") {
+                // Start capturing 전에 기존 레코딩 초기화
+                // setRecordedChunks([]);
+                // mediaRecorderRef.current.start();
+                mediaRecorderRef.current.stop();
+            }
             mediaRecorderRef.current.start();
         }
+        // setRecordedChunks([]);
         // setCapturing(true);
         // mediaRecorderRef.current.start();
-    }, [setCapturing, initializeMediaRecorder, mediaRecorderRef]);
+    }, [setCapturing, mediaRecorderRef]);
 
     // const handleStartCaptureClick = useCallback(() => {
     //     setCapturing(true);
@@ -95,19 +104,21 @@ const WebCamVideo = () => {
 
 
     const handleStopCaptureClick = useCallback(() => {
-        if (mediaRecorderRef.current) {
+        if (mediaRecorderRef.current && mediaRecorderRef.current.state === "recording") {
             // mediaRecorderRef.current.addEventListener(
             //     "dataavailable",
             //     handleDataAvailable
             // );
             mediaRecorderRef.current.stop();
+            // setRecordedChunks([]);
+            // console.log("Stop capturing. Recorded chunks:", recordedChunks); // 확인을 위한 로그 추가
         }
         setCapturing(false);
         // mediaRecorderRef.current.stop();
         // setCapturing(false);
         // }, [mediaRecorderRef, setCapturing, handleDataAvailable]);
-        setRecordedChunks(prev => [...prev]); // This line triggers an update
-    }, [mediaRecorderRef, setCapturing, setRecordedChunks]);
+        // setRecordedChunks(prev => [...prev]); // This line triggers an update
+    }, [mediaRecorderRef, setCapturing]);
 
 
     const handleDownload = useCallback(() => {
@@ -123,12 +134,12 @@ const WebCamVideo = () => {
             a.download = "react-webcam-stream-capture.webm";
             a.click();
             window.URL.revokeObjectURL(url);
-            setRecordedChunks([]);
+            // setRecordedChunks([]);
         }
     }, [recordedChunks]);
 
     useEffect(() => {
-        console.log(recordedChunks);
+        console.log("Recorded chunks:", recordedChunks);
     }, [recordedChunks]);
 
     const videoConstraints = {
