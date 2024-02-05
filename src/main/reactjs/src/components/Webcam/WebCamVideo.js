@@ -36,8 +36,8 @@ const WebCamVideo = () => {
     }, [webcamRef, mediaRecorderRef, handleDataAvailable]);
 
     const handleStartCaptureClick = useCallback(() => {
+        setCapturing(true);
         if (mediaRecorderRef.current) {
-            setCapturing(true);
             mediaRecorderRef.current.start();
         }
         // setCapturing(true);
@@ -59,8 +59,12 @@ const WebCamVideo = () => {
 
 
     const handleStopCaptureClick = useCallback(() => {
-        mediaRecorderRef.current.stop();
+        if (mediaRecorderRef.current) {
+            mediaRecorderRef.current.stop();
+        }
         setCapturing(false);
+        // mediaRecorderRef.current.stop();
+        // setCapturing(false);
     }, [mediaRecorderRef, setCapturing]);
 
     const handleDownload = useCallback(() => {
