@@ -60,12 +60,20 @@ const WebCamVideo = () => {
 
     const handleStopCaptureClick = useCallback(() => {
         if (mediaRecorderRef.current) {
+            mediaRecorderRef.current.addEventListener(
+                "dataavailable",
+                handleDataAvailable
+            );
             mediaRecorderRef.current.stop();
         }
         setCapturing(false);
         // mediaRecorderRef.current.stop();
         // setCapturing(false);
-    }, [mediaRecorderRef, setCapturing]);
+    }, [mediaRecorderRef, setCapturing, handleDataAvailable]);
+
+    useEffect(() => {
+        console.log(recordedChunks);
+    }, [recordedChunks]);
 
     const handleDownload = useCallback(() => {
         if (recordedChunks.length) {
