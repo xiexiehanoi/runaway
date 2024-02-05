@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import Webcam from 'react-webcam';
 
 const WebCamVideo = () => {
@@ -17,18 +17,45 @@ const WebCamVideo = () => {
         [setRecordedChunks]
     );
 
+    useEffect(() => {
+        const initializeMediaRecorder = async () => {
+            if (webcamRef.current && webcamRef.current.video && webcamRef.current.video.srcObject) {
+                const stream = webcamRef.current.video.srcObject;
+                // mediaRecorderRef.current = new MediaRecorder(webcamRef.current.stream, {
+                mediaRecorderRef.current = new MediaRecorder(stream, {
+                    mimeType: "video/webm"
+                });
+                mediaRecorderRef.current.addEventListener(
+                    "dataavailable",
+                    handleDataAvailable
+                );
+            }
+        };
+
+        initializeMediaRecorder();
+    }, [webcamRef, mediaRecorderRef, handleDataAvailable]);
+
     const handleStartCaptureClick = useCallback(() => {
-        setCapturing(true);
-        const stream = webcamRef.current.video.srcObject;
-        mediaRecorderRef.current = new MediaRecorder(stream, {
-            mimeType: "video/webm"
-        });
-        mediaRecorderRef.current.addEventListener(
-            "dataavailable",
-            handleDataAvailable
-        );
-        mediaRecorderRef.current.start();
-    }, [webcamRef, setCapturing, mediaRecorderRef, handleDataAvailable]);
+        if (mediaRecorderRef.current) {
+            setCapturing(true);
+            mediaRecorderRef.current.start();
+        }
+        // setCapturing(true);
+        // mediaRecorderRef.current.start();
+    }, [setCapturing, mediaRecorderRef]);
+
+    // const handleStartCaptureClick = useCallback(() => {
+    //     setCapturing(true);
+    //     const stream = webcamRef.current.video.srcObject;
+    //     mediaRecorderRef.current = new MediaRecorder(stream, {
+    //         mimeType: "video/webm"
+    //     });
+    //     mediaRecorderRef.current.addEventListener(
+    //         "dataavailable",
+    //         handleDataAvailable
+    //     );
+    //     mediaRecorderRef.current.start();
+    // }, [webcamRef, setCapturing, mediaRecorderRef, handleDataAvailable]);
 
 
     const handleStopCaptureClick = useCallback(() => {
@@ -60,8 +87,10 @@ const WebCamVideo = () => {
         // aspectRatio:
         //     window.innerHeight / window.innerWidth,
         facingMode: "user",
-        width: { min: 360 },
-        height: { min: 720 }
+        // width: { min: 360 },
+        // height: { min: 720 }
+        width: window.innerWidth <= 768 && window.innerWidth > 360 ? window.innerWidth : 360,
+        height: window.innerWidth <= 768 && window.innerWidth > 360 ? window.innerHeight : 720,
     };
 
     return (
