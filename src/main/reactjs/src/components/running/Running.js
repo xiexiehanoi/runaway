@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import RunningMap from "./RunningMap";
 
 const MockDataList = [
@@ -32,6 +32,7 @@ function Running() {
     const [isRunning, setIsRunning] = useState(false); // 타이머가 실행 중인지 확인하는 상태
     const [intervalId, setIntervalId] = useState(null); // setInterval의 ID를 저장
     const [distance, setDistance] = useState(0)
+    const curDistance = useRef(0)
 
     // 초 단위의 타이머 값을 00:00 형식으로 변환하는 함수
     const formatTime = (time) => {
@@ -105,7 +106,9 @@ function Running() {
         const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
         const tmpDistance = R * c;
 
-        setDistance(distance + tmpDistance)        
+        setDistance(curDistance.current + tmpDistance)
+        curDistance.current = curDistance.current + tmpDistance
+
     }, [geoLocationList])
 
 
