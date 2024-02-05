@@ -69,6 +69,7 @@ const WebCamVideo = () => {
 
                 mediaRecorderRef.current.onstop = () => {
                     // Handle the stop event if needed
+                    setCapturing(false);
                 };
 
                 mediaRecorderRef.current.onstart = () => {
@@ -85,21 +86,41 @@ const WebCamVideo = () => {
 
     const handleStartCaptureClick = useCallback(() => {
         // initializeMediaRecorder();
-        if (mediaRecorderRef.current) {
-            if (mediaRecorderRef.current.state === "recording") {
-                // Start capturing 전에 기존 레코딩 초기화
-                // setRecordedChunks([]);
-                // mediaRecorderRef.current.start();
-                mediaRecorderRef.current.stop();
-            }
+
+        if (webcamRef.current && webcamRef.current.video && webcamRef.current.video.srcObject) {
+            const stream = webcamRef.current.video.srcObject;
+            mediaRecorderRef.current = new MediaRecorder(stream, {
+                mimeType: "video/webm"
+            });
+
+            mediaRecorderRef.current.ondataavailable = handleDataAvailable;
+
+            mediaRecorderRef.current.onstop = () => {
+                setCapturing(false);
+            };
+
+            mediaRecorderRef.current.onstart = () => {
+                setCapturing(true);
+            };
             setRecordedChunks([]);
             mediaRecorderRef.current.start();
-            // setCapturing(true);
         }
+        // if (mediaRecorderRef.current) {
+        //     if (mediaRecorderRef.current.state === "recording") {
+        //         // Start capturing 전에 기존 레코딩 초기화
+        //         // setRecordedChunks([]);
+        //         // mediaRecorderRef.current.start();
+        //         mediaRecorderRef.current.stop();
+        //     }
+        //     setRecordedChunks([]);
+        //     mediaRecorderRef.current.start();
+        //     // setCapturing(true);
+        // }
         // setRecordedChunks([]);
         // setCapturing(true);
         // mediaRecorderRef.current.start();
-    }, [setRecordedChunks, mediaRecorderRef]);
+        // }, [setRecordedChunks, mediaRecorderRef, setCapturing]);
+    }, [webcamRef, mediaRecorderRef, handleDataAvailable]);
 
     // const handleStartCaptureClick = useCallback(() => {
     //     setCapturing(true);
@@ -125,12 +146,13 @@ const WebCamVideo = () => {
             // setRecordedChunks([]);
             // console.log("Stop capturing. Recorded chunks:", recordedChunks); // 확인을 위한 로그 추가
         }
-        setCapturing(false);
+        // setCapturing(false);
         // mediaRecorderRef.current.stop();
         // setCapturing(false);
         // }, [mediaRecorderRef, setCapturing, handleDataAvailable]);
         // setRecordedChunks(prev => [...prev]); // This line triggers an update
-    }, [mediaRecorderRef, setCapturing]);
+        // }, [mediaRecorderRef, setCapturing]);
+    }, [mediaRecorderRef]);
 
 
     const handleDownload = useCallback(() => {
