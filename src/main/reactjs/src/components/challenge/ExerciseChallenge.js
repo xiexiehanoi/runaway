@@ -21,7 +21,7 @@ const ExerciseChallenge = () => {
     return (
         <div>
             <h5>총 {exerciseList.length}개의 맨몸운동 챌린지에 도전하세요!</h5>
-            <table className='table table-bordered' style={{width:'500px'}}>
+            <table className='table table-bordered' >
                 <tbody>
                     {
                         exerciseList.map((rowData,idx)=>
