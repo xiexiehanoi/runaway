@@ -1,5 +1,4 @@
 import React, { useRef, useState, useEffect } from "react";
-import Webcam from "react-webcam";
 
 const Squat = () => {
   const squatBoxContainer = {
@@ -38,7 +37,6 @@ const Squat = () => {
   const canvasRef = useRef(null); // 캔버스 레퍼런스 추가
   const [status, setStatus] = useState("nothing");
   const [count, setCount] = useState(0);
-  const [predictions, setPredictions] = useState([]);
   const [cameraActive, setCameraActive] = useState(false);
   const animationFrameId = useRef();
 
@@ -108,10 +106,6 @@ const Squat = () => {
   const predict = async () => {
     const { pose, posenetOutput } = await modelRef.current.estimatePose(webcamRef.current.canvas);
     const prediction = await modelRef.current.predict(posenetOutput);
-
-    setPredictions(
-      prediction.map((p) => `${p.className}: ${p.probability.toFixed(2)}`)
-    );
 
     if (prediction[0].probability.toFixed(2) === 1.0) {
       setStatus("nothing");
