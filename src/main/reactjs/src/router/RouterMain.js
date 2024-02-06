@@ -9,14 +9,15 @@ import GoogleLogin from '../components/login/GoogleLogin';
 import NaverLogin from '../components/login/NaverLogin';
 import MainLayout from '../components/MainLayout';
 import Home from '../components/Home';
-import Exercise from '../components/exercise/exercise';
+import Exercise from '../components/exercise/Exercise';
 import ExerciseChallenge from '../components/challenge/ExerciseChallenge';
 import RunningChallenge from '../components/challenge/RunningChallenge';
+import Squat from '../components/exercise/squat/Squat';
 const RouterMain = () => {
     return (
         
        
-        <MainLayout>       
+        <MainLayout>
             <Routes>
                 <Route path="/home" element={<Home />} />
                 <Route path="/" element={<Home />} />
@@ -30,6 +31,8 @@ const RouterMain = () => {
                 <Route path="/authgoogle" element={<GoogleLogin />} />
                 <Route path="/authnaver" element={<NaverLogin />} />
                 <Route path="/webcam" element={<WebCam />} />
+                <Route path="/squat" element={<Squat />} />
+                <Route path="/situp" element={<Exercise />} />
             </Routes>
         </MainLayout>
         
