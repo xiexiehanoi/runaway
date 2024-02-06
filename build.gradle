@@ -36,6 +36,8 @@ dependencies {
     // https://mvnrepository.com/artifact/xuggle/xuggle-xuggler
 //    implementation 'xuggle:xuggle-xuggler:5.4'
 
+    implementation group: 'org.modelmapper', name: 'modelmapper', version: '2.3.8' // Model mapper
+
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
 
     runtimeOnly 'com.mysql:mysql-connector-j'

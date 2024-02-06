@@ -15,7 +15,7 @@ import org.springframework.boot.web.servlet.server.ServletWebServerFactory;
 import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
-@EntityScan(basePackages = "com.runaway.project.*")
+@EntityScan(basePackages = "com.runaway.project")
 @EnableConfigurationProperties({GoogleProperties.class, NaverProperties.class})
 public class RunawayApplication {
 
