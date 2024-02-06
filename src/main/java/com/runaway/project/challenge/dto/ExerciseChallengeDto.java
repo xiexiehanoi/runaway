@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 @Table(name = "exercise")
 public class
-ExerciseDto {
+ExerciseChallengeDto {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

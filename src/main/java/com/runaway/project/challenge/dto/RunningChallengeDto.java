@@ -7,7 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Table(name = "running")
-public class RunningDto {
+public class RunningChallengeDto {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
