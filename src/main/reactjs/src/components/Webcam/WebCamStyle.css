@@ -1,10 +1,29 @@
-.WebCamContainer {
+/* .WebCamContainer {
     align-items: center;
     min-height: 100vh;
     margin: 0 10px;
     display: flex;
     flex-direction: column;
     justify-content: center;
+} */
+
+.WebCamContainer {
+    /* min-height: 100vh;
+    margin: 0 10px; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* flex-direction: column; */
+    width: 282px;
+    height: 500px;
+    box-sizing: border-box;
+    overflow: hidden;
+    /* position: absolute;
+    left: 0%;
+    top: 0%; */
+    /* transform: translate(-50%, -50%); */
+    z-index: 1;
+    background-color: rgba(99, 122, 159, 0.5);
 }
 
 button.WebCamBtn {
@@ -15,18 +34,103 @@ button.WebCamBtn {
     color: #fff;
     border-radius: 25px;
     cursor: pointer;
+    z-index: 2;
+    position: absolute;
+    top: 75%;
+    width: 186px;
+    left: 50%;
+    margin-left: -93px;
+}
+
+button.WebCamStartBtn {
+    margin-top: 10px;
+    padding: 10px 40px;
+    border: none;
+    background-color: rgb(6, 191, 233);
+    color: #fff;
+    border-radius: 25px;
+    cursor: pointer;
+    z-index: 100;
+    position: absolute;
+    top: 75%;
+    width: 186px;
+    left: 50%;
+    margin-left: -93px;
+}
+
+button.WebCamStopBtn {
+    margin-top: 10px;
+    padding: 10px 40px;
+    border: none;
+    background-color: rgb(6, 191, 233);
+    color: #fff;
+    border-radius: 25px;
+    cursor: pointer;
+    z-index: 100;
+    position: absolute;
+    top: 75%;
+    width: 186px;
+    left: 50%;
+    margin-left: -93px;
+}
+
+button.WebCamVideoDownloadBtn {
+    margin-top: 10px;
+    padding: 10px 40px;
+    border: none;
+    background-color: rgb(6, 191, 233);
+    color: #fff;
+    border-radius: 25px;
+    cursor: pointer;
+    z-index: 100;
+    position: absolute;
+    top: 85%;
+    width: 186px;
+    left: 50%;
+    margin-left: -93px;
+    padding-top: 8px;
 }
 
 img.WebCamImg {
-    width: 400px;
+    width: 100%;
     object-fit: cover;
-    height: 400px;
+    height: 100%;
 }
 
 .WebCamApp {
     display: flex;
     align-items: center;
-    width: 150vw;
+    width: 100%;
+    height: 100%;
     justify-content: center;
     background-color: #262b36;
+}
+
+@media screen and (max-width: 768px) {
+    .WebCamContainer {
+        /* width: 282px;
+        height: 500px;
+        box-sizing: border-box;
+        overflow: hidden;
+        position: absolute;
+        left: 0%;
+        top: 0%;
+        z-index: 1;
+        background-color: rgba(99, 122, 159, 0.5); */
+        display: block;
+        position: static;
+        overflow-y: hidden;
+        width: 100vw;
+        height: 100vh;
+        z-index: 1;
+        background-color: rgba(99, 122, 159, 0.5);
+        /* padding-top: 0%; */
+    }
+
+    button.WebCamBtn {
+        position: static;
+        width: 100%;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
 }

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import { Container as MapDiv, useNavermaps, NaverMap, Polyline } from 'react-naver-maps'
 
-function RunningMap({path}) {
+function RunningMap({path, initialLocation}) {
 
     return (
         <MapDiv
@@ -11,13 +11,13 @@ function RunningMap({path}) {
                 height: '200px',
             }}
         >
-            <RunningMapComponent path={path}/>      
+            <RunningMapComponent path={path} initialLocation={initialLocation} />      
         </MapDiv>   
     )
  
 }
 
-function RunningMapComponent({path}) {
+function RunningMapComponent({path, initialLocation}) {
     const naverMap = useNavermaps(null)
     const polylinePath = path.map(loc => new window.naver.maps.LatLng(loc.latitude, loc.longitude));
     const [map, setMap] = useState(null)
@@ -25,7 +25,7 @@ function RunningMapComponent({path}) {
     return (
             <NaverMap
                 defaultCenter={ 
-                    new naverMap.LatLng(37.359924641705476, 127.1148204803467)
+                    new naverMap.LatLng(initialLocation.latitude, initialLocation.longitude)
                 }
                 ref={setMap}
             > 
@@ -38,9 +38,7 @@ function RunningMapComponent({path}) {
                         }
                     }}
                 >
-                    
                 </Polyline>
-
             </NaverMap>
     )
 }
