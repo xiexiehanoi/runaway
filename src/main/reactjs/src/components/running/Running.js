@@ -1,5 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react';
 import RunningMap from "./RunningMap";
+import axios from 'axios';
 
 const MockDataList = [
     { latitude: 37.359924641705476, longitude: 127.1148204803467 },
@@ -34,6 +35,8 @@ function Running() {
     const [distance, setDistance] = useState(0)
     const curDistance = useRef(0)
 
+    
+
     // 초 단위의 타이머 값을 00:00 형식으로 변환하는 함수
     const formatTime = (time) => {
         const minutes = Math.floor(time / 60).toString().padStart(2, '0');
@@ -61,30 +64,39 @@ function Running() {
 
     const stopRun = () => {
         console.log("Function stopRun");
+        
 
 
         if (isRunning) {
             clearInterval(intervalId); // 타이머 멈춤
             setIsRunning(false);
+            setTimer(0);
         }
 
 
         if (window.Android) {
             window.Android.stopRun();
         }
+        
+        console.log(geoLocationList)
+        
+        axios.post('/running/save',{
+            distance :Math.round(distance * 1000) / 1000 ,
+            path:geoLocationList,
+            runningTime:formatTime(timer)
+
+        })
+        .then(function (response) {
+            console.log(response);
+          })
+        .catch(function (error) {
+            console.log(error);
+         });
+          
+          
     }
 
-    const resetRun = () => {
-       
-        if (isRunning) {
-            clearInterval(intervalId);
-            setIsRunning(false);
-            setTimer(0);
-        }else{
-            setTimer(0);
-        }
-        
-    };
+    
 
     function onNavigatorCallback(pos) {
         const latitude = pos.coords.latitude;
@@ -156,7 +168,7 @@ function Running() {
                 setTimeout(addMockDataWithDelay, 5000);
             }
         };
-
+        
         addMockDataWithDelay();
     };
 
@@ -168,7 +180,6 @@ function Running() {
 
             <button onClick={startRun}>Start Run</button>
             <button onClick={stopRun}>Stop Run</button>
-            <button onClick={resetRun}>Reset Run</button> 
             <button onClick={handleMockDataClick}>Mock Data</button>
 
             <div>
