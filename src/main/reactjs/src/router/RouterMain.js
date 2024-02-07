@@ -14,6 +14,7 @@ import ExerciseChallenge from '../components/challenge/ExerciseChallenge';
 import RunningChallenge from '../components/challenge/RunningChallenge';
 import SignUpForm from '../components/signup/SignUpForm';
 import Squat from '../components/exercise/squat/Squat';
+import ChallengeMain from '../components/challenge/ChallengeMain';
 const RouterMain = () => {
     return (
         
@@ -35,6 +36,7 @@ const RouterMain = () => {
                 <Route path="/signup" element={<SignUpForm />} />
                 <Route path="/squat" element={<Squat />} />
                 <Route path="/situp" element={<Exercise />} />
+                <Route path="/challengemain" element={<ChallengeMain/>}/>
             </Routes>
         </MainLayout>
         

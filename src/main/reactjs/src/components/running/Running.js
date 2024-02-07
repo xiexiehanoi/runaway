@@ -1,5 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react';
 import RunningMap from "./RunningMap";
+import axios from 'axios';
 
 const MockDataList = [
     { latitude: 37.359924641705476, longitude: 127.1148204803467 },
@@ -34,6 +35,8 @@ function Running() {
     const [distance, setDistance] = useState(0)
     const curDistance = useRef(0)
 
+    
+
     // 초 단위의 타이머 값을 00:00 형식으로 변환하는 함수
     const formatTime = (time) => {
         const minutes = Math.floor(time / 60).toString().padStart(2, '0');
@@ -61,30 +64,54 @@ function Running() {
 
     const stopRun = () => {
         console.log("Function stopRun");
+        
 
 
         if (isRunning) {
             clearInterval(intervalId); // 타이머 멈춤
             setIsRunning(false);
+            setTimer(0);
         }
 
 
         if (window.Android) {
             window.Android.stopRun();
         }
+
+         // 평균 페이스 계산: 1km 당 분
+        const averagePaceMinutes = (timer / 60) / distance; // 총 시간(분)을 총 거리(km)로 나눔
+        const paceMinutes = Math.floor(averagePaceMinutes); // 평균 페이스의 분 부분
+        const paceSeconds = Math.round((averagePaceMinutes - paceMinutes) * 60); // 평균 페이스의 초 부분
+        
+
+        const formattedAveragePace = `${paceMinutes}'${paceSeconds}''`;
+
+        // 현재 날짜와 시간 얻기
+        const now = new Date();
+        const formattedDate = now.toLocaleDateString('ko-KR'); // '년/월/일' 형식으로 날짜 포맷
+        const formattedTime = now.toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit' }); // '시:분' 형식으로 시간 포맷
+
+
+
+        axios.post('api/running/save',{
+            runningDateTime:now,
+            distance :Math.round(distance * 1000) / 1000 ,
+            averagePace:formattedAveragePace,
+            runningTime:formatTime(timer),
+            path:geoLocationList
+
+        })
+        .then(function (response) {
+            console.log(response);
+          })
+        .catch(function (error) {
+            console.log(error);
+         });
+          
+          
     }
 
-    const resetRun = () => {
-       
-        if (isRunning) {
-            clearInterval(intervalId);
-            setIsRunning(false);
-            setTimer(0);
-        }else{
-            setTimer(0);
-        }
-        
-    };
+    
 
     function onNavigatorCallback(pos) {
         const latitude = pos.coords.latitude;
@@ -156,7 +183,7 @@ function Running() {
                 setTimeout(addMockDataWithDelay, 5000);
             }
         };
-
+        
         addMockDataWithDelay();
     };
 
@@ -168,7 +195,6 @@ function Running() {
 
             <button onClick={startRun}>Start Run</button>
             <button onClick={stopRun}>Stop Run</button>
-            <button onClick={resetRun}>Reset Run</button> 
             <button onClick={handleMockDataClick}>Mock Data</button>
 
             <div>

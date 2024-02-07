@@ -7,12 +7,14 @@ import com.runaway.project.challenge.dao.ExerciseChallengeDao;
 import com.runaway.project.challenge.dto.RunningChallengeDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping
 public class ChallengeController {
     private final ExerciseChallengeDao exerciseChallengeDao;
     private final RunningChallengeDao runningChallengeDao;
