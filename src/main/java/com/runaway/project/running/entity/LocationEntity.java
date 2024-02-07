@@ -17,6 +17,12 @@ public class LocationEntity {
     private Long id;
 
     private double latitude;
+
     private double longitude;
+
+    @Column(name = "running_id")
+    private Long runningId;
+
+
 
 }

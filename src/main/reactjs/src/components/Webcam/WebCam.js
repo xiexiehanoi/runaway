@@ -15,14 +15,12 @@ const WebCam = () => {
         <span className='WebCamApp'>
             {/* <h4 className='alert alert-info'>Webcam</h4> */}
             {/* <WebCamImage /> */}
-            <span className='WebCamApp'>
-                {showWebCamVideo ? (
-                    <WebcamVideo />
-                ) : (
-                    <button className='btn btn-success'
-                        onClick={handleVideoButtonClick}>Video</button>
-                )}
-            </span>
+            {showWebCamVideo ? (
+                <WebcamVideo />
+            ) : (
+                <button className='btn btn-success'
+                    onClick={handleVideoButtonClick}>Video</button>
+            )}
             {/* <WebcamVideo /> */}
         </span>
     );

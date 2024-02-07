@@ -7,17 +7,19 @@ import com.runaway.project.challenge.dao.ExerciseChallengeDao;
 import com.runaway.project.challenge.dto.RunningChallengeDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/challenge")
 public class ChallengeController {
     private final ExerciseChallengeDao exerciseChallengeDao;
     private final RunningChallengeDao runningChallengeDao;
 
-    @GetMapping("/exercisechallenge/list")
+    @GetMapping("/exercise/list")
     public List<ExerciseChallengeDto> list()
     {
         System.out.println("list>>");
@@ -25,7 +27,7 @@ public class ChallengeController {
         return exerciseChallengeDao.getAllexercise();
     }
 
-    @GetMapping("/runningchallenge/list")
+    @GetMapping("/running/list")
     public List<RunningChallengeDto> list2()
     {
         return runningChallengeDao.getAllrunning();

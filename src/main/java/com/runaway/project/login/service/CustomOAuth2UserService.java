@@ -6,7 +6,7 @@ import com.runaway.project.global.oauth2.OAuth2Response;
 import com.runaway.project.global.oauth2.userinfo.GoogleResponse;
 import com.runaway.project.global.oauth2.userinfo.NaverResponse;
 import com.runaway.project.login.dto.UserDto;
-import com.runaway.project.login.repository.UserRepository;
+import com.runaway.project.login.repository.LoginUserRepository;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
@@ -16,10 +16,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
-    private final UserRepository userRepository;
+    private final LoginUserRepository loginUserRepository;
 
-    public CustomOAuth2UserService(UserRepository userRepository){
-        this.userRepository = userRepository;
+    public CustomOAuth2UserService(LoginUserRepository loginUserRepository){
+        this.loginUserRepository = loginUserRepository;
     }
 
     @Override
@@ -47,7 +47,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         }
 
         String username = oAuth2Response.getProvider()+" "+oAuth2Response.getProviderId();
-        UserDto existData = userRepository.findByUsername(username);
+        UserDto existData = loginUserRepository.findByUsername(username);
 
         String role = "ROLE_USER";
         if(existData == null){
@@ -56,7 +56,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
             userDto.setEmail(oAuth2Response.getEmail());
             userDto.setRole("ROLE_USER");
 
-            userRepository.save(userDto);
+            loginUserRepository.save(userDto);
         }
         else{
             existData.setUsername(username);
@@ -64,7 +64,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
             role = existData.getRole();
 
-            userRepository.save(existData);
+            loginUserRepository.save(existData);
         }
 
 

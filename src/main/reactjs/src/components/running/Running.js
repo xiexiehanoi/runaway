@@ -77,13 +77,28 @@ function Running() {
         if (window.Android) {
             window.Android.stopRun();
         }
+
+         // 평균 페이스 계산: 1km 당 분
+        const averagePaceMinutes = (timer / 60) / distance; // 총 시간(분)을 총 거리(km)로 나눔
+        const paceMinutes = Math.floor(averagePaceMinutes); // 평균 페이스의 분 부분
+        const paceSeconds = Math.round((averagePaceMinutes - paceMinutes) * 60); // 평균 페이스의 초 부분
         
-        console.log(geoLocationList)
-        
-        axios.post('/running/save',{
+
+        const formattedAveragePace = `${paceMinutes}'${paceSeconds}''`;
+
+        // 현재 날짜와 시간 얻기
+        const now = new Date();
+        const formattedDate = now.toLocaleDateString('ko-KR'); // '년/월/일' 형식으로 날짜 포맷
+        const formattedTime = now.toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit' }); // '시:분' 형식으로 시간 포맷
+
+
+
+        axios.post('api/running/save',{
+            runningDateTime:now,
             distance :Math.round(distance * 1000) / 1000 ,
-            path:geoLocationList,
-            runningTime:formatTime(timer)
+            averagePace:formattedAveragePace,
+            runningTime:formatTime(timer),
+            path:geoLocationList
 
         })
         .then(function (response) {
