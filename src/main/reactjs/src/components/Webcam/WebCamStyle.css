@@ -96,6 +96,14 @@ img.WebCamImg {
     overflow: hidden;
 }
 
+.WebCamTimer {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: white;
+    font-size: 20px;
+}
+
 @media screen and (max-width: 768px) {
     .WebCamContainer {
         /* width: 282px;

@@ -1,11 +1,16 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import Webcam from 'react-webcam';
+import WebCamTimer from './WebCamTimer';
 
 const WebCamVideo = () => {
     const webcamRef = useRef(null);
     const mediaRecorderRef = useRef(null);
     const [capturing, setCapturing] = useState(false);
     const [recordedChunks, setRecordedChunks] = useState([]);
+    const [timer, setTimer] = useState(null); // timer 상태 추가
+
+    // const [startTime, setStartTime] = useState(null);
+    const [elapsedTime, setElapsedTime] = useState(10);
 
 
     const handleDataAvailable = useCallback(({ data }) => {
@@ -45,6 +50,10 @@ const WebCamVideo = () => {
                     mediaRecorderRef.current.onstart = () => {
                         // Handle the start event if needed
                         setCapturing(true);
+                        const timer = setInterval(() => {
+                            setElapsedTime((prev) => prev - 1); // 1초마다 elapsedTime를 1초씩 감소
+                        }, 1000);
+                        return () => clearInterval(timer);
                     };
 
                 }
@@ -55,6 +64,16 @@ const WebCamVideo = () => {
 
         initializeMediaRecorder();
     }, [webcamRef, mediaRecorderRef, handleDataAvailable]);
+
+    const handleStopCaptureClick = useCallback(() => {
+        if (mediaRecorderRef.current && mediaRecorderRef.current.state === "recording") {
+            mediaRecorderRef.current.stop();
+            clearInterval(timer); // 타이머 멈춤
+            setElapsedTime(0); // 타이머 초기화
+            // console.log("Stop capturing. Recorded chunks:", recordedChunks); // 확인을 위한 로그 추가
+        }
+    }, [mediaRecorderRef, timer]);
+
 
     const handleStartCaptureClick = useCallback(() => {
 
@@ -72,19 +91,30 @@ const WebCamVideo = () => {
 
             mediaRecorderRef.current.onstart = () => {
                 setCapturing(true);
+                const timerId = setInterval(() => {
+                    setElapsedTime((prev) => prev - 1);
+                    if (elapsedTime === 0) {
+                        clearInterval(timerId);
+                        handleStopCaptureClick(); // 녹화 중지
+                    }
+                }, 1000);
+
+                // 타이머가 0이 되었을 때 처리
+                setTimeout(() => {
+                    clearInterval(timerId);
+                    handleStopCaptureClick(); // 녹화 중지
+                    // setElapsedTime(0); // 타이머 초기화
+                }, 10000); // 10초 후에 녹화 중지
+
+                // timer 상태 업데이트
+                setTimer(timerId);
             };
             setRecordedChunks([]);
+            setElapsedTime(10); // 녹화 시작 시간을 10으로 재설정
             mediaRecorderRef.current.start();
         }
-    }, [webcamRef, mediaRecorderRef, handleDataAvailable]);
+    }, [webcamRef, mediaRecorderRef, handleDataAvailable, handleStopCaptureClick, elapsedTime]);
 
-
-    const handleStopCaptureClick = useCallback(() => {
-        if (mediaRecorderRef.current && mediaRecorderRef.current.state === "recording") {
-            mediaRecorderRef.current.stop();
-            // console.log("Stop capturing. Recorded chunks:", recordedChunks); // 확인을 위한 로그 추가
-        }
-    }, [mediaRecorderRef]);
 
 
     const handleDownload = useCallback(() => {
@@ -128,6 +158,7 @@ const WebCamVideo = () => {
                 <button className="WebCamVideoDownloadBtn"
                     onClick={handleDownload}>Download</button>
             )}
+            <WebCamTimer elapsedTime={elapsedTime} />
         </span>
     );
 };
