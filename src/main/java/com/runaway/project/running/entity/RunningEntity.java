@@ -17,10 +17,11 @@ public class RunningEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "running_id")
     private Long idx;
 
     @Column(nullable = true)
-    private int distance;
+    private double distance;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "running_id")

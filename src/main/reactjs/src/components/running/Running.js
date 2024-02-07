@@ -77,11 +77,13 @@ function Running() {
         if (window.Android) {
             window.Android.stopRun();
         }
-
+        
+        console.log(geoLocationList)
+        
         axios.post('/running/save',{
             distance :Math.round(distance * 1000) / 1000 ,
             path:geoLocationList,
-            RunningTime:formatTime(timer)
+            runningTime:formatTime(timer)
 
         })
         .then(function (response) {
@@ -166,7 +168,7 @@ function Running() {
                 setTimeout(addMockDataWithDelay, 5000);
             }
         };
-
+        
         addMockDataWithDelay();
     };
 

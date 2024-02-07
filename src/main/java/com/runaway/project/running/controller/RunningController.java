@@ -15,7 +15,6 @@ public class RunningController {
 
     @PostMapping("/running/save")
     public void saveRunningRecord(@RequestBody RunningDto runningDto){
-
         runningService.saveRunningRecord(runningDto);
 
     }

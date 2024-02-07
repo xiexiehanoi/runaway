@@ -16,7 +16,7 @@ public class RunningDto {
 
     private Long idx;
 
-    private int distance;
+    private double distance;
 
     private String runningTime;
 
