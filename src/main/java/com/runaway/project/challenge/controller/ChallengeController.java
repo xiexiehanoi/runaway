@@ -14,12 +14,12 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping
+@RequestMapping("/challenge")
 public class ChallengeController {
     private final ExerciseChallengeDao exerciseChallengeDao;
     private final RunningChallengeDao runningChallengeDao;
 
-    @GetMapping("/exercisechallenge/list")
+    @GetMapping("/exercise/list")
     public List<ExerciseChallengeDto> list()
     {
         System.out.println("list>>");
@@ -27,7 +27,7 @@ public class ChallengeController {
         return exerciseChallengeDao.getAllexercise();
     }
 
-    @GetMapping("/runningchallenge/list")
+    @GetMapping("/running/list")
     public List<RunningChallengeDto> list2()
     {
         return runningChallengeDao.getAllrunning();

@@ -6,7 +6,7 @@ const RunningChallenge = () => {
     const [runningList,setRunningList]=useState([]);
 
     const list2=()=>{
-        axios.get("/runningchallenge/list")
+        axios.get("/challenge/running/list")
         .then(res=>{
             console.log(res);
             setRunningList(res.data);

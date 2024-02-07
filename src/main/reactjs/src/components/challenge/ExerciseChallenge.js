@@ -6,7 +6,7 @@ const ExerciseChallenge = () => {
     const [exerciseList,setExerciseList]=useState([]);
 
     const list=()=>{
-        axios.get("/exercisechallenge/list")
+        axios.get("/challenge/exercise/list")
         .then(res=>{
             console.log(res);
             setExerciseList(res.data);
