@@ -33,8 +33,6 @@ public class LoginService {
         params.add("code", code);
         params.add("client_secret", kakaoLoginConfig.getClientSecret());
 
-
-
         HttpEntity<MultiValueMap<String, String>> kakaoTokenRequest =
                 new HttpEntity<>(params, headers);
 
@@ -46,6 +44,7 @@ public class LoginService {
         );
 
         ObjectMapper objectMapper = new ObjectMapper();
+
         OAuth2Token oauthToken = null;
         try {
             oauthToken = objectMapper.readValue(accessTokenResponse.getBody(), OAuth2Token.class);
