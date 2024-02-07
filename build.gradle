@@ -109,4 +109,10 @@ task copyPrivate(type: Copy) {
         include "*.yml"
         into "src/main/resources"
     }
+
+    copy {
+        from "./runaway-private"
+        include ".env"
+        into "src/main/reactjs"
+    }
 }
