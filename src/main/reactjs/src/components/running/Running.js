@@ -80,7 +80,7 @@ function Running() {
         
         console.log(geoLocationList)
         
-        axios.post('/running/save',{
+        axios.post('api/running/save',{
             distance :Math.round(distance * 1000) / 1000 ,
             path:geoLocationList,
             runningTime:formatTime(timer)
