@@ -1,9 +1,12 @@
 package com.runaway.project.login.repository;
 
+import com.runaway.project.login.dto.User;
 import com.runaway.project.login.dto.UserDto;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface UserRepository extends JpaRepository<UserDto, Long> {
+@Repository
+public interface UserRepository extends JpaRepository<User, Long> {
 
-    UserDto findByUsername(String username);
+    User findByEmail(String email);
 }

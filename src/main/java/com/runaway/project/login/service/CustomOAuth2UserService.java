@@ -1,3 +1,4 @@
+/*
 package com.runaway.project.login.service;
 
 import com.runaway.project.global.oauth2.CustomOAuth2User;
@@ -70,3 +71,4 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         return new CustomOAuth2User(oAuth2Response, role);
     }
 }
+*/
