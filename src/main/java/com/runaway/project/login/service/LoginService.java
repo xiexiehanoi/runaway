@@ -3,7 +3,6 @@ package com.runaway.project.login.service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.runaway.project.login.model.KakaoLoginConfig;
-import com.runaway.project.login.repository.UserRepository;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -18,7 +17,7 @@ import org.springframework.web.client.RestTemplate;
 
 @Service
 @EnableConfigurationProperties(KakaoLoginConfig.class)
-public class UserService {
+public class LoginService {
     @Autowired private KakaoLoginConfig kakaoLoginConfig;
 
     public OAuth2Token getAccessToken(String code) {
@@ -33,6 +32,8 @@ public class UserService {
         params.add("redirect_uri", kakaoLoginConfig.getRedirectUri());
         params.add("code", code);
         params.add("client_secret", kakaoLoginConfig.getClientSecret());
+
+
 
         HttpEntity<MultiValueMap<String, String>> kakaoTokenRequest =
                 new HttpEntity<>(params, headers);

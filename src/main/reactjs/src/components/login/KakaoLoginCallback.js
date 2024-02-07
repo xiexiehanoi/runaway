@@ -9,10 +9,10 @@ const KakaoLoginCallback = (props) => {
     useEffect(() => {
         (async () => {
             try {
-                const res = await axios.get(`api/user/oauth2/token/code=${code}`);
+                const res = await axios.get(`/api/user/oauth2/token?code=${code}`);
                 const token = res.headers.authorization;
                 window.localStorage.setItem('token', token);
-                navigate('/');
+                navigate(`/home?token=${token}`);
             } catch (e) {
                 console.error(e);
                 navigate('/');

@@ -11,7 +11,7 @@ import java.sql.Timestamp;
 @Entity
 @Data
 @NoArgsConstructor
-public class User {
+public class LoginUser {
     @Id
     private Long userIdx;
     private String email;
