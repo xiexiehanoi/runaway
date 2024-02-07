@@ -11,11 +11,14 @@ const Navbar = () => {
             <p>
                 <Link to="/exercise">Exercise</Link>
             </p>
-            <p>
+            {/* <p>
                 <Link to="/exercisechallenge">맨몸운동 챌린지</Link>
             </p>
             <p>
                 <Link to="/runningchallenge">러닝 챌린지</Link>
+            </p> */}
+            <p>
+                <Link to="/challengemain">Challenge</Link>
             </p>
             
             
