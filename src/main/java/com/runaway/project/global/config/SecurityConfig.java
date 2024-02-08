@@ -1,49 +1,43 @@
 package com.runaway.project.global.config;
 
-import com.runaway.project.global.oauth2.CustomClientRegistrationRepository;
+import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.filter.CorsFilter;
 
 @Configuration
 @EnableWebSecurity
+@NoArgsConstructor
 public class SecurityConfig {
-
-    private final CustomClientRegistrationRepository customClientRegistrationRepository;
-
-    public SecurityConfig(CustomClientRegistrationRepository customClientRegistrationRepository) {
-        this.customClientRegistrationRepository = customClientRegistrationRepository;
-    }
-
+    @Autowired
+    CorsFilter corsFilter;
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
-
-        http
-                .csrf((csrf) -> csrf.disable());
-
-        http
-                .formLogin((login) -> login.disable());
-
-        http
-                .httpBasic((basic) -> basic.disable());
-
-/*        http
-                .oauth2Login((oauth2) -> oauth2
-                        .loginPage("/login")
-                        .clientRegistrationRepository(customClientRegistrationRepository.clientRegistrationRepository())
-                        .userInfoEndpoint((userInfoEndpointConfig) -> userInfoEndpointConfig
-                                .userService(customOAuth2UserService)));*/
+        http.csrf(AbstractHttpConfigurer::disable).
+                sessionManagement((sessionManagement) ->
+                    sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                )
+                .httpBasic(AbstractHttpConfigurer::disable)
+                .formLogin(AbstractHttpConfigurer::disable)
+                .addFilter(corsFilter);
 
 
-//        http.authorizeHttpRequests((auth) -> auth
-//            .requestMatchers("/", "/static/**", "/public/**","/oauth2/**", "/login/**").permitAll()
-//            .anyRequest().authenticated());
-//
-
+        http.authorizeHttpRequests((authorizeRequests) ->
+                authorizeRequests.requestMatchers("https://localhost:9002/**").authenticated()
+                        .anyRequest().permitAll()
+        ).exceptionHandling(httpSecurityExceptionHandlingConfigurer ->
+                httpSecurityExceptionHandlingConfigurer.authenticationEntryPoint(new JwtAuthenticationEntryPoint())
+        );
+        http.addFilterBefore(new JwtRequestFilter(), UsernamePasswordAuthenticationFilter.class);
 
 
         return http.build();
