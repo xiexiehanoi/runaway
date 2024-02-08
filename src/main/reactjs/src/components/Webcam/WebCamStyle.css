@@ -1,34 +1,14 @@
-/* .WebCamContainer {
-    align-items: center;
-    min-height: 100vh;
-    margin: 0 10px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-} */
-
 .WebCamContainer {
-    /* min-height: 100vh;
-    margin: 0 10px; */
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
-    /* flex-direction: column; */
     width: 100vw;
-    /* 전체 화면을 차지하도록 수정 */
     height: 90vh;
-    /* width: 282px;
-    height: 500px; */
     box-sizing: border-box;
     overflow: hidden;
-    /* position: absolute;
-    left: 0%;
-    top: 0%; */
-    /* transform: translate(-50%, -50%); */
     z-index: 1;
     background-color: rgba(99, 122, 159, 0.5);
-    position: relative;
-    /* 상대 위치 설정 추가 */
 }
 
 button.WebCamBtn {
@@ -51,7 +31,6 @@ button.WebCamStartBtn,
 button.WebCamStopBtn,
 button.WebCamVideoDownloadBtn {
     margin-top: 10px;
-    /* margin-bottom: 10px; */
     padding: 10px 40px;
     border: none;
     background-color: rgb(6, 191, 233);
@@ -60,8 +39,6 @@ button.WebCamVideoDownloadBtn {
     cursor: pointer;
     z-index: 1001;
     position: absolute;
-    /* bottom: 10px; */
-    /* 하단으로 이동 */
 }
 
 button.WebCamStartBtn {
@@ -113,15 +90,6 @@ img.WebCamImg {
 
 @media screen and (max-width: 768px) {
     .WebCamContainer {
-        /* width: 282px;
-        height: 500px;
-        box-sizing: border-box;
-        overflow: hidden;
-        position: absolute;
-        left: 0%;
-        top: 0%;
-        z-index: 1;
-        background-color: rgba(99, 122, 159, 0.5); */
         display: block;
         position: static;
         overflow-y: hidden;
@@ -129,7 +97,6 @@ img.WebCamImg {
         height: 100vh;
         z-index: 1;
         background-color: rgba(99, 122, 159, 0.5);
-        /* padding-top: 0%; */
     }
 
     button.WebCamBtn {
