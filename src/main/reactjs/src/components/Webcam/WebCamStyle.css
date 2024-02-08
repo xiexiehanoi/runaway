@@ -38,33 +38,29 @@ button.WebCamVideoDownloadBtn {
     border-radius: 25px;
     cursor: pointer;
     z-index: 2;
-    position: absolute;
+    /* position: absolute; */
     /* position: relative; */
+    width: calc(70% - 20px);
+    /* left: 50%;
+    transform: translateX(-50%); */
+    margin: 10px;
+    position: absolute;
+    /* 버튼의 위치를 상대적으로 지정합니다. */
+    /* left: 50%;
+    transform: translateX(-50%); */
+    left: auto;
 }
 
 button.WebCamStartBtn {
     top: 75%;
-    width: 186px;
-    /* margin-left: calc(50% - 93px); */
-    /* 가운데 정렬 */
-    left: 50%;
-    transform: translateX(-50%);
 }
 
 button.WebCamStopBtn {
     top: 75%;
-    width: 186px;
-    /* 가운데 정렬 */
-    left: 50%;
-    transform: translateX(-50%);
 }
 
 button.WebCamVideoDownloadBtn {
     top: 83%;
-    width: 186px;
-    /* 가운데 정렬 */
-    left: 50%;
-    transform: translateX(-50%);
     padding-top: 8px;
 }
 
@@ -143,6 +139,24 @@ img.WebCamImg {
         /* left 속성을 해제하여 가운데 정렬 */
         transform: none;
         /* transform 속성을 해제하여 가운데 정렬 */
+        z-index: 3;
+    }
+
+
+    button.WebCamStartBtn {
+        top: 75%;
+        /* 시작 버튼의 위치 조정 */
+    }
+
+    button.WebCamStopBtn {
+        top: 75%;
+        /* 중지 버튼의 위치 조정 */
+    }
+
+    button.WebCamVideoDownloadBtn {
+        top: 83%;
+        /* 다운로드 버튼의 위치 조정 */
+        padding-top: 8px;
     }
 
     button.WebCamBtn {

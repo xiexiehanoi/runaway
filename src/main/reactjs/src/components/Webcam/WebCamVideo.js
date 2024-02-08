@@ -98,8 +98,6 @@ const WebCamVideo = () => {
         }
     }, [webcamRef, mediaRecorderRef, handleDataAvailable, handleStopCaptureClick]);
 
-
-
     const handleDownload = useCallback(() => {
         if (recordedChunks.length) {
             const blob = new Blob(recordedChunks, {
@@ -113,6 +111,8 @@ const WebCamVideo = () => {
             a.download = "react-webcam-stream-capture.webm";
             a.click();
             window.URL.revokeObjectURL(url);
+            // const video = document.getElementById("video-replay");
+            // video.src = url
         }
     }, [recordedChunks]);
 
@@ -134,6 +134,7 @@ const WebCamVideo = () => {
                     height: window.innerWidth <= 768 && window.innerWidth > 360 ? window.innerHeight : 720,
                 }}
             />
+            {/* <video id="video-replay" height="400" width="500" controls></video> */}
             {capturing ? (
                 <button className="WebCamStopBtn" onClick={handleStopCaptureClick}>Stop Capture</button>
             ) : (
