@@ -97,10 +97,10 @@ task installReact(type: Exec) {
     inputs.dir "$reactAppDir"
     group = BasePlugin.BUILD_GROUP
     if (System.getProperty('os.name').toLowerCase(Locale.ROOT).contains('windows')) {
-        commandLine "npm.cmd", "audit", "fix"
+        //commandLine "npm.cmd", "audit", "fix"
         commandLine "npm.cmd", "install"
     } else {
-        commandLine "npm", "audit", "fix"
+        //commandLine "npm", "audit", "fix"
         commandLine "npm", "install"
     }
 }
@@ -110,5 +110,11 @@ task copyPrivate(type: Copy) {
         from "./runaway-private"
         include "*.yml"
         into "src/main/resources"
+    }
+
+    copy {
+        from "./runaway-private"
+        include ".env"
+        into "src/main/reactjs"
     }
 }

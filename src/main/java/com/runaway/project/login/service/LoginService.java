@@ -1,7 +1,5 @@
 package com.runaway.project.login.service;
 
-import org.springframework.stereotype.Service;
+public interface LoginService {
 
-@Service
-public class LoginService {
 }
