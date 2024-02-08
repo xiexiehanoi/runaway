@@ -10,4 +10,4 @@ ENV RUN_ENV="${RUN_ENV}"
 
 COPY ${JAR_FILE} app.jar
 
-ENTRYPOINT [ "java", "-DBASE_URL=${BASE_URL}", "-jar", "app.jar" ]
+ENTRYPOINT [ "java", "-jar", "app.jar" ]
