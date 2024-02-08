@@ -37,29 +37,34 @@ button.WebCamVideoDownloadBtn {
     color: #fff;
     border-radius: 25px;
     cursor: pointer;
-    z-index: 1001;
+    z-index: 2;
     position: absolute;
+    /* position: relative; */
 }
 
 button.WebCamStartBtn {
     top: 75%;
     width: 186px;
+    /* margin-left: calc(50% - 93px); */
+    /* 가운데 정렬 */
     left: 50%;
-    margin-left: -93px;
+    transform: translateX(-50%);
 }
 
 button.WebCamStopBtn {
     top: 75%;
     width: 186px;
+    /* 가운데 정렬 */
     left: 50%;
-    margin-left: -93px;
+    transform: translateX(-50%);
 }
 
 button.WebCamVideoDownloadBtn {
-    top: 85%;
+    top: 83%;
     width: 186px;
+    /* 가운데 정렬 */
     left: 50%;
-    margin-left: -93px;
+    transform: translateX(-50%);
     padding-top: 8px;
 }
 
@@ -89,14 +94,55 @@ img.WebCamImg {
 }
 
 @media screen and (max-width: 768px) {
-    .WebCamContainer {
+    /* .WebCamContainer {
         display: block;
+        position: static;
+        overflow-y: hidden;
+        width: 100vw;
+        height: 100vh;
+        z-index: 100;
+        background-color: rgba(99, 122, 159, 0.5);
+    } */
+
+    /* button.WebCamStartBtn,
+    button.WebCamStopBtn,
+    button.WebCamVideoDownloadBtn {
+        position: relative; */
+    /* 모바일 환경에서 상대 위치로 변경 */
+    /* width: 100%;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    } */
+
+    .WebCamContainer {
+        /* 모바일에서 버튼이 표시되도록 변경 */
+        display: flex;
+        flex-direction: column;
+        /* 버튼이 위에서 아래로 정렬되도록 변경 */
+        align-items: center;
+        /* 버튼을 수직으로 가운데 정렬 */
+        justify-content: center;
+        /* 버튼을 수평으로 가운데 정렬 */
         position: static;
         overflow-y: hidden;
         width: 100vw;
         height: 100vh;
         z-index: 1;
         background-color: rgba(99, 122, 159, 0.5);
+    }
+
+    button.WebCamStartBtn,
+    button.WebCamStopBtn,
+    button.WebCamVideoDownloadBtn {
+        /* position 속성을 상대 위치로 변경하지 않고 그대로 유지 */
+        width: calc(60% - 20px);
+        /* 버튼의 너비를 조정하여 화면 크기에 맞게 표시 */
+        margin: 10px;
+        /* 위아래 여백을 주어 버튼들 간격을 조정 */
+        left: auto;
+        /* left 속성을 해제하여 가운데 정렬 */
+        transform: none;
+        /* transform 속성을 해제하여 가운데 정렬 */
     }
 
     button.WebCamBtn {
