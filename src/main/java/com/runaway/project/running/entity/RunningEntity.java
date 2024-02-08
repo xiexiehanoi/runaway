@@ -27,12 +27,14 @@ public class RunningEntity {
     @JoinColumn(name = "user_idx", nullable = false)
     private UserDto user; // 사용자 엔티티와의 관계를 나타내는 필드
 
-    private Timestamp runningDateTime;
+    private String date;
+
+    private String time;
 
     @Column(nullable = true)
     private double distance;
 
-    private double averagePace;
+    private String averagePace;
 
     @Column(nullable = true, length = 100)
     private String runningTime;

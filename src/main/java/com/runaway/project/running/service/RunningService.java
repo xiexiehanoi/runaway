@@ -19,5 +19,6 @@ public class RunningService {
         RunningEntity runningEntity=modelMapper.map(runningDto, RunningEntity.class);
         runningRepository.save(runningEntity);
 
+
     }
 }
