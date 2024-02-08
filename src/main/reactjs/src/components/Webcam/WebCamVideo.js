@@ -116,6 +116,10 @@ const WebCamVideo = () => {
         }
     }, [recordedChunks]);
 
+    const handleTouchStart = useCallback(() => {
+        console.log("Start Capture button touched");
+    }, []);
+
     return (
         <span className="WebCamContainer">
             <Webcam
@@ -133,7 +137,7 @@ const WebCamVideo = () => {
             {capturing ? (
                 <button className="WebCamStopBtn" onClick={handleStopCaptureClick}>Stop Capture</button>
             ) : (
-                <button className="WebCamStartBtn" onClick={handleStartCaptureClick}>Start Capture</button>
+                <button className="WebCamStartBtn" onClick={handleStartCaptureClick} onTouchStart={handleTouchStart}>Start Capture</button>
             )}
             {elapsedTime === 0 && !capturing && (
                 <button className="WebCamStartBtn" onClick={handleStartCaptureClick}>Start Capture</button>
