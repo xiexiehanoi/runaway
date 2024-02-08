@@ -15,8 +15,10 @@ public class LoginUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userIdx;
+    private String socialId;
     private String email;
     private String passwd;
+    private String nickname;
     @CreationTimestamp
     private Timestamp createdTime;
 

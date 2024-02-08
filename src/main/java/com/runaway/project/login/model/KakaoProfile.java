@@ -18,6 +18,21 @@ public class KakaoProfile {
     public class KakaoAccount {
         public Boolean profile_nickname_needs_agreement;
         public Profile profile;
+        public Boolean has_email;
+        public Boolean email_needs_agreement;
+        public Boolean is_email_valid;
+        public Boolean is_email_verified;
+        public String email;
+        public Boolean has_age_range;
+        public Boolean age_range_needs_agreement;
+        public String age_range;
+        public Boolean has_birthday;
+        public Boolean birthday_needs_agreement;
+        public String birthday;
+        public String birthday_type;
+        public Boolean has_gender;
+        public Boolean gender_needs_agreement;
+        public String gender;
 
         @Data
         public class Profile {
