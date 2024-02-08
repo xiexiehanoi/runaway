@@ -11,6 +11,7 @@ import com.runaway.project.login.model.KakaoProfile;
 import com.runaway.project.login.model.OauthToken;
 import com.runaway.project.user.entity.User;
 import com.runaway.project.user.repository.UserRepository;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -29,6 +30,12 @@ import java.util.Date;
 public class KakaoLoginService implements LoginService {
     @Autowired private KakaoLoginConfig kakaoLoginConfig;
     @Autowired private UserRepository userRepository;
+
+    public User getUser(HttpServletRequest request) {
+        Long userId = (Long)request.getAttribute("id");
+        User user = userRepository.findById(userId).orElse(null);
+        return user;
+    }
 
     public OauthToken getAccessToken(String code) {
         RestTemplate rt = new RestTemplate();
