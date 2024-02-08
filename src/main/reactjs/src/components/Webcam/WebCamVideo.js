@@ -118,6 +118,7 @@ const WebCamVideo = () => {
 
     const handleTouchStart = useCallback(() => {
         console.log("Start Capture button touched");
+        alert("버튼이 눌려요!");
     }, []);
 
     return (
