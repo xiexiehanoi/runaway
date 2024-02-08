@@ -14,8 +14,11 @@
     align-items: center;
     justify-content: center;
     /* flex-direction: column; */
-    width: 282px;
-    height: 500px;
+    width: 100vw;
+    /* 전체 화면을 차지하도록 수정 */
+    height: 90vh;
+    /* width: 282px;
+    height: 500px; */
     box-sizing: border-box;
     overflow: hidden;
     /* position: absolute;
@@ -24,6 +27,8 @@
     /* transform: translate(-50%, -50%); */
     z-index: 1;
     background-color: rgba(99, 122, 159, 0.5);
+    position: relative;
+    /* 상대 위치 설정 추가 */
 }
 
 button.WebCamBtn {
@@ -55,6 +60,8 @@ button.WebCamVideoDownloadBtn {
     cursor: pointer;
     z-index: 100;
     position: absolute;
+    /* bottom: 10px; */
+    /* 하단으로 이동 */
 }
 
 button.WebCamStartBtn {
