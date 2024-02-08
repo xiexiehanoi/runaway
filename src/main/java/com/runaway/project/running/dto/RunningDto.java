@@ -1,6 +1,7 @@
 package com.runaway.project.running.dto;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -19,11 +20,14 @@ public class RunningDto {
 
     private Long userIdx;
 
-    private Timestamp runningDateTime;
+
+    private String date;
+
+    private String time;
 
     private double distance;
 
-    private double averagePace;
+    private String averagePace;
 
     private String runningTime;
 

@@ -17,6 +17,7 @@ public class RunningController {
 
     @PostMapping("/save")
     public void saveRunningRecord(@RequestBody RunningDto runningDto){
+        System.out.println(runningDto.toString());
         runningService.saveRunningRecord(runningDto);
 
     }

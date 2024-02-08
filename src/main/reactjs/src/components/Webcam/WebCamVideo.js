@@ -1,11 +1,14 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import Webcam from 'react-webcam';
+import WebCamTimer from './WebCamTimer';
 
 const WebCamVideo = () => {
     const webcamRef = useRef(null);
     const mediaRecorderRef = useRef(null);
     const [capturing, setCapturing] = useState(false);
     const [recordedChunks, setRecordedChunks] = useState([]);
+    const [timer, setTimer] = useState(null); // timer 상태 추가
+    const [elapsedTime, setElapsedTime] = useState(10);
 
 
     const handleDataAvailable = useCallback(({ data }) => {
@@ -42,11 +45,6 @@ const WebCamVideo = () => {
                         setCapturing(false);
                     };
 
-                    mediaRecorderRef.current.onstart = () => {
-                        // Handle the start event if needed
-                        setCapturing(true);
-                    };
-
                 }
             } catch (error) {
                 console.error('Error initializing media recorder:', error);
@@ -55,6 +53,17 @@ const WebCamVideo = () => {
 
         initializeMediaRecorder();
     }, [webcamRef, mediaRecorderRef, handleDataAvailable]);
+
+    const handleStopCaptureClick = useCallback(() => {
+        if (mediaRecorderRef.current && mediaRecorderRef.current.state === "recording") {
+            mediaRecorderRef.current.stop();
+            clearInterval(timer); // 타이머 멈춤
+            // setCapturing(false);
+            // setTimer(null);
+            setElapsedTime(10); // 타이머 초기화
+            // console.log("Stop capturing. Recorded chunks:", recordedChunks); // 확인을 위한 로그 추가
+        }
+    }, [mediaRecorderRef, timer]);
 
     const handleStartCaptureClick = useCallback(() => {
 
@@ -70,21 +79,25 @@ const WebCamVideo = () => {
                 setCapturing(false);
             };
 
-            mediaRecorderRef.current.onstart = () => {
-                setCapturing(true);
-            };
+            const newTimer = setInterval(() => {
+                setElapsedTime((prev) => {
+                    if (prev <= 0) {
+                        clearInterval(newTimer);
+                        handleStopCaptureClick();
+                        return 0;
+                    }
+                    return prev - 1;
+                });
+            }, 1000);
+
+            setCapturing(true);
+            setTimer(newTimer);
             setRecordedChunks([]);
+            setElapsedTime(10); // 녹화 시작 시간을 10으로 재설정
             mediaRecorderRef.current.start();
         }
-    }, [webcamRef, mediaRecorderRef, handleDataAvailable]);
+    }, [webcamRef, mediaRecorderRef, handleDataAvailable, handleStopCaptureClick]);
 
-
-    const handleStopCaptureClick = useCallback(() => {
-        if (mediaRecorderRef.current && mediaRecorderRef.current.state === "recording") {
-            mediaRecorderRef.current.stop();
-            // console.log("Stop capturing. Recorded chunks:", recordedChunks); // 확인을 위한 로그 추가
-        }
-    }, [mediaRecorderRef]);
 
 
     const handleDownload = useCallback(() => {
@@ -118,16 +131,17 @@ const WebCamVideo = () => {
                 }}
             />
             {capturing ? (
-                <button className="WebCamStopBtn"
-                    onClick={handleStopCaptureClick}>Stop Capture</button>
+                <button className="WebCamStopBtn" onClick={handleStopCaptureClick}>Stop Capture</button>
             ) : (
-                <button className="WebCamStartBtn"
-                    onClick={handleStartCaptureClick}>Start Capture</button>
+                <button className="WebCamStartBtn" onClick={handleStartCaptureClick}>Start Capture</button>
+            )}
+            {elapsedTime === 0 && !capturing && (
+                <button className="WebCamStartBtn" onClick={handleStartCaptureClick}>Start Capture</button>
             )}
             {recordedChunks.length > 0 && (
-                <button className="WebCamVideoDownloadBtn"
-                    onClick={handleDownload}>Download</button>
+                <button className="WebCamVideoDownloadBtn" onClick={handleDownload}>Download</button>
             )}
+            <WebCamTimer elapsedTime={elapsedTime} />
         </span>
     );
 };

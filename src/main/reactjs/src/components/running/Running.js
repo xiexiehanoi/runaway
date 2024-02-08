@@ -91,10 +91,13 @@ function Running() {
         const formattedDate = now.toLocaleDateString('ko-KR'); // '년/월/일' 형식으로 날짜 포맷
         const formattedTime = now.toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit' }); // '시:분' 형식으로 시간 포맷
 
+        console.log(now);
 
 
-        axios.post('api/running/save',{
-            runningDateTime:now,
+        axios.post('/api/running/save',{
+            userIdx:1,
+            date:formattedDate,
+            time:formattedTime,
             distance :Math.round(distance * 1000) / 1000 ,
             averagePace:formattedAveragePace,
             runningTime:formatTime(timer),
