@@ -2,6 +2,7 @@ package com.runaway.project.global.config;
 
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -19,7 +20,10 @@ import org.springframework.web.filter.CorsFilter;
 @NoArgsConstructor
 public class SecurityConfig {
     @Autowired
-    CorsFilter corsFilter;
+    private CorsFilter corsFilter;
+
+    @Value("${base-url}")
+    private String baseUrl;
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
         http.csrf(AbstractHttpConfigurer::disable).
@@ -32,7 +36,7 @@ public class SecurityConfig {
 
 
         http.authorizeHttpRequests((authorizeRequests) ->
-                authorizeRequests.requestMatchers("https://localhost:9002/**").authenticated()
+                authorizeRequests.requestMatchers(baseUrl+ "/**").authenticated()
                         .anyRequest().permitAll()
         ).exceptionHandling(httpSecurityExceptionHandlingConfigurer ->
                 httpSecurityExceptionHandlingConfigurer.authenticationEntryPoint(new JwtAuthenticationEntryPoint())
