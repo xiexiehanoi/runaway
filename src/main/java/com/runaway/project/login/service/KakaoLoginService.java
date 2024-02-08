@@ -1,11 +1,16 @@
 package com.runaway.project.login.service;
 
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.algorithms.Algorithm;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.runaway.project.login.JwtProperties;
+import com.runaway.project.login.dto.LoginUser;
 import com.runaway.project.login.model.KakaoLoginConfig;
 import com.runaway.project.login.model.KakaoProfile;
 import com.runaway.project.login.model.OauthToken;
 import com.runaway.project.user.entity.User;
+import com.runaway.project.user.repository.UserRepository;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -17,10 +22,13 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Date;
+
 @Service
 @EnableConfigurationProperties(KakaoLoginConfig.class)
 public class KakaoLoginService implements LoginService {
     @Autowired private KakaoLoginConfig kakaoLoginConfig;
+    @Autowired private UserRepository userRepository;
 
     public OauthToken getAccessToken(String code) {
         RestTemplate rt = new RestTemplate();
@@ -57,11 +65,7 @@ public class KakaoLoginService implements LoginService {
         return oauthToken;
     }
 
-/*    public User saveUser(String token) {
-
-    }*/
-
-    public KakaoProfile findProfile(String token) {
+    private KakaoProfile findProfile(String token) {
         RestTemplate rt = new RestTemplate();
 
         HttpHeaders headers = new HttpHeaders();
@@ -87,5 +91,35 @@ public class KakaoLoginService implements LoginService {
         return kakaoProfile;
     }
 
+    @Override
+    public String saveUserAndGetToken(String token) {
+        KakaoProfile profile = findProfile(token);
 
+        User user = userRepository.findByEmail(profile.getKakao_account().getEmail()).orElse(null);
+
+        if (user == null) {
+            user = User.builder()
+                    .id(profile.getId())
+                    .nickname(profile.getKakao_account().getProfile().getNickname())
+                    .birthdate(profile.getKakao_account().getBirthday())
+                    .gender(profile.getKakao_account().getGender())
+                    .build();
+
+            userRepository.save(user);
+        }
+
+        return createToken(user);
+    }
+
+    @Override
+    public String createToken(User user) {
+        String jwtToken = JWT.create()
+                .withSubject(user.getEmail())
+                .withExpiresAt(new Date(System.currentTimeMillis() + JwtProperties.EXPIRATION_TIME))
+                .withClaim("id", user.getId())
+                .withClaim("nickname", user.getNickname())
+                .sign(Algorithm.HMAC512(JwtProperties.SECRET));
+
+        return jwtToken;
+    }
 }
