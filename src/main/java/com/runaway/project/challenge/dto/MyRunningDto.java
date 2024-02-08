@@ -12,4 +12,16 @@ public class MyRunningDto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long idx;
+
+    private long running_idx;
+
+    private String userid;
+
+    private int running_distance;
+
+    private int running_time;
+
+    private int success;
+
+
 }
