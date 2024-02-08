@@ -71,6 +71,7 @@ task buildReact(type: Exec) {
     group = BasePlugin.BUILD_GROUP
 
     def run_env = System.getenv("RUN_ENV") ?: "local"
+    run_env = run_env.toLowerCase(Locale.ROOT)
 
     if (System.getProperty('os.name').toLowerCase(Locale.ROOT).contains('windows')) {
         commandLine "npm.cmd", "run", "build:" + run_env
