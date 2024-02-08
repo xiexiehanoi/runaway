@@ -100,6 +100,7 @@ public class KakaoLoginService implements LoginService {
         if (user == null) {
             user = User.builder()
                     .id(profile.getId())
+                    .email(profile.getKakao_account().getEmail())
                     .nickname(profile.getKakao_account().getProfile().getNickname())
                     .birthdate(profile.getKakao_account().getBirthday())
                     .gender(profile.getKakao_account().getGender())
