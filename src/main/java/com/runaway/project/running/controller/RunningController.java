@@ -1,8 +1,9 @@
 package com.runaway.project.running.controller;
 
+
 import com.runaway.project.running.dto.RunningDto;
-import com.runaway.project.running.entity.RunningEntity;
 import com.runaway.project.running.service.RunningService;
+import com.runaway.project.user.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,7 +19,8 @@ public class RunningController {
     @PostMapping("/save")
     public void saveRunningRecord(@RequestBody RunningDto runningDto){
         System.out.println(runningDto.toString());
-        runningService.saveRunningRecord(runningDto);
+        User userEntity =runningService.findById(runningDto.getUserIdx());
+        runningService.saveRunningRecord(runningDto,userEntity);
 
     }
 
