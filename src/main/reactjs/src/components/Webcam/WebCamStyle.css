@@ -58,7 +58,7 @@ button.WebCamVideoDownloadBtn {
     color: #fff;
     border-radius: 25px;
     cursor: pointer;
-    z-index: 100;
+    z-index: 1000;
     position: absolute;
     /* bottom: 10px; */
     /* 하단으로 이동 */
