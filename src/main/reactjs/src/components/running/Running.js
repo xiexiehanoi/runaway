@@ -88,7 +88,6 @@ function Running() {
 
         // 현재 날짜와 시간 얻기
         const now = new Date();
-        const isoString = now.toISOString();
         const formattedDate = now.toLocaleDateString('ko-KR'); // '년/월/일' 형식으로 날짜 포맷
         const formattedTime = now.toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit' }); // '시:분' 형식으로 시간 포맷
 
