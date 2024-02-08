@@ -1,6 +1,7 @@
 import React from 'react';
 import '../../CSS/Login.css'
 import {useNavigate} from "react-router-dom";
+import KakaoLogin from "./KakaoLogin";
 
 const LoginPage = () => {
     const navi = useNavigate();
@@ -51,7 +52,7 @@ const LoginPage = () => {
           </div>
           <button className='btn-social-login' style={{ backgroundColor: '#D93025' }}><i className="xi-2x xi-google"></i></button>&nbsp;&nbsp;
           <button className='btn-social-login' style={{ backgroundColor: '#1FC700' }}><i className="xi-2x xi-naver"></i></button>&nbsp;&nbsp;
-          <button className='btn-social-login' style={{ backgroundColor: '#FFEB00' }}><i className="xi-2x xi-kakaotalk text-dark"></i></button>
+          <KakaoLogin />
         </div>
     </div>
     
