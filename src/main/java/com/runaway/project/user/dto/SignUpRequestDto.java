@@ -44,7 +44,6 @@ public class SignUpRequestDto {
         .nickname(this.nickname)
         .birthdate(this.birthdate)
         .gender(this.gender)
-        .phone(this.phone)
         .weight(this.weight)
         .height(this.height)
         .socialType(LOCAL)
