@@ -4,11 +4,11 @@ import {useEffect, useRef} from "react";
 
 const KakaoLoginCallback = () => {
     const navigate = useRef(useNavigate());
-    const BASE_URI = process.env.REACT_APP_BASE_URI;
     useEffect(() => {
         (async () => {
             try {
                 const code = new URL(window.location.href).searchParams.get('code')
+                const BASE_URI = process.env.REACT_APP_BASE_URI;
 
                 const res = await axios.get(`${BASE_URI}/api/login/oauth2/token?code=${code}`);
                 const token = res.headers.authorization;
