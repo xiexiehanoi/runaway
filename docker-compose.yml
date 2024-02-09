@@ -1,0 +1,27 @@
+version: "3"
+services:
+  docker-springboot:
+    image: alpaca1/react-docker:2.0
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+      args:
+        - BASE_URL="https://dev.runaway.fun:9002"
+    expose:
+      - 9002
+    ports:
+      - 9002:9002
+    depends_on:
+      - docker-react
+
+  docker-react:
+    image: alpaca1/react-container:latest
+    build:
+      context: .
+      dockerfile: ./Dockerfile.react
+      args:
+        - RUN_ENV="dev"
+    expose:
+      - 80
+    ports:
+      - 80:80
