@@ -22,8 +22,6 @@ public class SecurityConfig {
     @Autowired
     private CorsFilter corsFilter;
 
-    @Value("${base-url}")
-    private String baseUrl;
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
         http.csrf(AbstractHttpConfigurer::disable).
@@ -36,8 +34,8 @@ public class SecurityConfig {
 
 
         http.authorizeHttpRequests((authorizeRequests) ->
-                authorizeRequests.requestMatchers(baseUrl+ "/**").authenticated()
-                        .anyRequest().permitAll()
+                authorizeRequests.requestMatchers("/**").permitAll() // test
+                        .anyRequest().authenticated()
         ).exceptionHandling(httpSecurityExceptionHandlingConfigurer ->
                 httpSecurityExceptionHandlingConfigurer.authenticationEntryPoint(new JwtAuthenticationEntryPoint())
         );
