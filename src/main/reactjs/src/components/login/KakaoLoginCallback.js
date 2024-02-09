@@ -8,9 +8,9 @@ const KakaoLoginCallback = () => {
         (async () => {
             try {
                 const code = new URL(window.location.href).searchParams.get('code')
-                const BASE_URI = process.env.REACT_APP_BASE_URI;
+                const BACKEND_URI = process.env.REACT_APP_BACKEND_URL;
 
-                const res = await axios.get(`${BASE_URI}/api/login/oauth2/token?code=${code}`);
+                const res = await axios.get(`${BACKEND_URI}/api/login/oauth2/token?code=${code}`);
                 const token = res.headers.authorization;
                 window.localStorage.setItem('token', token);
                 navigate.current(`/`);

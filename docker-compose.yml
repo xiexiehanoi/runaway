@@ -6,7 +6,7 @@ services:
       context: .
       dockerfile: ./Dockerfile
       args:
-        - BASE_URL="https://dev.runaway.fun:9002"
+        - REACT_URL="https://dev.runaway.fun:80"
     expose:
       - 9002
     ports:
