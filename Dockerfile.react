@@ -14,4 +14,4 @@ COPY runaway-private/runaway_privkey.pem .
 
 RUN npm run build:$RUN_ENV
 
-ENTRYPOINT dotenv -e .env.$RUN_ENV serve -s build
+ENTRYPOINT npm run start:$RUN_ENV

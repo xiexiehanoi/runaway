@@ -22,7 +22,7 @@
   "scripts": {
     "start": "react-scripts start",
     "start:local": "env-cmd -f ../../../runaway-private/.env.local react-scripts start",
-    "start:dev": "env-cmd -f .env.dev react-scripts start",
+    "start:dev": "env-cmd -f .env.dev serve -s build",
     "start:product": "env-cmd -f .env.product react-scripts start",
     "build:local": "env-cmd -f ../../../runaway-private/.env.local react-scripts build",
     "build:dev": "env-cmd -f .env.dev react-scripts build",
