@@ -6,7 +6,7 @@ services:
       context: .
       dockerfile: ./Dockerfile
       args:
-        - REACT_URL=https://dev.runaway.fun
+        - REACT_URL=https://www.runaway.fun
     expose:
       - 9002
     ports:
@@ -20,7 +20,7 @@ services:
       context: .
       dockerfile: ./Dockerfile.react
       args:
-        - RUN_ENV=dev
+        - RUN_ENV=product
     expose:
       - 80
       - 443
