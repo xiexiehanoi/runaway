@@ -19,7 +19,7 @@ const RouterMain = () => {
     return (
         <MainLayout>       
             <Routes>
-                <Route path="login/oauth2/callback/kakao" element={<KakaoLoginCallback />} />
+                <Route path="login/oauth2/callback/*" element={<KakaoLoginCallback />} />
                 <Route path="/home" element={<Home />} />
                 <Route path="/running" element={<Running />} />
                 <Route path="/runningchallenge" element={<RunningChallenge />} />
