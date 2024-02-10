@@ -1,0 +1,29 @@
+version: "3"
+services:
+  docker-springboot:
+    image: alpaca1/spring-docker:latest
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+      args:
+        - REACT_URL=https://www.runaway.fun
+    expose:
+      - 9002
+    ports:
+      - 9002:9002
+    depends_on:
+      - docker-react
+
+  docker-react:
+    image: alpaca1/react-container:latest
+    build:
+      context: .
+      dockerfile: ./Dockerfile.react
+      args:
+        - RUN_ENV=product
+    expose:
+      - 80
+      - 443
+    ports:
+      - 80:443
+      - 443:443

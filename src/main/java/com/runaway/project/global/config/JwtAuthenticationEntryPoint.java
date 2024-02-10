@@ -18,6 +18,11 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
         String exception = (String) request.getAttribute(JwtProperties.HEADER_STRING);
         String errorCode;
 
+        if (exception == null) {
+            errorCode = "로그인이 필요합니다.";
+            setResponse (response, errorCode);
+        }
+
         if (exception.equals("토큰이 만료되었습니다.")) {
             errorCode = "토큰이 만료되었습니다.";
             setResponse (response, errorCode);
