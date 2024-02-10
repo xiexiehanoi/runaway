@@ -2,6 +2,7 @@ import React from 'react';
 import '../../CSS/Login.css'
 import {useNavigate} from "react-router-dom";
 import KakaoLogin from "./KakaoLogin";
+import NaverLogin from "./NaverLogin";
 
 const LoginPage = () => {
     const navi = useNavigate();
@@ -51,7 +52,7 @@ const LoginPage = () => {
             <a href="../member/doFindLoginIdForm">ID 찾기</a> / <a href="../member/doFindLoginPwForm">PW 찾기</a>
           </div>
           <button className='btn-social-login' style={{ backgroundColor: '#D93025' }}><i className="xi-2x xi-google"></i></button>&nbsp;&nbsp;
-          <button className='btn-social-login' style={{ backgroundColor: '#1FC700' }}><i className="xi-2x xi-naver"></i></button>&nbsp;&nbsp;
+          <NaverLogin />
           <KakaoLogin />
         </div>
     </div>

@@ -5,18 +5,15 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.runaway.project.login.JwtProperties;
-import com.runaway.project.login.dto.LoginUser;
-import com.runaway.project.login.model.KakaoLoginConfig;
-import com.runaway.project.login.model.KakaoProfile;
-import com.runaway.project.login.model.OauthToken;
+import com.runaway.project.login.model.*;
 import com.runaway.project.user.entity.User;
 import com.runaway.project.user.enums.SocialType;
 import com.runaway.project.user.repository.UserRepository;
 import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -28,9 +25,9 @@ import java.util.Date;
 import java.util.Locale;
 
 @Service
-@EnableConfigurationProperties(KakaoLoginConfig.class)
-public class KakaoLoginService implements LoginService {
-    @Autowired private KakaoLoginConfig kakaoLoginConfig;
+@EnableConfigurationProperties(NaverLoginConfig.class)
+public class NaverLoginService implements LoginService {
+    @Autowired private NaverLoginConfig naverLoginConfig;
     @Autowired private UserRepository userRepository;
 
     public User getUser(HttpServletRequest request) {
@@ -47,18 +44,18 @@ public class KakaoLoginService implements LoginService {
 
         MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
         params.add("grant_type", "authorization_code");
-        params.add("client_id", kakaoLoginConfig.getClientId());
-        params.add("redirect_uri", kakaoLoginConfig.getRedirectUri());
+        params.add("client_id", naverLoginConfig.getClientId());
+        params.add("redirect_uri", naverLoginConfig.getRedirectUri());
         params.add("code", code);
-        params.add("client_secret", kakaoLoginConfig.getClientSecret());
+        params.add("client_secret", naverLoginConfig.getClientSecret());
 
-        HttpEntity<MultiValueMap<String, String>> kakaoTokenRequest =
+        HttpEntity<MultiValueMap<String, String>> naverTokenRequest =
                 new HttpEntity<>(params, headers);
 
         ResponseEntity<String> accessTokenResponse = rt.exchange(
-                "https://kauth.kakao.com/oauth/token",
+                "https://nid.naver.com/oauth2.0/token",
                 HttpMethod.POST,
-                kakaoTokenRequest,
+                naverTokenRequest,
                 String.class
         );
 
@@ -74,44 +71,37 @@ public class KakaoLoginService implements LoginService {
         return oauthToken;
     }
 
-    private KakaoProfile findProfile(String token) {
+    private NaverProfile findProfile(String token) {
         RestTemplate rt = new RestTemplate();
 
         HttpHeaders headers = new HttpHeaders();
         headers.add("Authorization", "Bearer " + token);
         headers.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
 
-        HttpEntity<MultiValueMap<String, String>> kakaoProfileRequest =
+        HttpEntity<MultiValueMap<String, String>> naverProfileRequest =
                 new HttpEntity<>(headers);
-        ResponseEntity<String> kakaoProfileResponse = rt.exchange(
-                "https://kapi.kakao.com/v2/user/me",
+        ResponseEntity<NaverProfile> naverProfileResponse = rt.exchange(
+                "https://openapi.naver.com/v1/nid/me",
                 HttpMethod.POST,
-                kakaoProfileRequest,
-                String.class
+                naverProfileRequest,
+                NaverProfile.class
         );
-        ObjectMapper objectMapper = new ObjectMapper();
-        KakaoProfile kakaoProfile = null;
-        try {
-            kakaoProfile = objectMapper.readValue(kakaoProfileResponse.getBody(), KakaoProfile.class);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
 
-        return kakaoProfile;
+        return naverProfileResponse.getBody();
     }
 
     @Override
     public String saveUserAndGetToken(String token) {
-        KakaoProfile profile = findProfile(token);
+        NaverProfile profile = findProfile(token);
 
-        User user = userRepository.findByEmail(profile.getKakao_account().getEmail()).orElse(null);
+        User user = userRepository.findByEmail(profile.getNaverUserDetail().getEmail()).orElse(null);
 
         if (user == null) {
             user = User.builder()
-                    .email(profile.getKakao_account().getEmail())
-                    .birthdate(profile.getKakao_account().getBirthday())
-                    .gender(profile.getKakao_account().getGender())
-                    .socialType(SocialType.KAKAO)
+                    .email(profile.getNaverUserDetail().getEmail())
+                    .birthdate(profile.getNaverUserDetail().getBirthday())
+                    .gender(profile.getNaverUserDetail().getGender())
+                    .socialType(SocialType.NAVER)
                     .build();
 
             userRepository.save(user);

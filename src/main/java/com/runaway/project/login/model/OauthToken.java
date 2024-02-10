@@ -17,4 +17,8 @@ public class OauthToken {
     private String scope;
     @JsonProperty("refresh_token_expires_in")
     private int refreshTokenExpiresIn;
+    @JsonProperty("error")
+    private String error;
+    @JsonProperty("error_description")
+    private String errorDescription;
 }
