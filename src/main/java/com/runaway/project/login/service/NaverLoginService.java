@@ -30,12 +30,14 @@ public class NaverLoginService implements LoginService {
     @Autowired private NaverLoginConfig naverLoginConfig;
     @Autowired private UserRepository userRepository;
 
-    public User getUser(HttpServletRequest request) {
+    @Override
+    public User getMyInfo(HttpServletRequest request) {
         Long userId = (Long)request.getAttribute("id");
         User user = userRepository.findById(userId).orElse(null);
         return user;
     }
 
+    @Override
     public OauthToken getAccessToken(String code) {
         RestTemplate rt = new RestTemplate();
 
@@ -110,8 +112,7 @@ public class NaverLoginService implements LoginService {
         return createToken(user);
     }
 
-    @Override
-    public String createToken(User user) {
+    private String createToken(User user) {
         String jwtToken = JWT.create()
                 .withSubject(user.getEmail())
                 .withExpiresAt(new Date(System.currentTimeMillis() + JwtProperties.EXPIRATION_TIME))

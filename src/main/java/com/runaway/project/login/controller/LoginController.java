@@ -48,7 +48,7 @@ public class LoginController {
         String provider = (String)request.getAttribute("provider");
         loginService = providerLoginServiceMap.get(provider);
 
-        User user = loginService.getUser(request);
+        User user = loginService.getMyInfo(request);
 
         return ResponseEntity.ok().body(user);
     }
