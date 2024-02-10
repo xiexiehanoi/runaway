@@ -10,6 +10,7 @@ import com.runaway.project.login.model.KakaoLoginConfig;
 import com.runaway.project.login.model.KakaoProfile;
 import com.runaway.project.login.model.OauthToken;
 import com.runaway.project.user.entity.User;
+import com.runaway.project.user.enums.SocialType;
 import com.runaway.project.user.repository.UserRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -24,6 +25,7 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Date;
+import java.util.Locale;
 
 @Service
 @EnableConfigurationProperties(KakaoLoginConfig.class)
@@ -111,6 +113,7 @@ public class KakaoLoginService implements LoginService {
                     .nickname(profile.getKakao_account().getProfile().getNickname())
                     .birthdate(profile.getKakao_account().getBirthday())
                     .gender(profile.getKakao_account().getGender())
+                    .socialType(SocialType.KAKAO)
                     .build();
 
             userRepository.save(user);
@@ -126,6 +129,7 @@ public class KakaoLoginService implements LoginService {
                 .withExpiresAt(new Date(System.currentTimeMillis() + JwtProperties.EXPIRATION_TIME))
                 .withClaim("id", user.getId())
                 .withClaim("nickname", user.getNickname())
+                .withClaim("provider", user.getSocialType().name().toLowerCase(Locale.ROOT))
                 .sign(Algorithm.HMAC512(JwtProperties.SECRET));
 
         return jwtToken;

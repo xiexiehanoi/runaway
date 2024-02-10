@@ -19,19 +19,17 @@ public class SignUpRequestDto {
   private String nickname;
   private String birthdate;
   private String gender;
-  private String phone;
   private int weight;
   private int height;
 
   @Builder
-  public SignUpRequestDto(String username, String email, String password, String nickname, String birthdate, String gender, String phone, int weight, int height, SocialType socialType, Role role) {
+  public SignUpRequestDto(String username, String email, String password, String nickname, String birthdate, String gender, int weight, int height, SocialType socialType, Role role) {
     this.username = username;
     this.email = email;
     this.password = password;
     this.nickname = nickname;
     this.birthdate = birthdate;
     this.gender = gender;
-    this.phone = phone;
     this.weight = weight;
     this.height = height;
   }
