@@ -9,8 +9,6 @@ ENV RUN_ENV=$RUN_ENV
 
 COPY src/main/reactjs/. .
 COPY runaway-private/.env.$RUN_ENV .
-COPY runaway-private/runaway_cert.pem .
-COPY runaway-private/runaway_privkey.pem .
 
 RUN npm run build:$RUN_ENV
 
