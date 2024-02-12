@@ -110,9 +110,8 @@ public class GoogleLoginService implements LoginService {
         if (user == null) {
             user = User.builder()
                     .email(profile.getEmail())
-//                    .birthdate(profile.getGoogle_account().getBirthday())
-//                    .gender(profile.getGoogle_account().getGender())
                     .username(profile.getName())
+                    .imageUrl(profile.getPicture())
                     .socialType(SocialType.GOOGLE)
                     .build();
 
