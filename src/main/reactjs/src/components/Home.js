@@ -3,13 +3,15 @@ import Navbar from './Navbar';
 import axios from "axios";
 const Home = () => {
     var token = window.localStorage.getItem('token');
+    const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+
     if (token) {
         console.log("Token found:", token);
         (async () => {
             try {
                 const request = {
                     method: "GET",
-                    url: "https://localhost:9002/api/login/me",
+                    url: `${BACKEND_URL}/api/login/me`,
                     headers: {
                         Authorization: token
                     }

@@ -54,40 +54,6 @@ def reactAppDir = "$projectDir/src/main/reactjs"
 
 processResources {
     dependsOn("copyPrivate")
-    dependsOn "copyReactFile"
-}
-
-
-task copyReactFile(type: Copy) {
-    dependsOn "buildReact"
-    from "$reactAppDir/build"
-    into "$projectDir/src/main/resources/static/"
-}
-
-task buildReact(type: Exec) {
-    dependsOn "installReact"
-    workingDir "$reactAppDir"
-    inputs.dir "$reactAppDir"
-    group = BasePlugin.BUILD_GROUP
-
-    def run_env = System.getenv("RUN_ENV") ?: "local"
-
-    if (System.getProperty('os.name').toLowerCase(Locale.ROOT).contains('windows')) {
-        commandLine "npm.cmd", "run", "build:" + run_env
-    } else {
-        commandLine "npm", "run", "build:" + run_env
-    }
-}
-
-task installReact(type: Exec) {
-    workingDir "$reactAppDir"
-    inputs.dir "$reactAppDir"
-    group = BasePlugin.BUILD_GROUP
-    if (System.getProperty('os.name').toLowerCase(Locale.ROOT).contains('windows')) {
-        commandLine "npm.cmd", "install"
-    } else {
-        commandLine "npm", "install"
-    }
 }
 
 task copyPrivate(type: Copy) {
@@ -95,11 +61,5 @@ task copyPrivate(type: Copy) {
         from "./runaway-private"
         include "*.yml"
         into "src/main/resources"
-    }
-
-    copy {
-        from "./runaway-private"
-        include ".env*"
-        into "src/main/reactjs"
     }
 }
