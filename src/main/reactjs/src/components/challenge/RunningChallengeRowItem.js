@@ -20,9 +20,10 @@ const RunningChallengeRowItem = (props) => {
         <tr>
             <td>
                 <h5>번호:{idx+1}</h5>
-                <h5>챌린지명:{row.name}</h5>
+                
                 <h5>목표거리:{row.distance}km</h5>
-                <h5>기한:{row.end}일</h5>
+                <h5>기한:{row.target_date}일</h5>
+                <h5>경험치:{row.exp}</h5>
                 {/* <button type='button' className='btn btn-outline-danger btn-sm'
                 onClick={addMyRunning}>
                     추가
