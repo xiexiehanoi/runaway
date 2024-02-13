@@ -13,7 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/ranking")
-@CrossOrigin
+@CrossOrigin(origins = "https://localhost")
 public class RankingController {
     private final RankingService rankingService;
 
