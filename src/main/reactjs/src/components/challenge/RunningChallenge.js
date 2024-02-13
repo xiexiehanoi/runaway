@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import RunningChallengeRowItem from './RunningChallengeRowItem';
 
-const BASE_URL =  process.env.REACT_APP_BASE_URI;
+const BASE_URL =  process.env.REACT_APP_BACKEND_URL;
 
 const RunningChallenge = () => {
     const [runningList,setRunningList]=useState([]);
@@ -10,8 +10,9 @@ const RunningChallenge = () => {
     const list2=async()=>{
         try{
 
-            const response = await axios.get(`${BASE_URL}/running/list`);
+            const response = await axios.get(`${BASE_URL}/api/challenge/running/list`);
                 console.log("bgbgb: "+response);
+
                 setRunningList(response.data);
            
         }catch(error){
