@@ -10,7 +10,7 @@ const Ranking = () => {
   useEffect(() => {
     const RankList = async () => {
         try {
-            const response = await axios.get(`${BACKEND_URL}/ranking/list`);
+            const response = await axios.get(`${BACKEND_URL}/api/ranking/list`);
             setRankingList(response.data);
         } catch (error) {
             console.error("Error fetching ranking list:", error);
