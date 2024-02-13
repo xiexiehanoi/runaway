@@ -84,7 +84,7 @@ const Squat = () => {
 
   const startCameraAndFunction = async () => {
     setMessage(
-        "지금부터 5초간 자세를 잡아주세요\n스쿼트는 옆모습으로 진행하여주세요"
+      "지금부터 5초간 자세를 잡아주세요\n스쿼트는 옆모습으로 진행하여주세요"
     );
     setTimeout(async () => {
       setMessage("");
@@ -149,9 +149,9 @@ const Squat = () => {
 
     if (!webcamRef.current) {
       webcamRef.current = new window.tmPose.Webcam(
-          webcamWidth,
-          webcamHeight,
-          true
+        webcamWidth,
+        webcamHeight,
+        true
       );
       await webcamRef.current.setup();
     }
@@ -179,14 +179,14 @@ const Squat = () => {
   const predict = async () => {
     const { pose, posenetOutput } = await modelRef.current.estimatePose(webcamRef.current.canvas);
     const prediction = await modelRef.current.predict(posenetOutput);
-
+  
     // label-container 를 위한 것
     const newPredictions = prediction.map((p) => ({
       className: p.className,
       probability: p.probability.toFixed(2),
     }));
     setPredictions(newPredictions);
-
+  
     if (prediction[2].probability.toFixed(2) === "1.00") {
       setStatus("squat");
     } else if (prediction[1].probability.toFixed(2) === "1.00") {
@@ -194,10 +194,10 @@ const Squat = () => {
     } else if (prediction[0].probability.toFixed(2) === "1.00") {
       setStatus("nothing");
     }
-
+  
     drawPose(pose);
   };
-
+  
   const playCountAudio = (newCount) => {
     new Audio(`${newCount % 10}.mp3`).play();
   };
@@ -223,7 +223,7 @@ const Squat = () => {
     }
     countRef.current = status;
   }, [status, count]);
-
+  
   const drawPose = (pose) => {
     if (canvasRef.current && webcamRef.current && webcamRef.current.canvas) {
       const ctx = canvasRef.current.getContext("2d");
@@ -243,53 +243,53 @@ const Squat = () => {
       }
     };
   }, []);
+  
+ return (
+  <div style={squatBoxContainer}>
+    <div style={squatContextStyle}>squat</div>
+    {cameraActive ? (
+      <>
+        <button
+          type="button"
+          onClick={stopCameraAndFunction}
+          style={squatButtonStyle}
+        >
+          중단하기
+        </button>
+        <div style={canvasBox}>
+          <div
+            ref={progressRef}
+            className="progress"
+            style={{ display: "block" }}
+          ></div>
+          <canvas
+            ref={canvasRef}
+            width="640px"
+            height="480px"
+            style={canvasStyle}
+          ></canvas>
+          <div id="label-container" style={{ position: "relative", top: "5%" }}>
+            {predictions.map((p, index) => (
+              <div key={index}>{`${p.className}: ${p.probability}`}</div>
+            ))}
+          </div>
+        </div>
+      </>
+    ) : (
+      <button
+        type="button"
+        onClick={startCameraAndFunction}
+        style={squatButtonStyle}
+      >
+        측정시작
+      </button>
+    )}
 
-  return (
-      <div style={squatBoxContainer}>
-        <div style={squatContextStyle}>squat</div>
-        {cameraActive ? (
-            <>
-              <button
-                  type="button"
-                  onClick={stopCameraAndFunction}
-                  style={squatButtonStyle}
-              >
-                중단하기
-              </button>
-              <div style={canvasBox}>
-                <div
-                    ref={progressRef}
-                    className="progress"
-                    style={{ display: "block" }}
-                ></div>
-                <canvas
-                    ref={canvasRef}
-                    width="640px"
-                    height="480px"
-                    style={canvasStyle}
-                ></canvas>
-                <div id="label-container" style={{ position: "relative", top: "5%" }}>
-                  {predictions.map((p, index) => (
-                      <div key={index}>{`${p.className}: ${p.probability}`}</div>
-                  ))}
-                </div>
-              </div>
-            </>
-        ) : (
-            <button
-                type="button"
-                onClick={startCameraAndFunction}
-                style={squatButtonStyle}
-            >
-              측정시작
-            </button>
-        )}
-
-        {message && (
-            <div style={messageBox}>{message}</div>
-        )}
-      </div>
-  );
+    {message && (
+      <div style={messageBox}>{message}</div>
+    )}
+  </div>
+);
 
 };
 
