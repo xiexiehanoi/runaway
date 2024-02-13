@@ -20,7 +20,9 @@ const Navbar = () => {
             <p>
                 <Link to="/challengemain">Challenge</Link>
             </p>
-            
+            <p>
+                <Link to="/ranking">Ranking</Link>
+            </p>
             
         </div>
     );
