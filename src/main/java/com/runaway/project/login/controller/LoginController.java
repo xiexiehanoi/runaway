@@ -2,6 +2,7 @@ package com.runaway.project.login.controller;
 
 import com.runaway.project.login.JwtProperties;
 import com.runaway.project.login.model.OauthToken;
+import com.runaway.project.login.service.GoogleLoginService;
 import com.runaway.project.login.service.KakaoLoginService;
 import com.runaway.project.login.service.LoginService;
 import com.runaway.project.login.service.NaverLoginService;
@@ -24,9 +25,10 @@ public class LoginController {
     private final Map<String, LoginService> providerLoginServiceMap = new HashMap<>();
     private LoginService loginService;
 
-    public LoginController(KakaoLoginService kakaoLoginService, NaverLoginService naverLoginService) {
+    public LoginController(KakaoLoginService kakaoLoginService, NaverLoginService naverLoginService, GoogleLoginService googleLoginService) {
         providerLoginServiceMap.put(SocialType.KAKAO.name().toLowerCase(), kakaoLoginService);
         providerLoginServiceMap.put(SocialType.NAVER.name().toLowerCase(), naverLoginService);
+        providerLoginServiceMap.put(SocialType.GOOGLE.name().toLowerCase(), googleLoginService);
     }
 
     @GetMapping("/oauth2/token")
