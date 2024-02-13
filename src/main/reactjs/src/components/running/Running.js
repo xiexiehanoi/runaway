@@ -1,6 +1,9 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React from 'react';
 import RunningMap from "./RunningMap";
 import axios from 'axios';
+import {RunningLocationTracking} from './RunningLocationTracking';
+
+/*
 
 const MockDataList = [
     { latitude: 37.359924641705476, longitude: 127.1148204803467 },
@@ -25,17 +28,19 @@ function generateMockData(count) {
         return {}
     }
 }
+*/
 
 function Running() {
-    const [geoLocationList, setGeoLocationList] = useState([])
-    const [initialLocation, setInitialLocation] = useState({})
-    const [timer, setTimer] = useState(0); // 타이머를 위한 상태
-    const [isRunning, setIsRunning] = useState(false); // 타이머가 실행 중인지 확인하는 상태
-    const [intervalId, setIntervalId] = useState(null); // setInterval의 ID를 저장
-    const [distance, setDistance] = useState(0)
-    const curDistance = useRef(0)
 
-    
+    const {
+        location,
+        startTracking,
+        stopTracking,
+        distanceTraveled,
+        pace,
+        initialLocation,
+        timer
+    } = RunningLocationTracking();
 
     // 초 단위의 타이머 값을 00:00 형식으로 변환하는 함수
     const formatTime = (time) => {
@@ -46,63 +51,27 @@ function Running() {
 
     const startRun = () => {
         console.log("Function startRun");
-        setGeoLocationList([])
-
-        if (!isRunning) {
-            const id = setInterval(() => {
-                setTimer(prevTimer => prevTimer + 1); // 1초마다 타이머를 업데이트
-            }, 1000);
-            setIntervalId(id);
-            setIsRunning(true);
-        }
-
-
-        if (window.Android) {
-            window.Android.startRun();
-        }
+        startTracking();
     }
 
     const stopRun = () => {
         console.log("Function stopRun");
-        
-
-
-        if (isRunning) {
-            clearInterval(intervalId); // 타이머 멈춤
-            setIsRunning(false);
-            setTimer(0);
-        }
-
-
-        if (window.Android) {
-            window.Android.stopRun();
-        }
-
-         // 평균 페이스 계산: 1km 당 분
-        const averagePaceMinutes = (timer / 60) / distance; // 총 시간(분)을 총 거리(km)로 나눔
-        const paceMinutes = Math.floor(averagePaceMinutes); // 평균 페이스의 분 부분
-        const paceSeconds = Math.round((averagePaceMinutes - paceMinutes) * 60); // 평균 페이스의 초 부분
-        
-
-        const formattedAveragePace = `${paceMinutes}'${paceSeconds}''`;
+        stopTracking();
 
         // 현재 날짜와 시간 얻기
         const now = new Date();
         const formattedDate = now.toLocaleDateString('ko-KR'); // '년/월/일' 형식으로 날짜 포맷
         const formattedTime = now.toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit' }); // '시:분' 형식으로 시간 포맷
 
-        console.log(now);
-
         const BASE_URI = process.env.REACT_APP_BASE_URI;
-
         axios.post(`${BASE_URI}/api/running/save`,{
             userIdx:1,
             date:formattedDate,
             time:formattedTime,
-            distance :Math.round(distance * 1000) / 1000 ,
-            averagePace:formattedAveragePace,
+            distance :Math.round(distanceTraveled * 1000) / 1000 ,
+            averagePace:pace,
             runningTime:formatTime(timer),
-            path:geoLocationList
+            path:location
 
         })
         .then(function (response) {
@@ -111,69 +80,9 @@ function Running() {
         .catch(function (error) {
             console.log(error);
          });
-          
-          
     }
 
-    
-
-    function onNavigatorCallback(pos) {
-        const latitude = pos.coords.latitude;
-        const longitude = pos.coords.longitude;
-
-        setInitialLocation({ latitude, longitude })
-    }
-
-    useEffect(() => {
-        if (geoLocationList.length <= 1) return;
-        const R = 6371;
-        const toRad = (value) => (value * Math.PI) / 180;
-        const {latitude: lat1, longitude: lon1} = geoLocationList[geoLocationList.length -1]
-        const {latitude: lat2, longitude: lon2} = geoLocationList[geoLocationList.length -2]
-
-        const dLat = toRad(lat2 - lat1);
-        const dLon = toRad(lon2 - lon1);
-        const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) + Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
-        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-        const tmpDistance = R * c;
-
-        setDistance(curDistance.current + tmpDistance)
-        curDistance.current = curDistance.current + tmpDistance
-
-    }, [geoLocationList])
-
-
-    useEffect(() => {
-        if (navigator.geolocation) {
-            navigator.permissions.query({ name: "geolocation" })
-                .then(function (result) {
-                    console.log(result)
-                    if (result.state === "granted") {
-                        navigator.geolocation.getCurrentPosition(onNavigatorCallback, null, null);
-                    }
-                    else if (result.state === "prompt") {
-                        navigator.geolocation.getCurrentPosition(onNavigatorCallback, null, null);
-                    }
-                })
-        }
-        else {
-            console.log("Geolocation is not supported by this browser.");
-        }
-
-        const handleGeoLocationCallback = (e) => {
-            let obj = JSON.parse(e.detail)
-            let latitude = obj["latitude"]
-            let longitude = obj["longitude"]
-            setGeoLocationList(prevList => [...prevList, { latitude, longitude }]);
-        };
-
-        window.addEventListener("onGeoLocationCallback", handleGeoLocationCallback);
-
-        return () => {
-            window.removeEventListener("onGeoLocationCallback", handleGeoLocationCallback);
-        };
-    }, []);
-
+/*
     const handleMockDataClick = () => {
         const totalMockDataCount = MockDataList.length;
         let currentCount = 0;
@@ -181,7 +90,7 @@ function Running() {
         const addMockDataWithDelay = () => {
             if (currentCount < totalMockDataCount) {
                 const newMockData = generateMockData(currentCount);
-                setGeoLocationList((prevList) => [...prevList, newMockData]);
+                setLocation((prevList) => [...prevList, newMockData]);
 
                 currentCount++;
                 setTimeout(addMockDataWithDelay, 5000);
@@ -190,8 +99,7 @@ function Running() {
         
         addMockDataWithDelay();
     };
-
-
+*/
 
     return (
         <div>
@@ -199,17 +107,21 @@ function Running() {
 
             <button onClick={startRun}>Start Run</button>
             <button onClick={stopRun}>Stop Run</button>
-            <button onClick={handleMockDataClick}>Mock Data</button>
+            {/*<button onClick={handleMockDataClick}>Mock Data</button>*/}
 
             <div>
-                <RunningMap path={geoLocationList} initialLocation={initialLocation} />
+                <RunningMap path={location} initialLocation={initialLocation} />
             </div>
             <div>
                 시간: {formatTime(timer)}
             </div>
             <div>
-                거리 : {Math.round(distance * 1000) / 1000 } Km
+                거리 : {distanceTraveled} Km
             </div>
+            <div>
+                pace:  {pace}
+            </div>
+
         </div>
     );
 }
