@@ -9,6 +9,7 @@ const WebCamVideo = () => {
     const [recordedChunks, setRecordedChunks] = useState([]);
     const [timer, setTimer] = useState(null); // timer 상태 추가
     const [elapsedTime, setElapsedTime] = useState(10);
+    const [mimeType, setMimeType] = useState('');
 
 
     const handleDataAvailable = useCallback(({ data }) => {
@@ -33,9 +34,18 @@ const WebCamVideo = () => {
 
                 if (webcamRef.current && webcamRef.current.video && webcamRef.current.video.srcObject) {
                     const stream = webcamRef.current.video.srcObject;
+
+                    let type = 'video/webm';
+                    if (!MediaRecorder.isTypeSupported(type)) {
+                        type = 'video/mp4';
+                    }
+                    setMimeType(type);
+
+                    // let mimeType = MediaRecorder.isTypeSupported('video/webm') ? 'video/webm' : 'video/mp4'; // MIME 유형 동적으로 결정
                     // mediaRecorderRef.current = new MediaRecorder(webcamRef.current.stream, {
                     mediaRecorderRef.current = new MediaRecorder(stream, {
-                        mimeType: "video/mp4"
+                        // mimeType: "video/mp4"
+                        mimeType: type
                     });
 
                     mediaRecorderRef.current.ondataavailable = handleDataAvailable;
@@ -70,7 +80,8 @@ const WebCamVideo = () => {
         if (webcamRef.current && webcamRef.current.video && webcamRef.current.video.srcObject) {
             const stream = webcamRef.current.video.srcObject;
             mediaRecorderRef.current = new MediaRecorder(stream, {
-                mimeType: "video/mp4"
+                // mimeType: "video/mp4"
+                mimeType: mimeType
             });
 
             mediaRecorderRef.current.ondataavailable = handleDataAvailable;
@@ -96,25 +107,25 @@ const WebCamVideo = () => {
             setElapsedTime(10); // 녹화 시작 시간을 10으로 재설정
             mediaRecorderRef.current.start();
         }
-    }, [webcamRef, mediaRecorderRef, handleDataAvailable, handleStopCaptureClick]);
+    }, [webcamRef, mediaRecorderRef, handleDataAvailable, mimeType, handleStopCaptureClick]);
 
     const handleDownload = useCallback(() => {
         if (recordedChunks.length) {
             const blob = new Blob(recordedChunks, {
-                type: "video/mp4"
+                type: mimeType
             });
             const url = URL.createObjectURL(blob);
             const a = document.createElement("a");
             document.body.appendChild(a);
             a.style = "display:none";
             a.href = url;
-            a.download = "react-webcam-stream-capture.mp4";
+            a.download = `react-webcam-stream-capture.${mimeType.split('/')[1]}`;
             a.click();
             window.URL.revokeObjectURL(url);
             // const video = document.getElementById("video-replay");
             // video.src = url
         }
-    }, [recordedChunks]);
+    }, [recordedChunks, mimeType]);
 
     const handleTouchStart = useCallback(() => {
         console.log("Start Capture button touched");
