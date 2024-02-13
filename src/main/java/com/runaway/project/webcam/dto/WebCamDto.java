@@ -22,7 +22,7 @@ public class WebCamDto {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long webCamNum;
 
-    @Column(name="webCamUserId", length=30)
+    @Column(length=30)
     private String webCamUserId;
 
     @Column(length=100)
@@ -30,6 +30,9 @@ public class WebCamDto {
 
     @Column(length=100)
     private String webCamContent;
+
+    @Column(length=100)
+    private Long webCamWatchCount;
 
     @JsonFormat(pattern="yyyy-MM-dd HH:mm",timezone="Asia/Seoul") //댓글은 출력을 ajax 로 처리할 것임
     @Column(updatable=false) //수정 시 수정 컬럼에서 제외
