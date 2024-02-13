@@ -10,14 +10,21 @@ const Mypage = () => {
 
     useEffect(()=>{
         //서버에서 위치 데이터 가져오기
-        axios({
-            method: 'get',
-            url: `${BASE_URI}/api/profile/map/path`,
-            responseType: 'stream'
+
+        axios.get(`${BASE_URI}/api/profile/map/path`, {
+            params: {
+                userId: 1
+            }
           })
-            .then(function (res) {
-              console.log(res.data);
-            });
+          .then(function (response) {
+            console.log(response);
+          })
+          .catch(function (error) {
+            console.log(error);
+          })
+          .finally(function () {
+            
+          });          
 
     },[])
 
