@@ -15,6 +15,7 @@ public class MyRunningDto {
 
     private long running_idx;
 
+
     private String userid;
 
     private int running_distance;
