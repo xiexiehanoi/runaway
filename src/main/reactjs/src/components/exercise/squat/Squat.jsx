@@ -2,8 +2,30 @@ import React, { useRef, useState, useEffect } from "react";
 import "./progress.css";
 
 const MAX = 10;
+const BASE_URL =  process.env.REACT_APP_BASE_URI;
+
+const saveCountToDatabase = async (count) => {
+  try {
+    const response = await fetch(`${BASE_URL}/myexercise/insert`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ squat_count: count }),
+    });
+
+    if (response.ok) {
+      console.log('Count saved successfully');
+    } else {
+      console.error('Failed to save count');
+    }
+  } catch (error) {
+    console.error('Error:', error);
+  }
+};
 
 const Squat = () => {
+
   const squatBoxContainer = {
     position: "relative",
     width: "100%",
@@ -243,6 +265,13 @@ const Squat = () => {
       }
     };
   }, []);
+
+  useEffect(() => {
+    if (count === MAX) {
+      const count = 10;
+      saveCountToDatabase(count);
+    }
+  }, [count]);
   
  return (
   <div style={squatBoxContainer}>
