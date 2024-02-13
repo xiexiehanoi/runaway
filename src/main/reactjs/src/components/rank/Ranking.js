@@ -11,14 +11,13 @@ const Ranking = () => {
     const RankList = async () => {
         try {
             const response = await axios.get(`${BACKEND_URL}/ranking/list`);
-            console.log("값:"+response);
             setRankingList(response.data);
         } catch (error) {
             console.error("Error fetching ranking list:", error);
         }
     };
 
-    RankList(); // useEffect 내부에서 바로 호출
+    RankList();
 }, []);
 
   return (
