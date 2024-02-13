@@ -123,7 +123,8 @@ const WebCamVideo = () => {
             document.body.appendChild(a);
             a.style = "display:none";
             a.href = url;
-            a.download = `react-webcam-stream-capture.${mimeType.split('/')[1]}`;
+            // a.download = `react-webcam-stream-capture.${mimeType.split('/')[1]}`;
+            a.download = "react-webcam-stream-capture.mp4";
             a.click();
             window.URL.revokeObjectURL(url);
             // const video = document.getElementById("video-replay");
