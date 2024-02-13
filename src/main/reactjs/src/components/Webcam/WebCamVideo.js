@@ -38,6 +38,10 @@ const WebCamVideo = () => {
                     let type = 'video/webm';
                     if (!MediaRecorder.isTypeSupported(type)) {
                         type = 'video/mp4';
+                        if (!MediaRecorder.isTypeSupported(type)) {
+                            alert('모바일 브라우저에서 지원되지 않는 mimeType입니다.');
+                            return;
+                        }
                     }
                     setMimeType(type);
 
