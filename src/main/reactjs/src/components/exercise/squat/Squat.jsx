@@ -1,12 +1,12 @@
 import React, { useRef, useState, useEffect } from "react";
 import "./progress.css";
 
-const MAX = 10;
-const BASE_URL =  process.env.REACT_APP_BASE_URI;
+const MAX = 1;
+const BASE_URL =  process.env.REACT_APP_BACKEND_URL;
 
 const saveCountToDatabase = async (count) => {
   try {
-    const response = await fetch(`${BASE_URL}/myexercise/insert`, {
+    const response = await fetch(`${BASE_URL}/api/challenge/myexercise/insert`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -267,11 +267,10 @@ const Squat = () => {
   }, []);
 
   useEffect(() => {
-    if (count === MAX) {
-      const count = 10;
+     if (count === MAX) {
       saveCountToDatabase(count);
     }
-  }, [count]);
+  },[]);
   
  return (
   <div style={squatBoxContainer}>
