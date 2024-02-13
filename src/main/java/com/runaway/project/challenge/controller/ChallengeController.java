@@ -13,7 +13,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/challenge")
+@RequestMapping("/api/challenge")
 public class ChallengeController {
     private final ExerciseChallengeDao exerciseChallengeDao;
     private final RunningChallengeDao runningChallengeDao;
@@ -36,6 +36,7 @@ public class ChallengeController {
     @PostMapping("/myexercise/insert")
     public void insertmyexercise(@RequestBody MyExerciseDto dto)
     {
+        System.out.println("Received squat count: " + dto.getSquat_count());
         exerciseChallengeDao.insertMyExercise(dto);
     }
 

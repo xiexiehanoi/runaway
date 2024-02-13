@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 
 import { Container as MapDiv, useNavermaps, NaverMap, Polyline } from 'react-naver-maps'
 
@@ -18,15 +18,21 @@ function RunningMap({path, initialLocation}) {
 }
 
 function RunningMapComponent({path, initialLocation}) {
-    const naverMap = useNavermaps(null)
-    const polylinePath = path.map(loc => new window.naver.maps.LatLng(loc.latitude, loc.longitude));
+    useNavermaps(null)
+    console.log(typeof(path))
+
+    const polylinePath = path.length > 0 ? path.map(loc => new window.naver.maps.LatLng(loc.latitude, loc.longitude)) : [];
     const [map, setMap] = useState(null)
+
+    useEffect(() => {
+        if (map) {
+            map.setCenter(new window.naver.maps.LatLng(initialLocation.latitude, initialLocation.longitude))
+        }
+    }, [initialLocation]);
+
 
     return (
             <NaverMap
-                defaultCenter={ 
-                    new naverMap.LatLng(initialLocation.latitude, initialLocation.longitude)
-                }
                 ref={setMap}
             > 
                 <Polyline
