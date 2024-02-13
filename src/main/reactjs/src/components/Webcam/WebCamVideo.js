@@ -9,6 +9,7 @@ const WebCamVideo = () => {
     const [recordedChunks, setRecordedChunks] = useState([]);
     const [timer, setTimer] = useState(null); // timer 상태 추가
     const [elapsedTime, setElapsedTime] = useState(10);
+    const [mimeType, setMimeType] = useState('');
 
 
     const handleDataAvailable = useCallback(({ data }) => {
@@ -33,9 +34,18 @@ const WebCamVideo = () => {
 
                 if (webcamRef.current && webcamRef.current.video && webcamRef.current.video.srcObject) {
                     const stream = webcamRef.current.video.srcObject;
+
+                    let type = 'video/webm';
+                    if (!MediaRecorder.isTypeSupported(type)) {
+                        type = 'video/mp4';
+                    }
+                    setMimeType(type);
+
+                    // let mimeType = MediaRecorder.isTypeSupported('video/webm') ? 'video/webm' : 'video/mp4'; // MIME 유형 동적으로 결정
                     // mediaRecorderRef.current = new MediaRecorder(webcamRef.current.stream, {
                     mediaRecorderRef.current = new MediaRecorder(stream, {
-                        mimeType: "video/webm"
+                        // mimeType: "video/mp4"
+                        mimeType: type
                     });
 
                     mediaRecorderRef.current.ondataavailable = handleDataAvailable;
@@ -70,7 +80,8 @@ const WebCamVideo = () => {
         if (webcamRef.current && webcamRef.current.video && webcamRef.current.video.srcObject) {
             const stream = webcamRef.current.video.srcObject;
             mediaRecorderRef.current = new MediaRecorder(stream, {
-                mimeType: "video/webm"
+                // mimeType: "video/mp4"
+                mimeType: mimeType
             });
 
             mediaRecorderRef.current.ondataavailable = handleDataAvailable;
@@ -96,29 +107,43 @@ const WebCamVideo = () => {
             setElapsedTime(10); // 녹화 시작 시간을 10으로 재설정
             mediaRecorderRef.current.start();
         }
-    }, [webcamRef, mediaRecorderRef, handleDataAvailable, handleStopCaptureClick]);
+    }, [webcamRef, mediaRecorderRef, handleDataAvailable, mimeType, handleStopCaptureClick]);
 
     const handleDownload = useCallback(() => {
         if (recordedChunks.length) {
             const blob = new Blob(recordedChunks, {
-                type: "video/webm"
+                type: mimeType
             });
             const url = URL.createObjectURL(blob);
             const a = document.createElement("a");
             document.body.appendChild(a);
             a.style = "display:none";
             a.href = url;
-            a.download = "react-webcam-stream-capture.webm";
+            a.download = `react-webcam-stream-capture.${mimeType.split('/')[1]}`;
             a.click();
             window.URL.revokeObjectURL(url);
             // const video = document.getElementById("video-replay");
             // video.src = url
         }
-    }, [recordedChunks]);
+    }, [recordedChunks, mimeType]);
 
     const handleTouchStart = useCallback(() => {
         console.log("Start Capture button touched");
-    }, []);
+        // alert("버튼이 눌려요!");
+        handleStartCaptureClick(); // 터치 시작 시 녹화 시작
+    }, [handleStartCaptureClick]);
+
+    const handleTouchStop = useCallback(() => {
+        console.log("Stop Capture button touched");
+        // alert("버튼이 눌려요!");
+        handleStopCaptureClick(); // 터치 시작 시 녹화 시작
+    }, [handleStopCaptureClick]);
+
+    const handleTouchDownload = useCallback(() => {
+        console.log("Start Capture button touched");
+        // alert("버튼이 눌려요!");
+        handleDownload(); // 터치 시작 시 녹화 시작
+    }, [handleDownload]);
 
     return (
         <span className="WebCamContainer">
@@ -136,15 +161,15 @@ const WebCamVideo = () => {
             />
             {/* <video id="video-replay" height="400" width="500" controls></video> */}
             {capturing ? (
-                <button className="WebCamStopBtn" onClick={handleStopCaptureClick}>Stop Capture</button>
+                <button className="WebCamStopBtn" onClick={handleStopCaptureClick} onTouchStart={handleTouchStop}>Stop Capture</button>
             ) : (
                 <button className="WebCamStartBtn" onClick={handleStartCaptureClick} onTouchStart={handleTouchStart}>Start Capture</button>
             )}
             {elapsedTime === 0 && !capturing && (
-                <button className="WebCamStartBtn" onClick={handleStartCaptureClick}>Start Capture</button>
+                <button className="WebCamStartBtn" onClick={handleStartCaptureClick} onTouchStart={handleTouchStart}>Start Capture</button>
             )}
             {recordedChunks.length > 0 && (
-                <button className="WebCamVideoDownloadBtn" onClick={handleDownload}>Download</button>
+                <button className="WebCamVideoDownloadBtn" onClick={handleDownload} onTouchStart={handleTouchDownload}>Download</button>
             )}
             <WebCamTimer elapsedTime={elapsedTime} />
         </span>
