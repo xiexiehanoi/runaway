@@ -35,7 +35,7 @@ const WebCamVideo = () => {
                     const stream = webcamRef.current.video.srcObject;
                     // mediaRecorderRef.current = new MediaRecorder(webcamRef.current.stream, {
                     mediaRecorderRef.current = new MediaRecorder(stream, {
-                        mimeType: "video/webm"
+                        mimeType: "video/mp4"
                     });
 
                     mediaRecorderRef.current.ondataavailable = handleDataAvailable;
@@ -70,7 +70,7 @@ const WebCamVideo = () => {
         if (webcamRef.current && webcamRef.current.video && webcamRef.current.video.srcObject) {
             const stream = webcamRef.current.video.srcObject;
             mediaRecorderRef.current = new MediaRecorder(stream, {
-                mimeType: "video/webm"
+                mimeType: "video/mp4"
             });
 
             mediaRecorderRef.current.ondataavailable = handleDataAvailable;
@@ -101,14 +101,14 @@ const WebCamVideo = () => {
     const handleDownload = useCallback(() => {
         if (recordedChunks.length) {
             const blob = new Blob(recordedChunks, {
-                type: "video/webm"
+                type: "video/mp4"
             });
             const url = URL.createObjectURL(blob);
             const a = document.createElement("a");
             document.body.appendChild(a);
             a.style = "display:none";
             a.href = url;
-            a.download = "react-webcam-stream-capture.webm";
+            a.download = "react-webcam-stream-capture.mp4";
             a.click();
             window.URL.revokeObjectURL(url);
             // const video = document.getElementById("video-replay");
@@ -118,19 +118,19 @@ const WebCamVideo = () => {
 
     const handleTouchStart = useCallback(() => {
         console.log("Start Capture button touched");
-        alert("버튼이 눌려요!");
+        // alert("버튼이 눌려요!");
         handleStartCaptureClick(); // 터치 시작 시 녹화 시작
     }, [handleStartCaptureClick]);
 
     const handleTouchStop = useCallback(() => {
         console.log("Stop Capture button touched");
-        alert("버튼이 눌려요!");
+        // alert("버튼이 눌려요!");
         handleStopCaptureClick(); // 터치 시작 시 녹화 시작
     }, [handleStopCaptureClick]);
 
     const handleTouchDownload = useCallback(() => {
         console.log("Start Capture button touched");
-        alert("버튼이 눌려요!");
+        // alert("버튼이 눌려요!");
         handleDownload(); // 터치 시작 시 녹화 시작
     }, [handleDownload]);
 
