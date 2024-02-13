@@ -98,6 +98,12 @@ const WebCamVideo = () => {
         }
     }, [webcamRef, mediaRecorderRef, handleDataAvailable, handleStopCaptureClick]);
 
+    const handleTouchStart = useCallback(() => {
+        console.log("Start Capture button touched");
+        alert("버튼이 눌려요!");
+        handleStartCaptureClick(); // 터치 시작 시 녹화 시작
+    }, [handleStartCaptureClick]);
+
     const handleDownload = useCallback(() => {
         if (recordedChunks.length) {
             const blob = new Blob(recordedChunks, {
@@ -116,10 +122,10 @@ const WebCamVideo = () => {
         }
     }, [recordedChunks]);
 
-    const handleTouchStart = useCallback(() => {
-        console.log("Start Capture button touched");
-        alert("버튼이 눌려요!");
-    }, []);
+    // const handleTouchStart = useCallback(() => {
+    //     console.log("Start Capture button touched");
+    //     alert("버튼이 눌려요!");
+    // }, []);
 
     return (
         <span className="WebCamContainer">
