@@ -132,23 +132,23 @@ const WebCamVideo = () => {
         }
     }, [recordedChunks, mimeType]);
 
-    const handleTouchStart = useCallback(() => {
-        console.log("Start Capture button touched");
-        // alert("버튼이 눌려요!");
-        handleStartCaptureClick(); // 터치 시작 시 녹화 시작
-    }, [handleStartCaptureClick]);
+    // const handleTouchStart = useCallback(() => {
+    //     console.log("Start Capture button touched");
+    //     // alert("버튼이 눌려요!");
+    //     handleStartCaptureClick(); // 터치 시작 시 녹화 시작
+    // }, [handleStartCaptureClick]);
 
-    const handleTouchStop = useCallback(() => {
-        console.log("Stop Capture button touched");
-        // alert("버튼이 눌려요!");
-        handleStopCaptureClick(); // 터치 시작 시 녹화 시작
-    }, [handleStopCaptureClick]);
+    // const handleTouchStop = useCallback(() => {
+    //     console.log("Stop Capture button touched");
+    //     // alert("버튼이 눌려요!");
+    //     handleStopCaptureClick(); // 터치 시작 시 녹화 시작
+    // }, [handleStopCaptureClick]);
 
-    const handleTouchDownload = useCallback(() => {
-        console.log("Start Capture button touched");
-        // alert("버튼이 눌려요!");
-        handleDownload(); // 터치 시작 시 녹화 시작
-    }, [handleDownload]);
+    // const handleTouchDownload = useCallback(() => {
+    //     console.log("Start Capture button touched");
+    //     // alert("버튼이 눌려요!");
+    //     handleDownload(); // 터치 시작 시 녹화 시작
+    // }, [handleDownload]);
 
     return (
         <span className="WebCamContainer">
@@ -166,15 +166,15 @@ const WebCamVideo = () => {
             />
             {/* <video id="video-replay" height="400" width="500" controls></video> */}
             {capturing ? (
-                <button className="WebCamStopBtn" onClick={handleStopCaptureClick} onTouchStart={handleTouchStop}>Stop Capture</button>
+                <button className="WebCamStopBtn" onClick={handleStopCaptureClick}>Stop Capture</button>
             ) : (
-                <button className="WebCamStartBtn" onClick={handleStartCaptureClick} onTouchStart={handleTouchStart}>Start Capture</button>
+                <button className="WebCamStartBtn" onClick={handleStartCaptureClick}>Start Capture</button>
             )}
             {elapsedTime === 0 && !capturing && (
-                <button className="WebCamStartBtn" onClick={handleStartCaptureClick} onTouchStart={handleTouchStart}>Start Capture</button>
+                <button className="WebCamStartBtn" onClick={handleStartCaptureClick}>Start Capture</button>
             )}
             {recordedChunks.length > 0 && (
-                <button className="WebCamVideoDownloadBtn" onClick={handleDownload} onTouchStart={handleTouchDownload}>Download</button>
+                <button className="WebCamVideoDownloadBtn" onClick={handleDownload}>Download</button>
             )}
             <WebCamTimer elapsedTime={elapsedTime} />
         </span>

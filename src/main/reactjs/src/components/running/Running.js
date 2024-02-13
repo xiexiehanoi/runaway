@@ -93,8 +93,9 @@ function Running() {
 
         console.log(now);
 
+        const BASE_URI = process.env.REACT_APP_BASE_URI;
 
-        axios.post('/api/running/save',{
+        axios.post(`${BASE_URI}/api/running/save`,{
             userIdx:1,
             date:formattedDate,
             time:formattedTime,
