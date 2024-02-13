@@ -2,15 +2,18 @@ import axios from 'axios';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
+const BASE_URL =  process.env.REACT_APP_BASE_URI;
 const RunningChallengeRowItem = (props) => {
     const {row,idx}=props;
     const navi=useNavigate();
 
-    const addMyRunning=()=>{
-        axios.post("/challenge/myexercise/insert",{idx})
-        .then(res=>{
+    const addMyRunning=async()=>{
+        try {
+            const response = await axios.post(`${BASE_URL}/myrunning/insert`,{idx});
             navi("/challengemain");
-        })
+        } catch (error) {
+            console.error("Error adding my running:", error);
+        }
     }
 
     return (

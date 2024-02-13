@@ -2,15 +2,21 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import RunningChallengeRowItem from './RunningChallengeRowItem';
 
+const BASE_URL =  process.env.REACT_APP_BASE_URI;
+
 const RunningChallenge = () => {
     const [runningList,setRunningList]=useState([]);
 
-    const list2=()=>{
-        axios.get("/challenge/running/list")
-        .then(res=>{
-            console.log(res);
-            setRunningList(res.data);
-        })
+    const list2=async()=>{
+        try{
+
+            const response = await axios.get(`${BASE_URL}/running/list`);
+                console.log("bgbgb: "+response);
+                setRunningList(response.data);
+           
+        }catch(error){
+            console.error("Error fetching runningchallenge list:", error);
+        }
     }
 
     useEffect(()=>{
