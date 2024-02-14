@@ -8,19 +8,14 @@ import lombok.Setter;
 @Getter
 @Setter
 @Table(name = "exercisechallenge")
-public class
-ExerciseChallengeDto {
+public class ExerciseChallengeDto {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long idx;
-
-    private String name;
-
-    private int end;
-
-    private int count;
-
+    private int Id;
+    private int targetCount;
+    private int targetDate;
+    private String exerciseType;
     private int exp;
 
 }
