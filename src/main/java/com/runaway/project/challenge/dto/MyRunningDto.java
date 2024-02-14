@@ -1,17 +1,19 @@
 package com.runaway.project.challenge.dto;
 
+import com.runaway.project.running.dto.RunningDto;
 import com.runaway.project.user.entity.User;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
 @Getter
 @Setter
-@Table(name = "myrunning")
+@Table(name = "my_running")
 public class MyRunningDto {
 
     @Id
@@ -19,11 +21,11 @@ public class MyRunningDto {
     private int idx;
 
     @ManyToOne
-    @JoinColumn(name = "userId", referencedColumnName = "id")
-    private User userid; // User 엔티티와의 연관 관계
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private User user; // User 엔티티와의 연관 관계
 
     @ManyToOne
-    @JoinColumn(name = "challengeId", referencedColumnName = "id")
+    @JoinColumn(name = "challenge_id", referencedColumnName = "id")
     private RunningChallengeDto runningChallenge; // RunningChallenge 엔티티와의 연관 관계
 
     private Timestamp start_date;
