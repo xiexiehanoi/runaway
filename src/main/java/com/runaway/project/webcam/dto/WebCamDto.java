@@ -30,8 +30,7 @@ public class WebCamDto {
 
     @Column(length=100)
     private String webCamContent;
-
-    @Column(length=100)
+    
     private Long webCamWatchCount;
 
     @JsonFormat(pattern="yyyy-MM-dd HH:mm",timezone="Asia/Seoul") //댓글은 출력을 ajax 로 처리할 것임
