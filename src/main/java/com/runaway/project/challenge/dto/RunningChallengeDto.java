@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @Setter
-@Table(name = "runningchallenge")
+@Table(name = "running_challenge")
 public class RunningChallengeDto {
 
     @Id
