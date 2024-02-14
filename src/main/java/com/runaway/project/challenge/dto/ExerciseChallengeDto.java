@@ -7,15 +7,15 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-@Table(name = "exercisechallenge")
+@Table(name = "exercise_challenge")
 public class ExerciseChallengeDto {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int Id;
-    private int targetCount;
-    private int targetDate;
-    private String exerciseType;
+    private int target_count;
+    private int target_date;
+    private String exercise_type;
     private int exp;
 
 }
