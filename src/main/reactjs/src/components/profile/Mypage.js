@@ -5,12 +5,12 @@ import { Container as MapDiv, NaverMap, Polyline  ,useNavermaps } from 'react-na
 const Mypage = () => {
     // 위치 데이터 상태 관리
     const [paths, setPaths] = useState([]);
-    const BASE_URI = process.env.REACT_APP_BASE_URI;
+    const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
     useEffect(() => {
         //서버에서 위치 데이터 가져오기
 
-        axios.get(`${BASE_URI}/api/profile/map/path`, {
+        axios.get(`${BACKEND_URL}/api/profile/map/path`, {
             params: {
                 userId: 20
             }
