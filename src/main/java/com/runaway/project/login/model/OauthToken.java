@@ -21,4 +21,6 @@ public class OauthToken {
     private String error;
     @JsonProperty("error_description")
     private String errorDescription;
+    @JsonProperty("id_token")
+    private String idToken;
 }

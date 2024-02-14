@@ -2,7 +2,7 @@ import React from 'react';
 import Running from '../components/running/Running';
 import WebCam from '../components/Webcam/WebCam';
 import { Route, Routes } from 'react-router-dom';
-import MyPage from '../components/login/MyPage';
+import MyPage from '../components/profile/Mypage';
 import LoginPage from '../components/login/LoginPage';
 import GoogleLogin from '../components/login/GoogleLogin';
 import NaverLogin from '../components/login/NaverLogin';
@@ -15,6 +15,7 @@ import SignUpForm from '../components/signup/SignUpForm';
 import Squat from '../components/exercise/squat/Squat';
 import ChallengeMain from '../components/challenge/ChallengeMain';
 import KakaoLoginCallback from "../components/login/KakaoLoginCallback";
+import Ranking from '../components/rank/Ranking';
 const RouterMain = () => {
     return (
         <MainLayout>       
@@ -35,6 +36,7 @@ const RouterMain = () => {
                 <Route path="/situp" element={<Exercise />} />
                 <Route path="/challengemain" element={<ChallengeMain/>}/>
                 <Route path="/" element={<Home />} />
+                <Route path="/ranking" element={<Ranking />} />
             </Routes>
         </MainLayout>
         
