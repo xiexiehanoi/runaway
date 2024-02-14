@@ -21,4 +21,3 @@ public class RunningChallengeDto {
     private int exp;
 
 }
-

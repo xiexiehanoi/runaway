@@ -63,9 +63,9 @@ function Running() {
         const formattedDate = now.toLocaleDateString('ko-KR'); // '년/월/일' 형식으로 날짜 포맷
         const formattedTime = now.toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit' }); // '시:분' 형식으로 시간 포맷
 
-        const BASE_URI = process.env.REACT_APP_BASE_URI;
-        axios.post(`${BASE_URI}/api/running/save`,{
-            userIdx:1,
+        const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+        axios.post(`${BACKEND_URL}/api/running/save`,{
+            userIdx:20,
             date:formattedDate,
             time:formattedTime,
             distance :Math.round(distanceTraveled * 1000) / 1000 ,
@@ -116,7 +116,7 @@ function Running() {
                 시간: {formatTime(timer)}
             </div>
             <div>
-                거리 : {distanceTraveled} Km
+                거리 : {Math.round(distanceTraveled*1000)/1000} Km
             </div>
             <div>
                 pace:  {pace}
