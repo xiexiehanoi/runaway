@@ -36,7 +36,7 @@ public class ChallengeController {
     @PostMapping("/myexercise/insert")
     public void insertmyexercise(@RequestBody MyExerciseDto dto)
     {
-        System.out.println("Received squat count: " + dto.getSquat_count());
+//        System.out.println("Received squat count: " + dto.getSquat_count());
         exerciseChallengeDao.insertMyExercise(dto);
     }
 
