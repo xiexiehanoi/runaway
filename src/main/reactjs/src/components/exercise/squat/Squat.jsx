@@ -1,31 +1,35 @@
 import React, { useRef, useState, useEffect } from "react";
 import "./progress.css";
+import Modal from "../MaxInputModal";
 
-const MAX = 1;
-const BASE_URL =  process.env.REACT_APP_BACKEND_URL;
+const BASE_URL = process.env.REACT_APP_BACKEND_URL;
 
 const saveCountToDatabase = async (count) => {
   try {
-    const response = await fetch(`${BASE_URL}/api/challenge/myexercise/insert`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ squat_count: count }),
-    });
+    const response = await fetch(
+      `${BASE_URL}/api/challenge/myexercise/insert`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ squat_count: count }),
+      }
+    );
 
     if (response.ok) {
-      console.log('Count saved successfully');
+      console.log("Count saved successfully");
+      alert("세트 하나 완료");
+      window.location = "/exercise";
     } else {
-      console.error('Failed to save count');
+      console.error("Failed to save count");
     }
   } catch (error) {
-    console.error('Error:', error);
+    console.error("Error:", error);
   }
 };
 
 const Squat = () => {
-
   const squatBoxContainer = {
     position: "relative",
     width: "100%",
@@ -75,18 +79,20 @@ const Squat = () => {
   const [progress, setProgress] = useState(null);
   const [predictions, setPredictions] = useState([]);
   const countRef = useRef(count);
+  const [maxCount, setMaxCount] = useState(10); // 기본 MAX 값
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     if (progress) {
       progress.value = count;
-      progress.el.style.setProperty("--progress-value", count / MAX);
+      progress.el.style.setProperty("--progress-value", count / maxCount);
     }
   }, [count, progress]);
 
   useEffect(() => {
     if (cameraActive && !progress && progressRef.current) {
       const newProgress = new window.CircleProgress(progressRef.current, {
-        max: MAX,
+        max: maxCount,
         value: count,
         animationDuration: 400,
         textFormat: (val) => `${val}회`,
@@ -104,7 +110,8 @@ const Squat = () => {
     }
   }, [count, progress]);
 
-  const startCameraAndFunction = async () => {
+  const startExercise = async () => {
+    // 카메라 및 관련 기능 시작 로직
     setMessage(
       "지금부터 5초간 자세를 잡아주세요\n스쿼트는 옆모습으로 진행하여주세요"
     );
@@ -116,23 +123,40 @@ const Squat = () => {
       if (progressRef.current) {
         progressRef.current.style.display = "block";
         if (!progress) {
-          // CircleProgress 인스턴스가 없으면 새로 생성
           const newProgress = new window.CircleProgress(progressRef.current, {
-            max: MAX,
+            max: maxCount, // 사용자가 설정한 maxCount 사용
             value: count,
             animationDuration: 400,
-            textFormat: (val) => `${val}°`,
+            textFormat: (val) => `${val}회`,
           });
           setProgress(newProgress);
         } else {
-          // CircleProgress 인스턴스가 이미 있으면 value를 업데이트
           progress.value = count;
         }
       }
     }, 5000);
   };
 
+  const handleModalSave = (value) => {
+    setMaxCount(value);
+    setShowModal(false);
+    startExercise();
+  };
+
+  const handleModalClose = () => {
+    setShowModal(false);
+  };
+
+  const handleStartButtonClick = () => {
+    setShowModal(true);
+  };
+
   const stopCameraAndFunction = () => {
+
+    setMaxCount(0);
+    setCount(0); 
+    setCameraActive(false); 
+
     if (webcamRef.current) {
       webcamRef.current.stop();
       webcamRef.current = null;
@@ -199,16 +223,18 @@ const Squat = () => {
   };
 
   const predict = async () => {
-    const { pose, posenetOutput } = await modelRef.current.estimatePose(webcamRef.current.canvas);
+    const { pose, posenetOutput } = await modelRef.current.estimatePose(
+      webcamRef.current.canvas
+    );
     const prediction = await modelRef.current.predict(posenetOutput);
-  
+
     // label-container 를 위한 것
     const newPredictions = prediction.map((p) => ({
       className: p.className,
       probability: p.probability.toFixed(2),
     }));
     setPredictions(newPredictions);
-  
+
     if (prediction[2].probability.toFixed(2) === "1.00") {
       setStatus("squat");
     } else if (prediction[1].probability.toFixed(2) === "1.00") {
@@ -216,20 +242,20 @@ const Squat = () => {
     } else if (prediction[0].probability.toFixed(2) === "1.00") {
       setStatus("nothing");
     }
-  
+
     drawPose(pose);
   };
-  
+
   const playCountAudio = (newCount) => {
     new Audio(`${newCount % 10}.mp3`).play();
   };
 
   useEffect(() => {
-    console.log('Status has changed:', status);
+    console.log("Status has changed:", status);
   }, [status]);
 
   useEffect(() => {
-    console.log('Count from useEffect:', count); // count 상태가 변경될 때마다 로그 출력
+    console.log("Count from useEffect:", count); // count 상태가 변경될 때마다 로그 출력
   }, [count]);
 
   useEffect(() => {
@@ -245,7 +271,7 @@ const Squat = () => {
     }
     countRef.current = status;
   }, [status, count]);
-  
+
   const drawPose = (pose) => {
     if (canvasRef.current && webcamRef.current && webcamRef.current.canvas) {
       const ctx = canvasRef.current.getContext("2d");
@@ -264,61 +290,65 @@ const Squat = () => {
         cancelAnimationFrame(animationFrameId.current);
       }
     };
-  }, []);
+  }, [count]);
 
   useEffect(() => {
-     if (count === MAX) {
+    if (count > 0 && count === maxCount) {
       saveCountToDatabase(count);
     }
-  },[]);
-  
- return (
-  <div style={squatBoxContainer}>
-    <div style={squatContextStyle}>squat</div>
-    {cameraActive ? (
-      <>
+  });
+
+  return (
+    <div style={squatBoxContainer}>
+      <div style={squatContextStyle}>squat</div>
+      {cameraActive ? (
+        <>
+          <button
+            type="button"
+            onClick={stopCameraAndFunction}
+            style={squatButtonStyle}
+          >
+            중단하기
+          </button>
+          <div style={canvasBox}>
+            <div
+              ref={progressRef}
+              className="progress"
+              style={{ display: "block" }}
+            ></div>
+            <canvas
+              ref={canvasRef}
+              width="640px"
+              height="480px"
+              style={canvasStyle}
+            ></canvas>
+            <div
+              id="label-container"
+              style={{ position: "relative", top: "5%" }}
+            >
+              {predictions.map((p, index) => (
+                <div key={index}>{`${p.className}: ${p.probability}`}</div>
+              ))}
+            </div>
+          </div>
+        </>
+      ) : (
         <button
           type="button"
-          onClick={stopCameraAndFunction}
+          onClick={handleStartButtonClick}
           style={squatButtonStyle}
         >
-          중단하기
+          측정시작
         </button>
-        <div style={canvasBox}>
-          <div
-            ref={progressRef}
-            className="progress"
-            style={{ display: "block" }}
-          ></div>
-          <canvas
-            ref={canvasRef}
-            width="640px"
-            height="480px"
-            style={canvasStyle}
-          ></canvas>
-          <div id="label-container" style={{ position: "relative", top: "5%" }}>
-            {predictions.map((p, index) => (
-              <div key={index}>{`${p.className}: ${p.probability}`}</div>
-            ))}
-          </div>
-        </div>
-      </>
-    ) : (
-      <button
-        type="button"
-        onClick={startCameraAndFunction}
-        style={squatButtonStyle}
-      >
-        측정시작
-      </button>
-    )}
+      )}
 
-    {message && (
-      <div style={messageBox}>{message}</div>
-    )}
-  </div>
-);
+      {showModal && (
+        <Modal onSave={handleModalSave} onClose={handleModalClose} />
+      )}
 
+      {message && <div style={messageBox}>{message}</div>}
+    </div>
+  );
 };
 
 export default Squat;

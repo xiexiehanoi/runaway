@@ -116,7 +116,7 @@ function Running() {
                 시간: {formatTime(timer)}
             </div>
             <div>
-                거리 : {distanceTraveled} Km
+                거리 : {Math.round(distanceTraveled*1000)/1000} Km
             </div>
             <div>
                 pace:  {pace}
