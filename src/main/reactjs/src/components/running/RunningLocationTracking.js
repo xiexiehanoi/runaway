@@ -85,16 +85,21 @@ export function RunningLocationTracking() {
             location[location.length - 1].latitude,
             location[location.length - 1].longitude
         );
+
         setDistanceTraveled((prevDistance) => prevDistance + distance);
     }, [location]);
 
     useEffect(() => {
         if (distanceTraveled > 0) {
-            const averagePaceMinutes = (timer / 60) / distanceTraveled; // 총 시간(분)을 총 거리(km)로 나눔
+            const averagePaceMinutes = (timer / distanceTraveled) / 60; // 총 시간(분)을 총 거리(km)로 나눔
             const paceMinutes = Math.floor(averagePaceMinutes); // 평균 페이스의 분 부분
             const paceSeconds = Math.round((averagePaceMinutes - paceMinutes) * 60); // 평균 페이스의 초 부분
             setPace(`${paceMinutes}'${paceSeconds}''`);
         }
+        else {
+            setPace(`00'00''`);
+        }
+
     }, [distanceTraveled]);
 
     return { location, startTracking, stopTracking, distanceTraveled, pace, initialLocation, timer };
