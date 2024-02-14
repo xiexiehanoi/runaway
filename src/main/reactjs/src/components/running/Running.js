@@ -65,7 +65,7 @@ function Running() {
 
         const BASE_URI = process.env.REACT_APP_BASE_URI;
         axios.post(`${BASE_URI}/api/running/save`,{
-            userIdx:1,
+            userIdx:12,
             date:formattedDate,
             time:formattedTime,
             distance :Math.round(distanceTraveled * 1000) / 1000 ,
