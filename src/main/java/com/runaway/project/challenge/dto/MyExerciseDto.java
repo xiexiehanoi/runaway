@@ -1,5 +1,7 @@
 package com.runaway.project.challenge.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.runaway.project.user.entity.User;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -7,39 +9,39 @@ import lombok.Setter;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 @Entity
 @Getter
 @Setter
-@Table(name="myexercise")
+@Table(name="my_exercise")
 public class MyExerciseDto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int Id;
-    private int userId;
-    private Timestamp startDate;
-    private Timestamp endDate;
-    private LocalDate exerciseDate;
-    private boolean dailySuccess;
+    private int idx;
 
     @ManyToOne
-    @JoinColumn(name = "exerciseId", referencedColumnName = "id")
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
+    private Timestamp start_date;
+
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
+    private Timestamp end_date;
+
+    private boolean success;
+
+    @ManyToOne
+    @JoinColumn(name = "exerciseChallenge_id")
     private ExerciseChallengeDto exerciseChallengeDto;
 
     @PrePersist
-    private void prePersist() {
-        this.startDate = Timestamp.valueOf(LocalDateTime.now());
-        if (this.exerciseChallengeDto != null) {
-            LocalDateTime endDateTime = LocalDateTime.now().plusDays(this.exerciseChallengeDto.getTargetDate());
-            this.endDate = Timestamp.valueOf(endDateTime);
+    public void prePersist() {
+        this.start_date = Timestamp.valueOf(LocalDateTime.now()); // 시작 날짜를 현재 시간으로 설정
+        if (this.exerciseChallengeDto != null && this.exerciseChallengeDto.getTarget_date() > 0) {
+            // 종료 날짜 계산
+            LocalDateTime endDateTime = LocalDateTime.now().plusDays(this.exerciseChallengeDto.getTarget_date());
+            this.end_date = Timestamp.valueOf(endDateTime);
         }
-        this.exerciseDate = LocalDate.now();
     }
-
-    public String getFormattedStartDate() {
-        return startDate.toLocalDateTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-    }
-
-    // 생성자, getter, setter 생략
 }
