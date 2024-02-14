@@ -12,6 +12,7 @@ const WebCamVideo = () => {
     const [elapsedTime, setElapsedTime] = useState(10);
     const [mimeType, setMimeType] = useState('');
 
+    const BASE_URI = process.env.REACT_APP_BACKEND_URL;
     // const videoUrl = "https://kr.object.ncloudstorage.com/runaway/runaway_story/";
 
     const handleDataAvailable = useCallback(({ data }) => {
@@ -125,7 +126,7 @@ const WebCamVideo = () => {
 
             axios({
                 method: 'post',
-                url: '/api/story/add',
+                url: `${BASE_URI}/api/story/upload`,
                 data: uploadVideo,
                 headers: { 'Content-Type': 'multipart/form-data' }
             }).then(res => {
@@ -148,7 +149,7 @@ const WebCamVideo = () => {
             // const video = document.getElementById("video-replay");
             // video.src = url
         }
-    }, [recordedChunks, mimeType]);
+    }, [recordedChunks, mimeType, BASE_URI]);
 
     // const handleTouchStart = useCallback(() => {
     //     console.log("Start Capture button touched");
