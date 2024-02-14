@@ -12,7 +12,7 @@ const Mypage = () => {
 
         axios.get(`${BASE_URI}/api/profile/map/path`, {
             params: {
-                userId: 12
+                userId: 20
             }
         })
             .then(function (response) {
