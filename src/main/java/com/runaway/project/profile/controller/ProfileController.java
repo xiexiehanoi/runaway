@@ -19,6 +19,8 @@ public class ProfileController {
 
     @GetMapping("map/path")
     public List<RunningEntity> getMapPath(@RequestParam Long userId){
+        System.out.println(userId);
+        System.out.println(profileService.findByUserId(userId).toString());
         return profileService.findByUserId(userId);
 
 //        for (RunningEntity runningEntity : runningEntityList) {
