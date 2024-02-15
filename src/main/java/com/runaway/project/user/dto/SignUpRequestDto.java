@@ -23,7 +23,7 @@ public class SignUpRequestDto {
   private int height;
 
   @Builder
-  public SignUpRequestDto(String username, String email, String password, String nickname, String birthdate, String gender, int weight, int height, SocialType socialType, Role role) {
+  public SignUpRequestDto(String username, String email, String password, String nickname, String birthdate, String gender, int weight, int height) {
     this.username = username;
     this.email = email;
     this.password = password;

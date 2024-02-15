@@ -31,7 +31,7 @@ public class UserService {
   private void validateDuplicateUser(String email) {
     Optional<User> findUsers = userRepository.findByEmail(email);
     if(!findUsers.isEmpty()) {
-      throw new RuntimeException("이미 존재하는 이메일 입니다.");
+      throw new RuntimeException("이미 가입된 이메일 입니다.");
     }
   }
 }
