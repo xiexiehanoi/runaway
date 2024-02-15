@@ -6,7 +6,6 @@ const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
 const RunningChallenge = () => {
     const [runningList,setRunningList]=useState([]);
-    const [userId, setUserId] = useState(null);
 
     useEffect(()=>{
         const list = async()=>{
@@ -18,34 +17,8 @@ const RunningChallenge = () => {
                 console.error("Error fetching exercise list:", error);
             }
         };
-
-    list();
-
+        list();
     },[])
-
-    useEffect(() => {
-        const getUserId = async () => {
-            try {
-                const token = window.localStorage.getItem('token');
-                if (!token) {
-                    console.log("Token not found.");
-                    return;
-                }
-                
-                const response = await axios.get(`${BACKEND_URL}/api/login/me`, {
-                    headers: {
-                        Authorization: token
-                    }
-                });
-                setUserId(response.data.id);
-            } catch (error) {
-                console.error("Failed to fetch user ID:", error);
-            }
-        };
-
-        getUserId();
-    }, []);
-
 
     return (
          <div>
@@ -54,7 +27,7 @@ const RunningChallenge = () => {
                 <tbody>
                     {
                         runningList.map((rowData,idx)=>
-                            <RunningChallengeRowItem key={idx} row={rowData} userId={userId} idx={idx}/>
+                            <RunningChallengeRowItem key={idx} row={rowData} idx={idx}/>
                         )
                     }
                 </tbody>

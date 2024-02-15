@@ -23,27 +23,11 @@ public class ChallengeService {
     @Autowired
     private MyRunningRepository myRunningRepository;
 
-    private final UserRepository userRepository;
-
-    public User findById(Long userId) {
-        Optional<User> OptionalUserEntity = userRepository.findById(userId);
-        if (OptionalUserEntity.isPresent()) {
-            return OptionalUserEntity.get();
-        } else {
-            throw new EntityNotFoundException("User not found for id: " + userId);
-        }
-    }
-
-    public void insertExerciseChallenge(MyExerciseDto myExerciseDto, User userEntity){
-        User user = findById(userEntity.getId());
-        myExerciseDto.setUser(user);
+    public void insertExerciseChallenge(MyExerciseDto myExerciseDto){
         myExerciseRepository.save(myExerciseDto);
     }
 
-    public void insertRunningChallenge(MyRunningDto myRunningDto,User userEntity){
-        User user=findById(userEntity.getId());
-        myRunningDto.setUser(user);
+    public void insertRunningChallenge(MyRunningDto myRunningDto){
         myRunningRepository.save(myRunningDto);
     }
-
 }

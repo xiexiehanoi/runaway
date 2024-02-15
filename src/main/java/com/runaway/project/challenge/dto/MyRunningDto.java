@@ -5,6 +5,7 @@ import com.runaway.project.user.entity.User;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.sql.Timestamp;
 import java.time.LocalDate;
@@ -14,6 +15,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Table(name = "my_running")
+@ToString
 public class MyRunningDto {
 
     @Id
