@@ -2,15 +2,16 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import ExerciseChallengeRowItem from './ExerciseChallengeRowItem';
 
-const BASE_URL = process.env.REACT_APP_BACKEND_URL;
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
 const ExerciseChallenge = () => {
     const [exerciseList,setExerciseList]=useState([]);
 
+
     useEffect(()=>{
         const list = async()=>{
             try {
-                const response = await axios.get(`${BASE_URL}/api/challenge/exercise/list`);
+                const response = await axios.get(`${BACKEND_URL}/api/challenge/exercise/list`);
                 console.log(response);
                 setExerciseList(response.data);
             } catch (error) {

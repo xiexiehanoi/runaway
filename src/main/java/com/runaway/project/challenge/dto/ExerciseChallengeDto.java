@@ -1,12 +1,12 @@
 package com.runaway.project.challenge.dto;
 
 import jakarta.persistence.*;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Getter
-@Setter
+@Data
 @Table(name = "exercise_challenge")
 public class ExerciseChallengeDto {
 
