@@ -1,31 +1,24 @@
 import React, { useRef, useState, useEffect } from "react";
 import "./progress.css";
 import Modal from "../MaxInputModal";
+import axios from "axios";
+import { useLocation } from 'react-router-dom';
 
 const BASE_URL = process.env.REACT_APP_BACKEND_URL;
+const dateToSend = new Date().toISOString().split('T')[0];
 
-const saveCountToDatabase = async (count) => {
+const saveCountToDatabase = async (count, exerciseType) => {
   try {
-    const response = await fetch(
-      `${BASE_URL}/api/challenge/myexercise/insert`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ squat_count: count }),
-      }
-    );
-
-    if (response.ok) {
-      console.log("Count saved successfully");
-      alert("세트 하나 완료");
-      window.location = "/exercise";
-    } else {
-      console.error("Failed to save count");
-    }
+    await axios.post(`${BASE_URL}/api/exercise/save`, {
+      date: dateToSend,
+      exerciseCount: count,
+      exerciseType: exerciseType,
+      userId: 17,
+    });
+    console.log("Count saved successfully");
+    alert("세트 하나 완료");
   } catch (error) {
-    console.error("Error:", error);
+    console.error("Failed to save count", error.response);
   }
 };
 
@@ -81,6 +74,17 @@ const Squat = () => {
   const countRef = useRef(count);
   const [maxCount, setMaxCount] = useState(10); // 기본 MAX 값
   const [showModal, setShowModal] = useState(false);
+  const [exerciseType, setExerciseType] = useState('');
+
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.pathname.includes('/squat')) {
+      setExerciseType('squat');
+    } else if (location.pathname.includes('/situp')) {
+      setExerciseType('situp');
+    }
+  }, [location]);
 
   useEffect(() => {
     if (progress) {
@@ -255,7 +259,7 @@ const Squat = () => {
   }, [status]);
 
   useEffect(() => {
-    console.log("Count from useEffect:", count); // count 상태가 변경될 때마다 로그 출력
+    console.log("Count from useEffect:", count); 
   }, [count]);
 
   useEffect(() => {
@@ -266,11 +270,20 @@ const Squat = () => {
     if (status === "stand" && countRef.current === "squat") {
       const newCount = count + 1;
       setCount(newCount);
-      // console.log('New Count:', newCount);
       playCountAudio(newCount);
+  
+      if (newCount === maxCount) {
+        saveCountToDatabase(newCount, exerciseType)
+          .then(() => {
+            window.location = "/exercise";
+          })
+          .catch(error => {
+            console.error("Failed to save count", error.response);
+          });
+      }
     }
     countRef.current = status;
-  }, [status, count]);
+  }, [status, count, maxCount, exerciseType]);
 
   const drawPose = (pose) => {
     if (canvasRef.current && webcamRef.current && webcamRef.current.canvas) {
@@ -291,12 +304,6 @@ const Squat = () => {
       }
     };
   }, [count]);
-
-  useEffect(() => {
-    if (count > 0 && count === maxCount) {
-      saveCountToDatabase(count);
-    }
-  });
 
   return (
     <div style={squatBoxContainer}>
