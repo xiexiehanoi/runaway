@@ -1,7 +1,9 @@
 package com.runaway.project.challenge.service;
 
 import com.runaway.project.challenge.dto.MyExerciseDto;
+import com.runaway.project.challenge.dto.MyRunningDto;
 import com.runaway.project.challenge.repository.MyExerciseRepository;
+import com.runaway.project.challenge.repository.MyRunningRepository;
 import com.runaway.project.user.entity.User;
 import com.runaway.project.user.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -17,6 +19,9 @@ public class ChallengeService {
 
     @Autowired
     private MyExerciseRepository myExerciseRepository;
+
+    @Autowired
+    private MyRunningRepository myRunningRepository;
 
     private final UserRepository userRepository;
 
@@ -34,4 +39,11 @@ public class ChallengeService {
         myExerciseDto.setUser(user);
         myExerciseRepository.save(myExerciseDto);
     }
+
+    public void insertRunningChallenge(MyRunningDto myRunningDto,User userEntity){
+        User user=findById(userEntity.getId());
+        myRunningDto.setUser(user);
+        myRunningRepository.save(myRunningDto);
+    }
+
 }

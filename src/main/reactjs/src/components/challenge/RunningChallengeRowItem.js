@@ -1,33 +1,53 @@
 import axios from 'axios';
+import '../../CSS/ExerciseChallenge.css'
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const BASE_URL =  process.env.REACT_APP_BACKEND_URL;
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const RunningChallengeRowItem = (props) => {
-    const {row,idx}=props;
-    const navi=useNavigate();
+    const {row, userId} = props;
 
-    // const addMyRunning=async()=>{
-    //     try {
-    //         const res = await axios.post(`${BASE_URL}/myrunning/insert`,{idx});
-    //         navi("/challengemain");
-    //     } catch (error) {
-    //         console.error("Error adding my running:", error);
-    //     }
-    // }
+    const addChallenge = async (challengeId, challengeTargetDate) => {
+        try {
+            const token = window.localStorage.getItem('token');
+            if (!token) {
+                console.log("Token not found.");
+                return;
+            }
+    
+            const response = await axios.post(`${BACKEND_URL}/api/challenge/running/insert`, {
+                user: { id: userId }, 
+                runningChallengeDto: {
+                    id: challengeId,
+                    target_date: challengeTargetDate
+                },
+                start_date: new Date().toISOString().slice(0, 10)
+            }, {
+                headers: {
+                    Authorization: token
+                }
+            });
+            console.log("챌린지 추가:", response);
+        } catch (error) {
+            console.error("챌린지 추가 실패:", error);
+        }
+    };    
+    
+    
 
+    const selectChallenge = (challengeId, challengeTargetDate) => {
+        addChallenge(challengeId, challengeTargetDate);
+    };
     return (
         <tr>
             <td>
-                <h5>번호:{idx+1}</h5>
-                
+                <h5 className='hidden'>번호:{row.id}</h5>
                 <h5>목표거리:{row.distance}km</h5>
                 <h5>기한:{row.target_date}일</h5>
                 <h5>경험치:{row.exp}</h5>
-                {/* <button type='button' className='btn btn-outline-danger btn-sm'
-                onClick={addMyRunning}>
-                    추가
-                </button> */}
+                <button type='button' 
+                onClick={() => 
+                selectChallenge(row.id, row.target_date)}>추가</button>
             </td>
         
         
