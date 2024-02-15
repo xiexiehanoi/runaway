@@ -1,42 +1,38 @@
-import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import '../../CSS/ExerciseChallenge.css'
+import axios from 'axios';
 
-const BASE_URL = process.env.REACT_APP_BACKEND_URL;
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
-const ExerciseChallengeRowItem = ({row}) => {
-    const [addchallenge, setAddChallenge] = useState([]);
-
-    const addExerciseChanllenge=async()=>{
-        try {
-            const response = await axios.post(`${BASE_URL}/api/challenge/exercise/insert`,  {
-                userId: 9,
-                exercise_challenge_id: row.id,
-                target_date: row.target_date
-            });
-            console.log(response);
-            setAddChallenge(response.data);
-        } catch (error) {
-            console.error("Error adding exercise challenge:", error);
+const ExerciseChallengeRowItem = (props) => {
+    const {row} = props;
+    const [selectedChallenge, setSelectedChallenge] = useState(null);
+    
+    const addChallenge = async () => {
+        if (!selectedChallenge) {
+            return;
         }
+        try {
+            const response = await axios.post(`${BACKEND_URL}/api/challenge/exercise/insert`, {
+                user: { id: 9 },
+                exerciseChallengeDto: {
+                    id: selectedChallenge.id
+                },
+                start_date: new Date().toISOString().slice(0, 10),
+            });
+            console.log("챌린지 추가:", response);
+        } catch (error) {
+            console.error("챌린지 추가 실패:", error);
+        }
+    };
 
-            //     const token = window.localStorage.getItem('token');
-        //     const response = await axios.post(`${BASE_URL}/api/challenge/exercise/insert`, {
-        //         exerciseType: row.exercise_type,
-        //         targetCount: row.target_count,
-        //         targetDate: row.target_date,
-                
-        //     }, {
-        //         headers: {
-        //             Authorization: `Bearer ${token}`
-        //         }
-        //     });
-        //     console.log(response);
-        //     setAddChallenge(response.data);
-        // } catch (error) {
-        //     console.error("Error adding exercise challenge:", error);
-        // }
-    }
+    const selectChallenge = () => {
+        setSelectedChallenge(row);
+    };
+
+    useEffect(() => {
+        addChallenge();
+    }, [selectedChallenge]);
 
     return (
         <tr>
@@ -45,7 +41,7 @@ const ExerciseChallengeRowItem = ({row}) => {
                 <h5>챌린지명: {row.exercise_type}</h5>
                 <h5>목표횟수: {row.target_count} 회</h5>
                 <h5>기한: {row.target_date} 일</h5>
-                <button type='button' onClick={addExerciseChanllenge}>추가</button>
+                <button type='button' onClick={selectChallenge}>추가</button>
             </td>
         </tr>
     );

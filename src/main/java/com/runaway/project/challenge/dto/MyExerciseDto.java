@@ -3,16 +3,14 @@ package com.runaway.project.challenge.dto;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.runaway.project.user.entity.User;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
-@Getter
-@Setter
+@Data
 @Table(name="my_exercise")
 public class MyExerciseDto {
     @Id
@@ -24,10 +22,10 @@ public class MyExerciseDto {
     private User user;
 
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
-    private Timestamp start_date;
+    private LocalDate start_date;
 
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
-    private Timestamp end_date;
+    private LocalDate end_date;
 
     private boolean success;
 
@@ -37,11 +35,13 @@ public class MyExerciseDto {
 
     @PrePersist
     public void prePersist() {
-        this.start_date = Timestamp.valueOf(LocalDateTime.now()); // 시작 날짜를 현재 시간으로 설정
-        if (this.exerciseChallengeDto != null && this.exerciseChallengeDto.getTarget_date() > 0) {
-            // 종료 날짜 계산
-            LocalDateTime endDateTime = LocalDateTime.now().plusDays(this.exerciseChallengeDto.getTarget_date());
-            this.end_date = Timestamp.valueOf(endDateTime);
+        this.start_date = LocalDate.now();
+        if (this.user == null) {
+            throw new IllegalArgumentException("User cannot be null.");
+        }
+        if (this.exerciseChallengeDto != null && this.exerciseChallengeDto.getTarget_date() != 0) {
+            LocalDate endDateTime = LocalDate.now().plusDays(this.exerciseChallengeDto.getTarget_date());
+            this.end_date = endDateTime;
         }
     }
 }
