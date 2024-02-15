@@ -1,7 +1,6 @@
 import axios from 'axios';
 import '../../CSS/ExerciseChallenge.css'
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const RunningChallengeRowItem = (props) => {
@@ -17,7 +16,7 @@ const RunningChallengeRowItem = (props) => {
     
             const response = await axios.post(`${BACKEND_URL}/api/challenge/running/insert`, {
                 user: { id: userId }, 
-                runningChallengeDto: {
+                runningChallenge: {
                     id: challengeId,
                     target_date: challengeTargetDate
                 },

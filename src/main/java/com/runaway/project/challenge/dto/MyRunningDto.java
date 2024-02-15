@@ -21,11 +21,11 @@ public class MyRunningDto {
     private int idx;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @JoinColumn(name = "user_id")
     private User user; // User 엔티티와의 연관 관계
 
     @ManyToOne
-    @JoinColumn(name = "challenge_id", referencedColumnName = "id")
+    @JoinColumn(name = "challenge_id")
     private RunningChallengeDto runningChallenge; // RunningChallenge 엔티티와의 연관 관계
 
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
