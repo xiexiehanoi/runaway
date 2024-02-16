@@ -16,6 +16,7 @@ import Squat from '../components/exercise/squat/Squat';
 import ChallengeMain from '../components/challenge/ChallengeMain';
 import KakaoLoginCallback from "../components/login/KakaoLoginCallback";
 import Ranking from '../components/rank/Ranking';
+import RunningRecordDetail from '../components/profile/RunningRecordDetail';
 const RouterMain = () => {
     return (
         <MainLayout>       
@@ -27,6 +28,7 @@ const RouterMain = () => {
                 <Route path="/exercise" element={<Exercise />} />
                 <Route path="/exercisechallenge" element={<ExerciseChallenge />} />
                 <Route path="/my" element={<MyPage />} />
+                <Route path="runningRecordDetail/:runIdx" element={<RunningRecordDetail/>}></Route>
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/authgoogle" element={<GoogleLogin />} />
                 <Route path="/authnaver" element={<NaverLogin />} />
