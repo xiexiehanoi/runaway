@@ -188,25 +188,34 @@ const Squat = () => {
   };
 
   const init = async () => {
-    const URL = "/squat/";
-    const modelURL = URL + "model.json";
-    const metadataURL = URL + "metadata.json";
-
-    const webcamWidth = 640;
-    const webcamHeight = 480;
-
-    modelRef.current = await window.tmPose.load(modelURL, metadataURL);
-
-    if (!webcamRef.current) {
-      webcamRef.current = new window.tmPose.Webcam(
-        webcamWidth,
-        webcamHeight,
-        true
-      );
-      await webcamRef.current.setup();
+    try {
+      const URL = "/squat/";
+      const modelURL = URL + "model.json";
+      const metadataURL = URL + "metadata.json";
+  
+      const webcamWidth = 640;
+      const webcamHeight = 480;
+  
+      // 모델 로딩 시도
+      modelRef.current = await window.tmPose.load(modelURL, metadataURL);
+  
+      // 웹캠 설정 시도
+      if (!webcamRef.current) {
+        webcamRef.current = new window.tmPose.Webcam(
+          webcamWidth,
+          webcamHeight,
+          true
+        );
+        await webcamRef.current.setup();
+      }
+      
+      // 웹캠 스트리밍 시작 시도
+      await webcamRef.current.play();
+    } catch (error) {
+      console.error("Failed to initialize the model or webcam", error);
+      alert("모델 또는 웹캠을 초기화하는 데 실패했습니다. 자세한 정보는 콘솔을 확인해주세요.");
     }
-    await webcamRef.current.play();
-
+    
     if (canvasRef.current) {
       const context = canvasRef.current.getContext("2d");
       context.drawImage(webcamRef.current.canvas, 0, 0);
