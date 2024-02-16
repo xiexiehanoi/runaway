@@ -8,6 +8,7 @@ import com.runaway.project.challenge.dto.MyExerciseDto;
 import com.runaway.project.challenge.dto.MyRunningDto;
 import com.runaway.project.challenge.dto.RunningChallengeDto;
 import com.runaway.project.challenge.service.ChallengeService;
+import com.runaway.project.exercise.entity.ExerciseEntity;
 import com.runaway.project.user.entity.User;
 import com.runaway.project.user.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -60,7 +61,6 @@ public class ChallengeController {
         LocalDate startDateTime = LocalDate.now();
         LocalDate endDateTime = startDateTime.plusDays(targetDays);
 
-        System.out.println("asdfasdf:"+endDateTime);
         myExerciseDto.setStart_date(startDateTime);
         myExerciseDto.setEnd_date(endDateTime);
 
@@ -91,6 +91,15 @@ public class ChallengeController {
 
         challengeService.insertRunningChallenge(myRunningDto);
         return ResponseEntity.ok("챌린지 데이터가 저장되었습니다.");
+    }
+
+    @GetMapping("/mychallengelist")
+    public List<?> getMyChallengeList(HttpServletRequest request) {
+        User user = userService.getUserByReqeust(request);
+        if (user == null) ResponseEntity.badRequest().body("Error in token");
+
+        List<Object> myChallengeList = challengeService.getAllMyChallengesList(user.getId());
+        return myChallengeList;
     }
 
 }

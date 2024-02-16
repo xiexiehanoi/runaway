@@ -4,14 +4,16 @@ import com.runaway.project.challenge.dto.MyExerciseDto;
 import com.runaway.project.challenge.dto.MyRunningDto;
 import com.runaway.project.challenge.repository.MyExerciseRepository;
 import com.runaway.project.challenge.repository.MyRunningRepository;
-import com.runaway.project.user.entity.User;
-import com.runaway.project.user.repository.UserRepository;
-import jakarta.persistence.EntityNotFoundException;
+import com.runaway.project.exercise.entity.ExerciseEntity;
+import com.runaway.project.exercise.respository.ExerciseRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
 
 @Service
 @RequiredArgsConstructor
@@ -23,7 +25,10 @@ public class ChallengeService {
     @Autowired
     private MyRunningRepository myRunningRepository;
 
+    private final ExerciseRepository exerciseRepository;
+
     public void insertExerciseChallenge(MyExerciseDto myExerciseDto){
+//        if(myExerciseDto.getIdx() == null)
         myExerciseRepository.save(myExerciseDto);
     }
 
@@ -32,4 +37,18 @@ public class ChallengeService {
         myRunningRepository.save(myRunningDto);
     }
 
+//    public List<ExerciseEntity> getExerciseByUserIdDateExerciseType(Long userId, LocalDate date, String exerciseType) {
+//        return exerciseRepository.findByUserIdDateExerciseType(userId, date, exerciseType);
+//    }
+
+    public List<Object> getAllMyChallengesList(Long userId) {
+        List<MyExerciseDto> exerciseChallenges = myExerciseRepository.findByUserExerciseChallengeList(userId);
+        List<MyRunningDto> runningChallenges = myRunningRepository.findByUserRunningChallengeList(userId);
+
+        List<Object> combinedChallenges = new ArrayList<>();
+        combinedChallenges.addAll(exerciseChallenges);
+        combinedChallenges.addAll(runningChallenges);
+
+        return combinedChallenges;
+    }
 }
