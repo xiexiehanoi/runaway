@@ -15,7 +15,6 @@ const RunningChallengeRowItem = (props) => {
             }
     
             const response = await axios.post(`${BACKEND_URL}/api/challenge/running/insert`, {
-                
                 runningChallenge: {
                     id: challengeId,
                     target_date: challengeTargetDate

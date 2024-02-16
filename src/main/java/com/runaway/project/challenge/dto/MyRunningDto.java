@@ -43,7 +43,7 @@ public class MyRunningDto {
             throw new IllegalArgumentException("User cannot be null.");
         }
         if (this.runningChallenge != null && this.runningChallenge.getTarget_date() != 0) {
-            LocalDate endDateTime = LocalDate.now().plusDays(this.runningChallenge.getTarget_date());
+            LocalDate endDateTime = start_date.now().plusDays(this.runningChallenge.getTarget_date()-1);
             this.end_date = endDateTime;
         }
     }

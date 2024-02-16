@@ -6,7 +6,6 @@ const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
 const RunningChallenge = () => {
     const [runningList,setRunningList]=useState([]);
-    
 
     useEffect(()=>{
         const list = async()=>{
@@ -23,8 +22,6 @@ const RunningChallenge = () => {
 
     },[])
 
-    
-
     return (
          <div>
             <h5>총 {runningList.length}개의 러닝 챌린지에 도전하세요!</h5>
@@ -32,7 +29,7 @@ const RunningChallenge = () => {
                 <tbody>
                     {
                         runningList.map((rowData,idx)=>
-                        <RunningChallengeRowItem key={idx} row={rowData} idx={idx}/>
+                            <RunningChallengeRowItem key={idx} row={rowData} idx={idx}/>
                         )
                     }
                 </tbody>
