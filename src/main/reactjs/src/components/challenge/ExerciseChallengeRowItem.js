@@ -5,7 +5,7 @@ import axios from 'axios';
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
 const ExerciseChallengeRowItem = (props) => {
-    const {row, userId} = props;
+    const {row} = props;
 
     const addChallenge = async (challengeId, challengeTargetDate) => {
         try {
@@ -16,7 +16,6 @@ const ExerciseChallengeRowItem = (props) => {
             }
     
             const response = await axios.post(`${BACKEND_URL}/api/challenge/exercise/insert`, {
-                user: { id: userId }, 
                 exerciseChallengeDto: {
                     id: challengeId,
                     target_date: challengeTargetDate

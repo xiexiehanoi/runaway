@@ -5,6 +5,7 @@ import com.runaway.project.user.entity.User;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.sql.Timestamp;
 import java.time.LocalDate;
@@ -14,6 +15,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Table(name = "my_running")
+@ToString
 public class MyRunningDto {
 
     @Id
@@ -41,7 +43,7 @@ public class MyRunningDto {
             throw new IllegalArgumentException("User cannot be null.");
         }
         if (this.runningChallenge != null && this.runningChallenge.getTarget_date() != 0) {
-            LocalDate endDateTime = LocalDate.now().plusDays(this.runningChallenge.getTarget_date());
+            LocalDate endDateTime = start_date.now().plusDays(this.runningChallenge.getTarget_date()-1);
             this.end_date = endDateTime;
         }
     }
