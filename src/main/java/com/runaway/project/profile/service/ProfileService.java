@@ -21,4 +21,14 @@ public class ProfileService  {
 
 
     }
+
+    public RunningEntity getRunningEntity(Long runIdx) {
+        Optional<RunningEntity> optionalRunningEntity=runningRepository.findById(runIdx);
+        if(optionalRunningEntity.isPresent()){
+            return optionalRunningEntity.get();
+        }else {
+            throw new EntityNotFoundException("User not found for id: " + runIdx);
+        }
+
+    }
 }
