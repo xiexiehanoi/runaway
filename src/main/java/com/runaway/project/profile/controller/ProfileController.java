@@ -17,27 +17,18 @@ public class ProfileController {
     private final ProfileService profileService;
 
 
-    @GetMapping("map/path")
-    public List<RunningEntity> getMapPath(@RequestParam Long userId){
+    @GetMapping("running/record")
+    public List<RunningEntity> getRunningRecord(@RequestParam Long userId){
         System.out.println(userId);
         System.out.println(profileService.findByUserId(userId).toString());
         return profileService.findByUserId(userId);
 
-//        for (RunningEntity runningEntity : runningEntityList) {
-//            List<LocationEntity> path = runningEntity.getPath();
-//            for (LocationEntity location : path) {
-//                double latitude = location.getLatitude();
-//                double longitude = location.getLongitude();
-//
-//        }
+    }
 
-
-
-
-
-
-
-
+    @GetMapping("running/detail")
+    public RunningEntity getRunningRecordDetail(@RequestParam Long runIdx){
+        System.out.println(runIdx);
+        return profileService.getRunningEntity(runIdx);
 
 
     }
