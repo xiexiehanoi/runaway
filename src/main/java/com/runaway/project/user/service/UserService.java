@@ -3,6 +3,7 @@ package com.runaway.project.user.service;
 import com.runaway.project.user.dto.SignUpRequestDto;
 import com.runaway.project.user.entity.User;
 import com.runaway.project.user.repository.UserRepository;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,15 @@ import java.util.Optional;
 public class UserService {
   private final UserRepository userRepository;
   private final PasswordEncoder passwordEncoder;
+
+  public User getUserById(Long id) {
+    return userRepository.findById(id).orElse(null);
+  }
+
+  public User getUserByReqeust(HttpServletRequest request) {
+    Long id = (Long)request.getAttribute("id");
+    return userRepository.findById(id).orElse(null);
+  }
 
   @Transactional
   public void signUpUser(SignUpRequestDto signUpRequestDto) {

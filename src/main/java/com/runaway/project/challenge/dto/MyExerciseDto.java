@@ -4,13 +4,13 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.runaway.project.user.entity.User;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.ToString;
 
-import java.sql.Timestamp;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Entity
 @Data
+@ToString
 @Table(name="my_exercise")
 public class MyExerciseDto {
     @Id
@@ -40,7 +40,7 @@ public class MyExerciseDto {
             throw new IllegalArgumentException("User cannot be null.");
         }
         if (this.exerciseChallengeDto != null && this.exerciseChallengeDto.getTarget_date() != 0) {
-            LocalDate endDateTime = LocalDate.now().plusDays(this.exerciseChallengeDto.getTarget_date());
+            LocalDate endDateTime = start_date.plusDays(this.exerciseChallengeDto.getTarget_date()-1);
             this.end_date = endDateTime;
         }
     }
