@@ -22,8 +22,9 @@ public class StoryDto {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long storyNum;
 
+    // User 외래키로 변경 필요
     @Column(length=30)
-    private String storyUserId;
+    private Long storyUserId;
 
     @Column(length=100)
     private String storyProfileImg;

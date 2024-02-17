@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class StoryService {
     private final StoryRepository storyRepository;
-    private final UserRepository userRepository;
 
     public void addStory(StoryDto dto){
         storyRepository.save(dto);
