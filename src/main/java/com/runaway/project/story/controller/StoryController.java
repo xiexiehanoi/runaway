@@ -21,10 +21,6 @@ public class StoryController {
 
     String storyContent;
 
-    private String bucketName="runaway";
-
-    private String folderName="runaway_story";
-
     @PostMapping("/save")
     public ResponseEntity<String> saveStory(
             @RequestParam("upload") MultipartFile upload,
@@ -34,7 +30,11 @@ public class StoryController {
         User user = userService.getUserByReqeust(request);
 
         // 파일 업로드
-        String fileName = storageService.uploadFile(bucketName, folderName, upload);
+        String fileName = storageService.uploadFileWithUserId(
+                NcpObjectStorageService.STORY_DIR_NAME,
+                upload,
+                user.getId().toString()
+        );
 
         // Dto를 어떻게 구성할지에 따라 새로 만들거나 파라미터로 받아오거나
         StoryDto dto = new StoryDto();
@@ -52,7 +52,7 @@ public class StoryController {
     public String uploadStory(@RequestParam("upload") MultipartFile upload)
     {
         System.out.println("upload:"+upload.getOriginalFilename());
-        storyContent=storageService.uploadFile(bucketName, folderName, upload);
+        storyContent=storageService.uploadFile(NcpObjectStorageService.STORY_DIR_NAME, upload);
         return storyContent;
     }
 
