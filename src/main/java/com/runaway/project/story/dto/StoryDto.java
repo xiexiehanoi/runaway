@@ -31,7 +31,7 @@ public class StoryDto {
     @Column(length=100)
     private String storyContent;
     
-    private Long storyWatchCount;
+    private int storyWatchCount;
 
     @JsonFormat(pattern="yyyy-MM-dd HH:mm",timezone="Asia/Seoul") //댓글은 출력을 ajax 로 처리할 것임
     @Column(updatable=false) //수정 시 수정 컬럼에서 제외
