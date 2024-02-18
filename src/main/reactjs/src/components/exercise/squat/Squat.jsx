@@ -88,10 +88,12 @@ const Squat = () => {
   const location = useLocation();
 
   useEffect(() => {
-    if (location.pathname.includes('/squat')) {
-      setExerciseType('squat');
-    } else if (location.pathname.includes('/situp')) {
-      setExerciseType('situp');
+    if (location.pathname.includes("/squat")) {
+      setExerciseType("squat");
+    } else if (location.pathname.includes("/situp")) {
+      setExerciseType("situp");
+    } else if (location.pathname.includes("/pushup")) {
+      setExerciseType("pushup");
     }
   }, [location]);
 
@@ -124,7 +126,6 @@ const Squat = () => {
   }, [count, progress]);
 
   const startExercise = async () => {
-    console.log("Starting exercise...");
     // 카메라 및 관련 기능 시작 로직
     setMessage(
       "지금부터 5초간 자세를 잡아주세요\n스쿼트는 옆모습으로 진행하여주세요"
@@ -166,7 +167,6 @@ const Squat = () => {
   };
 
   const stopCameraAndFunction = () => {
-    console.log("Stopping camera and other functionalities...");
     setMaxCount(0);
     setCount(0); 
     setCameraActive(false); 
@@ -236,7 +236,6 @@ const Squat = () => {
   };
 
   const loop = async () => {
-    console.log("Looping...");
     if (!webcamRef.current) {
       return;
     }
@@ -247,7 +246,6 @@ const Squat = () => {
   };
 
   const predict = async () => {
-    console.log("Predicting pose...");
     const { pose, posenetOutput } = await modelRef.current.estimatePose(
       webcamRef.current.canvas
     );
@@ -280,7 +278,6 @@ const Squat = () => {
   }, []);
 
   const playCountAudio = useCallback((newCount) => {
-    console.log(`Playing audio for count: ${newCount}`);
     const audioIndex = newCount % 10;
     if (audios[audioIndex] && audios[audioIndex].readyToPlay) {
       audios[audioIndex].play().catch((e) => {
@@ -302,7 +299,6 @@ const Squat = () => {
   }, [count]);
 
   useEffect(() => {
-    console.log(`Status has changed to ${status} from ${countRef.current}`);
     if (status === "stand" && countRef.current === "squat") {
       const newCount = count + 1;
       setCount(newCount);
@@ -334,7 +330,6 @@ const Squat = () => {
   };
 
   useEffect(() => {
-    console.log(`Component mounted.`);
     return () => {
       if (animationFrameId.current) {
         cancelAnimationFrame(animationFrameId.current);
