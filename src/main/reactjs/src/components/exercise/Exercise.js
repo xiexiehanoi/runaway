@@ -10,6 +10,9 @@ const exercise = () => {
             <p>
                 <Link to={"/situp"}>situp</Link>
             </p>
+            <p>
+                <Link to={"/pushup"}>pushup</Link>
+            </p>
         </div>
     );
 };
