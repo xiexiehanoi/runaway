@@ -13,6 +13,8 @@ import ExerciseChallenge from '../components/challenge/ExerciseChallenge';
 import RunningChallenge from '../components/challenge/RunningChallenge';
 import SignUpForm from '../components/signup/SignUpForm';
 import Squat from '../components/exercise/squat/Squat';
+import Situp from '../components/exercise/situp/Situp';
+import Pushup from '../components/exercise/pushup/Pushup';
 import ChallengeMain from '../components/challenge/ChallengeMain';
 import KakaoLoginCallback from "../components/login/KakaoLoginCallback";
 import Ranking from '../components/rank/Ranking';
@@ -35,7 +37,8 @@ const RouterMain = () => {
                 <Route path="/webcam" element={<WebCam />} />
                 <Route path="/signup" element={<SignUpForm />} />
                 <Route path="/squat" element={<Squat />} />
-                <Route path="/situp" element={<Exercise />} />
+                <Route path="/situp" element={<Situp />} />
+                <Route path="/pushup" element={<Pushup />} />
                 <Route path="/challengemain" element={<ChallengeMain/>}/>
                 <Route path="/" element={<Home />} />
                 <Route path="/ranking" element={<Ranking />} />
