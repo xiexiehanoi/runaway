@@ -13,6 +13,7 @@ const WebCamVideo = () => {
     const [mimeType, setMimeType] = useState('');
 
     const BASE_URI = process.env.REACT_APP_BACKEND_URL;
+    const token = window.localStorage.getItem("token");
     // const videoUrl = "https://kr.object.ncloudstorage.com/runaway/runaway_story/";
 
     const handleDataAvailable = useCallback(({ data }) => {
@@ -126,9 +127,12 @@ const WebCamVideo = () => {
 
             axios({
                 method: 'post',
-                url: `${BASE_URI}/api/story/upload`,
+                url: `${BASE_URI}/api/story/save`,
                 data: uploadVideo,
-                headers: { 'Content-Type': 'multipart/form-data' }
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    Authorization: token
+                }
             }).then(res => {
                 console.log("Story Uploaded successfully:", res.data);
                 // 파일이 업로드된 후 클라우드 스토리지에서 반환한 파일 경로를 사용하여 다운로드 처리 등 추가 작업 수행 가능
