@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import Webcam from 'react-webcam';
 import WebCamTimer from './WebCamTimer';
+import axios from 'axios';
 
 const WebCamVideo = () => {
     const webcamRef = useRef(null);
@@ -11,6 +12,9 @@ const WebCamVideo = () => {
     const [elapsedTime, setElapsedTime] = useState(10);
     const [mimeType, setMimeType] = useState('');
 
+    const BASE_URI = process.env.REACT_APP_BACKEND_URL;
+    const token = window.localStorage.getItem("token");
+    // const videoUrl = "https://kr.object.ncloudstorage.com/runaway/runaway_story/";
 
     const handleDataAvailable = useCallback(({ data }) => {
         console.log("Data Available:", data);
@@ -118,19 +122,38 @@ const WebCamVideo = () => {
             const blob = new Blob(recordedChunks, {
                 type: mimeType
             });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement("a");
-            document.body.appendChild(a);
-            a.style = "display:none";
-            a.href = url;
-            // a.download = `react-webcam-stream-capture.${mimeType.split('/')[1]}`;
-            a.download = "react-webcam-stream-capture.mp4";
-            a.click();
-            window.URL.revokeObjectURL(url);
+            const uploadVideo = new FormData();
+            uploadVideo.append('upload', blob, 'runaway-story.mp4');
+
+            axios({
+                method: 'post',
+                url: `${BASE_URI}/api/story/save`,
+                data: uploadVideo,
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    Authorization: token
+                }
+            }).then(res => {
+                console.log("Story Uploaded successfully:", res.data);
+                // 파일이 업로드된 후 클라우드 스토리지에서 반환한 파일 경로를 사용하여 다운로드 처리 등 추가 작업 수행 가능
+
+            }).catch(error => {
+                console.error("Error uploading file:", error);
+            });
+
+            // const url = URL.createObjectURL(blob);
+            // const a = document.createElement("a");
+            // document.body.appendChild(a);
+            // a.style = "display:none";
+            // a.href = url;
+            // a.download = "runaway-story.mp4";
+            // a.click();
+            // window.URL.revokeObjectURL(url);
+
             // const video = document.getElementById("video-replay");
             // video.src = url
         }
-    }, [recordedChunks, mimeType]);
+    }, [recordedChunks, mimeType, BASE_URI]);
 
     // const handleTouchStart = useCallback(() => {
     //     console.log("Start Capture button touched");
