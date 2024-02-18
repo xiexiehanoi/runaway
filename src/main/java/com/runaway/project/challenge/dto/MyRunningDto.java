@@ -30,21 +30,24 @@ public class MyRunningDto {
     @JoinColumn(name = "challenge_id")
     private RunningChallengeDto runningChallenge; // RunningChallenge 엔티티와의 연관 관계
 
+    @Column(name="start_date")
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
-    private LocalDate start_date;
+    private LocalDate startDate;
+
+    @Column(name="end_date")
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
-    private LocalDate end_date;
+    private LocalDate endDate;
     private boolean daily_success; // 데일리 성공 여부
 
     @PrePersist
     public void prePersist() {
-        this.start_date = LocalDate.now();
+        this.startDate = LocalDate.now();
         if (this.user == null) {
             throw new IllegalArgumentException("User cannot be null.");
         }
         if (this.runningChallenge != null && this.runningChallenge.getTarget_date() != 0) {
-            LocalDate endDateTime = start_date.now().plusDays(this.runningChallenge.getTarget_date()-1);
-            this.end_date = endDateTime;
+            LocalDate endDateTime = startDate.now().plusDays(this.runningChallenge.getTarget_date()-1);
+            this.endDate = endDateTime;
         }
     }
 

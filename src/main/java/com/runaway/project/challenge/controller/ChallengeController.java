@@ -7,12 +7,14 @@ import com.runaway.project.challenge.dao.ExerciseChallengeDao;
 import com.runaway.project.challenge.dto.MyExerciseDto;
 import com.runaway.project.challenge.dto.MyRunningDto;
 import com.runaway.project.challenge.dto.RunningChallengeDto;
+import com.runaway.project.challenge.repository.MyRunningRepository;
 import com.runaway.project.challenge.service.ChallengeService;
 import com.runaway.project.user.entity.User;
 import com.runaway.project.user.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,6 +29,7 @@ public class ChallengeController {
     private final RunningChallengeDao runningChallengeDao;
     private final ChallengeService challengeService;
     private final UserService userService;
+    private final MyRunningRepository myRunningRepository;
 
     @GetMapping("/exercise/list")
     public List<ExerciseChallengeDto> list()
@@ -86,10 +89,16 @@ public class ChallengeController {
         LocalDate startDateTime = LocalDate.now();
         LocalDate endDateTime = startDateTime.plusDays(targetDays);
 
-        myRunningDto.setStart_date(startDateTime);
-        myRunningDto.setEnd_date(endDateTime);
+        myRunningDto.setStartDate(startDateTime);
+        myRunningDto.setEndDate(endDateTime);
 
-        challengeService.insertRunningChallenge(myRunningDto);
+        List<MyRunningDto> existChallenge = myRunningRepository.findAllByUserIdAndStartDate(user.getId(), myRunningDto.getStartDate());
+        if (!existChallenge.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("이미 해당 날짜에 챌린지가 있습니다.");
+        }
+
+        challengeService.insertRunningChallenge(myRunningDto, user.getId());
+        System.out.println("result: "+user.getId());
         return ResponseEntity.ok("챌린지 데이터가 저장되었습니다.");
     }
 
