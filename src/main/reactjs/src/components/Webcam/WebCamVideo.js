@@ -153,7 +153,7 @@ const WebCamVideo = () => {
             // const video = document.getElementById("video-replay");
             // video.src = url
         }
-    }, [recordedChunks, mimeType, BASE_URI]);
+    }, [recordedChunks, mimeType, BASE_URI, token]);
 
     // const handleTouchStart = useCallback(() => {
     //     console.log("Start Capture button touched");
