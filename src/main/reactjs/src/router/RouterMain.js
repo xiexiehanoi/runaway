@@ -19,6 +19,7 @@ import ChallengeMain from '../components/challenge/ChallengeMain';
 import KakaoLoginCallback from "../components/login/KakaoLoginCallback";
 import Ranking from '../components/rank/Ranking';
 import RunningRecordDetail from '../components/profile/RunningRecordDetail';
+import MyChallengeList from '../components/challenge/MyChallengeList';
 const RouterMain = () => {
     return (
         <MainLayout>       
@@ -42,6 +43,7 @@ const RouterMain = () => {
                 <Route path="/challengemain" element={<ChallengeMain/>}/>
                 <Route path="/" element={<Home />} />
                 <Route path="/ranking" element={<Ranking />} />
+                <Route path="/mychallengelist" element={<MyChallengeList />}/>
             </Routes>
         </MainLayout>
         

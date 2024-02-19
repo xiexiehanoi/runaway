@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -38,6 +39,18 @@ public class ChallengeService {
         }
         myRunningRepository.save(myRunningDto);
     }
+
+    public List<Object> getAllMyChallengesList(Long userId) {
+        List<MyExerciseDto> exerciseChallenges = myExerciseRepository.findByUserExerciseChallengeList(userId);
+        List<MyRunningDto> runningChallenges = myRunningRepository.findByUserRunningChallengeList(userId);
+
+        List<Object> combinedChallenges = new ArrayList<>();
+        combinedChallenges.addAll(exerciseChallenges);
+        combinedChallenges.addAll(runningChallenges);
+
+        return combinedChallenges;
+    }
+
 
 //    public List<RunningEntity> getRunningRecord(MyRunningDto myRunningDto, User userId){
 //
