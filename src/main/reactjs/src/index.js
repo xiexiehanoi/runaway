@@ -4,13 +4,16 @@ import './index.css';
 import reportWebVitals from './reportWebVitals';
 import Root from './router/Root';
 import {NavermapsProvider} from "react-naver-maps";
+import {RecoilRoot} from "recoil";
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <NavermapsProvider ncpClientId="38q1h3iyts">
         <div>
+          <RecoilRoot>
             <Root/>
+          </RecoilRoot>v
         </div>
     </NavermapsProvider>
 
