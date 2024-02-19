@@ -5,18 +5,22 @@ import WebcamVideo from "./WebCamVideo";
 import StoryShow from "./StoryShow";
 import axios from 'axios';
 
+const BASE_URI = process.env.REACT_APP_BACKEND_URL;
+const token = window.localStorage.getItem("token");
 
 const WebCam = () => {
     const [showWebCamVideo, setShowWebCamVideo] = useState(false);
     const [storyList, setStoryList] = useState([]);
 
-    const BASE_URI = process.env.REACT_APP_BACKEND_URL;
-    // const token = window.localStorage.getItem("token");
 
     const list = () => {
         axios.get(`${BASE_URI}/api/story/list`)
             .then(res => {
                 setStoryList(res.data)
+            }, {
+                headers: {
+                    Authorization: token
+                }
             })
     }
 

@@ -22,7 +22,7 @@ const MainLayout = ({ children }) => {
       title: "Story",
       icon: "cameraIcon",
       filledIcon: "cameraIconFilled",
-      route: "/webcam",
+      route: "/story",
     },
     {
       title: "Rank",
@@ -179,7 +179,7 @@ const MainLayout = ({ children }) => {
                   <line
                     fill="none"
                     strokeMiterlimit="10"
-                    x1="4"  
+                    x1="4"
                     y1="2"
                     x2="8"
                     y2="2"
