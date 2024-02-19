@@ -1,7 +1,11 @@
 package com.runaway.project.login.service;
 
-import org.springframework.stereotype.Service;
+import com.runaway.project.login.model.OauthToken;
+import com.runaway.project.user.entity.User;
+import jakarta.servlet.http.HttpServletRequest;
 
-@Service
-public class LoginService {
+public interface LoginService {
+    OauthToken getAccessToken(String code);
+    String saveUserAndGetToken(String token);
+    User getMyInfo(HttpServletRequest request);
 }

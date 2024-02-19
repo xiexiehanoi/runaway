@@ -197,7 +197,7 @@ body {
         height: 90vh;
         z-index: 1000;
         background-color: rgba(99, 122, 159, 0.5);
-        padding-bottom: 10%;
+        /* padding-bottom: 10%; */
     }
 
     .tabbar {

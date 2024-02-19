@@ -1,26 +1,21 @@
 package com.runaway.project.challenge.dto;
 
 import jakarta.persistence.*;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Getter
-@Setter
-@Table(name = "exercise")
-public class
-ExerciseChallengeDto {
+@Data
+@Table(name = "exercise_challenge")
+public class ExerciseChallengeDto {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long idx;
-
-    private String name;
-
-    private int end;
-
-    private int count;
-
+    private int Id;
+    private int target_count;
+    private int target_date;
+    private String exercise_type;
     private int exp;
 
 }

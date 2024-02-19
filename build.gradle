@@ -12,7 +12,9 @@ java {
 }
 
 configurations {
-	compileOnly {
+	
+  
+  {
 		extendsFrom annotationProcessor
 	}
 }
@@ -28,12 +30,18 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation group: 'io.awspring.cloud', name: 'spring-cloud-starter-aws', version: '2.4.4'
     implementation group: 'com.amazonaws', name: 'aws-java-sdk-s3', version: '1.12.416'
+    implementation group: 'com.github.sarxos', name: 'webcam-capture', version: '0.3.12'
+    implementation group: 'org.modelmapper', name: 'modelmapper', version: '2.3.8' // Model mapper
+    implementation group: 'com.auth0', name: 'java-jwt', version: '4.4.0'
+
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
-    compileOnly 'org.projectlombok:lombok'
+
     runtimeOnly 'com.mysql:mysql-connector-j'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.security:spring-security-test'
+    
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
 }
 
 tasks.named('test') {
@@ -44,53 +52,10 @@ tasks.named('test') {
 // React build 설정
 // main/리엑트 파일명
 def reactAppDir = "$projectDir/src/main/reactjs"
-/*
-sourceSets {
-  main {
-    resources {
-      srcDirs = ["$webappDir/build", "$projectDir/src/main/resources"]
-    }
-  }
-}
-*/
+
 
 processResources {
     dependsOn("copyPrivate")
-    dependsOn "copyReactFile"
-    //dependsOn "appNpmInstall"
-}
-
-
-task copyReactFile(type: Copy) {
-    dependsOn "buildReact"
-    from "$reactAppDir/build"
-    //into "$buildDir/resources/main/static"
-    into "$projectDir/src/main/resources/static/"
-}
-
-task buildReact(type: Exec) {
-    dependsOn "installReact"
-    workingDir "$reactAppDir"
-    inputs.dir "$reactAppDir"
-    group = BasePlugin.BUILD_GROUP
-    if (System.getProperty('os.name').toLowerCase(Locale.ROOT).contains('windows')) {
-        commandLine "npm.cmd", "run-script", "build"
-    } else {
-        commandLine "npm", "run-script", "build"
-    }
-}
-
-task installReact(type: Exec) {
-    workingDir "$reactAppDir"
-    inputs.dir "$reactAppDir"
-    group = BasePlugin.BUILD_GROUP
-    if (System.getProperty('os.name').toLowerCase(Locale.ROOT).contains('windows')) {
-        commandLine "npm.cmd", "audit", "fix"
-        commandLine "npm.cmd", "install"
-    } else {
-        commandLine "npm", "audit", "fix"
-        commandLine "npm", "install"
-    }
 }
 
 task copyPrivate(type: Copy) {

@@ -1,12 +1,20 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import Webcam from 'react-webcam';
+import WebCamTimer from './WebCamTimer';
+import axios from 'axios';
 
 const WebCamVideo = () => {
     const webcamRef = useRef(null);
     const mediaRecorderRef = useRef(null);
     const [capturing, setCapturing] = useState(false);
     const [recordedChunks, setRecordedChunks] = useState([]);
+    const [timer, setTimer] = useState(null); // timer 상태 추가
+    const [elapsedTime, setElapsedTime] = useState(10);
+    const [mimeType, setMimeType] = useState('');
 
+    const BASE_URI = process.env.REACT_APP_BACKEND_URL;
+    const token = window.localStorage.getItem("token");
+    // const videoUrl = "https://kr.object.ncloudstorage.com/runaway/runaway_story/";
 
     const handleDataAvailable = useCallback(({ data }) => {
         console.log("Data Available:", data);
@@ -15,41 +23,6 @@ const WebCamVideo = () => {
             setRecordedChunks((prev) => [...prev, data]);
         }
     }, [setRecordedChunks]);
-
-    // const initializeMediaRecorder = useCallback(async () => {
-    //     try {
-    //         const devices = await navigator.mediaDevices.enumerateDevices();
-    //         const videoInputDevices = devices.filter((device) => device.kind === 'videoinput');
-
-    //         if (videoInputDevices.length === 0) {
-    //             alert('해당 기기에 카메라가 발견되지 않았습니다. 카메라를 연결해주세요.');
-    //             return;
-    //         }
-
-    //         // if (webcamRef.current && webcamRef.current.video && webcamRef.current.video.srcObject) {
-    //         if (webcamRef.current && webcamRef.current.video && webcamRef.current.video.srcObject) {
-    //             // mediaRecorderRef.current = new MediaRecorder(webcamRef.current.stream, {
-    //             const stream = webcamRef.current.video.srcObject;
-    //             mediaRecorderRef.current = new MediaRecorder(stream, {
-    //                 mimeType: "video/webm"
-    //             });
-    //             // mediaRecorderRef.current.addEventListener(
-    //             //     "dataavailable",
-    //             //     handleDataAvailable
-    //             // );
-    //             mediaRecorderRef.current.ondataavailable = handleDataAvailable;
-    //             // mediaRecorderRef.current.addEventListener("dataavailable", (event) => {
-    //             // mediaRecorderRef.current.ondataavailable = (event) => {
-    //             //     if (event.data.size > 0) {
-    //             //         console.log("Data available:", event.data);
-    //             //         setRecordedChunks((prev) => [...prev, event.data]);
-    //             //     }
-    //             // };
-    //         }
-    //     } catch (error) {
-    //         console.error('Error initializing media recorder:', error);
-    //     }
-    // }, [webcamRef, mediaRecorderRef, handleDataAvailable]);
 
     useEffect(() => {
         const initializeMediaRecorder = async () => {
@@ -65,15 +38,23 @@ const WebCamVideo = () => {
 
                 if (webcamRef.current && webcamRef.current.video && webcamRef.current.video.srcObject) {
                     const stream = webcamRef.current.video.srcObject;
+
+                    let type = 'video/webm';
+                    if (!MediaRecorder.isTypeSupported(type)) {
+                        type = 'video/mp4';
+                        if (!MediaRecorder.isTypeSupported(type)) {
+                            alert('모바일 브라우저에서 지원되지 않는 mimeType입니다.');
+                            return;
+                        }
+                    }
+                    setMimeType(type);
+
+                    // let mimeType = MediaRecorder.isTypeSupported('video/webm') ? 'video/webm' : 'video/mp4'; // MIME 유형 동적으로 결정
                     // mediaRecorderRef.current = new MediaRecorder(webcamRef.current.stream, {
                     mediaRecorderRef.current = new MediaRecorder(stream, {
-                        mimeType: "video/webm"
+                        // mimeType: "video/mp4"
+                        mimeType: type
                     });
-
-                    // mediaRecorderRef.current.addEventListener(
-                    //     "dataavailable",
-                    //     handleDataAvailable
-                    // );
 
                     mediaRecorderRef.current.ondataavailable = handleDataAvailable;
 
@@ -82,12 +63,6 @@ const WebCamVideo = () => {
                         setCapturing(false);
                     };
 
-                    mediaRecorderRef.current.onstart = () => {
-                        // Handle the start event if needed
-                        setCapturing(true);
-                    };
-
-                    // mediaRecorderRef.current.start();
                 }
             } catch (error) {
                 console.error('Error initializing media recorder:', error);
@@ -97,13 +72,24 @@ const WebCamVideo = () => {
         initializeMediaRecorder();
     }, [webcamRef, mediaRecorderRef, handleDataAvailable]);
 
+    const handleStopCaptureClick = useCallback(() => {
+        if (mediaRecorderRef.current && mediaRecorderRef.current.state === "recording") {
+            mediaRecorderRef.current.stop();
+            clearInterval(timer); // 타이머 멈춤
+            // setCapturing(false);
+            // setTimer(null);
+            setElapsedTime(10); // 타이머 초기화
+            // console.log("Stop capturing. Recorded chunks:", recordedChunks); // 확인을 위한 로그 추가
+        }
+    }, [mediaRecorderRef, timer]);
+
     const handleStartCaptureClick = useCallback(() => {
-        // initializeMediaRecorder();
 
         if (webcamRef.current && webcamRef.current.video && webcamRef.current.video.srcObject) {
             const stream = webcamRef.current.video.srcObject;
             mediaRecorderRef.current = new MediaRecorder(stream, {
-                mimeType: "video/webm"
+                // mimeType: "video/mp4"
+                mimeType: mimeType
             });
 
             mediaRecorderRef.current.ondataavailable = handleDataAvailable;
@@ -112,122 +98,108 @@ const WebCamVideo = () => {
                 setCapturing(false);
             };
 
-            mediaRecorderRef.current.onstart = () => {
-                setCapturing(true);
-            };
+            const newTimer = setInterval(() => {
+                setElapsedTime((prev) => {
+                    if (prev <= 0) {
+                        clearInterval(newTimer);
+                        handleStopCaptureClick();
+                        return 0;
+                    }
+                    return prev - 1;
+                });
+            }, 1000);
+
+            setCapturing(true);
+            setTimer(newTimer);
             setRecordedChunks([]);
+            setElapsedTime(10); // 녹화 시작 시간을 10으로 재설정
             mediaRecorderRef.current.start();
         }
-        // if (mediaRecorderRef.current) {
-        //     if (mediaRecorderRef.current.state === "recording") {
-        //         // Start capturing 전에 기존 레코딩 초기화
-        //         // setRecordedChunks([]);
-        //         // mediaRecorderRef.current.start();
-        //         mediaRecorderRef.current.stop();
-        //     }
-        //     setRecordedChunks([]);
-        //     mediaRecorderRef.current.start();
-        //     // setCapturing(true);
-        // }
-        // setRecordedChunks([]);
-        // setCapturing(true);
-        // mediaRecorderRef.current.start();
-        // }, [setRecordedChunks, mediaRecorderRef, setCapturing]);
-    }, [webcamRef, mediaRecorderRef, handleDataAvailable]);
-
-    // const handleStartCaptureClick = useCallback(() => {
-    //     setCapturing(true);
-    //     const stream = webcamRef.current.video.srcObject;
-    //     mediaRecorderRef.current = new MediaRecorder(stream, {
-    //         mimeType: "video/webm"
-    //     });
-    //     mediaRecorderRef.current.addEventListener(
-    //         "dataavailable",
-    //         handleDataAvailable
-    //     );
-    //     mediaRecorderRef.current.start();
-    // }, [webcamRef, setCapturing, mediaRecorderRef, handleDataAvailable]);
-
-
-    const handleStopCaptureClick = useCallback(() => {
-        if (mediaRecorderRef.current && mediaRecorderRef.current.state === "recording") {
-            // mediaRecorderRef.current.addEventListener(
-            //     "dataavailable",
-            //     handleDataAvailable
-            // );
-            mediaRecorderRef.current.stop();
-            // setRecordedChunks([]);
-            // console.log("Stop capturing. Recorded chunks:", recordedChunks); // 확인을 위한 로그 추가
-        }
-        // setCapturing(false);
-        // mediaRecorderRef.current.stop();
-        // setCapturing(false);
-        // }, [mediaRecorderRef, setCapturing, handleDataAvailable]);
-        // setRecordedChunks(prev => [...prev]); // This line triggers an update
-        // }, [mediaRecorderRef, setCapturing]);
-    }, [mediaRecorderRef]);
-
+    }, [webcamRef, mediaRecorderRef, handleDataAvailable, mimeType, handleStopCaptureClick]);
 
     const handleDownload = useCallback(() => {
         if (recordedChunks.length) {
             const blob = new Blob(recordedChunks, {
-                type: "video/webm"
+                type: mimeType
             });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement("a");
-            document.body.appendChild(a);
-            a.style = "display:none";
-            a.href = url;
-            a.download = "react-webcam-stream-capture.webm";
-            a.click();
-            window.URL.revokeObjectURL(url);
-            // setRecordedChunks([]);
+            const uploadVideo = new FormData();
+            uploadVideo.append('upload', blob, 'runaway-story.mp4');
+
+            axios({
+                method: 'post',
+                url: `${BASE_URI}/api/story/save`,
+                data: uploadVideo,
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    Authorization: token
+                }
+            }).then(res => {
+                console.log("Story Uploaded successfully:", res.data);
+                // 파일이 업로드된 후 클라우드 스토리지에서 반환한 파일 경로를 사용하여 다운로드 처리 등 추가 작업 수행 가능
+
+            }).catch(error => {
+                console.error("Error uploading file:", error);
+            });
+
+            // const url = URL.createObjectURL(blob);
+            // const a = document.createElement("a");
+            // document.body.appendChild(a);
+            // a.style = "display:none";
+            // a.href = url;
+            // a.download = "runaway-story.mp4";
+            // a.click();
+            // window.URL.revokeObjectURL(url);
+
+            // const video = document.getElementById("video-replay");
+            // video.src = url
         }
-    }, [recordedChunks]);
+    }, [recordedChunks, mimeType, BASE_URI, token]);
 
-    // useEffect(() => {
-    //     console.log("Recorded chunks:", recordedChunks);
-    // }, [recordedChunks]);
+    // const handleTouchStart = useCallback(() => {
+    //     console.log("Start Capture button touched");
+    //     // alert("버튼이 눌려요!");
+    //     handleStartCaptureClick(); // 터치 시작 시 녹화 시작
+    // }, [handleStartCaptureClick]);
 
-    // const videoConstraints = {
-    //     // aspectRatio: 360 / 740,
-    //     aspectRatio: window.innerWidth <= 768 && window.innerWidth > 360 ?
-    //         window.innerWidth / window.innerHeight : 360 / 740,
-    //     // aspectRatio:
-    //     //     window.innerHeight / window.innerWidth,
-    //     facingMode: "user",
-    //     // width: { min: 360 },
-    //     // height: { min: 720 }
-    //     width: window.innerWidth <= 768 && window.innerWidth > 360 ? window.innerWidth : 360,
-    //     height: window.innerWidth <= 768 && window.innerWidth > 360 ? window.innerHeight : 720,
-    // };
+    // const handleTouchStop = useCallback(() => {
+    //     console.log("Stop Capture button touched");
+    //     // alert("버튼이 눌려요!");
+    //     handleStopCaptureClick(); // 터치 시작 시 녹화 시작
+    // }, [handleStopCaptureClick]);
+
+    // const handleTouchDownload = useCallback(() => {
+    //     console.log("Start Capture button touched");
+    //     // alert("버튼이 눌려요!");
+    //     handleDownload(); // 터치 시작 시 녹화 시작
+    // }, [handleDownload]);
 
     return (
         <span className="WebCamContainer">
             <Webcam
-
                 audio={false} //나중에 true 로 바꿔야 오디오도 녹음 됨
                 ref={webcamRef}
-                // height={740}
-                // style={{ width: '100vw', height: '100vh' }}
-                // videoConstraints={videoConstraints}
+                mirrored={true}
                 videoConstraints={{
                     facingMode: 'user',
+                    aspectRatio: window.innerWidth <= 768 && window.innerWidth > 360 ?
+                        window.innerWidth / window.innerHeight : 360 / 740,
                     width: window.innerWidth <= 768 && window.innerWidth > 360 ? window.innerWidth : 360,
                     height: window.innerWidth <= 768 && window.innerWidth > 360 ? window.innerHeight : 720,
                 }}
             />
+            {/* <video id="video-replay" height="400" width="500" controls></video> */}
             {capturing ? (
-                <button className="WebCamStopBtn"
-                    onClick={handleStopCaptureClick}>Stop Capture</button>
+                <button className="WebCamStopBtn" onClick={handleStopCaptureClick}>Stop Capture</button>
             ) : (
-                <button className="WebCamStartBtn"
-                    onClick={handleStartCaptureClick}>Start Capture</button>
+                <button className="WebCamStartBtn" onClick={handleStartCaptureClick}>Start Capture</button>
+            )}
+            {elapsedTime === 0 && !capturing && (
+                <button className="WebCamStartBtn" onClick={handleStartCaptureClick}>Start Capture</button>
             )}
             {recordedChunks.length > 0 && (
-                <button className="WebCamVideoDownloadBtn"
-                    onClick={handleDownload}>Download</button>
+                <button className="WebCamVideoDownloadBtn" onClick={handleDownload}>Download</button>
             )}
+            <WebCamTimer elapsedTime={elapsedTime} />
         </span>
     );
 };

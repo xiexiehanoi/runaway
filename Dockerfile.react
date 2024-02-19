@@ -1,0 +1,17 @@
+FROM node:alpine
+WORKDIR /usr/src/app
+COPY src/main/reactjs/package.json .
+RUN npm install
+
+ARG RUN_ENV
+
+ENV RUN_ENV=$RUN_ENV
+
+COPY src/main/reactjs/. .
+COPY runaway-private/.env.$RUN_ENV .
+COPY runaway-private/runaway_cert.pem .
+COPY runaway-private/runaway_privkey.pem .
+
+RUN npm run build:$RUN_ENV
+
+ENTRYPOINT npm run start:$RUN_ENV

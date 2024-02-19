@@ -38,3 +38,6 @@ out/
 
 application.yml
 src/main/resources/static/
+.env.local
+.env.dev
+.env.product
