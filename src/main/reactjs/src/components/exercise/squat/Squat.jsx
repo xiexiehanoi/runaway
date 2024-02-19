@@ -1,31 +1,33 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect, useCallback } from "react";
 import "./progress.css";
 import Modal from "../MaxInputModal";
+import axios from "axios";
+import { useLocation } from 'react-router-dom';
 
 const BASE_URL = process.env.REACT_APP_BACKEND_URL;
+const dateToSend = new Date().toISOString().split('T')[0];
 
-const saveCountToDatabase = async (count) => {
+const saveCountToDatabase = async (count, exerciseType) => {
   try {
-    const response = await fetch(
-      `${BASE_URL}/api/challenge/myexercise/insert`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ squat_count: count }),
-      }
-    );
-
-    if (response.ok) {
-      console.log("Count saved successfully");
-      alert("세트 하나 완료");
-      window.location = "/exercise";
-    } else {
-      console.error("Failed to save count");
+    const token = window.localStorage.getItem('token');
+    if (!token) {
+        console.log("Token not found.");
+        return;
     }
+
+    await axios.post(`${BASE_URL}/api/exercise/save`, {
+      date: dateToSend,
+      exerciseCount: count,
+      exerciseType: exerciseType,
+    } , {
+      headers: {
+        Authorization: token
+      }
+    });
+    console.log("Count saved successfully");
+    alert("세트 하나 완료");
   } catch (error) {
-    console.error("Error:", error);
+    console.error("Failed to save count", error.response);
   }
 };
 
@@ -81,13 +83,26 @@ const Squat = () => {
   const countRef = useRef(count);
   const [maxCount, setMaxCount] = useState(10); // 기본 MAX 값
   const [showModal, setShowModal] = useState(false);
+  const [exerciseType, setExerciseType] = useState('');
+  const [audios, setAudios] = useState([]);
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.pathname.includes("/squat")) {
+      setExerciseType("squat");
+    } else if (location.pathname.includes("/situp")) {
+      setExerciseType("situp");
+    } else if (location.pathname.includes("/pushup")) {
+      setExerciseType("pushup");
+    }
+  }, [location]);
 
   useEffect(() => {
     if (progress) {
       progress.value = count;
       progress.el.style.setProperty("--progress-value", count / maxCount);
     }
-  }, [count, progress]);
+  }, [count, progress, maxCount]);
 
   useEffect(() => {
     if (cameraActive && !progress && progressRef.current) {
@@ -102,7 +117,7 @@ const Squat = () => {
     if (!cameraActive && progress) {
       setProgress(null); // progress 인스턴스를 null로 설정하여 제거
     }
-  }, [cameraActive, count]);
+  }, [cameraActive, count, maxCount, progress]);
 
   useEffect(() => {
     if (progress) {
@@ -152,7 +167,6 @@ const Squat = () => {
   };
 
   const stopCameraAndFunction = () => {
-
     setMaxCount(0);
     setCount(0); 
     setCameraActive(false); 
@@ -184,25 +198,34 @@ const Squat = () => {
   };
 
   const init = async () => {
-    const URL = "/squat/";
-    const modelURL = URL + "model.json";
-    const metadataURL = URL + "metadata.json";
-
-    const webcamWidth = 640;
-    const webcamHeight = 480;
-
-    modelRef.current = await window.tmPose.load(modelURL, metadataURL);
-
-    if (!webcamRef.current) {
-      webcamRef.current = new window.tmPose.Webcam(
-        webcamWidth,
-        webcamHeight,
-        true
-      );
-      await webcamRef.current.setup();
+    try {
+      const URL = "/squat/";
+      const modelURL = URL + "model.json";
+      const metadataURL = URL + "metadata.json";
+  
+      const webcamWidth = 640;
+      const webcamHeight = 480;
+  
+      // 모델 로딩 시도
+      modelRef.current = await window.tmPose.load(modelURL, metadataURL);
+  
+      // 웹캠 설정 시도
+      if (!webcamRef.current) {
+        webcamRef.current = new window.tmPose.Webcam(
+          webcamWidth,
+          webcamHeight,
+          true
+        );
+        await webcamRef.current.setup();
+      }
+      
+      // 웹캠 스트리밍 시작 시도
+      await webcamRef.current.play();
+    } catch (error) {
+      console.error("Failed to initialize the model or webcam", error);
+      alert("모델 또는 웹캠을 초기화하는 데 실패했습니다. 자세한 정보는 콘솔을 확인해주세요.");
     }
-    await webcamRef.current.play();
-
+    
     if (canvasRef.current) {
       const context = canvasRef.current.getContext("2d");
       context.drawImage(webcamRef.current.canvas, 0, 0);
@@ -241,21 +264,34 @@ const Squat = () => {
       setStatus("stand");
     } else if (prediction[0].probability.toFixed(2) === "1.00") {
       setStatus("nothing");
-    }
-
+    } 
     drawPose(pose);
   };
 
-  const playCountAudio = (newCount) => {
-    new Audio(`${newCount % 10}.mp3`).play();
-  };
+  useEffect(() => {
+    const loadedAudios = [];
+    for (let i = 0; i <= 10; i++) {
+      loadedAudios[i] = new Audio(`/squat/${i}.mp3`);
+      loadedAudios[i].oncanplaythrough = () => (loadedAudios[i].readyToPlay = true);
+    }
+    setAudios(loadedAudios);
+  }, []);
+
+  const playCountAudio = useCallback((newCount) => {
+    const audioIndex = newCount % 10;
+    if (audios[audioIndex] && audios[audioIndex].readyToPlay) {
+      audios[audioIndex].play().catch((e) => {
+        console.error("오디오 재생 실패", e);
+      });
+    }
+  }, [audios]);
 
   useEffect(() => {
     console.log("Status has changed:", status);
   }, [status]);
 
   useEffect(() => {
-    console.log("Count from useEffect:", count); // count 상태가 변경될 때마다 로그 출력
+    console.log("Count from useEffect:", count); 
   }, [count]);
 
   useEffect(() => {
@@ -266,11 +302,20 @@ const Squat = () => {
     if (status === "stand" && countRef.current === "squat") {
       const newCount = count + 1;
       setCount(newCount);
-      // console.log('New Count:', newCount);
       playCountAudio(newCount);
+  
+      if (newCount === maxCount) {
+        saveCountToDatabase(newCount, exerciseType)
+          .then(() => {
+            window.location = "/exercise";
+          })
+          .catch(error => {
+            console.error("Failed to save count", error.response);
+          });
+      }
     }
     countRef.current = status;
-  }, [status, count]);
+  }, [status, count, maxCount, exerciseType, playCountAudio]);
 
   const drawPose = (pose) => {
     if (canvasRef.current && webcamRef.current && webcamRef.current.canvas) {
@@ -290,13 +335,7 @@ const Squat = () => {
         cancelAnimationFrame(animationFrameId.current);
       }
     };
-  }, [count]);
-
-  useEffect(() => {
-    if (count > 0 && count === maxCount) {
-      saveCountToDatabase(count);
-    }
-  });
+  }, []);
 
   return (
     <div style={squatBoxContainer}>

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './WebCamStyle.css';
 // import WebCamImage from "./WebCamImage";
 import WebcamVideo from "./WebCamVideo";
+import StoryShow from "./StoryShow";
 
 
 const WebCam = () => {
@@ -11,18 +12,29 @@ const WebCam = () => {
         setShowWebCamVideo(true);
     };
 
+    const handleShowButtonClick = () => {
+        setShowWebCamVideo(false);
+    };
+
+
     return (
+        <>
+        <button className='btn btn-success'
+                onClick={handleVideoButtonClick}>Video
+        </button>
+        <button className='btn btn-success'
+                onClick={handleShowButtonClick}>Show
+        </button>
         <span className='WebCamApp'>
-            {/* <h4 className='alert alert-info'>Webcam</h4> */}
+                {/* <h4 className='alert alert-info'>Webcam</h4> */}
             {/* <WebCamImage /> */}
             {showWebCamVideo ? (
-                <WebcamVideo />
+                <WebcamVideo/>
             ) : (
-                <button className='btn btn-success'
-                    onClick={handleVideoButtonClick}>Video</button>
+                <StoryShow />
             )}
-            {/* <WebcamVideo /> */}
         </span>
+        </>
     );
 };
 

@@ -2,24 +2,22 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import ExerciseChallengeRowItem from './ExerciseChallengeRowItem';
 
-const BASE_URL = process.env.REACT_APP_BACKEND_URL;
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
 const ExerciseChallenge = () => {
     const [exerciseList,setExerciseList]=useState([]);
 
     useEffect(()=>{
-        const list = async()=>{
+        const challengeList = async()=>{
             try {
-                const response = await axios.get(`${BASE_URL}/api/challenge/exercise/list`);
+                const response = await axios.get(`${BACKEND_URL}/api/challenge/exercise/list`);
                 console.log(response);
                 setExerciseList(response.data);
             } catch (error) {
                 console.error("Error fetching exercise list:", error);
             }
         };
-
-    list();
-
+        challengeList();
     },[])
 
     return (
@@ -29,7 +27,7 @@ const ExerciseChallenge = () => {
                 <tbody>
                     {
                         exerciseList.map((rowData,idx)=>
-                            <ExerciseChallengeRowItem key={idx} row={rowData} idx={idx}/>
+                            <ExerciseChallengeRowItem key={idx} row={rowData}/>
                         )
                     }
                 </tbody>

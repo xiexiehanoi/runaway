@@ -1,10 +1,11 @@
 package com.runaway.project.challenge.dto;
 
-import com.runaway.project.running.dto.RunningDto;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.runaway.project.user.entity.User;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.sql.Timestamp;
 import java.time.LocalDate;
@@ -14,6 +15,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Table(name = "my_running")
+@ToString
 public class MyRunningDto {
 
     @Id
@@ -21,24 +23,31 @@ public class MyRunningDto {
     private int idx;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @JoinColumn(name = "user_id")
     private User user; // User 엔티티와의 연관 관계
 
     @ManyToOne
-    @JoinColumn(name = "challenge_id", referencedColumnName = "id")
+    @JoinColumn(name = "challenge_id")
     private RunningChallengeDto runningChallenge; // RunningChallenge 엔티티와의 연관 관계
 
-    private Timestamp start_date;
-    private Timestamp end_date;
+    @Column(name="start_date")
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
+    private LocalDate startDate;
+
+    @Column(name="end_date")
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
+    private LocalDate endDate;
     private boolean daily_success; // 데일리 성공 여부
 
     @PrePersist
-    private void prePersist() {
-        this.start_date = Timestamp.valueOf(LocalDateTime.now()); // 시작 날짜를 현재 시간으로 설정
-        if (this.runningChallenge != null && this.runningChallenge.getTarget_date() > 0) {
-            // 종료 날짜 계산
-            LocalDateTime endDateTime = LocalDateTime.now().plusDays(this.runningChallenge.getTarget_date());
-            this.end_date = Timestamp.valueOf(endDateTime);
+    public void prePersist() {
+        this.startDate = LocalDate.now();
+        if (this.user == null) {
+            throw new IllegalArgumentException("User cannot be null.");
+        }
+        if (this.runningChallenge != null && this.runningChallenge.getTarget_date() != 0) {
+            LocalDate endDateTime = startDate.now().plusDays(this.runningChallenge.getTarget_date()-1);
+            this.endDate = endDateTime;
         }
     }
 
