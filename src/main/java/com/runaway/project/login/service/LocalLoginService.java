@@ -41,7 +41,7 @@ public class LocalLoginService {
     String storedPassword = user.getPassword();
     System.out.println(inputPassword + storedPassword);
 
-    if (checkEmail.isEmpty()) {
+    if (checkEmail.isEmpty() || checkEmail.equals("")) {
       throw new RuntimeException("로그인 정보가 틀립니다.");
     }
 

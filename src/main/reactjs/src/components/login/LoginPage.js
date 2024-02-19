@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useRef, useState} from "react";
 import "../../CSS/Login.css";
 import { useNavigate } from "react-router-dom";
 import KakaoLogin from "./KakaoLogin";
@@ -10,9 +10,22 @@ const LoginPage = () => {
   const BASE_URL = process.env.REACT_APP_BACKEND_URL;
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const emailInputRef = useRef(null);
+  const passwordInputRef = useRef(null);
+
   const checkLogin = async e => {
     e.preventDefault();
+    if (!email.trim()) {
+      alert("이메일을 입력해주세요.");
+      emailInputRef.current.focus();
+      return;
+    }
 
+    if (!password.trim()) {
+      alert("비밀번호를 입력해주세요.");
+      passwordInputRef.current.focus();
+      return;
+    }
     try {
       const response = await fetch(`${BASE_URL}/api/user/sign-in`, {
         method: 'POST',
@@ -52,6 +65,7 @@ const LoginPage = () => {
           placeholder="ID"
           className="mobile-login_cell__input"
           onChange={(e) => setEmail(e.target.value)}
+          ref={emailInputRef}
         />
       </div>
       <div className="mobile-login_cell__title">
@@ -65,6 +79,7 @@ const LoginPage = () => {
           placeholder="Password"
           className="mobile-login_cell__input"
           onChange={(e) => setPassword(e.target.value)}
+          ref={passwordInputRef}
         />
       </div>
       <div className="mobile-loginInput_cell">
