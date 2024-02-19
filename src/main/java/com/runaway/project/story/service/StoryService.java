@@ -5,12 +5,13 @@ import com.runaway.project.story.entity.StoryEntity;
 import com.runaway.project.story.repository.StoryRepository;
 import com.runaway.project.user.entity.User;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.List;
 
 
 @EnableScheduling
@@ -27,6 +28,16 @@ public class StoryService {
         storyEntity.setStoryUploadTime(storyDto.getStoryUploadTime());
 
         storyRepository.save(storyEntity);
+    }
+
+    public List<StoryEntity> getAllStories()
+    {
+        return storyRepository.findAll();
+    }
+
+    public void deleteStory(Long story_num)
+    {
+        storyRepository.deleteById(story_num);
     }
 
     // 매 시간마다 실행되는 작업을 설정합니다.

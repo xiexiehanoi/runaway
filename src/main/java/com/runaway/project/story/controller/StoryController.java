@@ -2,6 +2,7 @@ package com.runaway.project.story.controller;
 
 import com.runaway.project.naver.storage.NcpObjectStorageService;
 import com.runaway.project.story.dto.StoryDto;
+import com.runaway.project.story.entity.StoryEntity;
 import com.runaway.project.story.service.StoryService;
 import com.runaway.project.user.entity.User;
 import com.runaway.project.user.service.UserService;
@@ -10,6 +11,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -53,6 +56,20 @@ public class StoryController {
 
         //storyContent 초기화
 //        storyContent=null;
+
+    }
+
+    @GetMapping("/list")
+    public List<StoryEntity> storyList()
+    {
+        return storyService.getAllStories();
+    }
+
+    @DeleteMapping("/delete")
+    public void deleteStory(@RequestParam("story_num") Long story_num)
+    {
+        System.out.println("delete:"+story_num);
+        storyService.deleteStory(story_num);
 
     }
 }
