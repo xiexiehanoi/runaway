@@ -106,34 +106,37 @@ const SignUpForm = () => {
   const activeBtn = isAllValid ? 'undefined' : 'disabled';
 
   // 통신
-  const checkSignUp = e => {
+  const checkSignUp = async e => {
     e.preventDefault();
     console.log(userInput);
-    fetch(`${BASE_URL}/api/user/sign-up`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        email: email,
-        password: password,
-        username: username,
-        nickname: nickname,
-        birthdate: `${year}-${month}-${day}`,
-        gender: gender,
-        height: parseInt(height),
-        weight: parseInt(weight),
-      }),
-    })
-      .then(response => {
-        if (response.ok) {
-          alert('회원가입 성공');
-          navi("/login");
-        } else {
-          throw new Error('회원가입 실패');
-        }
-      })
-      .catch(error => alert(error.message));
+
+    try {
+      const response = await fetch(`${BASE_URL}/api/user/sign-up`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: email,
+          password: password,
+          username: username,
+          nickname: nickname,
+          birthdate: `${year}-${month}-${day}`,
+          gender: gender,
+          height: parseInt(height),
+          weight: parseInt(weight),
+        }),
+      });
+
+      if (response.ok) {
+        alert('회원가입 성공');
+        navi('/login');
+      } else {
+        throw new Error('회원가입 실패');
+      }
+    } catch (error) {
+      alert(error.message);
+    }
   };
   return (
     <>
