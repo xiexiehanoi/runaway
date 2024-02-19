@@ -14,6 +14,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
   Optional<User> findByNickname(String nickname);
   Optional<User> findByUsername(String username);
 
+  Optional<User> findById(Long id);
+
   @Query("SELECT new com.runaway.project.ranking.dto.RankingDto(u.id, u.nickname, u.point) FROM User u ORDER BY u.point DESC")
   List<RankingDto> findAllByOrderByPointDesc();
 }

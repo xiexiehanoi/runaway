@@ -34,8 +34,8 @@ public class RunningService {
         RunningEntity runningEntity=modelMapper.map(runningDto, RunningEntity.class);
         runningEntity.setUser(userEntity);
         runningRepository.save(runningEntity);
-
-
     }
+
+
 
 }

@@ -7,14 +7,12 @@ import com.runaway.project.challenge.dao.ExerciseChallengeDao;
 import com.runaway.project.challenge.dto.MyExerciseDto;
 import com.runaway.project.challenge.dto.MyRunningDto;
 import com.runaway.project.challenge.dto.RunningChallengeDto;
-import com.runaway.project.challenge.repository.MyExerciseRepository;
 import com.runaway.project.challenge.repository.MyRunningRepository;
 import com.runaway.project.challenge.service.ChallengeService;
 import com.runaway.project.user.entity.User;
 import com.runaway.project.user.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -31,7 +29,6 @@ public class ChallengeController {
     private final ChallengeService challengeService;
     private final UserService userService;
     private final MyRunningRepository myRunningRepository;
-    private final MyExerciseRepository myExerciseRepository;
 
     @GetMapping("/exercise/list")
     public List<ExerciseChallengeDto> list()
@@ -48,8 +45,9 @@ public class ChallengeController {
     }
 
     @PostMapping("/exercise/insert")
-    public ResponseEntity<String> addExerciseChallenge(HttpServletRequest request, @RequestBody MyExerciseDto myExerciseDto) {
-        System.out.println("result: " + myExerciseDto.toString());
+    public ResponseEntity<String> addExerciseChallenge(HttpServletRequest request, @RequestBody MyExerciseDto myExerciseDto)
+    {
+        System.out.println("result: "+myExerciseDto.toString());
 
         if (myExerciseDto == null || myExerciseDto.getExerciseChallengeDto() == null) {
             return ResponseEntity.badRequest().body("챌린지 데이터가 올바르지 않습니다.");
@@ -59,21 +57,15 @@ public class ChallengeController {
         if (user == null) {
             return ResponseEntity.badRequest().body("Error in token");
         }
-        myExerciseDto.setUser(user);
 
         ExerciseChallengeDto exerciseChallengeDto = myExerciseDto.getExerciseChallengeDto();
         int targetDays = exerciseChallengeDto.getTarget_date();
         LocalDate startDateTime = LocalDate.now();
         LocalDate endDateTime = startDateTime.plusDays(targetDays);
 
-        System.out.println("asdfasdf:" + endDateTime);
+        System.out.println("asdfasdf:"+endDateTime);
         myExerciseDto.setStart_date(startDateTime);
         myExerciseDto.setEnd_date(endDateTime);
-
-        List<MyExerciseDto> existChallenges = myExerciseRepository.findAllActiveByUserIdAndExerciseType(user.getId(), myExerciseDto.getExerciseChallengeDto().getExercise_type());
-        if (!existChallenges.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body("이미 해당 운동에관한 챌린지가 있습니다.");
-        }
 
         challengeService.insertExerciseChallenge(myExerciseDto);
         return ResponseEntity.ok("챌린지 데이터가 저장되었습니다.");
@@ -89,8 +81,9 @@ public class ChallengeController {
         }
 
         User user = userService.getUserByReqeust(request);
-        if (user == null) ResponseEntity.badRequest().body("Error in token");
-        myRunningDto.setUser(user);
+        if (user == null) {
+            return ResponseEntity.badRequest().body("Error in token");
+        }
 
         RunningChallengeDto runningChallengeDto = myRunningDto.getRunningChallenge();
         int targetDays = runningChallengeDto.getTarget_date();
@@ -108,6 +101,21 @@ public class ChallengeController {
         challengeService.insertRunningChallenge(myRunningDto, user.getId());
         System.out.println("result: "+user.getId());
         return ResponseEntity.ok("챌린지 데이터가 저장되었습니다.");
+    }
+
+    @GetMapping("running/result")
+    public ResponseEntity<String> runningResult(HttpServletRequest request, @RequestBody MyRunningDto myRunningDto){
+        User user = userService.getUserByReqeust(request);
+        if (user == null) {
+            return ResponseEntity.badRequest().body("Error in token");
+        }
+
+        String result = challengeService.evaluateRunning(user.getId(), myRunningDto);
+        if ("success".equals(result)) {
+            return ResponseEntity.ok("달리기 챌린지 성공");
+        } else {
+            return ResponseEntity.ok("달리기 챌린지 실패");
+        }
     }
 
 }
