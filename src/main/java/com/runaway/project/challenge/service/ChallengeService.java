@@ -8,6 +8,8 @@ import com.runaway.project.running.repository.RunningRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,8 +30,23 @@ public class ChallengeService {
         return !existChallenge.isEmpty();
     }
 
+    @Transactional
     public void insertExerciseChallenge(MyExerciseDto myExerciseDto){
+        Long userId = myExerciseDto.getUser().getId();
+        String exerciseType = myExerciseDto.getExerciseChallengeDto().getExercise_type();
+
+        System.out.println("Checking for existing challenge with userId: " + userId + " and exerciseType: " + exerciseType);
+        if (checkChallengeExistInExercise(userId, exerciseType)) {
+            throw new ChallengeAlreadyExistsException("You already have a challenge for this exercise type.");
+        }
+
         myExerciseRepository.save(myExerciseDto);
+    }
+
+    private boolean checkChallengeExistInExercise(Long userId, String exerciseType) {
+        List<MyExerciseDto> existChallenges = myExerciseRepository.findAllActiveByUserIdAndExerciseType(userId, exerciseType);
+        System.out.println("Found challenges: " + existChallenges);
+        return !existChallenges.isEmpty();
     }
 
     public void insertRunningChallenge(MyRunningDto myRunningDto, Long userId){
@@ -40,6 +57,7 @@ public class ChallengeService {
         myRunningRepository.save(myRunningDto);
     }
 
+
     public List<Object> getAllMyChallengesList(Long userId) {
         List<MyExerciseDto> exerciseChallenges = myExerciseRepository.findByUserExerciseChallengeList(userId);
         List<MyRunningDto> runningChallenges = myRunningRepository.findByUserRunningChallengeList(userId);
@@ -49,6 +67,14 @@ public class ChallengeService {
         combinedChallenges.addAll(runningChallenges);
 
         return combinedChallenges;
+    }
+
+
+
+    public static class ChallengeAlreadyExistsException extends RuntimeException {
+        public ChallengeAlreadyExistsException(String message) {
+            super(message);
+        }
     }
 
 

@@ -1,7 +1,7 @@
 version: "3"
 services:
   docker-springboot:
-    image: alpaca1/spring-docker:latest
+    image: xiexiehanoi/spring-docker:latest
     build:
       context: .
       dockerfile: ./Dockerfile
@@ -15,7 +15,7 @@ services:
       - docker-react
 
   docker-react:
-    image: alpaca1/react-container:latest
+    image: xiexiehanoi/react-container:latest
     build:
       context: .
       dockerfile: ./Dockerfile.react

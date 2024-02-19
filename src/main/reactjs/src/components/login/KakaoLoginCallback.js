@@ -1,9 +1,13 @@
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
 import {useEffect, useRef} from "react";
+import {useRecoilState} from "recoil";
+import {LoginAtom} from "../../global/LoginAtom";
 
 const KakaoLoginCallback = () => {
     const navigate = useRef(useNavigate());
+    const [isLogin, setIsLogin] = useRecoilState(LoginAtom);
+
     useEffect(() => {
         (async () => {
             try {
@@ -20,6 +24,7 @@ const KakaoLoginCallback = () => {
                 const res = await axios.get(`${BACKEND_URI}/api/login/oauth2/token?code=${code}&provider=${charactersAfterCallback}`);
                 const token = res.headers.authorization;
                 window.localStorage.setItem('token', token);
+                setIsLogin(token);
                 navigate.current(`/`);
             } catch (e) {
                 console.error(e);
