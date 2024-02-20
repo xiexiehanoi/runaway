@@ -1,6 +1,8 @@
 package com.runaway.project.running.service;
 
 
+import com.runaway.project.challenge.dto.MyRunningDto;
+import com.runaway.project.challenge.repository.MyRunningRepository;
 import com.runaway.project.running.dto.RunningDto;
 import com.runaway.project.running.entity.RunningEntity;
 import com.runaway.project.running.repository.RunningRepository;
@@ -11,6 +13,8 @@ import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -19,6 +23,7 @@ public class RunningService {
     private final RunningRepository runningRepository;
     private final UserRepository userRepository;
     private final ModelMapper modelMapper;
+    private final MyRunningRepository myRunningRepository;
 
     public User findById(Long userIdx) {
         Optional<User> OptionalUserEntity=userRepository.findById(userIdx);
@@ -34,8 +39,10 @@ public class RunningService {
         RunningEntity runningEntity=modelMapper.map(runningDto, RunningEntity.class);
         runningEntity.setUser(userEntity);
         runningRepository.save(runningEntity);
+    }
 
-
+    public List<MyRunningDto> findCurrentChallengesByUserId(Long userId, LocalDate today) {
+        return myRunningRepository.findAllByUserIdAndDateRange(userId, today);
     }
 
 }

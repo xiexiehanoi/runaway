@@ -14,7 +14,6 @@ import com.runaway.project.user.entity.User;
 import com.runaway.project.user.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -120,5 +119,21 @@ public class ChallengeController {
 
         return myChallengeList;
     }
+
+//    @GetMapping("running/result")
+//    public ResponseEntity<String> runningResult(HttpServletRequest request, @RequestBody MyRunningDto myRunningDto){
+//        User user = userService.getUserByReqeust(request);
+//        if (user == null) {
+//            return ResponseEntity.badRequest().body("Error in token");
+//        }
+//
+//        String result = challengeService.evaluateRunning(user.getId(), myRunningDto);
+//
+//        if ("success".equals(result)) {
+//            return ResponseEntity.ok("달리기 챌린지 성공");
+//        } else {
+//            return ResponseEntity.ok("달리기 챌린지 실패");
+//        }
+//    }
 
 }
