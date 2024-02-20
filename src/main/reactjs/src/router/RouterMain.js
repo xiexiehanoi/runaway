@@ -21,19 +21,8 @@ import Ranking from '../components/rank/Ranking';
 import RunningRecordDetail from '../components/profile/RunningRecordDetail';
 import {useRecoilValue} from "recoil";
 import {LoginAtom} from "../global/LoginAtom";
-const MyPageWithAlert = () => {
-    const isLogin = useRecoilValue(LoginAtom);
+import NotLogin from "../global/login_redirect/NotLogin";
 
-    useEffect(() => {
-        // my 페이지에 접근할 때만 alert 창 띄우기
-        if (isLogin === null) {
-            alert('로그인 해주세요');
-        }
-    }, [isLogin]);
-
-    // my 페이지에 접근할 때만 MyPage 컴포넌트 렌더링
-    return isLogin === null ? <Navigate to="/login" /> : <MyPage />;
-};
 const RouterMain = () => {
     return (
         <MainLayout>       
@@ -46,7 +35,7 @@ const RouterMain = () => {
                 <Route path="/exercisechallenge" element={<ExerciseChallenge />} />
                 <Route
                   path="/my"
-                  element={<MyPageWithAlert />}
+                  element={<NotLogin><MyPage /></NotLogin>}
                 />
                 <Route path="runningRecordDetail/:runIdx" element={<RunningRecordDetail/>}></Route>
                 <Route path="/login" element={<LoginPage />} />
