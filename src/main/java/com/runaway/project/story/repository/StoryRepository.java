@@ -12,10 +12,11 @@ import java.time.LocalDateTime;
 
 public interface StoryRepository extends JpaRepository<StoryEntity, Long> {
 
-//    @Transactional
-//    @Modifying
+    @Transactional
+    @Modifying
 //    @Query("update story set storyWatchCount=storyWatchCount+1 where storyNum=:storyNum")
-//    public void updateStoryWatchCount(Long storyNum);
+    @Query("UPDATE StoryEntity s SET s.storyWatchCount = s.storyWatchCount + 1 WHERE s.storyNum = :storyNum")
+    public void updateStoryWatchCount(@Param("storyNum") Long storyNum);
 
     @Transactional
     @Modifying

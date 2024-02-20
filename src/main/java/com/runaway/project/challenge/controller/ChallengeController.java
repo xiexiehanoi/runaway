@@ -110,4 +110,15 @@ public class ChallengeController {
         return ResponseEntity.ok("챌린지 데이터가 저장되었습니다.");
     }
 
+    @GetMapping("/challengemain/mychallengelist")
+    public List<?> getMyChallengeList(HttpServletRequest request) {
+        User user = userService.getUserByReqeust(request);
+        if (user == null) ResponseEntity.badRequest().body("Error in token");
+
+        List<?> myChallengeList = challengeService.getAllMyChallengesList(user.getId());
+        System.out.println("아이디: "+myChallengeList);
+
+        return myChallengeList;
+    }
+
 }

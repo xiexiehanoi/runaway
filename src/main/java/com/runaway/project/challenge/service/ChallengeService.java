@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -56,11 +57,26 @@ public class ChallengeService {
         myRunningRepository.save(myRunningDto);
     }
 
+
+    public List<Object> getAllMyChallengesList(Long userId) {
+        List<MyExerciseDto> exerciseChallenges = myExerciseRepository.findByUserExerciseChallengeList(userId);
+        List<MyRunningDto> runningChallenges = myRunningRepository.findByUserRunningChallengeList(userId);
+
+        List<Object> combinedChallenges = new ArrayList<>();
+        combinedChallenges.addAll(exerciseChallenges);
+        combinedChallenges.addAll(runningChallenges);
+
+        return combinedChallenges;
+    }
+
+
+
     public static class ChallengeAlreadyExistsException extends RuntimeException {
         public ChallengeAlreadyExistsException(String message) {
             super(message);
         }
     }
+
 
 //    public List<RunningEntity> getRunningRecord(MyRunningDto myRunningDto, User userId){
 //
