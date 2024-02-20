@@ -8,8 +8,16 @@ function RunningRecord(props) {
     const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
     useEffect(() => {
+        const token = window.localStorage.getItem('token');
+        if (!token) {
+            console.log("token not found")
+            return;
+        }
+
         axios.get(`${BACKEND_URL}/api/profile/running/record`, {
-            params: { userId: 20 }
+            headers: {
+                Authorization: token
+            }
         })
             .then(function (response) {
                 // 데이터 변환을 위한 함수
