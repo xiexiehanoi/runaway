@@ -15,8 +15,6 @@ const MainLayout = ({ children }) => {
       icon: "dashboardIcon",
       filledIcon: "dashboardIconFilled",
       route: "/home"
-
-
     },
     {
       title: "Story",
@@ -65,7 +63,7 @@ const MainLayout = ({ children }) => {
               <div className="operator-5g">5G</div>
               <div className="battery">100</div>
             </div>
-          </div>
+          </div>  
 
           <div id="screen-container">
             <div id="screen">{children}</div>
@@ -97,7 +95,7 @@ const MainLayout = ({ children }) => {
                   </li>
                 ))}
               </ul>
-              <em style={{ "--offset": `${indicatorOffset}px` }} />
+              <em style={{ "--offset": `${indicatorOffset}px` }}/>
             </nav>
 
             <svg xmlns="http://www.w3.org/2000/svg" style={{ display: "none" }}>

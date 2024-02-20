@@ -17,5 +17,5 @@ public class ExerciseChallengeDto {
     private int target_date;
     private String exercise_type;
     private int exp;
-
+    
 }

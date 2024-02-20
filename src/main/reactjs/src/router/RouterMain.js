@@ -19,8 +19,12 @@ import ChallengeMain from '../components/challenge/ChallengeMain';
 import KakaoLoginCallback from "../components/login/KakaoLoginCallback";
 import Ranking from '../components/rank/Ranking';
 import RunningRecordDetail from '../components/profile/RunningRecordDetail';
+
+import MyChallengeList from '../components/challenge/MyChallengeList';
+
 import { useRecoilValue } from "recoil";
 import { LoginAtom } from "../global/LoginAtom";
+import RunningRecord from '../components/profile/RunningRecord';
 const MyPageWithAlert = () => {
     const isLogin = useRecoilValue(LoginAtom);
 
@@ -34,6 +38,7 @@ const MyPageWithAlert = () => {
     // my 페이지에 접근할 때만 MyPage 컴포넌트 렌더링
     return isLogin === null ? <Navigate to="/login" /> : <MyPage />;
 };
+
 const RouterMain = () => {
     return (
         <MainLayout>
@@ -48,7 +53,8 @@ const RouterMain = () => {
                     path="/my"
                     element={<MyPageWithAlert />}
                 />
-                <Route path="runningRecordDetail/:runIdx" element={<RunningRecordDetail />}></Route>
+                <Route path='/runningRecord' element={<RunningRecord />}></Route>
+                <Route path="/runningRecordDetail/:runIdx" element={<RunningRecordDetail />}></Route>
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/authgoogle" element={<GoogleLogin />} />
                 <Route path="/authnaver" element={<NaverLogin />} />
@@ -60,6 +66,7 @@ const RouterMain = () => {
                 <Route path="/challengemain" element={<ChallengeMain />} />
                 <Route path="/" element={<Home />} />
                 <Route path="/ranking" element={<Ranking />} />
+                <Route path="/mychallengelist" element={<MyChallengeList />} />
             </Routes>
         </MainLayout>
 

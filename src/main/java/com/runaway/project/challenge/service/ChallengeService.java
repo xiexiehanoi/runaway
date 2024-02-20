@@ -4,14 +4,19 @@ import com.runaway.project.challenge.dto.MyExerciseDto;
 import com.runaway.project.challenge.dto.MyRunningDto;
 import com.runaway.project.challenge.repository.MyExerciseRepository;
 import com.runaway.project.challenge.repository.MyRunningRepository;
+import com.runaway.project.challenge.repository.RunningChallengeRepository;
+import com.runaway.project.running.entity.RunningEntity;
 import com.runaway.project.running.repository.RunningRepository;
+import com.runaway.project.user.entity.User;
+import com.runaway.project.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
+
 
 @Service
 @RequiredArgsConstructor
@@ -23,6 +28,8 @@ public class ChallengeService {
     @Autowired
     private MyRunningRepository myRunningRepository;
     private final RunningRepository runningRepository;
+    private final UserRepository userRepository;
+    private final RunningChallengeRepository runningChallengeRepository;
 
     private boolean checkChallengeExists(Long userId, LocalDate startDate) {
         List<MyRunningDto> existChallenge = myRunningRepository.findAllByUserIdAndStartDate(userId, startDate);
@@ -56,15 +63,59 @@ public class ChallengeService {
         myRunningRepository.save(myRunningDto);
     }
 
+
+    public List<Object> getAllMyChallengesList(Long userId) {
+        List<MyExerciseDto> exerciseChallenges = myExerciseRepository.findByUserExerciseChallengeList(userId);
+        List<MyRunningDto> runningChallenges = myRunningRepository.findByUserRunningChallengeList(userId);
+
+        List<Object> combinedChallenges = new ArrayList<>();
+        combinedChallenges.addAll(exerciseChallenges);
+        combinedChallenges.addAll(runningChallenges);
+
+        return combinedChallenges;
+    }
+
+
+
     public static class ChallengeAlreadyExistsException extends RuntimeException {
         public ChallengeAlreadyExistsException(String message) {
             super(message);
         }
     }
 
-//    public List<RunningEntity> getRunningRecord(MyRunningDto myRunningDto, User userId){
-//
-//
-//    }
+    @Transactional
+    public void evaluateRunningChallenge(Long idx, Long userId) {
+        var myRunning = myRunningRepository.findById(idx).orElseThrow();
+        var userRuns = runningRepository.findByUserIdAndDateBetween(userId, myRunning.getStartDate(), myRunning.getEndDate());
+//        System.out.println("User runs found: " + userRuns.size());
 
+        boolean challengeSuccess = true;
+        LocalDate currentDate = myRunning.getStartDate();
+        while (!currentDate.isAfter(myRunning.getEndDate())) {
+            LocalDate finalCurrentDate = currentDate;
+            double dailyTotalDistance = userRuns.stream()
+                    .filter(run -> run.getDate().isEqual(finalCurrentDate))
+                    .mapToDouble(RunningEntity::getDistance)
+                    .sum();
+
+//            System.out.println("Date: " + currentDate + ", Total distance: " + dailyTotalDistance);
+            if (dailyTotalDistance < myRunning.getRunningChallenge().getDistance()) {
+                challengeSuccess = false;
+                break;
+            }
+
+            currentDate = currentDate.plusDays(1);
+        }
+
+        if (challengeSuccess) {
+            var user = userRepository.findById(userId).orElseThrow();
+            user.addPoints(myRunning.getRunningChallenge().getExp());
+            userRepository.save(user);
+            myRunning.setDailySuccess(true);
+        } else {
+            myRunning.setDailySuccess(false);
+        }
+
+        myRunningRepository.save(myRunning);
+    }
 }

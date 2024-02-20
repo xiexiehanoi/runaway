@@ -1,7 +1,7 @@
 import React from 'react';
 import RunningMap from "./RunningMap";
 import axios from 'axios';
-import {RunningLocationTracking} from './RunningLocationTracking';
+import { RunningLocationTracking } from './RunningLocationTracking';
 
 /*
 
@@ -58,48 +58,61 @@ function Running() {
         console.log("Function stopRun");
         stopTracking();
 
-        // 현재 날짜와 시간 얻기
+        // 현재 날짜와 시간을 얻기
         const now = new Date();
-        const formattedDate = now.toLocaleDateString('ko-KR'); // '년/월/일' 형식으로 날짜 포맷
-        const formattedTime = now.toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit' }); // '시:분' 형식으로 시간 포맷
+        // 한국 시간대로 조정 (UTC+9)
+        const kstDate = new Date(now.getTime() + (9 * 60 * 60 * 1000));
+        // ISO-8601 형식의 날짜 문자열 생성 ('YYYY-MM-DD')
+        const formattedDate = kstDate.toISOString().split('T')[0];
+        // ISO-8601 형식의 시간 문자열 생성 ('HH:MM:SS'), 초 단위는 제외하려면 substring 사용
+        const formattedTime = kstDate.toISOString().split('T')[1].substring(0, 5);
+
+        const token = window.localStorage.getItem('token');
+        if (!token) {
+            console.log("token not found")
+            return;
+        }
 
         const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
-        axios.post(`${BACKEND_URL}/api/running/save`,{
-            userIdx:20,
-            date:formattedDate,
-            time:formattedTime,
-            distance :Math.round(distanceTraveled * 1000) / 1000 ,
-            averagePace:pace,
-            runningTime:formatTime(timer),
-            path:location
+        axios.post(`${BACKEND_URL}/api/running/save`, {
+            date: formattedDate,
+            time: formattedTime,
+            distance: Math.round(distanceTraveled * 1000) / 1000,
+            averagePace: pace,
+            runningTime: formatTime(timer),
+            path: location
 
+        }, {
+            headers: {
+                Authorization: token
+            }
         })
-        .then(function (response) {
-            console.log(response);
-          })
-        .catch(function (error) {
-            console.log(error);
-         });
+            .then(function (response) {
+                console.log(response);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
     }
 
-/*
-    const handleMockDataClick = () => {
-        const totalMockDataCount = MockDataList.length;
-        let currentCount = 0;
-
-        const addMockDataWithDelay = () => {
-            if (currentCount < totalMockDataCount) {
-                const newMockData = generateMockData(currentCount);
-                setLocation((prevList) => [...prevList, newMockData]);
-
-                currentCount++;
-                setTimeout(addMockDataWithDelay, 5000);
-            }
+    /*
+        const handleMockDataClick = () => {
+            const totalMockDataCount = MockDataList.length;
+            let currentCount = 0;
+    
+            const addMockDataWithDelay = () => {
+                if (currentCount < totalMockDataCount) {
+                    const newMockData = generateMockData(currentCount);
+                    setLocation((prevList) => [...prevList, newMockData]);
+    
+                    currentCount++;
+                    setTimeout(addMockDataWithDelay, 5000);
+                }
+            };
+            
+            addMockDataWithDelay();
         };
-        
-        addMockDataWithDelay();
-    };
-*/
+    */
 
     return (
         <div>
@@ -116,7 +129,7 @@ function Running() {
                 시간: {formatTime(timer)}
             </div>
             <div>
-                거리 : {Math.round(distanceTraveled*1000)/1000} Km
+                거리 : {Math.round(distanceTraveled * 1000) / 1000} Km
             </div>
             <div>
                 pace:  {pace}
