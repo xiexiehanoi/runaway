@@ -24,6 +24,7 @@ import MyChallengeList from '../components/challenge/MyChallengeList';
 
 import {useRecoilValue} from "recoil";
 import {LoginAtom} from "../global/LoginAtom";
+import RunningRecord from '../components/profile/RunningRecord';
 const MyPageWithAlert = () => {
     const isLogin = useRecoilValue(LoginAtom);
 
@@ -52,7 +53,8 @@ const RouterMain = () => {
                   path="/my"
                   element={<MyPageWithAlert />}
                 />
-                <Route path="runningRecordDetail/:runIdx" element={<RunningRecordDetail/>}></Route>
+                <Route path='/runningRecord' element={<RunningRecord/>}></Route>
+                <Route path="/runningRecordDetail/:runIdx" element={<RunningRecordDetail/>}></Route>
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/authgoogle" element={<GoogleLogin />} />
                 <Route path="/authnaver" element={<NaverLogin />} />
