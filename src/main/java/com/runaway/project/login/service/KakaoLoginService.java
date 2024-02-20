@@ -118,7 +118,7 @@ public class KakaoLoginService implements LoginService {
 
             userRepository.save(user);
         }
-
+        System.out.println(user);
         return createToken(user);
     }
 

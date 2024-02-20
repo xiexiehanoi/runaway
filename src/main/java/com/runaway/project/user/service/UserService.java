@@ -1,15 +1,22 @@
 package com.runaway.project.user.service;
 
+import com.runaway.project.login.JwtProperties;
+import com.runaway.project.login.model.OauthToken;
+import com.runaway.project.login.service.LoginService;
 import com.runaway.project.user.dto.SignUpRequestDto;
 import com.runaway.project.user.dto.UserInfo;
 import com.runaway.project.user.entity.User;
 import com.runaway.project.user.repository.UserRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
@@ -19,6 +26,8 @@ import java.util.Optional;
 public class UserService {
   private final UserRepository userRepository;
   private final PasswordEncoder passwordEncoder;
+  private final Map<String, LoginService> providerLoginServiceMap = new HashMap<>();
+  private LoginService loginService;
 
   public User getUserById(Long id) {
     return userRepository.findById(id).orElse(null);
@@ -39,37 +48,9 @@ public class UserService {
     userRepository.save(user);
   }
 
-  public UserInfo getUserInfo(String email) {
-    User user = userRepository.findByEmail(email).orElseThrow(() -> new NoSuchElementException("회원이 없습니다."));
-    Integer height = user.getHeight();
-    Integer weight = user.getWeight();
-
-    if (height != null || height != 0) {
-
-    }
-
-    if (weight != null || weight != 0) {
-
-    }
-
-    // gender 값에 따라 "남자" 또는 "여자"로 빌드
-    String gender = user.getGender();
-    if ("male".equalsIgnoreCase(gender) || "M".equalsIgnoreCase(gender)) {
-      gender = "남자";
-    } else if ("female".equalsIgnoreCase(gender) || "F".equalsIgnoreCase(gender)) {
-      gender = "여자";
-    } else {
-      gender = "짐승";
-    }
-
-
-    return UserInfo.builder()
-        .email(user.getEmail())
-        .birthdate(user.getBirthdate())
-        .gender(gender)
-        .nickname(user.getNickname())
-        .build();
-  }
+//  public ResponseEntity<Object> getUserInfo(HttpServletRequest request, String code) {
+//
+//  }
 
   // 유저 중복 확인
   private void validateDuplicateUser(String email) {

@@ -6,7 +6,6 @@ import com.runaway.project.user.dto.LoginResponseDto;
 import com.runaway.project.user.dto.SignUpRequestDto;
 import com.runaway.project.user.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.cglib.core.Local;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -34,6 +33,11 @@ public class UserController {
   @PostMapping("/sign-in")
   public ResponseEntity<String> signIn(final @Valid @RequestBody LoginRequestDto loginRequestDto) {
     return localLoginService.signIn(loginRequestDto);
+  }
+
+  @PostMapping("/sign-up/addinfo")
+  public void signUpAddInfo(String email) {
+    userService.getUserInfo(email);
   }
 }
 

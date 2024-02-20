@@ -1,7 +1,7 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import Running from '../components/running/Running';
 import WebCam from '../components/Webcam/WebCam';
-import {Navigate, Route, Routes} from 'react-router-dom';
+import {Route, Routes} from 'react-router-dom';
 import MyPage from '../components/profile/Mypage';
 import LoginPage from '../components/login/LoginPage';
 import GoogleLogin from '../components/login/GoogleLogin';
@@ -19,9 +19,9 @@ import ChallengeMain from '../components/challenge/ChallengeMain';
 import KakaoLoginCallback from "../components/login/KakaoLoginCallback";
 import Ranking from '../components/rank/Ranking';
 import RunningRecordDetail from '../components/profile/RunningRecordDetail';
-import {useRecoilValue} from "recoil";
-import {LoginAtom} from "../global/LoginAtom";
 import NotLogin from "../global/login_redirect/NotLogin";
+import RunningRecord from "../components/profile/RunningRecord";
+import MyChallengeList from "../components/challenge/MyChallengeList";
 
 const RouterMain = () => {
     return (
@@ -37,7 +37,8 @@ const RouterMain = () => {
                   path="/my"
                   element={<NotLogin><MyPage /></NotLogin>}
                 />
-                <Route path="runningRecordDetail/:runIdx" element={<RunningRecordDetail/>}></Route>
+                <Route path='/runningRecord' element={<RunningRecord/>}></Route>
+                <Route path="/runningRecordDetail/:runIdx" element={<RunningRecordDetail/>}></Route>
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/authgoogle" element={<GoogleLogin />} />
                 <Route path="/authnaver" element={<NaverLogin />} />
@@ -49,6 +50,7 @@ const RouterMain = () => {
                 <Route path="/challengemain" element={<ChallengeMain/>}/>
                 <Route path="/" element={<Home />} />
                 <Route path="/ranking" element={<Ranking />} />
+                <Route path="/mychallengelist" element={<MyChallengeList />}/>
             </Routes>
         </MainLayout>
         
