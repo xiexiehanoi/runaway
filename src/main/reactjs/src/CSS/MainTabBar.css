@@ -18,6 +18,7 @@
     position: relative;
     display: flex;
     z-index: 1;
+    top: 10%;
     justify-content: center;
     align-items: center;
     height: 60px;
@@ -68,6 +69,7 @@
     transition: fill 0.3s ease, stroke 0.3s ease;
     fill: #99A3BA;
     stroke: #99A3BA;
+    background-color: #f5f5f5;
 }
 
 .tabbar ul li a div span:last-child {
@@ -79,6 +81,7 @@
 .tabbar ul li a div span:last-child svg {
     fill: #5628EE;
     stroke: #5628EE;
+    background-color: #f5f5f5;
 }
 
 .tabbar ul li a strong {
