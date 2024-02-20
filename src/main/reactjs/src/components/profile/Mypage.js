@@ -1,43 +1,63 @@
 import axios from 'axios';
-import React, { useEffect, useState, Fragment } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+//import './css/Mypage.css'
 
 const Mypage = () => {
-  const [runningRecord, setRunningRecord] = useState([]);
+  const [user, setUser] = useState(null)
   const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
+
   useEffect(() => {
-    axios.get(`${BACKEND_URL}/api/profile/running/record`, {
-      params: { userId: 20 }
+    const token = window.localStorage.getItem('token');
+    if (!token) {
+      console.log("token not found")
+      return;
+    }
+    axios.get(`${BACKEND_URL}/api/login/me`, {
+      headers: {
+        Authorization: token
+      }
     })
       .then(function (response) {
-        setRunningRecord(response.data);
-        // Assuming that `response.data` is an array of records and `item.path` is defined
+        console.log(11)
+        console.log(response.data);
+        setUser(response.data)
       })
       .catch(function (error) {
         console.error(error);
       });
   }, []);
 
-  
-
   return (
-    <div style={{ width: '100%', fontFamily: 'sans-serif' }}>
-      {runningRecord.map((item) => (
-        <Fragment key={item.runIdx}>
-          <div style={{ cursor: 'pointer', marginBottom: '20px', border: '1px solid #ddd', borderRadius: '8px', padding: '10px' }}>
-          <Link to={`/runningRecordDetail/${item.runIdx}`}>
-            <h2>RunIdx {item.runIdx}</h2>
-            <p>Date: {item.date}</p>
-            <p>Distance: {item.distance} km</p>
-            <p>Time: {item.runningTime}</p>
-            <p>Calories: {item.calorie}</p>
-            </Link>
-          </div>
-        </Fragment>
-      ))}
+    <div className="mypage-container">
+      <nav className="mypage-nav">
+        <Link to="/my" className="nav-link">내 정보 </Link>
+        <Link to="/runningRecord/" className="nav-link">나의 기록</Link>
+      </nav>
+      <header className="mypage-header">
+        <h1>마이페이지</h1>
+        {user && <div className="profile-picture" style={{ backgroundImage: `url(${user.profilePicture || 'defaultProfilePic.jpg'})` }}></div>}
+      </header>
+      <section className="user-info">
+        <h2>내 정보</h2>
+        <div className="info">
+          <p><strong>이름:</strong> {user?.username}</p>
+          <p><strong>이메일:</strong> {user?.email}</p>
+        </div>
+      </section>
+      <section className="user-actions">
+        <h2>활동</h2>
+        {/* Additional interactive elements or links to user activities could be added here */}
+      </section>
+      <footer className="mypage-footer">
+        <p>© 2024 MyPage. All rights reserved.</p>
+      </footer>
     </div>
   );
 };
+
+
+
 
 export default Mypage;
