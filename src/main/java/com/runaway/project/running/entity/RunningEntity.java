@@ -6,6 +6,9 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 @Entity
@@ -25,9 +28,9 @@ public class RunningEntity {
     @JoinColumn(name = "user_idx", nullable = false)
     private User user; // 사용자 엔티티와의 관계를 나타내는 필드
 
-    private String date;
+    private LocalDate date;
 
-    private String time;
+    private LocalTime time;
 
     @Column(nullable = true)
     private double distance;
