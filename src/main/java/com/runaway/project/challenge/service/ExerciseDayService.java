@@ -25,7 +25,7 @@ public class ExerciseDayService {
         this.exerciseRepository = exerciseRepository;
     }
 
-    @Scheduled(cron = "0 02 15 * * *")
+    @Scheduled(cron = "0 0 0 * * *")
     @Transactional
     public void checkAndCompleteChallenges() {
         List<MyExerciseDto> myExercises = myExerciseRepository.findAll();
@@ -53,6 +53,7 @@ public class ExerciseDayService {
                     exerciseDay.setSuccessStatus(0);
                     isAllDaysSuccess = false;
                 }
+                System.out.println("Set successStatus to: " + exerciseDay.getSuccessStatus());
             }
             if (isAllDaysSuccess) {
                 myExercise.setSuccessStatus(2);
