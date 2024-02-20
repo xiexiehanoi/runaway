@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import '../../CSS/RunningChallengeRowItem.css'
 import RunningChallengeRowItem from './RunningChallengeRowItem';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
@@ -25,15 +26,13 @@ const RunningChallenge = () => {
     return (
          <div>
             <h5>총 {runningList.length}개의 러닝 챌린지에 도전하세요!</h5>
-            <table className='table table-bordered' style={{width:'500px'}}>
-                <tbody>
+            <div className="challenge-list">
                     {
                         runningList.map((rowData,idx)=>
                             <RunningChallengeRowItem key={idx} row={rowData} idx={idx}/>
                         )
                     }
-                </tbody>
-            </table>
+            </div>
         </div>
     );
 };

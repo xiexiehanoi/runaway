@@ -1,0 +1,37 @@
+.challenge-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgba(99, 122, 159, 0.5);
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 10px;
+  max-width: 400px; /* 모바일 사이즈에서 리스트 박스의 최대 너비 설정 */
+}
+
+.challenge-button {
+  padding: 8px 16px;
+  background-color: #007BFF;
+  color: white;
+  border-radius: 4px;
+  font-size: 14px;
+  text-align: center;
+  cursor: pointer;
+  border: none;
+}
+
+/* 추가적인 반응형 디자인 또는 커스터마이징을 위한 스타일 */
+@media (max-width: 768px) {
+  .challenge-list {
+    width: 80%;
+  }
+  
+  .challenge-item {
+    padding: 10px;
+    max-width: 100%; /* 모바일 사이즈에서 리스트 박스의 최대 너비를 화면 너비와 동일하게 설정 */
+  }
+
+  .challenge-button {
+    padding: 6px 12px;
+  }
+}
