@@ -4,6 +4,7 @@ import com.runaway.project.challenge.dto.MyExerciseDto;
 import com.runaway.project.challenge.dto.MyRunningDto;
 import com.runaway.project.challenge.repository.MyExerciseRepository;
 import com.runaway.project.challenge.repository.MyRunningRepository;
+import com.runaway.project.challenge.repository.RunningChallengeRepository;
 import com.runaway.project.running.entity.RunningEntity;
 import com.runaway.project.running.repository.RunningRepository;
 import com.runaway.project.user.entity.User;
@@ -15,7 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.*;
 
 
 @Service
@@ -29,6 +29,7 @@ public class ChallengeService {
     private MyRunningRepository myRunningRepository;
     private final RunningRepository runningRepository;
     private final UserRepository userRepository;
+    private final RunningChallengeRepository runningChallengeRepository;
 
     private boolean checkChallengeExists(Long userId, LocalDate startDate) {
         List<MyRunningDto> existChallenge = myRunningRepository.findAllByUserIdAndStartDate(userId, startDate);
@@ -83,70 +84,38 @@ public class ChallengeService {
     }
 
     @Transactional
-    public String evaluateRunning(Long userId, MyRunningDto myRunningDto) {
-        if (myRunningDto.getStartDate() == null || myRunningDto.getEndDate() == null) {
-            return "fail";
-        }
+    public void evaluateRunningChallenge(Long idx, Long userId) {
+        var myRunning = myRunningRepository.findById(idx).orElseThrow();
+        var userRuns = runningRepository.findByUserIdAndDateBetween(userId, myRunning.getStartDate(), myRunning.getEndDate());
+//        System.out.println("User runs found: " + userRuns.size());
 
-        LocalDate startDate = myRunningDto.getStartDate();
-        LocalDate endDate = myRunningDto.getEndDate();
+        boolean challengeSuccess = true;
+        LocalDate currentDate = myRunning.getStartDate();
+        while (!currentDate.isAfter(myRunning.getEndDate())) {
+            LocalDate finalCurrentDate = currentDate;
+            double dailyTotalDistance = userRuns.stream()
+                    .filter(run -> run.getDate().isEqual(finalCurrentDate))
+                    .mapToDouble(RunningEntity::getDistance)
+                    .sum();
 
-        String startDate2 = myRunningDto.getStartDate().toString();
-        String endDate2 = myRunningDto.getEndDate().toString();
-
-        int targetDistance = myRunningDto.getRunningChallenge().getDistance();
-        int targetDays = myRunningDto.getRunningChallenge().getTarget_date();
-
-        List<RunningEntity> runningRecords = runningRepository.findByUserIdAndDateBetween(userId, startDate2, endDate2);
-
-        Map<LocalDate, Integer> dailyTotalDistances = new HashMap<>();
-        for (RunningEntity record : runningRecords) {
-            LocalDate recordDate = record.getDate();
-            int newDistance = (int) Math.floor(record.getDistance());
-
-            // 같은 날짜에 여러 거리가 있으면 모두 합산
-            dailyTotalDistances.merge(recordDate, newDistance, Integer::sum);
-
-        }
-        System.out.println("Daily Total Distances: " + dailyTotalDistances);
-
-        List<Boolean> dailySuccess = new ArrayList<>();
-        int successDays = 0;
-
-        for (LocalDate date = startDate; date.isBefore(endDate.plusDays(1)); date = date.plusDays(1)) {
-            Integer totalDistance = dailyTotalDistances.getOrDefault(date, 0);
-
-            // 각 날짜별 총 거리가 목표 거리 이상인지 확인
-            boolean daySuccess = totalDistance >= targetDistance;
-            dailySuccess.add(daySuccess);
-
-            if (!daySuccess) {
-                // 하루라도 목표를 달성하지 못하면 실패로 처리
-                myRunningRepository.updateDailySuccessById(false, myRunningDto.getIdx());
-                return "fail";
-            } else {
-                successDays++;
+//            System.out.println("Date: " + currentDate + ", Total distance: " + dailyTotalDistance);
+            if (dailyTotalDistance < myRunning.getRunningChallenge().getDistance()) {
+                challengeSuccess = false;
+                break;
             }
+
+            currentDate = currentDate.plusDays(1);
         }
 
-
-        System.out.println("성공일수 :"+successDays);
-        if (successDays >= targetDays) {
-            User user = userRepository.findById(userId).orElse(null);
-            if (user != null) {
-                int exp = myRunningDto.getRunningChallenge() != null ? myRunningDto.getRunningChallenge().getExp() : 0;
-                user.setPoint(user.getPoint() + exp);
-                myRunningDto.setUser(user); // User 설정
-                myRunningRepository.updateDailySuccessById(true, myRunningDto.getIdx());
-                userRepository.saveAndFlush(user);
-
-                return "success";
-            } else {
-                return "fail: User not found";
-            }
+        if (challengeSuccess) {
+            var user = userRepository.findById(userId).orElseThrow();
+            user.addPoints(myRunning.getRunningChallenge().getExp());
+            userRepository.save(user);
+            myRunning.setDailySuccess(true);
         } else {
-            myRunningRepository.updateDailySuccessById(false, myRunningDto.getIdx());
-            return "fail";
+            myRunning.setDailySuccess(false);
         }
+
+        myRunningRepository.save(myRunning);
     }
 }

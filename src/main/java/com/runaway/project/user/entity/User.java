@@ -82,4 +82,7 @@ public class User {
     this.createAt = createAt;
   }
 
+  public void addPoints(int pointsToAdd) {
+    this.point += pointsToAdd;
+  }
 }

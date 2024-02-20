@@ -13,5 +13,6 @@ public interface RunningRepository  extends JpaRepository<RunningEntity ,Long> {
 
     List<RunningEntity> findByUserId(Long userId);
     @Query("SELECT r FROM RunningEntity r WHERE r.user.id = :userId AND r.date BETWEEN :startDate AND :endDate")
-    List<RunningEntity> findByUserIdAndDateBetween(Long userId, String startDate, String endDate);
+    List<RunningEntity> findByUserIdAndDateBetween(Long userId, LocalDate startDate, LocalDate endDate);
+
 }

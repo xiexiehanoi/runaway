@@ -37,7 +37,8 @@ public class MyRunningDto {
     @Column(name="end_date")
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
     private LocalDate endDate;
-    private boolean daily_success; // 데일리 성공 여부
+    @Column(name = "daily_success")
+    private boolean isDailySuccess; // 데일리 성공 여부
 
     @PrePersist
     public void prePersist() {
