@@ -67,6 +67,7 @@ function Running() {
         // ISO-8601 형식의 시간 문자열 생성 ('HH:MM:SS'), 초 단위는 제외하려면 substring 사용
         const formattedTime = kstDate.toISOString().split('T')[1].substring(0, 5);
 
+
         const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
         axios.post(`${BACKEND_URL}/api/running/save`, {
             userIdx: 20,

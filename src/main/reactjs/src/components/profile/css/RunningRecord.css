@@ -1,6 +1,6 @@
-.running-record-container {
-  display: flex;
-  flex-direction: column;
+.record-item-link {
+  text-decoration: none; /* Removes underline from links */
+  color: inherit; /* Inherits text color from parent */
 }
 
 .record-item {
@@ -10,6 +10,11 @@
   margin-bottom: 10px;
   padding: 10px;
   border-radius: 8px;
+  transition: background-color 0.3s; /* Adds a transition effect on hover */
+}
+
+.record-item:hover {
+  background-color: #e9e9e9; /* Lightens background on hover */
 }
 
 .record-img {
@@ -21,6 +26,8 @@
 
 .record-details {
   flex-grow: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .record-full-date {
@@ -33,14 +40,37 @@
   font-size: 14px;
   color: #333;
   margin-bottom: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.record-arrow {
+  font-size: 16px;
+  color: #333;
+  /* Adjust margin as needed */
+  margin-left: 5px;
 }
 
 .record-stats {
   display: flex;
-  justify-content: space-between;
+  /* This will align items to the start of the flex container */
+  justify-content: flex-start; 
 }
 
 .record-distance, .record-pace, .record-time {
   font-size: 14px;
   color: #333;
+  /* Add margin to the right of distance and pace, but less than before */
+  margin-right: 21px; /* Adjust this value as needed */
 }
+
+/* Remove the margin for the last item */
+.record-time {
+  margin-right: 0;
+}
+
+
+
+
+/* Additional styles as necessary */
