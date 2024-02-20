@@ -67,9 +67,14 @@ function Running() {
         // ISO-8601 형식의 시간 문자열 생성 ('HH:MM:SS'), 초 단위는 제외하려면 substring 사용
         const formattedTime = kstDate.toISOString().split('T')[1].substring(0, 5);
 
+        const token = window.localStorage.getItem('token');
+        if (!token) {
+            console.log("token not found")
+            return;
+        }
+
         const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
         axios.post(`${BACKEND_URL}/api/running/save`, {
-            userIdx: 20,
             date: formattedDate,
             time: formattedTime,
             distance: Math.round(distanceTraveled * 1000) / 1000,
@@ -77,6 +82,10 @@ function Running() {
             runningTime: formatTime(timer),
             path: location
 
+        }, {
+            headers: {
+                Authorization: token
+            }
         })
             .then(function (response) {
                 console.log(response);
