@@ -1,0 +1,77 @@
+.CommonContainer {
+    background-color: #303234;
+}
+
+.header-inscreen {
+    background-color: #303234;
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.40);
+    height: 48px;
+    width: 100%;
+    z-index: 2;
+    overflow: hidden;
+    position: sticky;
+    top: 0%;
+    font-weight: 500;
+    font-size: 1.5em;
+    color: #f5f5f5;
+}
+
+.primaryCard {
+    background-color: #303234;
+    box-shadow: -9px -9px 16px rgba(73, 73, 73, 0.40), 9px 9px 16px rgba(0, 0, 0, 0.40);
+}
+
+.primaryCard-vector {
+    fill: linear-gradient(90deg, #F18303 0%, #F94409 100%);
+    stroke-width: 1px;
+    stroke: #303234;
+    box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.25) inset;
+}
+
+.primaryCard-text {
+    background: linear-gradient(90deg, #F18303 0%, #F94409 100%);
+    -webkit-background-clip: text;
+    /* 웹킷 브라우저에서 텍스트를 그라데이션으로 채우기 위해 필요한 속성 */
+    background-clip: text;
+    /* 텍스트를 그라데이션으로 채우기 위한 속성 */
+    color: transparent;
+    /* 텍스트 색상을 투명하게 설정하여 배경 그라데이션을 표시합니다. */
+    /* box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.25) inset; */
+    /* 다른 스타일 속성들 */
+}
+
+.primaryButton-outset {
+    /* fill: #303234; */
+    /* margin: 24px; */
+    background-color: #303234;
+    box-shadow: -6px -6px 14px rgba(73, 73, 73, 0.60), 9px 9px 16px rgba(0, 0, 0, 0.40);
+    /* box-shadow: drop-shadow(-9px -9px 16px rgba(73, 73, 73, 0.60)) drop-shadow(9px 9px 16px rgba(0, 0, 0, 0.40)); */
+}
+
+.primaryButton-outset:hover {
+    /* fill: #303234; */
+    background-color: #72879c;
+    /* filter: drop-shadow(-9px -9px 16px rgba(73, 73, 73, 0.60)) drop-shadow(9px 9px 16px rgba(0, 0, 0, 0.40)); */
+    /* box-shadow: drop-shadow(-9px -9px 16px rgba(73, 73, 73, 0.60)) drop-shadow(9px 9px 16px rgba(0, 0, 0, 0.40)); */
+}
+
+.primaryButton-outset:active {
+    /* fill: #303234; */
+    background-color: #517aa3 !important;
+    /* filter: drop-shadow(-9px -9px 16px rgba(73, 73, 73, 0.60)) drop-shadow(9px 9px 16px rgba(0, 0, 0, 0.40)); */
+    /* box-shadow: drop-shadow(-9px -9px 16px rgba(73, 73, 73, 0.60)) drop-shadow(9px 9px 16px rgba(0, 0, 0, 0.40)); */
+}
+
+.primaryButton-outset-text {
+    fill: #03A9F1;
+    stroke-width: 1px;
+    stroke: rgba(51, 48, 48, 0.50);
+    box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.70) inset;
+}
+
+.primaryButton-inset {
+    fill: radial-gradient(45.89% 60.07% at 50% 50%, #2E3134 0%, #292B2E 100%);
+    stroke-width: 1px;
+    stroke: #272829;
+    box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.30) inset;
+}
