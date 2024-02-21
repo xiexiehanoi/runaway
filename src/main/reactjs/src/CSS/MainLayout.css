@@ -23,15 +23,13 @@ body {
     z-index: 1;
     top: 2.48%;
     left: -5%;
-    /* background-color: #f5f5f5; */
-    background-color: #303234;
-    /* border-radius: 49px; */
-    border-radius: 62px;
+    background-color: #f5f5f5;
+    ;
+    border-radius: 49px;
 }
 
 #Iphone-header {
-    /* background-color: #f5f5f5; */
-    background-color: transparent;
+    background-color: #303234;
     height: 61px;
     width: 348px;
     top: 2.4%;
@@ -49,14 +47,13 @@ body {
 }
 
 #screen {
-    width: 346px;
-    height: 610px;
+    width: 348px;
+    height: 607px;
     box-sizing: border-box;
     position: absolute;
-    left: 1.2%;
-    top: 12%;
+    left: 0.95%;
+    top: 12.6%;
     z-index: 1;
-    /* background-color: #f5f5f5; */
     background-color: #303234;
     font-family: Lato;
     overflow: auto;
@@ -95,7 +92,7 @@ body {
     border-radius: 6px;
     text-align: center;
     color: rgb(0, 0, 0);
-    background: rgb(254, 254, 254);
+    background: #f5f5f5;
     font-weight: 600;
     position: absolute;
     top: 31%;
@@ -183,17 +180,19 @@ body {
 .tabbar {
     border-radius: 8px;
     width: 348px;
-    background: #f5f5f5;
+    background: #303234;
     height: 83.5px;
     padding: 0 4px;
-    box-shadow: 0 4px 12px -1px rgba(18, 22, 33, 0.3);
+    box-shadow: 9px 9px 16px rgba(0, 0, 0, 1);
     position: absolute;
-    right: 9.5%;
-    top: 89.3%;
+    right: 9.7%;
+    top: 89.399%;
     align-items: center;
-    border-bottom-left-radius: 40px;
-    border-bottom-right-radius: 40px;
+    border-bottom-left-radius: 48px;
+    border-bottom-right-radius: 49px;
     z-index: 1;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
 }
 
 @media screen and (max-width: 768px) {
@@ -237,7 +236,6 @@ body {
         height: 90vh;
         z-index: 1000;
         left: 0%;
-        /* background-color: #f5f5f5; */
         background-color: #303234;
         border: none;
         /* padding-bottom: 10%; */
@@ -253,8 +251,9 @@ body {
         left: 0vh;
         align-items: center;
         overflow: hidden;
-        background-color: #f5f5f5;
+        background-color: #303234;
         border-bottom-left-radius: 0;
         border-bottom-right-radius: 0;
+        box-shadow: 9px 9px 16px rgba(0, 0, 0, 1);
     }
 }
