@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import RankingRowItem from "./RankingRowItem";
+import "../../CSS/Ranking.css";
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
@@ -21,18 +22,23 @@ const Ranking = () => {
 }, []);
 
   return (
-    <div id="leaderboard">
-      <table className="table table-bordered">
-        <tbody>
-            <td>순위</td>
-            <td>닉네임</td>
-            <td>포인트</td>
-          {rankingList.map((row, idx) => (
-              <RankingRowItem key={idx} row={row} idx={idx}/>
-          ))}
-        </tbody>
-      </table>
-    </div>
+    
+    <main id="challengemain">
+    <div id="header">
+              <h1 className="ranking">Ranking</h1>
+    </div>  
+      <div id="leaderboard">
+      <div className="ribbon"></div>
+        <table>             
+            {rankingList.map((row, idx) => (
+                <RankingRowItem key={idx} row={row} idx={idx}/>
+            ))}
+          
+        </table>
+        
+      </div>
+    </main>
+    
   );
 };
 export default Ranking;
