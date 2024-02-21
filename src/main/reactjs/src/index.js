@@ -13,7 +13,7 @@ root.render(
         <div>
           <RecoilRoot>
             <Root/>
-          </RecoilRoot>v
+          </RecoilRoot>
         </div>
     </NavermapsProvider>
 
