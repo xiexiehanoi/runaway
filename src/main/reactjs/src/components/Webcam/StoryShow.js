@@ -13,7 +13,6 @@ import { useSwipeable } from "react-swipeable";
 
 const videoUrl = "https://kr.object.ncloudstorage.com/runaway/runaway_story/";
 
-
 const StoryShow = ({ storyList }) => {
   const [videoIndex, setVideoIndex] = useState(0);
 
