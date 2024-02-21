@@ -1,5 +1,6 @@
 package com.runaway.project.challenge.dto;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.runaway.project.challenge.dto.MyExerciseDto;
 import jakarta.persistence.*;
 
@@ -12,7 +13,7 @@ import java.time.LocalDate;
 @Entity
 @Getter
 @Setter
-@ToString
+@ToString(exclude = "myExercise")
 @Table(name = "exercise_day")
 public class ExerciseDayDto {
     @Id
@@ -22,8 +23,9 @@ public class ExerciseDayDto {
     private LocalDate date;
     private int successStatus;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "idx")
+    @JsonBackReference
     private MyExerciseDto myExercise;
 
 }
