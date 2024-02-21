@@ -14,14 +14,26 @@ const WebCam = () => {
 
 
     const list = () => {
-        axios.get(`${BASE_URI}/api/story/list`)
+        // axios.get(`${BASE_URI}/api/story/list`)
+        //     .then(res => {
+        //         setStoryList(res.data)
+        //     }, {
+        //         headers: {
+        //             Authorization: token
+        //         }
+        //     })
+
+        axios.get(`${BASE_URI}/api/story/list`, {
+            headers: {
+                Authorization: `Bearer ${token}` // 'Bearer' 키워드를 추가해야 합니다.
+            }
+        })
             .then(res => {
-                setStoryList(res.data)
-            }, {
-                headers: {
-                    Authorization: token
-                }
+                setStoryList(res.data);
             })
+            .catch(error => {
+                console.error("Error fetching story list:", error);
+            });
     }
 
     useEffect(() => {
@@ -55,9 +67,7 @@ const WebCam = () => {
                 {showWebCamVideo ? (
                     <WebcamVideo />
                 ) : (
-                    storyList.map((item, idx) => (
-                        <StoryShow key={idx} item={item} />
-                    ))
+                    <StoryShow storyList={storyList} />
                 )}
             </span>
         </>
