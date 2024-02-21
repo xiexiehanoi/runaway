@@ -1,7 +1,7 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import Running from '../components/running/Running';
 import WebCam from '../components/Webcam/WebCam';
-import {Navigate, Route, Routes} from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import MyPage from '../components/profile/Mypage';
 import LoginPage from '../components/login/LoginPage';
 import GoogleLogin from '../components/login/GoogleLogin';
@@ -22,8 +22,8 @@ import RunningRecordDetail from '../components/profile/RunningRecordDetail';
 
 import MyChallengeList from '../components/challenge/MyChallengeList';
 
-import {useRecoilValue} from "recoil";
-import {LoginAtom} from "../global/LoginAtom";
+import { useRecoilValue } from "recoil";
+import { LoginAtom } from "../global/LoginAtom";
 import RunningRecord from '../components/profile/RunningRecord';
 const MyPageWithAlert = () => {
     const isLogin = useRecoilValue(LoginAtom);
@@ -41,7 +41,7 @@ const MyPageWithAlert = () => {
 
 const RouterMain = () => {
     return (
-        <MainLayout>       
+        <MainLayout>
             <Routes>
                 <Route path="login/oauth2/callback/*" element={<KakaoLoginCallback />} />
                 <Route path="/home" element={<Home />} />
@@ -50,26 +50,26 @@ const RouterMain = () => {
                 <Route path="/exercise" element={<Exercise />} />
                 <Route path="/exercisechallenge" element={<ExerciseChallenge />} />
                 <Route
-                  path="/my"
-                  element={<MyPageWithAlert />}
+                    path="/my"
+                    element={<MyPageWithAlert />}
                 />
-                <Route path='/runningRecord' element={<RunningRecord/>}></Route>
-                <Route path="/runningRecordDetail/:runIdx" element={<RunningRecordDetail/>}></Route>
+                <Route path='/runningRecord' element={<RunningRecord />}></Route>
+                <Route path="/runningRecordDetail/:runIdx" element={<RunningRecordDetail />}></Route>
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/authgoogle" element={<GoogleLogin />} />
                 <Route path="/authnaver" element={<NaverLogin />} />
-                <Route path="/webcam" element={<WebCam />} />
+                <Route path="/story" element={<WebCam />} />
                 <Route path="/signup" element={<SignUpForm />} />
                 <Route path="/squat" element={<Squat />} />
                 <Route path="/situp" element={<Situp />} />
                 <Route path="/pushup" element={<Pushup />} />
-                <Route path="/challengemain" element={<ChallengeMain/>}/>
+                <Route path="/challengemain" element={<ChallengeMain />} />
                 <Route path="/" element={<Home />} />
                 <Route path="/ranking" element={<Ranking />} />
-                <Route path="/mychallengelist" element={<MyChallengeList />}/>
+                <Route path="/mychallengelist" element={<MyChallengeList />} />
             </Routes>
         </MainLayout>
-        
+
     );
 };
 

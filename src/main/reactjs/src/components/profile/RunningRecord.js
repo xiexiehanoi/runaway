@@ -13,6 +13,7 @@ function RunningRecord(props) {
             console.log("token not found")
             return;
         }
+        
 
         axios.get(`${BACKEND_URL}/api/profile/running/record`, {
             headers: {
@@ -21,6 +22,7 @@ function RunningRecord(props) {
         })
             .then(function (response) {
                 // 데이터 변환을 위한 함수
+                console.log(response.data)
                 const getDayName = (date) => {
                     const dayNames = ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'];
                     return dayNames[new Date(date).getDay()];

@@ -6,29 +6,38 @@ body {
     background: #f5f5f5;
 }
 
+#phone-container {
+    width: 389px;
+    height: 790px;
+    z-index: 5;
+    position: relative;
+}
+
 #Iphone {
-    background-image: url("https://qr.io/assets/img/iphone-14.png");
     background-size: cover;
     background-repeat: no-repeat;
-    width: 319px;
-    height: 640px;
+    background-image: url("https://qr.io/assets/img/iphone-14.png");
+    width: 389px;
+    height: 790px;
     position: relative;
-    top: -10%;
-    left: -9%;
     z-index: 1;
+    top: 2.48%;
+    left: -5%;
+    background-color: #f5f5f5;
+    border-radius: 49px;
 }
 
 #Iphone-header {
-    background-color: rgba(99, 122, 159, 0.5);
-    height: 49px;
-    width: 282px;
-    top: 2.225%;
-    left: 6%;
+    background-color: #f5f5f5;
+    height: 61px;
+    width: 348px;
+    top: 2.4%;
+    left: 5.9%;
     z-index: 1;
     overflow: hidden;
     position: absolute;
-    border-top-left-radius: 40px;
-    border-top-right-radius: 40px;
+    border-top-left-radius: 48px;
+    border-top-right-radius: 48px;
 }
 
 #phone-container {
@@ -36,16 +45,17 @@ body {
 }
 
 #screen {
-    width: 282px;
-    height: 500px;
+    width: 346px;
+    height: 610px;
     box-sizing: border-box;
     position: absolute;
-    left: -3%;
-    top: 9.85%;
+    left: 1.3%;
+    top: 12%;
     z-index: 1;
-    background-color: rgba(99, 122, 159, 0.5);
+    background-color: #f5f5f5;
     font-family: Lato;
     overflow: auto;
+    border-top: 1px solid black;
 }
 
 .operator-name {
@@ -53,6 +63,8 @@ body {
     top: 26%;
     left: 13%;
     opacity: 0.8;
+    font-weight: bold;
+    font-size: 1.2em;
 }
 
 .operator-5g {
@@ -60,11 +72,14 @@ body {
     top: 26%;
     left: 70%;
     opacity: 0.8;
+    font-weight: bold;
+    font-size: 1.2em;
 }
 
 .battery {
-    width: 30px;
-    height: 20px;
+    font-weight: bold;
+    width: 33px;
+    height: 23px;
     border: 2px solid rgb(102, 122, 159);
     border-radius: 4px;
     text-align: center;
@@ -72,10 +87,10 @@ body {
     background: rgb(254, 254, 254);
     font-weight: bold;
     position: absolute;
-    top: 29%;
+    top: 31%;
     left: 81%;
     text-shadow: none;
-    font-size: 0.7em;
+    font-size: 0.8em;
 }
 
 .QRcode {
@@ -154,16 +169,19 @@ body {
 } */
 
 .tabbar {
-    border-radius: 6px;
-    width: 282px;
-    background: #fff;
-    height: 70px;
+    border-radius: 8px;
+    width: 348px;
+    background: #f5f5f5;
+    height: 83.5px;
     padding: 0 4px;
-    box-shadow: 0 4px 12px -1px rgba(18, 22, 33, 0.08);
+    box-shadow: 0 4px 12px -1px rgba(18, 22, 33, 0.3);
     position: absolute;
-    right: 15%;
-    top: 88%;
+    right: 9.5%;
+    top: 89.3%;
     align-items: center;
+    border-bottom-left-radius: 40px;
+    border-bottom-right-radius: 40px;
+    z-index: 1;
 }
 
 @media screen and (max-width: 768px) {
@@ -176,27 +194,38 @@ body {
 
     .main-container {
         display: block;
-        position: absolute;
+        position: relative;
         height: 90vh;
         width: 100vw;
         overflow-y: auto;
+        background-color: #f5f5f5;
     }
 
     #phone-container {
         height: 90vh;
         width: 100vw;
-        position: absolute;
+        position: relative;
         overflow-y: auto;
+        display: block;
+        background-color: #f5f5f5;
+    }
+
+    #screen-container {
+        width: 100vw;
+        background-color: #f5f5f5;
+        overflow-x: hidden;
     }
 
     #screen {
         display: block;
-        position: static;
+        position: relative;
         overflow-y: auto;
         width: 100vw;
         height: 90vh;
         z-index: 1000;
-        background-color: rgba(99, 122, 159, 0.5);
+        left: 0%;
+        background-color: #f5f5f5;
+        border: none;
         /* padding-bottom: 10%; */
     }
 
@@ -210,5 +239,8 @@ body {
         left: 0vh;
         align-items: center;
         overflow: hidden;
+        background-color: #f5f5f5;
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
     }
 }
