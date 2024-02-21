@@ -51,7 +51,7 @@ const Mypage = () => {
         {/* Additional interactive elements or links to user activities could be added here */}
       </section>
       <footer className="mypage-footer">
-        <p>© 2024 MyPage. All rights reserved.</p>
+        
       </footer>
     </div>
   );

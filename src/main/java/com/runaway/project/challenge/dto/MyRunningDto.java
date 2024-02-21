@@ -3,6 +3,7 @@ package com.runaway.project.challenge.dto;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.runaway.project.user.entity.User;
 import jakarta.persistence.*;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -12,8 +13,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
-@Getter
-@Setter
+@Data
 @Table(name = "my_running")
 @ToString
 public class MyRunningDto {
@@ -37,7 +37,8 @@ public class MyRunningDto {
     @Column(name="end_date")
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
     private LocalDate endDate;
-    private boolean daily_success; // 데일리 성공 여부
+    @Column(name = "daily_success")
+    private boolean isDailySuccess; // 데일리 성공 여부
 
     @PrePersist
     public void prePersist() {
