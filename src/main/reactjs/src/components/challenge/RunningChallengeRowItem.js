@@ -31,9 +31,10 @@ const RunningChallengeRowItem = (props) => {
         }
       );
       console.log("챌린지 추가:", response);
+      alert("챌린지가 추가되었습니다.");
     } catch (error) {
       if (error.response.status === 409) {
-        alert("이미 해당 날짜의 challenge가 있습니다.");
+        alert("이미 해당 런닝에 관한 챌린지가 존재합니다.");
       } else {
         console.error("챌린지 추가 실패:", error);
         setErrorMessage(error.response.data);
