@@ -16,18 +16,19 @@ import Squat from '../components/exercise/squat/Squat';
 import Situp from '../components/exercise/situp/Situp';
 import Pushup from '../components/exercise/pushup/Pushup';
 import ChallengeMain from '../components/challenge/ChallengeMain';
-import KakaoLoginCallback from "../components/login/KakaoLoginCallback";
+import SocialLoginCallback from "../components/login/SocialLoginCallback";
 import Ranking from '../components/rank/Ranking';
 import RunningRecordDetail from '../components/profile/RunningRecordDetail';
 import NotLogin from "../global/login_redirect/NotLogin";
 import RunningRecord from "../components/profile/RunningRecord";
 import MyChallengeList from "../components/challenge/MyChallengeList";
+import SignUpAddForm from "../components/signup/SignUpAddForm";
 
 const RouterMain = () => {
     return (
         <MainLayout>       
             <Routes>
-                <Route path="login/oauth2/callback/*" element={<KakaoLoginCallback />} />
+                <Route path="login/oauth2/callback/*" element={<SocialLoginCallback />} />
                 <Route path="/home" element={<Home />} />
                 <Route path="/running" element={<Running />} />
                 <Route path="/runningchallenge" element={<RunningChallenge />} />
@@ -51,6 +52,7 @@ const RouterMain = () => {
                 <Route path="/" element={<Home />} />
                 <Route path="/ranking" element={<Ranking />} />
                 <Route path="/mychallengelist" element={<MyChallengeList />}/>
+                <Route path="/signup-add" element={<SignUpAddForm />} />
             </Routes>
         </MainLayout>
         

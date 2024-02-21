@@ -15,7 +15,7 @@ import java.sql.Timestamp;
 
 @Entity
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 @Table(name = "users")
 public class User {
   @Id

@@ -34,10 +34,5 @@ public class UserController {
   public ResponseEntity<String> signIn(final @Valid @RequestBody LoginRequestDto loginRequestDto) {
     return localLoginService.signIn(loginRequestDto);
   }
-
-  @PostMapping("/sign-up/addinfo")
-  public void signUpAddInfo(String email) {
-    userService.getUserInfo(email);
-  }
 }
 

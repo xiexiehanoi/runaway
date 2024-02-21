@@ -48,9 +48,6 @@ public class UserService {
     userRepository.save(user);
   }
 
-//  public ResponseEntity<Object> getUserInfo(HttpServletRequest request, String code) {
-//
-//  }
 
   // 유저 중복 확인
   private void validateDuplicateUser(String email) {
