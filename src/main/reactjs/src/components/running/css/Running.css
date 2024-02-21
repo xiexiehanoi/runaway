@@ -1,0 +1,70 @@
+.running-container {
+    font-family: 'Arial', sans-serif;
+    position: relative;
+    background-color: #fff;
+}
+
+.map-view {
+    height: 350px; /* Adjust as needed */
+}
+
+.stats-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #fff;
+}
+
+.stats-time, .stats-distance, .stats-pace {
+    text-align: center;
+}
+
+.time, .distance, .pace {
+    font-size: 2em;
+    color: #000;
+}
+
+.label {
+    font-size: 0.8em;
+    color: #555;
+}
+
+.control-buttons {
+    display: flex;
+    justify-content: space-around;
+    padding: 35px 10px 20px 10px;;
+    background-color: #fff;
+    height: 161px;
+}
+.start-button{
+    font-size: 30px;
+    padding-left: 12px;
+}
+
+.stop-button{
+    font-size: 40px;
+    padding-bottom:10px;
+}
+
+.start-button, .stop-button {
+   
+    
+    border: none;
+    border-radius: 50%;
+    color: #fff;
+    width: 70px; /* Adjust as needed */
+    height: 70px; /* Adjust as needed */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.start-button {
+    background-color: #4CAF50; /* Adjust as needed */
+}
+
+.stop-button {
+    background-color: #F44336; /* Adjust as needed */
+}
