@@ -26,7 +26,7 @@ public class MyRunningDto {
     @JoinColumn(name = "user_id")
     private User user; // User 엔티티와의 연관 관계
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne
     @JoinColumn(name = "challenge_id")
     private RunningChallengeDto runningChallenge; // RunningChallenge 엔티티와의 연관 관계
 

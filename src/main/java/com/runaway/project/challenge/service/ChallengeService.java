@@ -87,7 +87,7 @@ public class ChallengeService {
     public void evaluateRunningChallenge(Long idx, Long userId) {
         var myRunning = myRunningRepository.findById(idx).orElseThrow();
         var userRuns = runningRepository.findByUserIdAndDateBetween(userId, myRunning.getStartDate(), myRunning.getEndDate());
-//        System.out.println("User runs found: " + userRuns.size());
+        System.out.println("User runs found: " + userRuns.size());
 
         boolean challengeSuccess = true;
         LocalDate currentDate = myRunning.getStartDate();
@@ -98,9 +98,10 @@ public class ChallengeService {
                     .mapToDouble(RunningEntity::getDistance)
                     .sum();
 
-//            System.out.println("Date: " + currentDate + ", Total distance: " + dailyTotalDistance);
+            System.out.println("Date: " + currentDate + ", Total distance: " + dailyTotalDistance);
             if (dailyTotalDistance < myRunning.getRunningChallenge().getDistance()) {
                 challengeSuccess = false;
+                System.out.println("실패");
                 break;
             }
 
@@ -117,5 +118,6 @@ public class ChallengeService {
         }
 
         myRunningRepository.save(myRunning);
+        System.out.println("성공");
     }
 }
