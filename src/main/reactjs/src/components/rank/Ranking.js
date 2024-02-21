@@ -23,9 +23,9 @@ const Ranking = () => {
 
   return (
     
-    <main>
+    <main id="challengemain">
     <div id="header">
-              <h1>랭킹</h1>
+              <h1 className="ranking">Ranking</h1>
     </div>  
       <div id="leaderboard">
       <div className="ribbon"></div>
