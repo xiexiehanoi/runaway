@@ -72,6 +72,7 @@ public class ChallengeService {
         combinedChallenges.addAll(exerciseChallenges);
         combinedChallenges.addAll(runningChallenges);
 
+        System.out.println("결과: " +combinedChallenges);
         return combinedChallenges;
     }
 

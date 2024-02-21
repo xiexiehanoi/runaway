@@ -1,7 +1,6 @@
 import React from 'react';
 
 const MyChallengeList = ({row,idx}) => {
-  console.log("t42w42345235")
     const isExerciseChallenge = row.hasOwnProperty('exerciseChallengeDto');
     const challengeData = isExerciseChallenge
       ? row.exerciseChallengeDto
