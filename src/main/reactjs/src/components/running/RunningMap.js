@@ -8,7 +8,7 @@ function RunningMap({path, initialLocation}) {
         <MapDiv
             style={{
                 width: '100%',
-                height: '200px',
+                height: '350px',
             }}
         >
             <RunningMapComponent path={path} initialLocation={initialLocation} />      

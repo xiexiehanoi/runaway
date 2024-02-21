@@ -2,7 +2,7 @@ import React from 'react';
 import RunningMap from "./RunningMap";
 import axios from 'axios';
 import { RunningLocationTracking } from './RunningLocationTracking';
-
+import './css/Running.css'
 /*
 
 const MockDataList = [
@@ -115,26 +115,28 @@ function Running() {
     */
 
     return (
-        <div>
-            Running
-
-            <button onClick={startRun}>Start Run</button>
-            <button onClick={stopRun}>Stop Run</button>
-            {/*<button onClick={handleMockDataClick}>Mock Data</button>*/}
-
-            <div>
+        <div className="running-container">
+            <div className="map-view">
                 <RunningMap path={location} initialLocation={initialLocation} />
             </div>
-            <div>
-                시간: {formatTime(timer)}
+            <div className="stats-container">
+                <div className="stats-distance">
+                    <div className="distance">{Math.round(distanceTraveled * 1000) / 1000} Km</div>
+                    <div className="label">킬로미터</div>
+                </div>
+                <div className="stats-pace">
+                    <div className="pace">{pace}</div>
+                    <div className="label">평균 페이스</div>
+                </div>
+                <div className="stats-time">
+                    <div className="time">{formatTime(timer)}</div>
+                    <div className="label">시간</div>
+                </div>
             </div>
-            <div>
-                거리 : {Math.round(distanceTraveled * 1000) / 1000} Km
+            <div className="control-buttons">
+                <button onClick={startRun} className="start-button">▶</button>
+                <button onClick={stopRun} className="stop-button">■</button>
             </div>
-            <div>
-                pace:  {pace}
-            </div>
-
         </div>
     );
 }
