@@ -17,23 +17,28 @@ body {
     background-size: cover;
     background-repeat: no-repeat;
     background-image: url("https://qr.io/assets/img/iphone-14.png");
-    width: 389px;
+    width: 392px;
     height: 790px;
     position: relative;
     z-index: 1;
     top: 2.48%;
     left: -5%;
-    background-color: #f5f5f5;;
-    border-radius: 49px;
+    /* background-color: #f5f5f5; */
+    background-color: transparent;
+    /* background-color: #303234; */
+    border: 2;
+    border-radius: 62px;
 }
 
 #Iphone-header {
+    /* background-color: transparent; */
     background-color: #303234;
     height: 61px;
     width: 348px;
     top: 2.4%;
     left: 5.9%;
     z-index: 1;
+    /* z-index: 1; */
     overflow: hidden;
     position: absolute;
     border-top-left-radius: 48px;
@@ -55,16 +60,17 @@ body {
     background-color: #303234;
     font-family: Lato;
     overflow: auto;
-    border-top: 1px solid black;
+    /* border-top: 1px solid black; */
 }
 
 .operator-name {
     position: absolute;
     top: 26%;
     left: 13%;
-    opacity: 0.8;
-    font-weight: bold;
-    font-size: 1.2em;
+    opacity: 1;
+    font-weight: 500;
+    /* font-size: 1.2em; */
+    font-size: 1em;
     color: #f5f5f5;
 }
 
@@ -72,27 +78,31 @@ body {
     position: absolute;
     top: 26%;
     left: 70%;
-    opacity: 0.8;
-    font-weight: bold;
-    font-size: 1.2em;
+    opacity: 1;
+    /* font-weight: bold; */
+    font-weight: 500;
+    /* font-size: 1.2em; */
+    font-size: 1em;
     color: #f5f5f5;
 }
 
 .battery {
     font-weight: bold;
     width: 33px;
-    height: 23px;
+    /* height: 23px; */
+    height: 20px;
     border: 2px solid rgb(102, 122, 159);
-    border-radius: 4px;
+    border-radius: 6px;
     text-align: center;
     color: rgb(0, 0, 0);
     background: #f5f5f5;
-    font-weight: bold;
+    font-weight: 600;
     position: absolute;
     top: 31%;
     left: 81%;
     text-shadow: none;
-    font-size: 0.8em;
+    /* font-size: 0.8em; */
+    font-size: 0.7em;
 }
 
 .QRcode {
@@ -184,7 +194,7 @@ body {
     border-bottom-left-radius: 48px;
     border-bottom-right-radius: 49px;
     z-index: 1;
-    border-top-left-radius:0 ;
+    border-top-left-radius: 0;
     border-top-right-radius: 0;
 }
 
@@ -216,7 +226,8 @@ body {
 
     #screen-container {
         width: 100vw;
-        background-color: #f5f5f5;
+        /* background-color: #f5f5f5; */
+        background-color: #303234;
         overflow-x: hidden;
     }
 

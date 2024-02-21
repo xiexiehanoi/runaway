@@ -66,10 +66,14 @@ const StoryShow = ({ storyList }) => {
   }
 
   return (
-    <div {...handlers}>
-      <VideoPlayer src={videoUrl + storyList[videoIndex].storyContent} />
-      <p>User: {storyList.user}</p>
-      <p>Upload Time: {storyList.storyUploadTime}</p>
+    <div {...handlers} >
+      <div >
+        <VideoPlayer
+          src={videoUrl + storyList[videoIndex].storyContent}
+        />
+        <p>User: {storyList[videoIndex].user.username}</p>
+        <p>Upload Time: {storyList[videoIndex].storyUploadTime}</p>
+      </div>
     </div>
   );
 };
