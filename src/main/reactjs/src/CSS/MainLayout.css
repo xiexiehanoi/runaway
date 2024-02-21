@@ -65,13 +65,26 @@ body {
 
 .operator-name {
     position: absolute;
-    top: 26%;
+    top: 28%;
     left: 13%;
     opacity: 1;
     font-weight: 500;
     /* font-size: 1.2em; */
     font-size: 1em;
     color: #f5f5f5;
+}
+
+.phone-header {
+    position: absolute;
+    width: 100px;
+    top: 22%;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 1;
+    font-weight: 500;
+    font-size: 1em;
+    color: #f5f5f5;
+    z-index: 5;
 }
 
 .operator-5g {
