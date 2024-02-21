@@ -67,9 +67,9 @@
 
 .tabbar ul li a div span:first-child svg {
     transition: fill 0.3s ease, stroke 0.3s ease;
-    fill: #99A3BA;
-    stroke: #99A3BA;
-    background-color: #f5f5f5;
+    fill: #f5f5f5;
+    stroke: #f5f5f5;
+    background-color: #303234;
 }
 
 .tabbar ul li a div span:last-child {
@@ -81,7 +81,7 @@
 .tabbar ul li a div span:last-child svg {
     fill: #5628EE;
     stroke: #5628EE;
-    background-color: #f5f5f5;
+    background-color: #303234;
 }
 
 .tabbar ul li a strong {
