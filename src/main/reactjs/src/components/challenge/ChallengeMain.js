@@ -39,7 +39,7 @@ const ChallengeMain = () => {
             <p>
                 <Link to="/runningchallenge">러닝 챌린지</Link>
             </p>
-            내 챌린지 목록
+            <strong>진행 중인 Challenge</strong>
             <table className='table table-bordered' >
                 <tbody>
                     {
