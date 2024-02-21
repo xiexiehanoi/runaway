@@ -48,9 +48,9 @@ const WebCam = () => {
         setShowWebCamVideo(true);
     };
 
-    const handleShowButtonClick = () => {
-        setShowWebCamVideo(false);
-    };
+    // const handleShowButtonClick = () => {
+    //     setShowWebCamVideo(false);
+    // };
 
 
     return (
@@ -58,9 +58,9 @@ const WebCam = () => {
             <button className='btn btn-success'
                 onClick={handleVideoButtonClick}>Video
             </button>
-            <button className='btn btn-success'
+            {/* <button className='btn btn-success'
                 onClick={handleShowButtonClick}>Show
-            </button>
+            </button> */}
             <span className='WebCamApp'>
                 {/* <h4 className='alert alert-info'>Webcam</h4> */}
                 {/* <WebCamImage /> */}
