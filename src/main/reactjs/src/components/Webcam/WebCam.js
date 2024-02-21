@@ -60,8 +60,17 @@ const WebCam = () => {
             <div class="header-inscreen">
                 <span style={{ marginLeft: "8%" }}>Stories</span>
             </div>
-            <button className='btn primaryButton-outset' style={{ margin: "5% 8%" }}
-                onClick={handleVideoButtonClick}><span class="primaryCard-text">Video</span>
+            <button className='btn primaryButton-outset'
+                style={{ margin: "7% 12%", width: '76%' }}
+                onClick={handleVideoButtonClick}>
+                <span
+                    // class="primaryCard-text"
+                    style={{
+                        color: '#f5f5f5',
+                        fontWeight: '500',
+                        fontSize: '1em'
+                    }}
+                >Add Story</span>
             </button>
             {/* <button className='btn btn-success'
                 onClick={handleShowButtonClick}>Show

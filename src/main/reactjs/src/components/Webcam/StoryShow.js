@@ -71,8 +71,12 @@ const StoryShow = ({ storyList }) => {
         <VideoPlayer
           src={videoUrl + storyList[videoIndex].storyContent}
         />
-        <p>User: {storyList[videoIndex].user.username}</p>
-        <p>Upload Time: {storyList[videoIndex].storyUploadTime}</p>
+        <p style={{
+          color: '#f5f5f5', fontWeight: '500', fontSize: '1.1em', margin: '2% 4%'
+        }}>User: {storyList[videoIndex].user.username}</p>
+        <p style={{
+          color: '#f5f5f5', fontWeight: '500', fontSize: '1.1em', margin: '2% 4%'
+        }}>Upload Time: {storyList[videoIndex].storyUploadTime}</p>
       </div>
     </div>
   );
