@@ -114,6 +114,7 @@ public class ChallengeController {
     @GetMapping("/challengemain/mychallengelist")
     public List<?> getMyChallengeList(HttpServletRequest request) {
         User user = userService.getUserByReqeust(request);
+        System.out.println(user);
         if (user == null) ResponseEntity.badRequest().body("Error in token");
 
         List<?> myChallengeList = challengeService.getAllMyChallengesList(user.getId());

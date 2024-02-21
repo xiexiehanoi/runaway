@@ -22,7 +22,7 @@ const Ranking = () => {
 }, []);
 
   return (
-    <body>
+    
     <main>
     <div id="header">
               <h1>랭킹</h1>
@@ -38,7 +38,7 @@ const Ranking = () => {
         
       </div>
     </main>
-    </body>
+    
   );
 };
 export default Ranking;
