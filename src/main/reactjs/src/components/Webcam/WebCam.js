@@ -58,22 +58,25 @@ const WebCam = () => {
     return (
         <>
             <div class="header-inscreen">
-                <span style={{ marginLeft: "24px" }}>Stories</span>
+                <span style={{ marginLeft: "8%" }}>Stories</span>
             </div>
-            <button className='btn primaryButton-outset' style={{ margin: "24px" }}
+            <button className='btn primaryButton-outset' style={{ margin: "5% 8%" }}
                 onClick={handleVideoButtonClick}><span class="primaryCard-text">Video</span>
             </button>
             {/* <button className='btn btn-success'
                 onClick={handleShowButtonClick}>Show
             </button> */}
             {/* <span className='WebCamApp'> */}
-            <span className='WebCamApp CommonContainer'>
+            <span className='CommonContainer'>
                 {/* <h4 className='alert alert-info'>Webcam</h4> */}
                 {/* <WebCamImage /> */}
                 {showWebCamVideo ? (
-                    <WebcamVideo />
+                    <span className='WebCamApp'>
+                        <WebcamVideo />
+                    </span>
                 ) : (
-                    <div className='primaryCard' style={{ width: '200px', height: '300px' }}>
+                    <div className='primaryCard'
+                        style={{ width: '85%', height: '72%', margin: " auto" }}>
                         <StoryShow storyList={storyList} />
                     </div>
                 )}
