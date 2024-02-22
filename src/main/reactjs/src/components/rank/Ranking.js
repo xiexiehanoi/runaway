@@ -9,7 +9,7 @@ const Ranking = () => {
   const [rankingList, setRankingList] = useState([]);
 
   useEffect(() => {
-    const RankList = async () => {
+    const fetchRankingList = async () => {
         try {
             const response = await axios.get(`${BACKEND_URL}/api/ranking/list`);
             setRankingList(response.data);
@@ -18,27 +18,33 @@ const Ranking = () => {
         }
     };
 
-    RankList();
+    fetchRankingList();
 }, []);
 
   return (
-    
     <main id="challengemain">
-    <div id="header">
-              <h1 className="ranking">Ranking</h1>
-    </div>  
-      <div id="leaderboard">
-      <div className="ribbon"></div>
-        <table>             
-            {rankingList.map((row, idx) => (
-                <RankingRowItem key={idx} row={row} idx={idx}/>
-            ))}
-          
-        </table>
-        
-      </div>
+      <div class="header-inscreen">
+        <span style={{ marginLeft: "8%" }}>Ranking</span>
+      </div>  
+      <span className='CommonContainer'>
+        <div class="primaryCard"
+              style={{ width: '85%', height: '72%', margin: " auto",marginTop:'15%',marginBottom:'15%' }}>
+          <div className="leaderboard">
+            <div className="headranking">
+                <h1>Ranking</h1>
+            </div>
+            <div className="bodyranking">
+                         
+                {rankingList.map((row, idx) => (
+                    <RankingRowItem key={idx} row={row} idx={idx}/>
+                ))}
+            
+            </div>
+          </div>  
+        </div>
+      </span>  
     </main>
-    
   );
 };
+
 export default Ranking;

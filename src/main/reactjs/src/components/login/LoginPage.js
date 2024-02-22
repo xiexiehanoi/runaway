@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import KakaoLogin from "./KakaoLogin";
 import NaverLogin from "./NaverLogin";
 import GoogleLogin from "./GoogleLogin";
+import {useRecoilState} from "recoil";
+import {LoginAtom} from "../../global/LoginAtom";
 
 const LoginPage = () => {
   const navi = useNavigate();
@@ -12,6 +14,7 @@ const LoginPage = () => {
   const [password, setPassword] = useState("");
   const emailInputRef = useRef(null);
   const passwordInputRef = useRef(null);
+  const [isLogin, setIsLogin] = useRecoilState(LoginAtom);
 
   const checkLogin = async e => {
     e.preventDefault();
@@ -43,6 +46,7 @@ const LoginPage = () => {
       if (response.ok) {
         alert('로그인 성공');
         localStorage.setItem('token', token);
+        setIsLogin(token);
         navi('/');
       } else {
         throw new Error('로그인 실패');
