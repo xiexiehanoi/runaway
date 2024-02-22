@@ -4,7 +4,7 @@ import {useEffect, useRef} from "react";
 import {useRecoilState} from "recoil";
 import {LoginAtom} from "../../global/LoginAtom";
 
-const KakaoLoginCallback = () => {
+const SocialLoginCallback = () => {
     const navigate = useRef(useNavigate());
     const [isLogin, setIsLogin] = useRecoilState(LoginAtom);
 
@@ -25,7 +25,8 @@ const KakaoLoginCallback = () => {
                 const token = res.headers.authorization;
                 window.localStorage.setItem('token', token);
                 setIsLogin(token);
-                navigate.current(`/`);
+                console.log(res);
+                navigate.current('/signup-add');
             } catch (e) {
                 console.error(e);
                 navigate.current('/');
@@ -33,4 +34,4 @@ const KakaoLoginCallback = () => {
         })();
     }, []);
 };
-export default KakaoLoginCallback;
+export default SocialLoginCallback;
