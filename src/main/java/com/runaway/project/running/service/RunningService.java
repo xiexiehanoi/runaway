@@ -45,4 +45,32 @@ public class RunningService {
         return myRunningRepository.findAllByUserIdAndDateRange(userId, today);
     }
 
+    public void calcAndSetCalorie(int weightKg, RunningDto runningDto) {
+        double distanceKm = runningDto.getDistance();
+        String[] runningTimes = runningDto.getRunningTime().split(":");
+        if (runningTimes.length < 2) {
+            runningDto.setCalorie(0);
+            return ;
+        }
+
+        int runningMin = Integer.parseInt(runningTimes[0]);
+        int runningSec = Integer.parseInt(runningTimes[1]);
+
+        double timeMinutes =  runningMin + (double) runningSec / 60;
+        double speedKmH = distanceKm / timeMinutes;
+        double metValue = estimateMET(speedKmH);
+        double durationHours = timeMinutes / 60;
+
+        runningDto.setCalorie((int)(metValue * weightKg * durationHours));
+    }
+
+    private double estimateMET(double speedKmH) {
+        if (speedKmH < 8) return 8.3; // Slow jogging
+        if (speedKmH < 9.7) return 9.8; // Moderate running
+        if (speedKmH < 12) return 11; // Fast running
+        if (speedKmH < 16) return 12.3; // Faster running
+        return 14; // Very fast running
+    }
+
+
 }
