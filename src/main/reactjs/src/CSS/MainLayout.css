@@ -22,7 +22,7 @@ body {
     position: relative;
     z-index: 1;
     top: 2.48%;
-    left: -5%;
+    left: -5.1%;
     /* background-color: #f5f5f5; */
     background-color: transparent;
     /* background-color: #303234; */
@@ -60,6 +60,8 @@ body {
     background-color: #303234;
     font-family: Lato;
     /* border-top: 1px solid black; */
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 .operator-name {
