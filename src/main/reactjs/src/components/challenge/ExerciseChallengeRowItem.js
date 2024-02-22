@@ -45,15 +45,13 @@ const ExerciseChallengeRowItem = (props) => {
 
 
     return (
-        <tr>
-            <td>
+        <div className='primaryCard' style={{ display: 'flex', marginBottom:'10px' }}>>
                 <h5 className='hidden'>{row.id}</h5>
                 <h5>챌린지명: {row.exercise_type}</h5>
                 <h5>목표횟수: {row.target_count} 회</h5>
                 <h5>기한: {row.target_date} 일</h5>
                 <button type='button' onClick={() => selectChallenge(row.id, row.target_date, row.exercise_type)}>추가</button>
-            </td>
-        </tr>
+        </div>
     );
 };
 
