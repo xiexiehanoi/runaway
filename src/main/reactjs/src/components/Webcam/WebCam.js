@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
-// import './WebCamStyle.css';
 import '../../CSS/WebCamStyle.css';
 import '../../CSS/CommonApplicationStyle.css';
-// import WebCamImage from "./WebCamImage";
 import WebcamVideo from "./WebCamVideo";
 import StoryShow from "./StoryShow";
 import axios from 'axios';
@@ -27,15 +25,15 @@ const WebCam = () => {
 
         axios.get(`${BASE_URI}/api/story/list`, {
             headers: {
-                Authorization: `Bearer ${token}` // 'Bearer' 키워드를 추가해야 합니다.
+                Authorization: token
             }
         })
-            .then(res => {
-                setStoryList(res.data);
-            })
-            .catch(error => {
-                console.error("Error fetching story list:", error);
-            });
+        .then(res => {
+            setStoryList(res.data);
+        })
+        .catch(error => {
+            console.error("Error fetching story list:", error);
+        });
     }
 
     useEffect(() => {
