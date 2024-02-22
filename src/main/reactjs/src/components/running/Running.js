@@ -3,35 +3,8 @@ import RunningMap from "./RunningMap";
 import axios from 'axios';
 import { RunningLocationTracking } from './RunningLocationTracking';
 import './css/Running.css'
-/*
-
-const MockDataList = [
-    { latitude: 37.359924641705476, longitude: 127.1148204803467 },
-    { latitude: 37.36343797188166, longitude: 127.11486339569092 },
-    { latitude: 37.368520071054576, longitude: 127.11473464965819 },
-    { latitude: 37.3685882848096, longitude: 127.1088123321533 },
-    { latitude: 37.37295383612657, longitude: 127.10876941680907 },
-    { latitude: 37.38001321351567, longitude: 127.11851119995116 },
-    { latitude: 37.378546827477855, longitude: 127.11984157562254 },
-    { latitude: 37.376637072444105, longitude: 127.12052822113036 },
-    { latitude: 37.37530703574853, longitude: 127.12190151214598 },
-    { latitude: 37.371657839593894, longitude: 127.11645126342773 },
-    { latitude: 37.36855417793982, longitude: 127.1207857131958 },
-];
-
-function generateMockData(count) {
-    console.log(MockDataList.length);
-    if (count < MockDataList.length) {
-        return MockDataList[count]
-    }
-    else {
-        return {}
-    }
-}
-*/
 
 function Running() {
-
     const {
         location,
         startTracking,
@@ -58,6 +31,8 @@ function Running() {
         console.log("Function stopRun");
         stopTracking();
 
+        if (distanceTraveled === 0) return;
+
         // 현재 날짜와 시간을 얻기
         const now = new Date();
         // 한국 시간대로 조정 (UTC+9)
@@ -73,6 +48,7 @@ function Running() {
             return;
         }
 
+        const timeMin = timer / 60;
         const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
         axios.post(`${BACKEND_URL}/api/running/save`, {
             date: formattedDate,
@@ -81,38 +57,18 @@ function Running() {
             averagePace: pace,
             runningTime: formatTime(timer),
             path: location
-
         }, {
             headers: {
                 Authorization: token
             }
         })
-            .then(function (response) {
-                console.log(response);
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
+        .then(function (response) {
+            console.log(response);
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
     }
-
-    /*
-        const handleMockDataClick = () => {
-            const totalMockDataCount = MockDataList.length;
-            let currentCount = 0;
-    
-            const addMockDataWithDelay = () => {
-                if (currentCount < totalMockDataCount) {
-                    const newMockData = generateMockData(currentCount);
-                    setLocation((prevList) => [...prevList, newMockData]);
-    
-                    currentCount++;
-                    setTimeout(addMockDataWithDelay, 5000);
-                }
-            };
-            
-            addMockDataWithDelay();
-        };
-    */
 
     return (
         <div className="running-container">

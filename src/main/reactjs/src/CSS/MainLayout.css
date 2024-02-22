@@ -60,8 +60,7 @@ body {
     background-color: #303234;
     font-family: Lato;
     /* border-top: 1px solid black; */
-    overflow-y: auto;
-    overflow-x: hidden;
+    overflow: auto;
 }
 
 .operator-name {
@@ -90,7 +89,7 @@ body {
 
 .operator-5g {
     position: absolute;
-    top: 30%;
+    top: 28%;
     left: 70%;
     opacity: 1;
     /* font-weight: bold; */
