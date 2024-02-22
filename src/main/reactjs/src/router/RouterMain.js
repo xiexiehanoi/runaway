@@ -14,9 +14,10 @@ import Squat from '../components/exercise/squat/Squat';
 import Situp from '../components/exercise/situp/Situp';
 import Pushup from '../components/exercise/pushup/Pushup';
 import ChallengeMain from '../components/challenge/ChallengeMain';
-import KakaoLoginCallback from "../components/login/KakaoLoginCallback";
+import SocialLoginCallback from "../components/login/SocialLoginCallback";
 import Ranking from '../components/rank/Ranking';
 import RunningRecordDetail from '../components/profile/RunningRecordDetail';
+import SignUpAddForm from "../components/signup/SignUpAddForm";
 import MyChallengeList from '../components/challenge/MyChallengeList';
 import RunningRecord from '../components/profile/RunningRecord';
 import LoginRouter from "./LoginRouter";
@@ -24,13 +25,13 @@ import LoginBackRouter from "./LoginBackRouter";
 
 const RouterMain = () => {
     return (
-        <MainLayout>
+        <MainLayout>       
             <Routes>
                 {/* 로그인 안된 상태 라우팅*/}
-                <Route path="login/oauth2/callback/*" element={<KakaoLoginCallback />} />
+                <Route path="login/oauth2/callback/*" element={<SocialLoginCallback />} />
                 <Route path="/signup" element={<LoginBackRouter><SignUpForm /></LoginBackRouter>} />
                 <Route path="/login" element={<LoginBackRouter><LoginPage /></LoginBackRouter>} />
-                
+
                 {/* 로그인 된 상태 라우팅*/}
                 <Route path="/running" element={<LoginRouter><Running /> </LoginRouter>} />
                 <Route path="/runningchallenge" element={<LoginRouter><RunningChallenge /></LoginRouter>} />
@@ -47,12 +48,13 @@ const RouterMain = () => {
                 <Route path="/home" element={<LoginRouter><Home /></LoginRouter>} />
                 <Route path="/ranking" element={<LoginRouter><Ranking /></LoginRouter>} />
                 <Route path="/mychallengelist" element={<LoginRouter><MyChallengeList /></LoginRouter>} />
+                <Route path="/signup-add" element={<LoginRouter><SignUpAddForm /></LoginRouter>} />
 
                 {/* /가 항상 제일 마지막*/}
                 <Route path="/" element={<LoginRouter><Home /></LoginRouter>} />
             </Routes>
         </MainLayout>
-
+        
     );
 };
 
