@@ -19,7 +19,6 @@ function RunningMap({path, initialLocation}) {
 
 function RunningMapComponent({path, initialLocation}) {
     useNavermaps(null)
-    console.log(typeof(path))
 
     const polylinePath = path.length > 0 ? path.map(loc => new window.naver.maps.LatLng(loc.latitude, loc.longitude)) : [];
     const [map, setMap] = useState(null)

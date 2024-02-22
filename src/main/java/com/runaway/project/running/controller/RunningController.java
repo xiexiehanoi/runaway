@@ -33,6 +33,8 @@ public class RunningController {
         User user = userService.getUserByReqeust(request);
         if (user == null) ResponseEntity.badRequest().body("Error in token");
         User userEntity = runningService.findById(user.getId());
+
+        runningService.calcAndSetCalorie(user.getWeight(), runningDto);
         runningService.saveRunningRecord(runningDto, userEntity);
 
         LocalDate today = LocalDate.now();
