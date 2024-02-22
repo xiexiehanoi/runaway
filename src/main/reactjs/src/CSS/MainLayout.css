@@ -59,13 +59,12 @@ body {
     z-index: 1;
     background-color: #303234;
     font-family: Lato;
-    overflow: auto;
     /* border-top: 1px solid black; */
 }
 
 .operator-name {
     position: absolute;
-    top: 28%;
+    top: 30%;
     left: 13%;
     opacity: 1;
     font-weight: 500;
@@ -89,7 +88,7 @@ body {
 
 .operator-5g {
     position: absolute;
-    top: 26%;
+    top: 30%;
     left: 70%;
     opacity: 1;
     /* font-weight: bold; */
