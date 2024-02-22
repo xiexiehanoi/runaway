@@ -27,7 +27,7 @@ const MainLayout = ({ children }) => {
       title: "Rank",
       icon: "filesIcon",
       filledIcon: "filesIconFilled",
-      route: "/login",
+      route: "/ranking",
     },
     {
       title: "Profile",

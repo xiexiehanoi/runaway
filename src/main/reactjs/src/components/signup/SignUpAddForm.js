@@ -1,18 +1,28 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
+import {useFetchUserInfo, UserInfoAtom} from "../../global/UserInfoAtom";
+import {useRecoilValue} from "recoil";
 import {useNavigate} from "react-router-dom";
-import "../../CSS/SignUp.css"
 
-const SignUpForm = () => {
+const SignUpAddForm = () => {
+  const fetchUserInfo = useFetchUserInfo();
+  const userInfo = useRecoilValue(UserInfoAtom);
   const BASE_URL = process.env.REACT_APP_BACKEND_URL;
   const navi = useNavigate();
+  const isEnoughInfo = userInfo.height !== null && userInfo.weight !== null;
+
+  useEffect(() => {
+    fetchUserInfo();
+  }, []);
+
+  useEffect(() => {
+    if (isEnoughInfo) {
+      navi("/");
+    }
+  }, [isEnoughInfo, navi]);
 
   const [userInput, setUserInput] = useState({
-    email: '',
-    password: '',
-    passwordConfirm: '',
     username: '',
     nickname: '',
-    birthdate: '',
     gender: '',
     year: '',
     month: '',
@@ -21,7 +31,19 @@ const SignUpForm = () => {
     weight: 0,
   });
 
-  const { email, password,  passwordConfirm, username, nickname, gender, year, month, day, height, weight } = userInput;  // 구조분해 할당하기
+  const { username,
+    nickname,
+    year,
+    month,
+    day,
+    height,
+    weight } = userInput;  // 구조분해 할당하기
+
+  useEffect(() => {
+    const storedUsername = userInfo.username !== null ? userInfo.username : "";
+    const storedNickname = userInfo.nickname !== null ? userInfo.nickname : "";
+    setUserInput({...userInput, 'username': storedUsername, 'nickname': storedNickname});
+  }, [userInfo]);
 
   // 상수 데이터
   // 년
@@ -50,55 +72,27 @@ const SignUpForm = () => {
   const handleInput = e => {
     const { name, value } = e.target;
     setUserInput({ ...userInput, [name]: value });
+    // console.log(name);
+    // console.log(userInput);
   };
-
-  // 이메일 유효성 검사
-  const isEmail = email => {
-    const emailRegExp = /^[a-z0-9_+.-]+@([a-z0-9-]+\.)+[a-z0-9]{2,4}$/;
-    return emailRegExp.test(email);
-  };
-  const isEmailValid = isEmail(email);
-  const emailCheck = ( !isEmailValid && email.length > 0 ) ? 'emailCheck' : undefined;
-
-  // 패스워드 유효성 검사
-  const isPassword = password => {
-    const passwordRegExp =
-      /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
-    return passwordRegExp.test(password);
-  };
-  const isPasswordValid = isPassword(password);
-  const passwordCheck = ( !isPasswordValid && password.length > 0 ) ? 'passwordCheck' : undefined;
-
-
-  // 패스워드 재확인
-  const isPasswordConfirm = password === passwordConfirm;
-  const passwordConfirmCheck = ( !isPasswordConfirm && passwordConfirm.length > 0 ) ? 'passwordConfirmCheck' : undefined;
 
   // 이름 입력여부 확인
   const isUsername = Boolean(username);
 
-  // 성별 체크여부 확인
-  const isGender = Boolean(gender);
-  
   // 생년월일 입력여부 확인
   const isBirthdate = Boolean(year && month && day);
-  
+
   // 키 입력 여부 확인
   const isHeight = Boolean(height);
 
   // 몸무게 입력 여부 확인
   const isWeight = Boolean(weight);
 
-
   // 개인정보 유효기간
   // const isTimeValid = Boolean(time);
-  
+
   const isAllValid =
-    isEmailValid &&
-    isPasswordValid &&
-    isPasswordConfirm &&
     isUsername &&
-    isGender &&
     isHeight &&
     isWeight &&
     isBirthdate;
@@ -111,26 +105,24 @@ const SignUpForm = () => {
     console.log(userInput);
 
     try {
-      const response = await fetch(`${BASE_URL}/api/user/sign-up`, {
-        method: 'POST',
+      const response = await fetch(`${BASE_URL}/api/user/sign-up/add/${userInfo.id}`, {
+        method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          email: email,
-          password: password,
           username: username,
           nickname: nickname,
           birthdate: `${year}-${month}-${day}`,
-          gender: gender,
+          gender: document.querySelector('input[name="gender"]:checked').value,
           height: parseInt(height),
           weight: parseInt(weight),
         }),
       });
 
       if (response.ok) {
-        alert('회원가입 성공');
-        navi('/login');
+        alert('수정 완료');
+        navi('/');
       } else {
         throw new Error('회원가입 실패');
       }
@@ -140,7 +132,7 @@ const SignUpForm = () => {
   };
   return (
       <div className="signUp">
-        <h4>회원 가입</h4>
+        <h4>정보 수정</h4>
         <form className="signUpBox">
           {/* <div className="profileBox">
             <label className="imgBoxLabel" htmlFor="profileImg">
@@ -161,71 +153,56 @@ const SignUpForm = () => {
             </label>
           </div> */}
 
-          {/* 이메일 비밀번호 입력 */}
+          {/* 이메일 비밀번호 */}
           <p className="userEmail title mustInput">이메일</p>
           <input
-            onChange={handleInput}
-            className={`userInputEmail input ${emailCheck}`}
+            className="userInputEmail input"
             name="email"
             type="text"
-            placeholder="이메일"
-            autoComplete="username"
+            value={userInfo.email}
+            disabled
           />
-          {!isEmailValid && (
-            <p
-              className="inputCheck"
-              style={{display: email.length > 0 ? 'block' : 'none'}}
-            >
-              * 이메일 양식을 맞춰주세요!
-            </p>
-          )}
           <hr />
           <p className="userPassword title mustInput">비밀번호</p>
           <input
-            onChange={handleInput}
-            className={`userInputPw input ${passwordCheck}`}
+            className="userInputPw input"
             name="password"
             type="password"
-            placeholder="비밀번호"
-            autoComplete="current-password"
+            disabled
           />
-          {!isPasswordValid && (
-            <p
-              className="inputCheck"
-              style={{display: password.length > 0 ? 'block' : 'none'}}
-            >
-              * 비밀번호는 대소문자, 숫자, 특수문자 포함 8자리 이상 적어주세요!
-            </p>
-          )}
           <input
-            onChange={handleInput}
-            className={`userInputPwConfirm input ${passwordConfirmCheck}`}
+            className="userInputPwConfirm input"
             name="passwordConfirm"
             type="password"
-            placeholder="비밀번호 확인"
-            autoComplete="current-password"
+            disabled
           />
           <hr />
           {/* 이름 입력 */}
           <p className="userName title mustInput">이름</p>
           <input
-            onChange={handleInput}
+            onChange={
+              (userInfo.username === "" || userInfo.username === null) ?
+                handleInput : undefined}
             className="userInputName input"
             name="username"
             type="text"
             placeholder="이름을(를) 입력하세요"
-            autoComplete="username"
+            defaultValue={userInfo.username} // userInfo.username이 존재하면 해당 값, 없으면 빈 문자열
+            disabled={userInfo.username ? true : false}
           />
           <hr />
           {/* 닉네임 입력 */}
           <p className="userNickname title mustInput">닉네임</p>
           <input
-            onChange={handleInput}
+            onChange={
+              (userInfo.nickname === "" || userInfo.nickname === null) ?
+                handleInput : undefined}
             className="userInputNickname input"
             name="nickname"
             type="text"
             placeholder="닉네임을(를) 입력하세요"
-            autoComplete="username"
+            defaultValue={userInfo.nickname} // userInfo.usernickname이 존재하면 해당 값, 없으면 빈 문자열
+            disabled={userInfo.nickname ? true : false}
           />
           <hr />
           {/* 성별 입력 */}
@@ -237,6 +214,7 @@ const SignUpForm = () => {
               name="gender"
               type="radio"
               value="male"
+              // defaultChecked={userInfo.gender === 'male' || userInfo.gender === 'M'}
             />
             <span className="text">남자</span>
           </label>
@@ -247,6 +225,7 @@ const SignUpForm = () => {
               name="gender"
               type="radio"
               value="female"
+              // defaultChecked={userInfo.gender === 'female' || userInfo.gender === 'W'}
             />
             <span className="text">여자</span>
           </label>
@@ -255,20 +234,20 @@ const SignUpForm = () => {
           <div className="userBirthdate">
             <p className="title mustInput">생년월일</p>
             <div className="selectBox">
-              <select className="select" name="year" onChange={handleInput}>
-                <option value="" selected disabled hidden>연도</option>
+              <select className="select" name="year" onChange={handleInput} defaultValue="연도">
+                  <option disabled hidden>연도</option>
                 {YEAR.map(y => {
                   return <option key={y}>{y}</option>;
                 })}
               </select>
-              <select className="select" name="month" onChange={handleInput}>
-                <option value="" selected disabled hidden>월</option>
+              <select className="select" name="month" onChange={handleInput} defaultValue="월">
+                <option defaultValue="" disabled hidden>월</option>
                 {MONTH.map(m => {
                   return <option key={m}>{m}</option>;
                 })}
               </select>
-              <select className="select" name="day" onChange={handleInput}>
-                <option value="" selected disabled hidden>일</option>
+              <select className="select" name="day" onChange={handleInput} defaultValue="일">
+                <option disabled hidden>일</option>
                 {DAY.map(d => {
                   return <option key={d}>{d}</option>;
                 })}
@@ -308,4 +287,4 @@ const SignUpForm = () => {
   );
 };
 
-export default SignUpForm;
+export default SignUpAddForm;
