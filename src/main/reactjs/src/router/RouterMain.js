@@ -19,40 +19,26 @@ import ChallengeMain from '../components/challenge/ChallengeMain';
 import KakaoLoginCallback from "../components/login/KakaoLoginCallback";
 import Ranking from '../components/rank/Ranking';
 import RunningRecordDetail from '../components/profile/RunningRecordDetail';
-
 import MyChallengeList from '../components/challenge/MyChallengeList';
-
-import { useRecoilValue } from "recoil";
-import { LoginAtom } from "../global/LoginAtom";
 import RunningRecord from '../components/profile/RunningRecord';
 import LoginRouter from "./LoginRouter";
-const MyPageWithAlert = () => {
-    const isLogin = useRecoilValue(LoginAtom);
-
-    useEffect(() => {
-        // my 페이지에 접근할 때만 alert 창 띄우기
-        if (isLogin === null) {
-            alert('로그인 해주세요');
-        }
-    }, [isLogin]);
-
-    // my 페이지에 접근할 때만 MyPage 컴포넌트 렌더링
-    return isLogin === null ? <Navigate to="/login" /> : <MyPage />;
-};
+import LoginBackRouter from "./LoginBackRouter";
 
 const RouterMain = () => {
     return (
         <MainLayout>
             <Routes>
+                {/* 로그인 안된 상태 라우팅*/}
                 <Route path="login/oauth2/callback/*" element={<KakaoLoginCallback />} />
-                <Route path="/signup" element={<SignUpForm />} />
-                <Route path="/login" element={<LoginPage />} />
-
+                <Route path="/signup" element={<LoginBackRouter><SignUpForm /></LoginBackRouter>} />
+                <Route path="/login" element={<LoginBackRouter><LoginPage /></LoginBackRouter>} />
+                
+                {/* 로그인 된 상태 라우팅*/}
                 <Route path="/running" element={<LoginRouter><Running /> </LoginRouter>} />
                 <Route path="/runningchallenge" element={<LoginRouter><RunningChallenge /></LoginRouter>} />
                 <Route path="/exercise" element={<LoginRouter><Exercise /></LoginRouter>} />
                 <Route path="/exercisechallenge" element={<LoginRouter><ExerciseChallenge /></LoginRouter>} />
-                <Route path="/my" element={<LoginRouter><MyPageWithAlert /></LoginRouter>} />
+                <Route path="/my" element={<LoginRouter><MyPage /></LoginRouter>} />
                 <Route path='/runningRecord' element={<LoginRouter><RunningRecord /></LoginRouter>} />
                 <Route path="/runningRecordDetail/:runIdx" element={<LoginRouter><RunningRecordDetail /></LoginRouter>} />
                 <Route path="/story" element={<LoginRouter><WebCam /></LoginRouter>} />
@@ -64,6 +50,7 @@ const RouterMain = () => {
                 <Route path="/ranking" element={<LoginRouter><Ranking /></LoginRouter>} />
                 <Route path="/mychallengelist" element={<LoginRouter><MyChallengeList /></LoginRouter>} />
 
+                {/* /가 항상 제일 마지막*/}
                 <Route path="/" element={<LoginRouter><Home /></LoginRouter>} />
             </Routes>
         </MainLayout>
