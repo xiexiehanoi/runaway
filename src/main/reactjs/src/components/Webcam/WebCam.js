@@ -18,7 +18,7 @@ const WebCam = () => {
     const list = () => {
         axios.get(`${BASE_URI}/api/story/list`, {
             headers: {
-                Authorization: `Bearer ${token}` // 'Bearer' 키워드를 추가해야 합니다.
+                Authorization: token
             }
         })
             .then(res => {
