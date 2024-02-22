@@ -1,11 +1,9 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Running from '../components/running/Running';
 import WebCam from '../components/Webcam/WebCam';
-import { Navigate, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import MyPage from '../components/profile/Mypage';
 import LoginPage from '../components/login/LoginPage';
-import GoogleLogin from '../components/login/GoogleLogin';
-import NaverLogin from '../components/login/NaverLogin';
 import MainLayout from '../components/MainLayout';
 import Home from '../components/Home';
 import Exercise from '../components/exercise/Exercise';
