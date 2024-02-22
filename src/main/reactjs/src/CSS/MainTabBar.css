@@ -49,7 +49,7 @@
     position: absolute;
     overflow: hidden;
     z-index: 1;
-    background: #fff;
+    background: #303234;
     transform: scale(0.94);
     transform-origin: 0 100%;
     animation: down 0.3s linear forwards;
@@ -79,9 +79,12 @@
 }
 
 .tabbar ul li a div span:last-child svg {
-    fill: #5628EE;
-    stroke: #5628EE;
-    background-color: #303234;
+    fill: #a4b0f1;
+
+    /* fill: linear-gradient(140deg, #a4b0f1 0%, #5d4fad 100%); */
+    stroke-width: 1px;
+    stroke: #303234;
+    /* box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.25) inset; */
 }
 
 .tabbar ul li a strong {
