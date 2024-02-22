@@ -25,6 +25,7 @@ import MyChallengeList from '../components/challenge/MyChallengeList';
 import { useRecoilValue } from "recoil";
 import { LoginAtom } from "../global/LoginAtom";
 import RunningRecord from '../components/profile/RunningRecord';
+import LoginRouter from "./LoginRouter";
 const MyPageWithAlert = () => {
     const isLogin = useRecoilValue(LoginAtom);
 
@@ -44,29 +45,26 @@ const RouterMain = () => {
         <MainLayout>
             <Routes>
                 <Route path="login/oauth2/callback/*" element={<KakaoLoginCallback />} />
-                <Route path="/home" element={<Home />} />
-                <Route path="/running" element={<Running />} />
-                <Route path="/runningchallenge" element={<RunningChallenge />} />
-                <Route path="/exercise" element={<Exercise />} />
-                <Route path="/exercisechallenge" element={<ExerciseChallenge />} />
-                <Route
-                    path="/my"
-                    element={<MyPageWithAlert />}
-                />
-                <Route path='/runningRecord' element={<RunningRecord />}></Route>
-                <Route path="/runningRecordDetail/:runIdx" element={<RunningRecordDetail />}></Route>
-                <Route path="/login" element={<LoginPage />} />
-                <Route path="/authgoogle" element={<GoogleLogin />} />
-                <Route path="/authnaver" element={<NaverLogin />} />
-                <Route path="/story" element={<WebCam />} />
                 <Route path="/signup" element={<SignUpForm />} />
-                <Route path="/squat" element={<Squat />} />
-                <Route path="/situp" element={<Situp />} />
-                <Route path="/pushup" element={<Pushup />} />
-                <Route path="/challengemain" element={<ChallengeMain />} />
-                <Route path="/" element={<Home />} />
-                <Route path="/ranking" element={<Ranking />} />
-                <Route path="/mychallengelist" element={<MyChallengeList />} />
+                <Route path="/login" element={<LoginPage />} />
+
+                <Route path="/running" element={<LoginRouter><Running /> </LoginRouter>} />
+                <Route path="/runningchallenge" element={<LoginRouter><RunningChallenge /></LoginRouter>} />
+                <Route path="/exercise" element={<LoginRouter><Exercise /></LoginRouter>} />
+                <Route path="/exercisechallenge" element={<LoginRouter><ExerciseChallenge /></LoginRouter>} />
+                <Route path="/my" element={<LoginRouter><MyPageWithAlert /></LoginRouter>} />
+                <Route path='/runningRecord' element={<LoginRouter><RunningRecord /></LoginRouter>} />
+                <Route path="/runningRecordDetail/:runIdx" element={<LoginRouter><RunningRecordDetail /></LoginRouter>} />
+                <Route path="/story" element={<LoginRouter><WebCam /></LoginRouter>} />
+                <Route path="/squat" element={<LoginRouter><Squat /></LoginRouter>} />
+                <Route path="/situp" element={<LoginRouter><Situp /></LoginRouter>} />
+                <Route path="/pushup" element={<LoginRouter><Pushup /></LoginRouter>} />
+                <Route path="/challengemain" element={<LoginRouter><ChallengeMain /></LoginRouter>} />
+                <Route path="/home" element={<LoginRouter><Home /></LoginRouter>} />
+                <Route path="/ranking" element={<LoginRouter><Ranking /></LoginRouter>} />
+                <Route path="/mychallengelist" element={<LoginRouter><MyChallengeList /></LoginRouter>} />
+
+                <Route path="/" element={<LoginRouter><Home /></LoginRouter>} />
             </Routes>
         </MainLayout>
 
