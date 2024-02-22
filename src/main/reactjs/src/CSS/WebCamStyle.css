@@ -1,0 +1,168 @@
+.WebCamContainer {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    height: 90vh;
+    box-sizing: border-box;
+    overflow: hidden;
+    z-index: 1;
+    background-color: rgba(99, 122, 159, 0.5);
+}
+
+button.WebCamBtn {
+    margin-top: 10px;
+    padding: 10px 40px;
+    border: none;
+    background-color: rgb(6, 191, 233);
+    color: #fff;
+    border-radius: 25px;
+    cursor: pointer;
+    z-index: 2;
+    position: absolute;
+    top: 75%;
+    width: 186px;
+    left: 50%;
+    margin-left: -93px;
+}
+
+button.WebCamStartBtn,
+button.WebCamStopBtn,
+button.WebCamVideoDownloadBtn {
+    margin-top: 10px;
+    padding: 10px 40px;
+    border: none;
+    background-color: rgb(6, 191, 233);
+    color: #fff;
+    border-radius: 25px;
+    cursor: pointer;
+    z-index: 2;
+    /* position: absolute; */
+    /* position: relative; */
+    width: calc(70% - 20px);
+    /* left: 50%;
+    transform: translateX(-50%); */
+    margin: 10px;
+    position: absolute;
+    /* 버튼의 위치를 상대적으로 지정합니다. */
+    /* left: 50%;
+    transform: translateX(-50%); */
+    left: auto;
+}
+
+button.WebCamStartBtn {
+    top: 75%;
+}
+
+button.WebCamStopBtn {
+    top: 75%;
+}
+
+button.WebCamVideoDownloadBtn {
+    top: 83%;
+    padding-top: 8px;
+}
+
+img.WebCamImg {
+    width: 100%;
+    object-fit: cover;
+    height: 100%;
+}
+
+.WebCamApp {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    background-color: #262b36;
+    padding-bottom: 0;
+    overflow: hidden;
+}
+
+.WebCamTimer {
+    position: absolute;
+    top: 10%;
+    right: 10px;
+    color: white;
+    font-size: 20px;
+}
+
+@media screen and (max-width: 768px) {
+    /* .WebCamContainer {
+        display: block;
+        position: static;
+        overflow-y: hidden;
+        width: 100vw;
+        height: 100vh;
+        z-index: 100;
+        background-color: rgba(99, 122, 159, 0.5);
+    } */
+
+    /* button.WebCamStartBtn,
+    button.WebCamStopBtn,
+    button.WebCamVideoDownloadBtn {
+        position: relative; */
+    /* 모바일 환경에서 상대 위치로 변경 */
+    /* width: 100%;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    } */
+
+    .WebCamContainer {
+        /* 모바일에서 버튼이 표시되도록 변경 */
+        display: flex;
+        flex-direction: column;
+        /* 버튼이 위에서 아래로 정렬되도록 변경 */
+        align-items: center;
+        /* 버튼을 수직으로 가운데 정렬 */
+        justify-content: center;
+        /* 버튼을 수평으로 가운데 정렬 */
+        position: static;
+        overflow-y: hidden;
+        width: 100vw;
+        height: 100vh;
+        z-index: 1;
+        background-color: rgba(99, 122, 159, 0.5);
+    }
+
+    button.WebCamStartBtn,
+    button.WebCamStopBtn,
+    button.WebCamVideoDownloadBtn {
+        /* position 속성을 상대 위치로 변경하지 않고 그대로 유지 */
+        width: calc(60% - 20px);
+        /* 버튼의 너비를 조정하여 화면 크기에 맞게 표시 */
+        margin: 10px;
+        /* 위아래 여백을 주어 버튼들 간격을 조정 */
+        left: auto;
+        /* left 속성을 해제하여 가운데 정렬 */
+        transform: none;
+        /* transform 속성을 해제하여 가운데 정렬 */
+        z-index: 3;
+    }
+
+
+    button.WebCamStartBtn {
+        top: 75%;
+        /* 시작 버튼의 위치 조정 */
+    }
+
+    button.WebCamStopBtn {
+        top: 75%;
+        /* 중지 버튼의 위치 조정 */
+    }
+
+    button.WebCamVideoDownloadBtn {
+        top: 83%;
+        /* 다운로드 버튼의 위치 조정 */
+        padding-top: 8px;
+    }
+
+    button.WebCamBtn {
+        position: static;
+        width: 100%;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+}

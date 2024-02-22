@@ -1,0 +1,97 @@
+
+  main.challengemain {
+    
+    background-color: #000000;
+    -webkit-box-shadow: 0px 5px 15px 8px #e4e7fb;
+    box-shadow: 0px 5px 15px 8px #e4e7fb;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 0.5rem;
+    position: relative;
+    width: 100%;
+  }
+  
+   /* #header {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2.5rem 2rem;
+  background-color: #272829;
+  box-shadow: 0 .1rem .6rem rgba(0, 0, 0, .3);
+  font-family: inherit;
+  } */
+
+ .bodyranking{
+    height:100%;
+    font: 16px/1.2 "Roboto", sans-serif;
+	  color: #333;
+    border-radius: 8px;
+ }
+
+ .leaderboard .headranking {
+	padding: 20px 16px;
+	color: snow;
+	font-size: 20px;
+	text-align: center;
+  background: linear-gradient(140deg, #a4b0f1 0%, #5d4fad 100%);
+  border-radius: 8px;
+  box-shadow: -9px -9px 16px rgba(73, 73, 73, 0.60), 9px 9px 16px rgba(0, 0, 0, 0.40);
+}
+.leaderboard .headranking h1 {
+	display: inline-block;
+	margin-left: 4px;
+}
+
+ .leaderboard .bodyranking{
+  color: snow;
+	font-size: 16px;
+ }
+
+ /* .leaderboard li {
+	counter-reset: number; 
+} */
+
+.leaderboard li {
+	padding: 16px;
+	display: flex;
+}
+.leaderboard li mark {
+	flex-grow: 1;
+	color: snow;
+	background-color: transparent;
+}
+/* .leaderboard li:before {
+	counter-increment: number; 
+	content: counter(number) "."; 
+	margin-right: 4px;
+} */
+
+.leaderboard li:nth-child(1) {
+  border: solid 0.25em #ecc81a; 
+  
+}
+
+.leaderboard li:nth-child(2) {
+  border: solid 0.25em #dbe2e8; 
+}
+
+.leaderboard li:nth-child(3) {
+  border: solid 0.25em #dfdfd1; /* 세 번째 li의 border 두께를 0.25em으로 설정 */
+}
+
+
+
+
+ 
+
+  
+  
+ 
+  
+
+   
+ 
+  
+   

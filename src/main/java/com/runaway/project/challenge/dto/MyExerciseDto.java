@@ -1,6 +1,7 @@
 package com.runaway.project.challenge.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.runaway.project.user.entity.User;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -14,7 +15,7 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-@ToString
+@ToString(exclude = "exerciseDays")
 @Table(name="my_exercise")
 public class MyExerciseDto {
     @Id
@@ -38,6 +39,7 @@ public class MyExerciseDto {
     private ExerciseChallengeDto exerciseChallengeDto;
 
     @OneToMany(mappedBy = "myExercise", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private List<ExerciseDayDto> exerciseDays = new ArrayList<>();
 
     public void generateExerciseDays() {

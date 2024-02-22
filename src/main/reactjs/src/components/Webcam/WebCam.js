@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import './WebCamStyle.css';
+// import './WebCamStyle.css';
+import '../../CSS/WebCamStyle.css';
+import '../../CSS/CommonApplicationStyle.css';
 // import WebCamImage from "./WebCamImage";
 import WebcamVideo from "./WebCamVideo";
 import StoryShow from "./StoryShow";
@@ -55,19 +57,37 @@ const WebCam = () => {
 
     return (
         <>
-            <button className='btn btn-success'
-                onClick={handleVideoButtonClick}>Video
+            <div class="header-inscreen">
+                <span style={{ marginLeft: "8%" }}>Stories</span>
+            </div>
+            <button className='btn primaryButton-outset'
+                style={{ margin: "7% 12%", width: '76%' }}
+                onClick={handleVideoButtonClick}>
+                <span
+                    // class="primaryCard-text"
+                    style={{
+                        color: '#f5f5f5',
+                        fontWeight: '500',
+                        fontSize: '1em'
+                    }}
+                >Add Story</span>
             </button>
             {/* <button className='btn btn-success'
                 onClick={handleShowButtonClick}>Show
             </button> */}
-            <span className='WebCamApp'>
+            {/* <span className='WebCamApp'> */}
+            <span className='CommonContainer'>
                 {/* <h4 className='alert alert-info'>Webcam</h4> */}
                 {/* <WebCamImage /> */}
                 {showWebCamVideo ? (
-                    <WebcamVideo />
+                    <span className='WebCamApp'>
+                        <WebcamVideo />
+                    </span>
                 ) : (
-                    <StoryShow storyList={storyList} />
+                    <div className='primaryCard'
+                        style={{ width: '85%', height: '72%', margin: " auto" }}>
+                        <StoryShow storyList={storyList} />
+                    </div>
                 )}
             </span>
         </>
