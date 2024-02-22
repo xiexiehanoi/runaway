@@ -43,7 +43,7 @@ const RouterMain = () => {
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/authgoogle" element={<GoogleLogin />} />
                 <Route path="/authnaver" element={<NaverLogin />} />
-                <Route path="/webcam" element={<WebCam />} />
+                <Route path="/story" element={<WebCam />} />
                 <Route path="/signup" element={<SignUpForm />} />
                 <Route path="/squat" element={<Squat />} />
                 <Route path="/situp" element={<Situp />} />

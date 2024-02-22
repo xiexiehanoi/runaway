@@ -4,6 +4,7 @@ import com.runaway.project.login.service.LocalLoginService;
 import com.runaway.project.user.dto.LoginRequestDto;
 import com.runaway.project.user.dto.LoginResponseDto;
 import com.runaway.project.user.dto.SignUpRequestDto;
+import com.runaway.project.user.entity.User;
 import com.runaway.project.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -25,6 +26,11 @@ public class UserController {
   @ResponseStatus(HttpStatus.CREATED)
   public void signUp(final @Valid @RequestBody SignUpRequestDto signUpRequestDto) {
     userService.signUpUser(signUpRequestDto);
+  }
+
+  @PatchMapping("/sign-up/add/{id}")
+  public void signUpAdd(@PathVariable Long id, final @Valid @RequestBody User user) {
+    userService.signUpAdd(id, user);
   }
 
   /**

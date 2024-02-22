@@ -139,7 +139,6 @@ const SignUpForm = () => {
     }
   };
   return (
-    <>
       <div className="signUp">
         <h4>회원 가입</h4>
         <form className="signUpBox">
@@ -306,7 +305,6 @@ const SignUpForm = () => {
           </div>
         </form>
       </div>
-    </>
   );
 };
 

@@ -1,23 +1,18 @@
 package com.runaway.project.user.service;
 
-import com.runaway.project.login.JwtProperties;
-import com.runaway.project.login.model.OauthToken;
 import com.runaway.project.login.service.LoginService;
 import com.runaway.project.user.dto.SignUpRequestDto;
-import com.runaway.project.user.dto.UserInfo;
 import com.runaway.project.user.entity.User;
+import com.runaway.project.user.enums.SocialType;
 import com.runaway.project.user.repository.UserRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -46,6 +41,16 @@ public class UserService {
     User user = signUpRequestDto.toEntity(encryptedPassword);
 
     userRepository.save(user);
+  }
+
+  @Transactional
+  public void signUpAdd(Long id, User user) {
+    User addUserInfo = userRepository.findById(id).orElse(null);
+    System.out.println(user.getHeight());
+    System.out.println(user.getWeight());
+    addUserInfo.addInfo(user);
+
+    userRepository.save(addUserInfo);
   }
 
 
