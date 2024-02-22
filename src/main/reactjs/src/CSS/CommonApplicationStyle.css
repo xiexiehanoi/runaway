@@ -31,6 +31,8 @@
     background-color: #303234;
     border-radius: 8px;
     box-shadow: -9px -9px 16px rgba(73, 73, 73, 0.40), 9px 9px 16px rgba(0, 0, 0, 0.40);
+    /* overflow-x: scroll;
+    white-space: nowrap; */
 }
 
 /* 기본 카드 안에 Vector 요소 있으면 적용할만 한 스타일 */

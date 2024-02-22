@@ -2,21 +2,12 @@ import React, { useState } from "react";
 import VideoPlayer from "./VideoPlayer";
 import { useSwipeable } from "react-swipeable";
 
-// test 하드코딩
-// const videoUrl1 =
-//   "https://kr.object.ncloudstorage.com/runaway/runaway_story/3_202402181632_c2e4ecda-f";
-// const videoUrl2 =
-//   "https://kr.object.ncloudstorage.com/runaway/runaway_story/3_202402181632_c2e4ecda-f";
-// const videoUrl3 =
-//   "https://kr.object.ncloudstorage.com/runaway/runaway_story/3_202402181748_c100dca0-5";
-// const videoUrls = [videoUrl1, videoUrl2, videoUrl3];
-
 const videoUrl = "https://kr.object.ncloudstorage.com/runaway/runaway_story/";
 
 const StoryShow = ({ storyList }) => {
   const [videoIndex, setVideoIndex] = useState(0);
 
-  console.log("Received item:", storyList); // 이 부분을 추가하여 받은 데이터를 확인합니다.
+  // console.log("Received item:", storyList); // 이 부분을 추가하여 받은 데이터를 확인합니다.
 
   const handlers = useSwipeable({
     onSwipedLeft: () => {
@@ -33,50 +24,49 @@ const StoryShow = ({ storyList }) => {
     trackMouse: true,
   });
 
-  // item이 배열이 아니거나 length 속성이 존재하지 않는 경우를 확인합니다.
-  if (!Array.isArray(storyList) || !storyList.length) {
-    console.log("No stories to display");
-    return <div>No stories to display</div>;
-  } else {
-    console.log("storyList Array : " + storyList);
-  }
-
-  // item 배열이 비어 있는 경우를 확인하고 반환합니다.
+  // storyList 배열이 비어있는 경우 빈 컴포넌트 반환
   if (!storyList || storyList.length === 0) {
-    console.log("No stories to display");
     return <div>No stories to display</div>;
-  } else {
-    console.log("storyList length : " + storyList.length);
   }
 
-  // videoIndex가 유효한 범위 내에 있는지 확인합니다.
+  // videoIndex가 유효한 범위 내에 있는지 확인
   if (videoIndex < 0 || videoIndex >= storyList.length) {
-    console.log("Invalid video index");
     return <div>Invalid video index</div>;
-  } else {
-    console.log("video index : " + videoIndex);
   }
 
-  // storyContent가 정의되어 있는지 확인합니다.
-  if (!storyList[videoIndex] || !storyList[videoIndex].storyContent) {
-    console.log("Invalid story content");
+  const currentStory = storyList[videoIndex];
+
+  // 현재 스토리가 존재하고 storyContent가 존재하는지 확인
+  if (!currentStory || !currentStory.storyContent) {
     return <div>Invalid story content</div>;
-  } else {
-    console.log("storyList [VideoIndex] : " + storyList[videoIndex]);
   }
 
   return (
     <div {...handlers} >
       <div >
         <VideoPlayer
-          src={videoUrl + storyList[videoIndex].storyContent}
+          src={videoUrl + currentStory.storyContent}
+          width={100} // 부모 요소인 primaryCard에 가득 차도록 100%로 설정
+          height={100} // 부모 요소인 primaryCard에 가득 차도록 100%로 설정
         />
         <p style={{
-          color: '#f5f5f5', fontWeight: '500', fontSize: '1.1em', margin: '2% 4%'
-        }}>User: {storyList[videoIndex].user.username}</p>
+          color: '#f5f5f5',
+          fontWeight: '500',
+          fontSize: '1.1em',
+          margin: '2% 4%',
+          zIndex: '3'
+        }}>
+          User: {currentStory.user.username}
+        </p>
         <p style={{
-          color: '#f5f5f5', fontWeight: '500', fontSize: '1.1em', margin: '2% 4%'
-        }}>Upload Time: {storyList[videoIndex].storyUploadTime}</p>
+          color: '#f5f5f5',
+          fontWeight: '500',
+          fontSize: '1.1em',
+          margin: '2% 4%',
+          zIndex: '3'
+        }}>
+          Upload Time: {currentStory.storyUploadTime}
+        </p>
       </div>
     </div>
   );
