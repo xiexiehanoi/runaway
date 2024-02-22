@@ -2,15 +2,6 @@ import React, { useState } from "react";
 import VideoPlayer from "./VideoPlayer";
 import { useSwipeable } from "react-swipeable";
 
-// test 하드코딩
-// const videoUrl1 =
-//   "https://kr.object.ncloudstorage.com/runaway/runaway_story/3_202402181632_c2e4ecda-f";
-// const videoUrl2 =
-//   "https://kr.object.ncloudstorage.com/runaway/runaway_story/3_202402181632_c2e4ecda-f";
-// const videoUrl3 =
-//   "https://kr.object.ncloudstorage.com/runaway/runaway_story/3_202402181748_c100dca0-5";
-// const videoUrls = [videoUrl1, videoUrl2, videoUrl3];
-
 const videoUrl = "https://kr.object.ncloudstorage.com/runaway/runaway_story/";
 
 const StoryShow = ({ storyList }) => {
@@ -66,18 +57,18 @@ const StoryShow = ({ storyList }) => {
   }
 
   return (
-    <div {...handlers} >
-      <div >
+    <div {...handlers} style={{width: "100%", height: "100%"}} >
+      <div {...handlers} style={{width: "100%", height: "100%"}} >
         <VideoPlayer
           src={videoUrl + storyList[videoIndex].storyContent}
         />
+      </div>
         <p style={{
           color: '#f5f5f5', fontWeight: '500', fontSize: '1.1em', margin: '2% 4%'
         }}>User: {storyList[videoIndex].user.username}</p>
         <p style={{
           color: '#f5f5f5', fontWeight: '500', fontSize: '1.1em', margin: '2% 4%'
         }}>Upload Time: {storyList[videoIndex].storyUploadTime}</p>
-      </div>
     </div>
   );
 };
