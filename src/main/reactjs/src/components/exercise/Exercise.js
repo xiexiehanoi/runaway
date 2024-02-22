@@ -4,42 +4,34 @@ import codepen from "./codepen.css";
 
 const exercise = () => {
   return (
-    <div>
-      <h1 className="exercise-H1">Choose Your Exercise</h1>
+    <div className="exercise-container">
       <div class="container">
-        <div class="product">
+        <div class="product1">
           <div class="effect-1"></div>
           <div class="effect-2"></div>
           <div class="content">
             <div class="exercise"></div>
           </div>
-          <span class="title">
-            Squat
-          </span>
+          <span class="title1">Squat</span>
         </div>
-        <div class="product">
+        <div class="product2">
           <div class="effect-1"></div>
           <div class="effect-2"></div>
           <div class="content">
             <div class="sleep"></div>
           </div>
-          <span class="title">
-            Situp
-          </span>
+          <span class="title2">Situp</span>
         </div>
-        <div class="product">
+        <div class="product3">
           <div class="effect-1"></div>
           <div class="effect-2"></div>
           <div class="content">
             <div class="meditation"></div>
           </div>
-          <span class="title">
-            Pushup
-          </span>
+          <span class="title3">Push</span>
         </div>
       </div>
 
-      
       {/* <p>
         <Link to={"/situp"}>situp</Link>
       </p>
