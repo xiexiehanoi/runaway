@@ -5,6 +5,7 @@ import { CSSTransition } from 'react-transition-group';
 import WebcamVideo from "./WebCamVideo";
 import StoryShow from "./StoryShow";
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 const BASE_URI = process.env.REACT_APP_BACKEND_URL;
 const token = window.localStorage.getItem("token");
@@ -71,15 +72,18 @@ const WebCam = () => {
                 </button>
             )}
 
-            <span className='CommonContainer'>
+            <span className='CommonContainer' style={{ width: '100%', height: '100%' }}>
                 <CSSTransition
                     in={showWebCamVideo}
                     timeout={800}
                     classNames="webcam-slide"
+                    style={{ width: '100%', height: '100%' }}
                     unmountOnExit
                 >
                     <div className={`WebCamApp ${showWebCamVideo ? 'show' : ''}`}>
-                        <WebcamVideo BackButton={handleBackButtonClick} />
+                        <Link to="/addstory" style={{ width: '100%', height: '100%' }}>
+                            <WebcamVideo BackButton={handleBackButtonClick} />
+                        </Link>
                     </div>
                 </CSSTransition>
                 {!showWebCamVideo && (
