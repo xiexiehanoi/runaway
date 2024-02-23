@@ -1,5 +1,6 @@
 import React from 'react';
 import '../../CSS/CommonApplicationStyle.css'
+import '../../CSS/Challenge.css'
 import situpImage from '../../image/situp.png';
 import pushupImage from '../../image/push-up.png';
 import squatImage from '../../image/squats.png';
@@ -37,11 +38,11 @@ const MyChallengeList = ({row,idx}) => {
   }
 
   return (
-    <div className='primaryCard' style={{ display: 'flex', marginBottom:'10px', padding:"9px" }}>
-    <div style={{ display: 'flex', alignItems: 'center' }}>
-      {exerciseImage && <img src={exerciseImage} alt={challengeData?.exercise_type} style={{ maxWidth: '60px', marginLeft:'5px',height: 'auto' }} />}
+    <div className='primaryCard' style={{ display: 'flex', marginBottom:'10px', padding:"16px" }}>
+    <div className='challengeImg'>
+      {exerciseImage && <img src={exerciseImage} alt={challengeData?.exercise_type}/>}
     </div>
-    <div style={{ marginLeft: '20px',color:'white' }}>
+    <div className='myChallengeBox'>
       {isExerciseChallenge ? (
         <>
           <strong>{challengeData?.exercise_type}</strong><br />
