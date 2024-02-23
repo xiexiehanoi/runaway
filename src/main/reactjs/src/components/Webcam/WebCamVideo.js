@@ -155,24 +155,6 @@ const WebCamVideo = () => {
         }
     }, [recordedChunks, mimeType, BASE_URI, token]);
 
-    // const handleTouchStart = useCallback(() => {
-    //     console.log("Start Capture button touched");
-    //     // alert("버튼이 눌려요!");
-    //     handleStartCaptureClick(); // 터치 시작 시 녹화 시작
-    // }, [handleStartCaptureClick]);
-
-    // const handleTouchStop = useCallback(() => {
-    //     console.log("Stop Capture button touched");
-    //     // alert("버튼이 눌려요!");
-    //     handleStopCaptureClick(); // 터치 시작 시 녹화 시작
-    // }, [handleStopCaptureClick]);
-
-    // const handleTouchDownload = useCallback(() => {
-    //     console.log("Start Capture button touched");
-    //     // alert("버튼이 눌려요!");
-    //     handleDownload(); // 터치 시작 시 녹화 시작
-    // }, [handleDownload]);
-
     return (
         <span className="WebCamContainer">
             <Webcam

@@ -1,19 +1,65 @@
-import React from 'react';
+import React, { useState } from 'react';
 import RunningMap from "./RunningMap";
 import axios from 'axios';
 import { RunningLocationTracking } from './RunningLocationTracking';
 import './css/Running.css'
+import { useNavigate } from 'react-router';
 
 function Running() {
     const {
         location,
         startTracking,
         stopTracking,
+        pauseTracking,
+        running,
         distanceTraveled,
         pace,
         initialLocation,
         timer
     } = RunningLocationTracking();
+
+    // 추가된 상태 관리 로직
+    const [isPlaying, setIsPlaying] = useState(false); // 재생 상태
+
+
+    const [time, setTimer] = useState(null);
+    const [alertTimer, setAlertTimer] = useState(null);
+    const [showAlert, setShowAlert] = useState(false);
+    let navigate = useNavigate();
+
+    const handleMouseDown = () => {
+        // 3초 후 기록 종료
+        const timeout = setTimeout(() => {
+            // 비동기 작업을 처리하기 위해 async 함수 선언
+            (async () => {
+                try {
+                    await stopRun(); // stopRun의 비동기 작업이 완료될 때까지 대기
+                    navigate('/home'); // stopRun 작업이 완료된 후 페이지 이동
+                } catch (error) {
+                    console.error("An error occurred:", error); // 에러 처리
+                    // 필요한 경우 사용자에게 에러를 알리는 로직 추가
+                }
+            })();
+        }, 3000);
+        setTimer(timeout);
+    };
+
+
+    const handleMouseUp = () => {
+
+        // 알림 표시
+        setShowAlert(true);
+        // 2초 후 알림 사라짐
+        const alertTimeout = setTimeout(() => setShowAlert(false), 2000);
+        setAlertTimer(alertTimeout);
+        // 타이머 취소
+        clearTimeout(time);
+    };
+
+
+
+
+
 
     // 초 단위의 타이머 값을 00:00 형식으로 변환하는 함수
     const formatTime = (time) => {
@@ -22,10 +68,17 @@ function Running() {
         return `${minutes}:${seconds}`;
     };
 
-    const startRun = () => {
-        console.log("Function startRun");
-        startTracking();
-    }
+    // 재생/일시정지 버튼 클릭 이벤트 핸들러
+    const togglePlayPause = () => {
+        setIsPlaying(!isPlaying);
+        if (!isPlaying) {
+            startTracking();
+        } else {
+            pauseTracking();
+        }
+    };
+
+
 
     const stopRun = () => {
         console.log("Function stopRun");
@@ -50,24 +103,27 @@ function Running() {
 
         const timeMin = timer / 60;
         const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
-        axios.post(`${BACKEND_URL}/api/running/save`, {
-            date: formattedDate,
-            time: formattedTime,
-            distance: Math.round(distanceTraveled * 1000) / 1000,
-            averagePace: pace,
-            runningTime: formatTime(timer),
-            path: location
-        }, {
-            headers: {
-                Authorization: token
-            }
-        })
-        .then(function (response) {
-            console.log(response);
-        })
-        .catch(function (error) {
-            console.log(error);
+        return new Promise((resolve, reject) => {
+            axios.post(`${BACKEND_URL}/api/running/save`, {
+                date: formattedDate,
+                time: formattedTime,
+                distance: Math.round(distanceTraveled * 1000) / 1000,
+                averagePace: pace,
+                runningTime: formatTime(timer),
+                path: location
+            }, {
+                headers: {
+                    Authorization: token
+                }
+            })
+                .then(function (response) {
+                    console.log(response);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
         });
+
     }
 
     return (
@@ -77,7 +133,7 @@ function Running() {
             </div>
             <div className="stats-container">
                 <div className="stats-distance">
-                    <div className="distance">{Math.round(distanceTraveled * 1000) / 1000} Km</div>
+                    <div className="distance">{Math.round(distanceTraveled * 1000) / 1000} km</div>
                     <div className="label">킬로미터</div>
                 </div>
                 <div className="stats-pace">
@@ -90,8 +146,28 @@ function Running() {
                 </div>
             </div>
             <div className="control-buttons">
-                <button onClick={startRun} className="start-button">▶</button>
-                <button onClick={stopRun} className="stop-button">■</button>
+                <div className="circle">
+                    <span className={`circle__btn ${isPlaying ? 'shadow' : ''}`} onClick={togglePlayPause} style={{ marginRight: '90px' }}>
+                        {/* isPlaying이 true이면 pause 아이콘이 보이고, false이면 숨겨짐 */}
+                        {isPlaying ? (
+                            <ion-icon className="pause visibility" name="pause" style={{ fontSize: '34px' }}></ion-icon>
+                        ) : (
+                            // isPlaying이 false이면 play 아이콘이 보이고, true이면 숨겨짐
+                            <ion-icon className="play visibility" name="play" style={{ marginLeft: '8px', fontSize: '32px' }}></ion-icon>
+                        )}
+                    </span>
+                    {/* 정지 버튼 */}
+                    {showAlert && <div id="alert-box" class="alert">
+                        <span class="alert-icon"><i class="fas fa-hand-pointer"></i></span>
+                        <span class="alert-text">정지 버튼을 길게 누르면<br /> 러닝이 중단됩니다</span>
+                    </div>}
+                    <span className="circle__btn stop-btn" onMouseDown={handleMouseDown} onMouseUp={handleMouseUp} style={{ marginLeft: '200px' }}>
+                        <ion-icon name="stop" style={{ fontSize: '34px' }}></ion-icon>
+                    </span>
+                    <span className={`circle__back-1 ${isPlaying ? '' : 'paused'}`} style={{ marginRight: '80px' }}></span>
+                    <span className={`circle__back-2 ${isPlaying ? '' : 'paused'}`} style={{ marginRight: '80px' }}></span>
+                </div>
+                {/* <button onClick={stopRun} className="stop-button">■</button> */}
             </div>
         </div>
     );
