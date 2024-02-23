@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import RunningMap from "./RunningMap";
 import axios from 'axios';
 import { RunningLocationTracking } from './RunningLocationTracking';
@@ -9,11 +9,46 @@ function Running() {
         location,
         startTracking,
         stopTracking,
+        pauseTracking,
+        running,
         distanceTraveled,
         pace,
         initialLocation,
         timer
     } = RunningLocationTracking();
+
+    // 추가된 상태 관리 로직
+    const [isPlaying, setIsPlaying] = useState(false); // 재생 상태
+
+
+    const [time, setTimer] = useState(null);
+    const [alertTimer, setAlertTimer] = useState(null);
+    const [showAlert, setShowAlert] = useState(false);
+
+    const handleMouseDown = () => {
+
+        // 4초 후 기록 종료
+        const timeout = setTimeout(() => {
+            stopRun(); // 여기에 기록 종료 및 페이지 이동 로직 포함
+        }, 3000);
+        setTimer(timeout);
+    };
+
+    const handleMouseUp = () => {
+
+        // 알림 표시
+        setShowAlert(true);
+        // 2초 후 알림 사라짐
+        const alertTimeout = setTimeout(() => setShowAlert(false), 2000);
+        setAlertTimer(alertTimeout);
+        // 타이머 취소
+        clearTimeout(time);
+    };
+
+
+
+
+
 
     // 초 단위의 타이머 값을 00:00 형식으로 변환하는 함수
     const formatTime = (time) => {
@@ -22,10 +57,27 @@ function Running() {
         return `${minutes}:${seconds}`;
     };
 
+    // 재생/일시정지 버튼 클릭 이벤트 핸들러
+    const togglePlayPause = () => {
+        setIsPlaying(!isPlaying);
+        if (!isPlaying) {
+            startTracking();
+        } else {
+            pauseTracking();
+        }
+    };
+
     const startRun = () => {
         console.log("Function startRun");
         startTracking();
     }
+
+    const pauseRun = () => {
+        console.log("Function startRun");
+        pauseTracking();
+    }
+
+
 
     const stopRun = () => {
         console.log("Function stopRun");
@@ -77,7 +129,7 @@ function Running() {
             </div>
             <div className="stats-container">
                 <div className="stats-distance">
-                    <div className="distance">{Math.round(distanceTraveled * 1000) / 1000} Km</div>
+                    <div className="distance">{Math.round(distanceTraveled * 1000) / 1000} km</div>
                     <div className="label">킬로미터</div>
                 </div>
                 <div className="stats-pace">
@@ -90,8 +142,28 @@ function Running() {
                 </div>
             </div>
             <div className="control-buttons">
-                <button onClick={startRun} className="start-button">▶</button>
-                <button onClick={stopRun} className="stop-button">■</button>
+                <div className="circle">
+                    <span className={`circle__btn ${isPlaying ? 'shadow' : ''}`} onClick={togglePlayPause} style={{ marginRight: '90px' }}>
+                        {/* isPlaying이 true이면 pause 아이콘이 보이고, false이면 숨겨짐 */}
+                        {isPlaying ? (
+                            <ion-icon className="pause visibility" name="pause" style={{ fontSize: '34px' }}></ion-icon>
+                        ) : (
+                            // isPlaying이 false이면 play 아이콘이 보이고, true이면 숨겨짐
+                            <ion-icon className="play visibility" name="play" style={{ marginLeft: '8px', fontSize: '32px' }}></ion-icon>
+                        )}
+                    </span>
+                    {/* 정지 버튼 */}
+                    {showAlert && <div id="alert-box" class="alert">
+                        <span class="alert-icon"><i class="fas fa-hand-pointer"></i></span>
+                        <span class="alert-text">정지 버튼을 길게 누르면<br/> 러닝이 중단됩니다</span>
+                    </div>}
+                    <span className="circle__btn stop-btn" onMouseDown={handleMouseDown} onMouseUp={handleMouseUp} style={{ marginLeft: '200px' }}>
+                        <ion-icon name="stop" style={{ fontSize: '34px' }}></ion-icon>
+                    </span>
+                    <span className={`circle__back-1 ${isPlaying ? '' : 'paused'}`} style={{ marginRight: '80px' }}></span>
+                    <span className={`circle__back-2 ${isPlaying ? '' : 'paused'}`} style={{ marginRight: '80px' }}></span>
+                </div>
+                {/* <button onClick={stopRun} className="stop-button">■</button> */}
             </div>
         </div>
     );
