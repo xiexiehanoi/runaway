@@ -49,7 +49,7 @@ export function RunningLocationTracking() {
     }, [isRunning]);
 
     useEffect(() => {
-        if (isRunning.current) {
+        if (isRunning.current && newLocation !== null) {
             setLocation((prevList) => [...prevList, newLocation]);
         }
         else {
@@ -61,6 +61,11 @@ export function RunningLocationTracking() {
         if (isRunning.current) return;
         if (!navigator.geolocation) {
             console.error('Geolocation is not supported by this browser or is already running.');
+            return;
+        }
+
+        if (newLocation === null) {
+            alert("위치 권한을 확인해주세요.");
             return;
         }
         isRunning.current = true;
