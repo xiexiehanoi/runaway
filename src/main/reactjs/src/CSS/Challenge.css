@@ -1,50 +1,49 @@
 /*MycahllengeList*/
 .challengeImg {
-    display: flex;
-    align-items: center;
-  }
-  
-  .myChallengeBox {
-    margin-left: 20px;
-    color: white;
-  }
+  display: flex;
+  align-items: center;
+}
 
-  .challengeImg img {
-    max-width: 60px;
-    margin-left: 5px;
-    height: auto;
-  }
+.myChallengeBox {
+  margin-left: 20px;
+  color: white;
+}
 
+.challengeImg img {
+  max-width: 60px;
+  margin-left: 5px;
+  height: auto;
+}
 
-  .exerciseTypeContainer {
-    display: flex;
-    justify-content: center;
-    padding: 16px;
+.exerciseTypeContainer {
+  display: flex;
+  justify-content: center;
+  padding: 16px;
 }
 
 .exerciseTypeSection {
-    margin-right: 20px;
-    text-align: center;
+  margin-right: 20px;
+  text-align: center;
 }
 
 .exerciseTypeSection:last-child {
-    margin-right: 0;
+  margin-right: 0;
 }
 
 .situp .exerciseTypeImage {
-    max-width: 100px;
-    height: auto;
-    margin-left: 10px;
+  max-width: 100px;
+  height: auto;
+  margin-left: 10px;
 }
 
 .pushup .exerciseTypeImage {
-    max-width: 100px;
-    height: auto;
+  max-width: 100px;
+  height: auto;
 }
 
 .squat .exerciseTypeImage {
-    max-width: 100px;
-    height: auto;
+  max-width: 100px;
+  height: auto;
 }
 
 /* 운동 리스트 */
@@ -53,15 +52,19 @@
   display: flex;
   justify-content: space-evenly; /* 내부 요소들을 균등하게 배치 */
   align-items: center; /* 세로축 중앙 정렬 */
-  padding: 20px 0; /* 상단과 하단에 padding 추가 */
+  padding: 10% 0; /* 상단과 하단에 padding 추가 */
+  width: 335px;
+  height: 140px;
 }
 
 .exercise-content {
   background: #353535;
-  border-radius: 50%;
-  height: 100px;
-  width: 100px;
-  box-shadow: -9px -9px 16px rgba(73, 73, 73, 0.40), 9px 9px 16px rgba(0, 0, 0, 0.40);
+  margin-left: 10%;
+  border-radius: 30%;
+  height: 80px;
+  width: 80px;
+  box-shadow: -9px -9px 16px rgba(73, 73, 73, 0.4),
+    9px 9px 16px rgba(0, 0, 0, 0.4);
   display: flex; /* flexbox 레이아웃 적용 */
   justify-content: center; /* 가로축 중앙 정렬 */
   align-items: center; /* 세로축 중앙 정렬 */
@@ -81,17 +84,17 @@
   object-fit: contain;
 }
 
-.buttonBox{
+.buttonBox {
   margin-left: auto;
 }
 
-.buttonBox-plus img{
+.buttonBox-plus img {
   width: 35px;
   height: 35px;
   cursor: pointer;
 }
 
-.challenge-subject{
+.challenge-subject {
   font-size: 13px;
   color: white;
 }

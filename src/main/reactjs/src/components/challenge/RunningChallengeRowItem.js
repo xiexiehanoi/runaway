@@ -1,7 +1,7 @@
 import axios from "axios";
-import plusButton from '../../image/plus-sign.png';
-import '../../CSS/CommonApplicationStyle.css'
-import '../../CSS/Challenge.css'
+import plusButton from "../../image/plus-button.png";
+import "../../CSS/CommonApplicationStyle.css";
+import "../../CSS/Challenge.css";
 import React, { useState } from "react";
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
@@ -48,18 +48,33 @@ const RunningChallengeRowItem = (props) => {
     addChallenge(challengeId, challengeTargetDate);
   };
   return (
-    <div className='primaryCard' style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px', padding: "16px", color: 'white' }}>
-        <div>
-          <strong className="challenge-subject">챌 린 지 : Running</strong> <br />
-          <strong>목표거리&nbsp;:&nbsp;&nbsp;{row.distance}km /일 </strong>&nbsp;&nbsp;
-          <strong>(기   한 :  {row.target_date}일)</strong><br />
-          <strong className="challenge-subject">경험치:{row.exp}</strong>
-        </div>
-        <div className="buttonBox">
-          <a className='buttonBox-plus' onClick={() =>selectChallenge(row.id, row.target_date)}>
-           <img src={plusButton} alt="Add Challenge" />
-          </a>
-        </div>
+    <div
+      className="primaryCard"
+      style={{
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+        marginBottom: "10px",
+        padding: "16px",
+        color: "white",
+      }}
+    >
+      <div>
+        <strong className="challenge-subject">챌 린 지 : Running</strong> <br />
+        <strong>목표거리&nbsp;:&nbsp;&nbsp;{row.distance}km /일 </strong>
+        &nbsp;&nbsp;
+        <strong>(기 한 : {row.target_date}일)</strong>
+        <br />
+        <strong className="challenge-subject">경험치:{row.exp}</strong>
+      </div>
+      <div className="buttonBox">
+        <a
+          className="buttonBox-plus"
+          onClick={() => selectChallenge(row.id, row.target_date)}
+        >
+          <img src={plusButton} alt="Add Challenge" />
+        </a>
+      </div>
     </div>
   );
 };
