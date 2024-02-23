@@ -148,7 +148,7 @@ function Running() {
             </div>
             <div className="stats-container">
                 <div className="stats-distance">
-                    <div className="distance">{Math.round(distanceTraveled * 1000) / 100} km</div>
+                    <div className="distance">{Math.round(distanceTraveled * 100) / 100} km</div>
                     <div className="label">킬로미터</div>
                 </div>
                 <div className="stats-pace">
