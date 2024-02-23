@@ -92,13 +92,14 @@
     color: var(--primary);
     z-index: 300;
     background: var(--greyLight-1);
-    box-shadow: 0.3rem 0.3rem 0.6rem var(--greyLight-2), -0.2rem -0.2rem 0.5rem var(--white);
+    /* box-shadow: 0.3rem 0.3rem 0.6rem var(--greyLight-2), -0.2rem -0.2rem 0.5rem var(--white); */
+    box-shadow: -9px -9px 16px rgba(63, 49, 49, 0.4), 9px 9px 16px rgba(0, 0, 0, 0.40);
     cursor: pointer;
     position: relative;
   }
-  .circle__btn.shadow {
+  /* .circle__btn.shadow {
     box-shadow: inset 0.2rem 0.2rem 0.5rem var(--greyLight-2), inset -0.2rem -0.2rem 0.5rem var(--white);
-  }
+  } */
   .circle__btn .play {
     position: absolute;
     opacity: 0;
@@ -124,16 +125,18 @@
     z-index: 100;
   }
   .circle__back-1 {
-    box-shadow: 0.4rem 0.4rem 0.8rem var(--greyLight-2), -0.4rem -0.4rem 0.8rem var(--white);
+    /* box-shadow: 0.4rem 0.4rem 0.8rem var(--greyLight-2), -0.4rem -0.4rem 0.8rem var(--white); */
+    /* box-shadow: -9px -9px 16px rgba(73, 73, 73, 0.40), 9px 9px 16px rgba(0, 0, 0, 0.40); */
     background: linear-gradient(to bottom right, var(--greyLight-2) 0%, var(--white) 100%);
-    animation: waves 4s linear infinite;
+    animation: waves 3.5s linear infinite;
   }
   .circle__back-1.paused {
     animation-play-state: paused;
   }
   .circle__back-2 {
-    box-shadow: 0.4rem 0.4rem 0.8rem var(--greyLight-2), -0.4rem -0.4rem 0.8rem var(--white);
-    animation: waves 4s linear 2s infinite;
+    /* box-shadow: 0.4rem 0.4rem 0.8rem var(--greyLight-2), -0.4rem -0.4rem 0.8rem var(--white); */
+    /* box-shadow: -9px -9px 16px rgba(73, 73, 73, 0.40), 9px 9px 16px rgba(0, 0, 0, 0.40); */
+    animation: waves 4s linear 4s infinite;
   }
   .circle__back-2.paused {
     animation-play-state: paused;
@@ -146,10 +149,10 @@
       opacity: 1;
     }
     50% {
-      opacity: 1;
+      opacity: 0.8;
     }
     100% {
-      transform: scale(2);
+      transform: scale(1.8);
       opacity: 0;
     }
   }
