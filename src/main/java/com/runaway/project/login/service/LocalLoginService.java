@@ -3,6 +3,7 @@ package com.runaway.project.login.service;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.runaway.project.login.JwtProperties;
+import com.runaway.project.login.model.OauthToken;
 import com.runaway.project.user.dto.LoginRequestDto;
 import com.runaway.project.user.dto.LoginResponseDto;
 import com.runaway.project.user.entity.User;
@@ -23,13 +24,29 @@ import java.util.Optional;
 
 
 @Service
-public class LocalLoginService {
+public class LocalLoginService implements LoginService {
   @Autowired
   private UserRepository userRepository;
 
   @Autowired
   private PasswordEncoder passwordEncoder;
 
+  @Override
+  public OauthToken getAccessToken(String code) {
+    return null;
+  }
+
+  @Override
+  public String saveUserAndGetToken(String token) {
+    return null;
+  }
+
+  @Override
+  public User getMyInfo(HttpServletRequest request) {
+    Long userId = (Long)request.getAttribute("id");
+    User user = userRepository.findById(userId).orElse(null);
+    return user;
+  }
 
   @Transactional
   public ResponseEntity<String> signIn(LoginRequestDto loginRequestDto) {

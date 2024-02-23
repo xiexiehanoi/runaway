@@ -1,12 +1,12 @@
 import React from 'react';
-import '../../CSS/ExerciseChallenge.css'
+import '../../CSS/CommonApplicationStyle.css'
+import '../../CSS/Challenge.css'
+import plusButton from '../../image/plus-sign.png';
 import axios from 'axios';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
-const ExerciseChallengeRowItem = (props) => {
-    const {row} = props;
-
+const ExerciseChallengeRowItem = ({ row }) => {
     const addChallenge = async (challengeId, challengeTargetDate, exerciseType) => {
         try {
             const token = window.localStorage.getItem('token');
@@ -43,14 +43,19 @@ const ExerciseChallengeRowItem = (props) => {
         addChallenge(challengeId, challengeTargetDate, exerciseType);
     };
 
-
     return (
-        <div className='primaryCard' style={{ display: 'flex', marginBottom:'10px' }}>>
-                <h5 className='hidden'>{row.id}</h5>
-                <h5>챌린지명: {row.exercise_type}</h5>
-                <h5>목표횟수: {row.target_count} 회</h5>
-                <h5>기한: {row.target_date} 일</h5>
-                <button type='button' onClick={() => selectChallenge(row.id, row.target_date, row.exercise_type)}>추가</button>
+        <div className='primaryCard' style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px', padding: "16px", color: 'white' }}>
+            <div>
+                <strong className="challenge-subject">챌 린 지 : {row.exercise_type}</strong> <br />
+                <strong>목표 횟수 : {row.target_count} 회 / 일</strong>&nbsp;&nbsp;
+                <strong>(기한:{row.target_date} 일)</strong><br />
+                <strong className="challenge-subject">경 험 치 : {row.exp}</strong>
+            </div>
+            <div className='buttonBox'>
+                <a className='buttonBox-plus' onClick={() => selectChallenge(row.id, row.target_date, row.exercise_type)}>
+                    <img src={plusButton} alt="Add Challenge" />
+                </a>
+            </div>
         </div>
     );
 };
