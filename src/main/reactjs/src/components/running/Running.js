@@ -151,7 +151,7 @@ function Running() {
                         <span class="alert-icon"><i class="fas fa-hand-pointer"></i></span>
                         <span class="alert-text">정지 버튼을 길게 누르면<br/> 러닝이 중단됩니다</span>
                     </div>}
-                    <span className="circle__btn stop-btn" onMouseDown={handleMouseDown} onMouseUp={handleMouseUp} style={{ marginLeft: '200px' }}>
+                    <span className="circle__btn stop-btn" onTouchStart={handleMouseDown} onTouchEnd={handleMouseUp} onMouseDown={handleMouseDown} onMouseUp={handleMouseUp} style={{ marginLeft: '200px' }}>
                         <ion-icon name="stop" style={{ fontSize: '34px' }}></ion-icon>
                     </span>
                     <span className={`circle__back-1 ${isPlaying ? '' : 'paused'}`} style={{ marginRight: '80px' }}></span>
