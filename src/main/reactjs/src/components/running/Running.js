@@ -3,7 +3,7 @@ import RunningMap from "./RunningMap";
 import axios from 'axios';
 import { RunningLocationTracking } from './RunningLocationTracking';
 import './css/Running.css'
-import { useNavigate } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 
 function Running() {
     const {
@@ -75,7 +75,7 @@ function Running() {
         console.log("Function stopRun");
         stopTracking();
 
-        if (distanceTraveled === 0) return;
+       
 
         // 현재 날짜와 시간을 얻기
         const now = new Date();
