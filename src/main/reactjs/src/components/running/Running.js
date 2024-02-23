@@ -3,7 +3,7 @@ import RunningMap from "./RunningMap";
 import axios from 'axios';
 import { RunningLocationTracking } from './RunningLocationTracking';
 import './css/Running.css'
-import { useNavigate } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 
 function Running() {
     const {
@@ -46,6 +46,31 @@ function Running() {
         // 타이머 취소
         clearTimeout(time);
     };
+
+    const handleTouchDown = (event) => {
+        event.preventDefault(); // 브라우저의 기본 동작 방지
+        // 3초 후 기록 종료
+        const timeout = setTimeout(() => {
+            stopRun(); // 여기에 기록 종료 및 페이지 이동 로직 포함
+            navigate('/home');
+        }, 3000);
+        setTimer(timeout);
+        
+    };
+
+    const handleTouchUp = (event) => {
+        event.preventDefault(); 
+        // 알림 표시
+        setShowAlert(true);
+        // 2초 후 알림 사라짐
+        const alertTimeout = setTimeout(() => setShowAlert(false), 2000);
+        setAlertTimer(alertTimeout);
+        // 타이머 취소
+        clearTimeout(time);
+        event.preventDefault()
+    };
+
+    
 
 
 
@@ -123,7 +148,7 @@ function Running() {
             </div>
             <div className="stats-container">
                 <div className="stats-distance">
-                    <div className="distance">{Math.round(distanceTraveled * 1000) / 1000} km</div>
+                    <div className="distance">{Math.round(distanceTraveled * 100) / 100} km</div>
                     <div className="label">킬로미터</div>
                 </div>
                 <div className="stats-pace">
@@ -151,7 +176,7 @@ function Running() {
                         <span class="alert-icon"><i class="fas fa-hand-pointer"></i></span>
                         <span class="alert-text">정지 버튼을 길게 누르면<br/> 러닝이 중단됩니다</span>
                     </div>}
-                    <span className="circle__btn stop-btn" onMouseDown={handleMouseDown} onMouseUp={handleMouseUp} style={{ marginLeft: '200px' }}>
+                    <span className="circle__btn stop-btn" onTouchStart={handleTouchDown} onTouchEnd={handleTouchUp} onMouseDown={handleMouseDown} onMouseUp={handleMouseUp} style={{ marginLeft: '200px' }}>
                         <ion-icon name="stop" style={{ fontSize: '34px' }}></ion-icon>
                     </span>
                     <span className={`circle__back-1 ${isPlaying ? '' : 'paused'}`} style={{ marginRight: '80px' }}></span>
