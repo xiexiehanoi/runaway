@@ -19,10 +19,12 @@ public class LoginController {
     private final Map<String, LoginService> providerLoginServiceMap = new HashMap<>();
     private LoginService loginService;
 
-    public LoginController(KakaoLoginService kakaoLoginService, NaverLoginService naverLoginService, GoogleLoginService googleLoginService) {
+    public LoginController(KakaoLoginService kakaoLoginService, NaverLoginService naverLoginService, GoogleLoginService googleLoginService, LocalLoginService localLoginService) {
         providerLoginServiceMap.put(SocialType.KAKAO.name().toLowerCase(), kakaoLoginService);
         providerLoginServiceMap.put(SocialType.NAVER.name().toLowerCase(), naverLoginService);
         providerLoginServiceMap.put(SocialType.GOOGLE.name().toLowerCase(), googleLoginService);
+        providerLoginServiceMap.put(SocialType.LOCAL.name().toLowerCase(), localLoginService);
+
     }
 
     @GetMapping("/oauth2/token")

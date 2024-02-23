@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import Logout from "../login/Logout";
 //import './css/Mypage.css'
 
 const Mypage = () => {
@@ -51,7 +52,7 @@ const Mypage = () => {
         {/* Additional interactive elements or links to user activities could be added here */}
       </section>
       <footer className="mypage-footer">
-        
+        <Logout />
       </footer>
     </div>
   );
