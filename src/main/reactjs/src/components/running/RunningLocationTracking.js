@@ -26,6 +26,7 @@ export function RunningLocationTracking() {
 
     const [timer, setTimer] = useState(0); // 타이머를 위한 상태
     const [pace, setPace] = useState("");
+    const running=isRunning.current;
 
     useEffect(() => {
         const watchId = navigator.geolocation.watchPosition(
@@ -71,6 +72,11 @@ export function RunningLocationTracking() {
         setIntervalId(timerId);
     };
 
+    const pauseTracking =()=>{
+        isRunning.current = false;
+        clearInterval(intervalId); // 타이머 멈춤
+    }
+
     const stopTracking = () => {
         isRunning.current = false;
         clearInterval(intervalId); // 타이머 멈춤
@@ -102,5 +108,5 @@ export function RunningLocationTracking() {
 
     }, [distanceTraveled]);
 
-    return { location, startTracking, stopTracking, distanceTraveled, pace, initialLocation, timer };
+    return { location, startTracking, stopTracking,pauseTracking,running,distanceTraveled, pace, initialLocation, timer };
 }
