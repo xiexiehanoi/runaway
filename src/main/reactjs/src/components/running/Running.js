@@ -30,11 +30,20 @@ function Running() {
     const handleMouseDown = () => {
         // 3초 후 기록 종료
         const timeout = setTimeout(() => {
-            stopRun(); // 여기에 기록 종료 및 페이지 이동 로직 포함
-            navigate('/home');
+            // 비동기 작업을 처리하기 위해 async 함수 선언
+            (async () => {
+                try {
+                    await stopRun(); // stopRun의 비동기 작업이 완료될 때까지 대기
+                    navigate('/home'); // stopRun 작업이 완료된 후 페이지 이동
+                } catch (error) {
+                    console.error("An error occurred:", error); // 에러 처리
+                    // 필요한 경우 사용자에게 에러를 알리는 로직 추가
+                }
+            })();
         }, 3000);
         setTimer(timeout);
     };
+
 
     const handleMouseUp = () => {
 
@@ -69,7 +78,7 @@ function Running() {
         }
     };
 
-  
+
 
     const stopRun = () => {
         console.log("Function stopRun");
@@ -94,25 +103,26 @@ function Running() {
 
         const timeMin = timer / 60;
         const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
-        axios.post(`${BACKEND_URL}/api/running/save`, {
-            date: formattedDate,
-            time: formattedTime,
-            distance: Math.round(distanceTraveled * 1000) / 1000,
-            averagePace: pace,
-            runningTime: formatTime(timer),
-            path: location
-        }, {
-            headers: {
-                Authorization: token
-            }
-        })
-        .then(function (response) {
-            console.log(response);
-        })
-        .catch(function (error) {
-            console.log(error);
+        return new Promise((resolve, reject) => {
+            axios.post(`${BACKEND_URL}/api/running/save`, {
+                date: formattedDate,
+                time: formattedTime,
+                distance: Math.round(distanceTraveled * 1000) / 1000,
+                averagePace: pace,
+                runningTime: formatTime(timer),
+                path: location
+            }, {
+                headers: {
+                    Authorization: token
+                }
+            })
+                .then(function (response) {
+                    console.log(response);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
         });
-
 
     }
 
@@ -149,7 +159,7 @@ function Running() {
                     {/* 정지 버튼 */}
                     {showAlert && <div id="alert-box" class="alert">
                         <span class="alert-icon"><i class="fas fa-hand-pointer"></i></span>
-                        <span class="alert-text">정지 버튼을 길게 누르면<br/> 러닝이 중단됩니다</span>
+                        <span class="alert-text">정지 버튼을 길게 누르면<br /> 러닝이 중단됩니다</span>
                     </div>}
                     <span className="circle__btn stop-btn" onMouseDown={handleMouseDown} onMouseUp={handleMouseUp} style={{ marginLeft: '200px' }}>
                         <ion-icon name="stop" style={{ fontSize: '34px' }}></ion-icon>
