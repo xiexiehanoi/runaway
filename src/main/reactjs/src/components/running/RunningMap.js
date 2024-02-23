@@ -24,7 +24,7 @@ function RunningMapComponent({path, initialLocation}) {
     const [map, setMap] = useState(null)
 
     useEffect(() => {
-        if (map) {
+        if (map && initialLocation && 'latitude' in initialLocation && 'longitude' in initialLocation) {
             map.setCenter(new window.naver.maps.LatLng(initialLocation.latitude, initialLocation.longitude))
         }
     }, [initialLocation]);
@@ -33,6 +33,7 @@ function RunningMapComponent({path, initialLocation}) {
     return (
             <NaverMap
                 ref={setMap}
+                
             > 
                 <Polyline
                     path={polylinePath}
