@@ -22,6 +22,8 @@ import MyChallengeList from '../components/challenge/MyChallengeList';
 import RunningRecord from '../components/profile/RunningRecord';
 import LoginRouter from "./LoginRouter";
 import LoginBackRouter from "./LoginBackRouter";
+import Logout from "../components/login/Logout"
+import LoginTest from "../components/signup/LoginTest";
 
 const RouterMain = () => {
     return (
@@ -49,6 +51,9 @@ const RouterMain = () => {
                 <Route path="/ranking" element={<LoginRouter><Ranking /></LoginRouter>} />
                 <Route path="/mychallengelist" element={<LoginRouter><MyChallengeList /></LoginRouter>} />
                 <Route path="/signup-add" element={<LoginRouter><SignUpAddForm /></LoginRouter>} />
+                <Route path="/logout" element={<Logout />} />
+                {/* 지워야함 */}
+                <Route path="/logintest" element={<LoginTest />} />
 
                 {/* /가 항상 제일 마지막*/}
                 <Route path="/" element={<LoginRouter><Home /></LoginRouter>} />
