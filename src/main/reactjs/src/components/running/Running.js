@@ -3,6 +3,7 @@ import RunningMap from "./RunningMap";
 import axios from 'axios';
 import { RunningLocationTracking } from './RunningLocationTracking';
 import './css/Running.css'
+import { useNavigate } from 'react-router';
 
 function Running() {
     const {
@@ -24,12 +25,13 @@ function Running() {
     const [time, setTimer] = useState(null);
     const [alertTimer, setAlertTimer] = useState(null);
     const [showAlert, setShowAlert] = useState(false);
+    let navigate = useNavigate();
 
     const handleMouseDown = () => {
-
-        // 4초 후 기록 종료
+        // 3초 후 기록 종료
         const timeout = setTimeout(() => {
             stopRun(); // 여기에 기록 종료 및 페이지 이동 로직 포함
+            navigate('/home');
         }, 3000);
         setTimer(timeout);
     };
@@ -67,17 +69,7 @@ function Running() {
         }
     };
 
-    const startRun = () => {
-        console.log("Function startRun");
-        startTracking();
-    }
-
-    const pauseRun = () => {
-        console.log("Function startRun");
-        pauseTracking();
-    }
-
-
+  
 
     const stopRun = () => {
         console.log("Function stopRun");
@@ -120,6 +112,8 @@ function Running() {
         .catch(function (error) {
             console.log(error);
         });
+
+
     }
 
     return (
