@@ -51,28 +51,64 @@ const RunningChallengeRowItem = (props) => {
     <div
       className="primaryCard"
       style={{
+        position: "relative",
         display: "flex",
-        width: "333px",
+        width: "300px",
         height: "122px",
-        justifyContent: "space-between",
         alignItems: "center",
-        marginBottom: "10px",
-        padding: "16px",
+        marginBottom: "24px",
         color: "white",
+        overflow: "hidden",
+        borderRadius: "20px",
       }}
     >
-      <div>
-        <strong className="challenge-subject">챌 린 지 : Running</strong> <br />
-        <strong>목표거리&nbsp;:&nbsp;&nbsp;{row.distance}km /일 </strong>
-        &nbsp;&nbsp;
-        <strong>(기 한 : {row.target_date}일)</strong>
+      <div
+        style={{
+          flexGrow: 1,
+          position: "relative",
+        }}
+      >
+        <div className="challenge-subject">
+          <span className="subject1">Challenge</span>
+          <span className="subject2">(Running)</span>
+        </div>
+        <div className="challenge-daily">
+          <span className="subject3">매일 {row.distance} km</span>
+          <span className="subject4">({row.target_date}일)</span>
+        </div>
         <br />
-        <strong className="challenge-subject">경험치:{row.exp}</strong>
+        <div
+          className="exp-container"
+          style={{ position: "relative", textAlign: "center" }}
+        >
+          <p
+            style={{
+              background: "linear-gradient(to right, #A1B1EA, #4756A1)",
+              position: "absolute",
+              width: "300px",
+              height: "32px",
+              zIndex: 1,
+              lineHeight: "32px",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <span
+              className="exp-subject"
+              style={{ position: "relative", zIndex: 2 }}
+            >
+              {row.exp} EXP 획득!
+            </span>
+          </p>
+        </div>
       </div>
       <div className="buttonBox">
         <a
           className="buttonBox-plus"
-          onClick={() => selectChallenge(row.id, row.target_date)}
+          onClick={() =>
+            selectChallenge(row.id, row.target_date, row.exercise_type)
+          }
         >
           <img src={plusButton} alt="Add Challenge" />
         </a>

@@ -77,7 +77,7 @@ const ExerciseChallengeRowItem = ({ row }) => {
           <span className="subject2">({row.exercise_type})</span>
         </div>
         <div className="challenge-daily">
-          <span className="subject3">매일{row.target_count} 회</span>
+          <span className="subject3">매일 {row.target_count} 회</span>
           <span className="subject4">({row.target_date}일)</span>
         </div>
         <br />
