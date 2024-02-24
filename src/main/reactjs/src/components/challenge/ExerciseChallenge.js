@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import ExerciseChallengeRowItem from "./ExerciseChallengeRowItem";
 import "../../CSS/CommonApplicationStyle.css";
+import "../../CSS/Challenge.css";
 import situpImage from "../../image/sit-up.png";
 import pushupImage from "../../image/push-up.png";
 import squatImage from "../../image/squat.png";
@@ -80,7 +81,16 @@ const ExerciseChallenge = () => {
         </div>
       </div>
 
-      <div className="exerciseChallengeListBody" style={{ marginTop: "16px" }}>
+      <div
+        className="exerciseChallengeListBody"
+        style={{
+          marginTop: "40px",
+          width: "100%",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
         {filteredExerciseList.length > 0
           ? filteredExerciseList.map((rowData, idx) => (
               <ExerciseChallengeRowItem key={idx} row={rowData} />

@@ -55,23 +55,57 @@ const ExerciseChallengeRowItem = ({ row }) => {
     <div
       className="primaryCard"
       style={{
+        position: "relative",
         display: "flex",
-        justifyContent: "space-between",
+        width: "300px",
+        height: "122px",
         alignItems: "center",
-        marginBottom: "10px",
-        padding: "16px",
+        marginBottom: "24px",
         color: "white",
+        overflow: "hidden",
+        borderRadius: "20px",
       }}
     >
-      <div>
-        <strong className="challenge-subject">
-          챌 린 지 : {row.exercise_type}
-        </strong>{" "}
+      <div
+        style={{
+          flexGrow: 1,
+          position: "relative",
+        }}
+      >
+        <div className="challenge-subject">
+          <span className="subject1">Challenge</span>
+          <span className="subject2">({row.exercise_type})</span>
+        </div>
+        <div className="challenge-daily">
+          <span className="subject3">매일{row.target_count} 회</span>
+          <span className="subject4">({row.target_date}일)</span>
+        </div>
         <br />
-        <strong>목표 횟수 : {row.target_count} 회 / 일</strong>&nbsp;&nbsp;
-        <strong>(기한:{row.target_date} 일)</strong>
-        <br />
-        <strong className="challenge-subject">경 험 치 : {row.exp}</strong>
+        <div
+          className="exp-container"
+          style={{ position: "relative", textAlign: "center" }}
+        >
+          <p
+            style={{
+              background: "linear-gradient(to right, #A1B1EA, #4756A1)",
+              position: "absolute",
+              width: "300px",
+              height: "32px",
+              zIndex: 1,
+              lineHeight: "32px",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <span
+              className="exp-subject"
+              style={{ position: "relative", zIndex: 2 }}
+            >
+              {row.exp} EXP 획득!
+            </span>
+          </p>
+        </div>
       </div>
       <div className="buttonBox">
         <a

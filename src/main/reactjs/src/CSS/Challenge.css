@@ -48,18 +48,16 @@
 
 /* 운동 리스트 */
 .exercise-container {
-  width: 100%;
   display: flex;
-  justify-content: space-evenly; /* 내부 요소들을 균등하게 배치 */
+  justify-content: space-around; /* 내부 요소들을 균등하게 배치 */
   align-items: center; /* 세로축 중앙 정렬 */
-  padding: 10% 0; /* 상단과 하단에 padding 추가 */
-  width: 335px;
-  height: 140px;
+  padding: 20px 0; /* 상단과 하단에 padding 추가 */
+  width: 300px; /* 컨테이너의 너비 */
+  height: 140px; /* 컨테이너의 높이 */
 }
 
 .exercise-content {
   background: #353535;
-  margin-left: 10%;
   border-radius: 30%;
   height: 80px;
   width: 80px;
@@ -73,28 +71,95 @@
 /* 각 운동 이미지와 텍스트를 담는 컨테이너 */
 .exercise-item {
   display: flex;
+  flex-direction: column; /* 아이템을 세로 방향으로 배치 */
+  align-items: center; /* 아이템을 수평 중앙으로 정렬 */
   text-align: center;
-  flex-basis: 30%; /* 각 항목이 차지하는 기본 너비 설정 */
+  flex: 1; /* 각 항목이 컨테이너 내에서 동일한 비율로 너비를 차지하도록 설정 */
 }
 
 /* 이미지 스타일 */
 .exercise-image {
-  width: 60%; /* 이미지의 너비 설정 */
-  height: 60%; /* 이미지의 높이 설정 */
-  object-fit: contain;
+  width: 56%; /* 이미지의 너비를 % 값으로 조정 */
+  height: auto; /* 높이를 자동으로 설정하여 비율을 유지 */
 }
 
 .buttonBox {
-  margin-left: auto;
+  margin-left: auto; /* 오른쪽으로 이동 */
+  margin-right: 16px; /* 간격 조정 */
 }
 
 .buttonBox-plus img {
   width: 35px;
   height: 35px;
+  margin-bottom: 22px;
   cursor: pointer;
 }
 
 .challenge-subject {
+  display: flex;
+  width: 118px;
+  height: 20px;
+  padding: 8px 0px 0px 28px;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  flex-shrink: 0;
+  margin-bottom: 8px;
+}
+
+.challenge-daily {
+  justify-content: flex-start;
+  padding: 8px 0px 0px 28px;
+}
+.subject1 {
+  color: #9a9a9a;
+  font-feature-settings: "clig" off, "liga" off;
   font-size: 13px;
-  color: white;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 30px; /* 230.769% */
+  margin-right: 4px;
+}
+
+.subject2 {
+  color: #f5f5f5;
+  font-feature-settings: "clig" off, "liga" off;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 30px;
+}
+
+.subject3 {
+  color: #fff;
+  font-feature-settings: "clig" off, "liga" off;
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 30px; /* 100% */
+}
+
+.subject4 {
+  color: #fff;
+  font-feature-settings: "clig" off, "liga" off;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 30px;
+}
+
+.exp-container {
+  position: relative;
+  width: 100%;
+  height: 32px;
+  text-align: center;
+}
+
+.exp-subject {
+  width: 100%; /* 부모 요소에 맞추기 위해 */
+  height: 100%; /* 부모 요소에 맞추기 위해 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }

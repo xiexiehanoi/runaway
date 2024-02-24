@@ -52,6 +52,8 @@ const RunningChallengeRowItem = (props) => {
       className="primaryCard"
       style={{
         display: "flex",
+        width: "333px",
+        height: "122px",
         justifyContent: "space-between",
         alignItems: "center",
         marginBottom: "10px",
