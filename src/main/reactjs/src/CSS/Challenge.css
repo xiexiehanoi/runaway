@@ -88,6 +88,10 @@
   margin-right: 16px; /* 간격 조정 */
 }
 
+.buttonBox-plus {
+  cursor: pointer;
+}
+
 .buttonBox-plus img {
   width: 35px;
   height: 35px;

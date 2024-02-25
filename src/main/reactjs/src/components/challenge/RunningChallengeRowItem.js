@@ -2,12 +2,11 @@ import axios from "axios";
 import plusButton from "../../image/plus-button.png";
 import "../../CSS/CommonApplicationStyle.css";
 import "../../CSS/Challenge.css";
-import React, { useState } from "react";
+import React from "react";
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const RunningChallengeRowItem = (props) => {
   const { row } = props;
-  const [errorMessage, setErrorMessage] = useState("");
 
   const addChallenge = async (challengeId, challengeTargetDate) => {
     try {
@@ -35,11 +34,10 @@ const RunningChallengeRowItem = (props) => {
       console.log("챌린지 추가:", response);
       alert("챌린지가 추가되었습니다.");
     } catch (error) {
-      if (error.response.status === 409) {
-        alert("이미 해당 런닝에 관한 챌린지가 존재합니다.");
+      if (error.response && error.response.data) {
+        alert("현재 진행중인 Challenge 종료 후 추가 하실 수 있습니다.");
       } else {
         console.error("챌린지 추가 실패:", error);
-        setErrorMessage(error.response.data);
       }
     }
   };
@@ -104,14 +102,14 @@ const RunningChallengeRowItem = (props) => {
         </div>
       </div>
       <div className="buttonBox">
-        <button
+        <div
           className="buttonBox-plus"
           onClick={() =>
             selectChallenge(row.id, row.target_date, row.exercise_type)
           }
         >
           <img src={plusButton} alt="Add Challenge" />
-        </button>
+        </div>
       </div>
     </div>
   );
