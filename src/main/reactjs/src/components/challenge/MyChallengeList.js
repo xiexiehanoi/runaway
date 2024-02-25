@@ -25,13 +25,13 @@ const MyChallengeList = ({ row, idx }) => {
 
   let exerciseImage;
   switch (challengeData?.exercise_type) {
-    case "situp":
+    case "Sit-UP":
       exerciseImage = situpImage;
       break;
-    case "pushup":
+    case "Push-UP":
       exerciseImage = pushupImage;
       break;
-    case "squat":
+    case "Squat":
       exerciseImage = squatImage;
       break;
     default:

@@ -104,14 +104,14 @@ const RunningChallengeRowItem = (props) => {
         </div>
       </div>
       <div className="buttonBox">
-        <a
+        <button
           className="buttonBox-plus"
           onClick={() =>
             selectChallenge(row.id, row.target_date, row.exercise_type)
           }
         >
           <img src={plusButton} alt="Add Challenge" />
-        </a>
+        </button>
       </div>
     </div>
   );
