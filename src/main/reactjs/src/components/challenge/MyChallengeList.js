@@ -44,28 +44,37 @@ const MyChallengeList = ({ row, idx }) => {
       className="primaryCard"
       style={{ display: "flex", marginBottom: "10px", padding: "16px" }}
     >
-      <div className="challengeImg">
-        {exerciseImage && (
-          <img src={exerciseImage} alt={challengeData?.exercise_type} />
-        )}
+      <div className="exercise-item">
+        <div className="exercise-content">
+          {exerciseImage && (
+            <img
+              src={exerciseImage}
+              alt={challengeData?.exercise_type}
+              className="exercise-image"
+            />
+          )}
+        </div>
       </div>
       <div className="myChallengeBox">
         {isExerciseChallenge ? (
           <>
             <strong>{challengeData?.exercise_type}</strong>
             <br />
-            <strong>횟수: </strong> {challengeData?.target_count}회<br />
-            <strong>기간: </strong>
-            {startDate}~{endDate}&nbsp; ({challengeData?.target_date}일)
+            <strong>매일 </strong> {challengeData?.target_count}회<br />
+            <strong>
+              {startDate}~{endDate}&nbsp; ({challengeData?.target_date}일)
+            </strong>
           </>
         ) : (
           <>
             <strong>Running</strong>
             <br />
-            <strong>거리: </strong> {challengeData?.distance}km
+            <strong>매일 {challengeData?.distance}km </strong>
             <br />
-            <strong>기간: </strong> {startDate}~{endDate}&nbsp; (
-            {challengeData?.target_date}일)
+            <strong>
+              {startDate}~{endDate}
+              &nbsp; ({challengeData?.target_date}일)
+            </strong>
           </>
         )}
       </div>

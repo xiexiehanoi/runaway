@@ -39,66 +39,38 @@ const ChallengeMain = () => {
 
   return (
     <div style={{ height: "100vh" }}>
-      <section style={{ marginBottom: "5px" }}>
-        <head className="header-inscreen" style={{ padding: "10px" }}>
-          챌린지 도전하기
-        </head>
-        <div
-          style={{ display: "flex", justifyContent: "center", width: "95%" }}
-        >
-          <div
-            style={{
-              flex: "1",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              flexDirection: "column",
-              minWidth: "170px",
-              padding: "10px",
-            }}
-          >
-            <Link
-              to="/exercisechallenge"
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                padding: "10px",
-              }}
-            >
-              <img
-                src={exerciseImg}
-                alt="Exercise Challenge"
-                style={{ width: "100%", height: "110%", marginBottom: "5px" }}
-              />
-              맨몸운동
-            </Link>
+      <head className="header-inscreen" style={{ padding: "10px" }}>
+        챌린지 도전하기
+      </head>
+      <section style={{ marginBottom: "16px" }}>
+        <div className="exercise-container">
+          <div className="exercise-item">
+            <div className="exercise-content">
+              <Link to="/exercisechallenge">
+                <img
+                  src={exerciseImg}
+                  alt="Exercise Challenge"
+                  className="exercise-image"
+                  style={{ width: "100%", height: "100%" }}
+                />
+                <br />
+              </Link>
+            </div>
+            <span>맨몸운동</span>
           </div>
-          <div
-            style={{
-              flex: "1",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              flexDirection: "column",
-              minWidth: "170px",
-            }}
-          >
-            <Link
-              to="/runningchallenge"
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-              }}
-            >
-              <img
-                src={runningImg}
-                alt="Running Challenge"
-                style={{ width: "70%", height: "86%", marginBottom: "5px" }}
-              />
-              러닝
-            </Link>
+          <div className="exercise-item">
+            <div className="exercise-content">
+              <Link to="/runningchallenge">
+                <img
+                  src={runningImg}
+                  alt="Running Challenge"
+                  className="exercise-image"
+                  style={{ width: "80%", height: "80%" }}
+                />
+                <br />
+              </Link>
+            </div>
+            <span>러닝</span>
           </div>
         </div>
       </section>
