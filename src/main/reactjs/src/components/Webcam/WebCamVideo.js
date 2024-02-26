@@ -9,7 +9,7 @@ const WebCamVideo = () => {
     const [capturing, setCapturing] = useState(false);
     const [recordedChunks, setRecordedChunks] = useState([]);
     const [timer, setTimer] = useState(null); // timer 상태 추가
-    const [elapsedTime, setElapsedTime] = useState(10);
+    const [elapsedTime, setElapsedTime] = useState(6);
     const [mimeType, setMimeType] = useState('');
 
     const BASE_URI = process.env.REACT_APP_BACKEND_URL;
@@ -78,7 +78,7 @@ const WebCamVideo = () => {
             clearInterval(timer); // 타이머 멈춤
             // setCapturing(false);
             // setTimer(null);
-            setElapsedTime(10); // 타이머 초기화
+            setElapsedTime(6); // 타이머 초기화
             // console.log("Stop capturing. Recorded chunks:", recordedChunks); // 확인을 위한 로그 추가
         }
     }, [mediaRecorderRef, timer]);
@@ -112,7 +112,7 @@ const WebCamVideo = () => {
             setCapturing(true);
             setTimer(newTimer);
             setRecordedChunks([]);
-            setElapsedTime(10); // 녹화 시작 시간을 10으로 재설정
+            setElapsedTime(6); // 녹화 시작 시간을 10으로 재설정
             mediaRecorderRef.current.start();
         }
     }, [webcamRef, mediaRecorderRef, handleDataAvailable, mimeType, handleStopCaptureClick]);
