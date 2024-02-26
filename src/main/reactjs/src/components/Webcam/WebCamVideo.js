@@ -117,74 +117,88 @@ const WebCamVideo = () => {
         }
     }, [webcamRef, mediaRecorderRef, handleDataAvailable, mimeType, handleStopCaptureClick]);
 
-    const handleDownload = useCallback(() => {
+    // const handleDownload = useCallback(() => {
+    //     if (recordedChunks.length) {
+    //         const blob = new Blob(recordedChunks, {
+    //             type: mimeType
+    //         });
+    //         const uploadVideo = new FormData();
+    //         uploadVideo.append('upload', blob, 'runaway-story.mp4');
+
+    //         axios({
+    //             method: 'post',
+    //             url: `${BASE_URI}/api/story/save`,
+    //             data: uploadVideo,
+    //             headers: {
+    //                 'Content-Type': 'multipart/form-data',
+    //                 Authorization: token
+    //             }
+    //         }).then(res => {
+    //             console.log("Story Uploaded successfully:", res.data);
+    //             alert("Story Uploaded successfully");
+    //             // 파일이 업로드된 후 클라우드 스토리지에서 반환한 파일 경로를 사용하여 다운로드 처리 등 추가 작업 수행 가능
+
+    //         }).catch(error => {
+    //             console.error("Error uploading file:", error);
+    //         });
+
+    //         // const url = URL.createObjectURL(blob);
+    //         // const a = document.createElement("a");
+    //         // document.body.appendChild(a);
+    //         // a.style = "display:none";
+    //         // a.href = url;
+    //         // a.download = "runaway-story.mp4";
+    //         // a.click();
+    //         // window.URL.revokeObjectURL(url);
+
+    //         // const video = document.getElementById("video-replay");
+    //         // video.src = url
+    //     }
+    // }, [recordedChunks, mimeType, BASE_URI, token]);
+
+    const handleDownload = useCallback(async () => {
         if (recordedChunks.length) {
-            const blob = new Blob(recordedChunks, {
-                type: mimeType
-            });
-            const uploadVideo = new FormData();
-            uploadVideo.append('upload', blob, 'runaway-story.mp4');
+            try {
+                const blob = new Blob(recordedChunks, {
+                    type: mimeType
+                });
+                const uploadVideo = new FormData();
+                uploadVideo.append('upload', blob, 'runaway-story.mp4');
 
-            axios({
-                method: 'post',
-                url: `${BASE_URI}/api/story/save`,
-                data: uploadVideo,
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                    Authorization: token
-                }
-            }).then(res => {
+                const res = await axios.post(`${BASE_URI}/api/story/save`, uploadVideo, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                        Authorization: token
+                    }
+                });
+
                 console.log("Story Uploaded successfully:", res.data);
-                // 파일이 업로드된 후 클라우드 스토리지에서 반환한 파일 경로를 사용하여 다운로드 처리 등 추가 작업 수행 가능
-
-            }).catch(error => {
+                alert("Story Uploaded successfully");
+            } catch (error) {
                 console.error("Error uploading file:", error);
-            });
-
-            // const url = URL.createObjectURL(blob);
-            // const a = document.createElement("a");
-            // document.body.appendChild(a);
-            // a.style = "display:none";
-            // a.href = url;
-            // a.download = "runaway-story.mp4";
-            // a.click();
-            // window.URL.revokeObjectURL(url);
-
-            // const video = document.getElementById("video-replay");
-            // video.src = url
+            }
         }
     }, [recordedChunks, mimeType, BASE_URI, token]);
-
-    // const handleTouchStart = useCallback(() => {
-    //     console.log("Start Capture button touched");
-    //     // alert("버튼이 눌려요!");
-    //     handleStartCaptureClick(); // 터치 시작 시 녹화 시작
-    // }, [handleStartCaptureClick]);
-
-    // const handleTouchStop = useCallback(() => {
-    //     console.log("Stop Capture button touched");
-    //     // alert("버튼이 눌려요!");
-    //     handleStopCaptureClick(); // 터치 시작 시 녹화 시작
-    // }, [handleStopCaptureClick]);
-
-    // const handleTouchDownload = useCallback(() => {
-    //     console.log("Start Capture button touched");
-    //     // alert("버튼이 눌려요!");
-    //     handleDownload(); // 터치 시작 시 녹화 시작
-    // }, [handleDownload]);
 
     return (
         <span className="WebCamContainer">
             <Webcam
+                style={{ height: '100%' }}
                 audio={false} //나중에 true 로 바꿔야 오디오도 녹음 됨
                 ref={webcamRef}
                 mirrored={true}
                 videoConstraints={{
                     facingMode: 'user',
-                    aspectRatio: window.innerWidth <= 768 && window.innerWidth > 360 ?
-                        window.innerWidth / window.innerHeight : 360 / 740,
-                    width: window.innerWidth <= 768 && window.innerWidth > 360 ? window.innerWidth : 360,
-                    height: window.innerWidth <= 768 && window.innerWidth > 360 ? window.innerHeight : 720,
+                    // aspectRatio: window.innerWidth / window.innerHeight,
+                    aspectRatio: window.innerHeight / window.innerWidth,
+                    // aspectRatio: window.innerWidth <= 768 && window.innerWidth > 360 ?
+                    //     window.innerWidth / window.innerHeight : 360 / 740,
+                    // window.innerWidth / window.innerHeight : 360 / 740,
+                    // width: window.innerWidth <= 768 && window.innerWidth > 360 ? window.innerWidth : 360,
+                    // height: window.innerWidth <= 768 && window.innerWidth > 360 ? window.innerHeight : 720,
+
+                    width: window.innerHeight,
+                    height: window.innerWidth,
                 }}
             />
             {/* <video id="video-replay" height="400" width="500" controls></video> */}

@@ -26,6 +26,7 @@ export function RunningLocationTracking() {
 
     const [timer, setTimer] = useState(0); // 타이머를 위한 상태
     const [pace, setPace] = useState("");
+    const running=isRunning.current;
 
     useEffect(() => {
         const watchId = navigator.geolocation.watchPosition(
@@ -48,7 +49,7 @@ export function RunningLocationTracking() {
     }, [isRunning]);
 
     useEffect(() => {
-        if (isRunning.current) {
+        if (isRunning.current && newLocation !== null) {
             setLocation((prevList) => [...prevList, newLocation]);
         }
         else {
@@ -62,6 +63,11 @@ export function RunningLocationTracking() {
             console.error('Geolocation is not supported by this browser or is already running.');
             return;
         }
+
+        if (newLocation === null) {
+            alert("위치 권한을 확인해주세요.");
+            return;
+        }
         isRunning.current = true;
         setLocation([newLocation]);
 
@@ -70,6 +76,11 @@ export function RunningLocationTracking() {
         }, 1000);
         setIntervalId(timerId);
     };
+
+    const pauseTracking =()=>{
+        isRunning.current = false;
+        clearInterval(intervalId); // 타이머 멈춤
+    }
 
     const stopTracking = () => {
         isRunning.current = false;
@@ -102,5 +113,5 @@ export function RunningLocationTracking() {
 
     }, [distanceTraveled]);
 
-    return { location, startTracking, stopTracking, distanceTraveled, pace, initialLocation, timer };
+    return { location, startTracking, stopTracking,pauseTracking,running,distanceTraveled, pace, initialLocation, timer };
 }

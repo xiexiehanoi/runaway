@@ -85,4 +85,14 @@ public class User {
   public void addPoints(int pointsToAdd) {
     this.point += pointsToAdd;
   }
+
+  public void addInfo(User user) {
+    this.username = user.username;
+    this.nickname = user.nickname;
+    this.birthdate = user.birthdate;
+    this.gender = user.gender;
+    this.weight = user.weight;
+    this.height = user.height;
+    this.role = Role.USER;
+  }
 }

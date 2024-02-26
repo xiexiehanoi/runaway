@@ -2,12 +2,14 @@ import React, { useState, useEffect, useRef } from "react";
 import "../CSS/MainLayout.css";
 import "../CSS/MainTabBar.css";
 import runawayQR from "../image/runawayQR.png";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import phoneHeader from '../image/phoneheader.png';
 
 const MainLayout = ({ children }) => {
   const [activeTab, setActiveTab] = useState(0);
   const tabRefs = useRef([]);
   const [indicatorOffset, setIndicatorOffset] = useState(0);
+  const location = useLocation(); // 현재 경로 가져오기
 
   const tabs = [
     {
@@ -26,7 +28,7 @@ const MainLayout = ({ children }) => {
       title: "Rank",
       icon: "filesIcon",
       filledIcon: "filesIconFilled",
-      route: "/login",
+      route: "/ranking",
     },
     {
       title: "Profile",
@@ -35,6 +37,15 @@ const MainLayout = ({ children }) => {
       route: "/my",
     },
   ];
+
+  // useEffect(() => {
+  //   // 현재 경로가 /addstory인 경우 tabbar 숨기기
+  //   if (location.pathname === "/addstory") {
+  //     setShowTabBar(false);
+  //   } else {
+  //     setShowTabBar(true);
+  //   }
+  // }, [location.pathname]);
 
   //반응형을 위해 offset 값을 초기화해주는 작업
   useEffect(() => {
@@ -60,10 +71,11 @@ const MainLayout = ({ children }) => {
           <div id="Iphone">
             <div id="Iphone-header">
               <div className="operator-name">18:22</div>
+              <img alt='phoneHeader' src={phoneHeader} className="phone-header" />
               <div className="operator-5g">5G</div>
               <div className="battery">100</div>
             </div>
-          </div>  
+          </div>
 
           <div id="screen-container">
             <div id="screen">{children}</div>
@@ -95,7 +107,7 @@ const MainLayout = ({ children }) => {
                   </li>
                 ))}
               </ul>
-              <em style={{ "--offset": `${indicatorOffset}px` }}/>
+              <em style={{ "--offset": `${indicatorOffset}px` }} />
             </nav>
 
             <svg xmlns="http://www.w3.org/2000/svg" style={{ display: "none" }}>
