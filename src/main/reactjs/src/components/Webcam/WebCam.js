@@ -67,7 +67,7 @@ const WebCam = () => {
             )}
 
             {!showWebCamVideo && (
-                <button className='btn primaryButton-outset'
+                <button className='btn primaryButton-outset addStory'
                     style={{ margin: "7% 12%", width: '76%' }}
                     onClick={handleVideoButtonClick}>
                     <span
