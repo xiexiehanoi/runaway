@@ -30,12 +30,12 @@ const RunningChallenge = () => {
         러닝 도전하기
       </header>
       <div className="exercise-container">
-        <div className="exercise-content">
+        <div className="exercise-content" style={{width:"110px", height:"110px"}}>
           <img
             src={runningImg}
             alt="Squat"
             className="exercise-image"
-            style={{ width: "56%" }}
+            style={{ width: "90%" }}
           />
         </div>
       </div>

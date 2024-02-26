@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import ExerciseChallengeRowItem from "./ExerciseChallengeRowItem";
 import "../../CSS/CommonApplicationStyle.css";
-import "../../CSS/Challenge.css";
+import "./CSS/ChallengeList.css";
 import situpImage from "../../image/sit-up.png";
 import pushupImage from "../../image/push-up.png";
 import squatImage from "../../image/squat.png";
@@ -49,36 +49,39 @@ const ExerciseChallenge = () => {
         맨몸운동 도전하기
       </header>
       {/* 챌린지 유형별 필터링 섹션 */}
-      <div className="exercise-container">
-        <div
-          className="exercise-item"
-          onClick={() => filterExerciseList("Squat")}
-        >
-          <div className="exercise-content">
-            <img
-              src={squatImage}
-              alt="Squat"
-              className="exercise-image"
-              style={{ width: "56%" }}
-            />
+      <div className="challenge-mainbox">
+        <div className="exercise-container">
+          <div
+            className="exercise-item"
+            onClick={() => filterExerciseList("squat")}
+          >
+            <div className="exercise-content">
+              <img
+                src={squatImage}
+                alt="Squat"
+                className="exercise-image"
+                style={{ width: "56%" }}
+              />
+            </div>
+          </div>
+          <div
+            className="exercise-item"
+            onClick={() => filterExerciseList("situp")}
+          >
+            <div className="exercise-content">
+              <img src={situpImage} alt="Sit-up" className="exercise-image" />
+            </div>
+          </div>
+          <div
+            className="exercise-item"
+            onClick={() => filterExerciseList("pushup")}
+          >
+            <div className="exercise-content">
+              <img src={pushupImage} alt="Push-up" className="exercise-image" />
+            </div>
           </div>
         </div>
-        <div
-          className="exercise-item"
-          onClick={() => filterExerciseList("Sit-UP")}
-        >
-          <div className="exercise-content">
-            <img src={situpImage} alt="Sit-up" className="exercise-image" />
-          </div>
-        </div>
-        <div
-          className="exercise-item"
-          onClick={() => filterExerciseList("Push-UP")}
-        >
-          <div className="exercise-content">
-            <img src={pushupImage} alt="Push-up" className="exercise-image" />
-          </div>
-        </div>
+
       </div>
 
       <div
