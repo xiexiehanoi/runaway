@@ -1,11 +1,11 @@
 import React from 'react';
-import Navbar from './Navbar';
+
 import axios from "axios";
 import runawayimg from "../image/runaway.png";
-import situpImage from '../image/sit-up.png';
+//import situpImage from '../image/sit-up.png';
 import pushupImage from '../image/push-up.png';
-import squatImage from '../image/squat.png';
-import plusButton from '../image/plus-button.png';
+//import squatImage from '../image/squat.png';
+//import plusButton from '../image/plus-button.png';
 import { Link } from 'react-router-dom';
 
 import "../CSS/Main.css";
@@ -36,24 +36,21 @@ const Home = () => {
     }
 
     return (
-        <div>
-            <div class="header-inscreen">
+    <div>
+            <div className="header-inscreen">
 
                 <span style={{fontFamily:'Anton' ,marginLeft: "8%" }}>Runaway</span>
                 
             </div>   
         
         <div className='startAnimation'>
-      
-
+                
             <Link to="/challengemain">
                 <button className='btn primaryButton-outset'
-                style={{ width:'50%',height:'100px',marginTop:'40%',marginLeft:'5%',marginRight:'5%'}}>
+                style={{ width:'90%',height:'100px',marginTop:'40%',marginLeft:'5%',marginRight:'5%'}}>
                     <span style={{color:'white' }}>My Challenge</span>
                 </button>
             </Link>
-                    
-          
 
             <div style={{ display: 'flex',marginBottom:'-1%' }}>  
                 <div className="home-container" style={{ textAlign: 'center',height:'100px' }}>
@@ -78,7 +75,7 @@ const Home = () => {
 
             </div>
         </div>
-        </div>
+    </div>
     );
 };
 
