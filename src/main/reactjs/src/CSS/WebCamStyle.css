@@ -53,6 +53,23 @@ button.WebCamVideoDownloadBtn {
     left: auto;
 }
 
+.ZoomControl {
+    margin-top: 10px;
+    padding: 10px 40px;
+    border: none;
+    background-color: rgb(6, 191, 233);
+    color: #fff;
+    border-radius: 25px;
+    cursor: pointer;
+    z-index: 2;
+    width: calc(70% - 20px);
+    margin: 10px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 65%;
+}
+
 button.WebCamStartBtn {
     top: 75%;
 }
