@@ -8,6 +8,6 @@ import org.springframework.data.jpa.repository.Query;
 import java.time.LocalDate;
 
 public interface ExerciseRepository extends JpaRepository<ExerciseEntity,Long> {
-    @Query("SELECT SUM(e.exerciseCount) FROM ExerciseEntity e WHERE e.date = :date AND e.exerciseType = :exerciseType AND e.user.id = :userId")
-    int sumExerciseCountByDateAndType(LocalDate date, String exerciseType, Long userId);
+    @Query("SELECT COALESCE(SUM(e.exerciseCount), 0) FROM ExerciseEntity e WHERE e.date = :date AND e.exerciseType = :exerciseType AND e.user.id = :userId")
+    Integer sumExerciseCountByDateAndType(LocalDate date, String exerciseType, Long userId);
 }
