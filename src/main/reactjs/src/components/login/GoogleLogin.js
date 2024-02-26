@@ -1,4 +1,5 @@
 import React from "react";
+import googleLogin from '../../image/Google_login.png';
 
 const GoogleLogin = () => {
   const REST_API_KEY = process.env.REACT_APP_GOOGLE_REST_API_KEY;
@@ -8,11 +9,16 @@ const GoogleLogin = () => {
   return (
     <>
       <a href={GOOGLE_AUTH_URI}>
-        <button
+        {/* <button
           className="btn-social-login"
           style={{ backgroundColor: "#D93025" }}
-        >
-          <i className="xi-2x xi-google"></i>
+        > */}
+        <button className='btn-social-login'>
+
+          {/* <i className="xi-2x xi-google"></i> */}
+          <img alt='kakaotalk' src={googleLogin}
+            style={{ width: '26px' }} />
+
         </button>
       </a>
     </>

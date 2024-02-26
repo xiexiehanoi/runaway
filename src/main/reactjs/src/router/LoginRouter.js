@@ -13,4 +13,4 @@ const LoginRouter = ({ children }) => {
     return children;
 };
 
-export default LoginRouter
+export default LoginRouter;
