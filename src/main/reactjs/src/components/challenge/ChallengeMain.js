@@ -2,7 +2,6 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import MyChallengeList from "./MyChallengeList";
-import "../../CSS/MainLayout.css";
 import "../../CSS/CommonApplicationStyle.css";
 import exerciseImg from "../../image/exercise.png";
 import runningImg from "../../image/runaway.png";
@@ -39,9 +38,9 @@ const ChallengeMain = () => {
 
   return (
     <div style={{ height: "100vh" }}>
-      <head className="header-inscreen" style={{ padding: "10px" }}>
+      <div className="header-inscreen" style={{ padding: "10px" }}>
         챌린지 도전하기
-      </head>
+      </div>
       <section style={{ marginBottom: "16px" }}>
         <div className="exercise-container">
           <div className="exercise-item">
@@ -75,9 +74,9 @@ const ChallengeMain = () => {
         </div>
       </section>
       <section>
-        <head className="header-inscreen" style={{ padding: "10px" }}>
+        <div className="header-inscreen" style={{ padding: "10px" }}>
           진행중인 챌린지 목록
-        </head>
+        </div>
         <div>
           {myChallengeList.map((rowData, idx) => (
             <MyChallengeList key={idx} row={rowData} idx={idx} />

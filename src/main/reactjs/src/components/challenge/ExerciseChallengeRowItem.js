@@ -1,6 +1,6 @@
 import React from "react";
 import "../../CSS/CommonApplicationStyle.css";
-import "../../CSS/Challenge.css";
+import "./CSS/ChallengeList.css";
 import plusButton from "../../image/plus-button.png";
 import axios from "axios";
 

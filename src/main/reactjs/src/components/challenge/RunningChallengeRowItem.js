@@ -1,7 +1,7 @@
 import axios from "axios";
 import plusButton from "../../image/plus-button.png";
 import "../../CSS/CommonApplicationStyle.css";
-import "../../CSS/Challenge.css";
+import "./CSS/ChallengeList.css";
 import React from "react";
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
