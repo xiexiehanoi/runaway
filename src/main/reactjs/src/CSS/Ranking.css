@@ -78,7 +78,7 @@
 }
 
 .leaderboard li:nth-child(3) {
-  border: solid 0.25em #dfdfd1; /* 세 번째 li의 border 두께를 0.25em으로 설정 */
+  border: solid 0.25em #CD7F32; /* 세 번째 li의 border 두께를 0.25em으로 설정 */
 }
 
 
