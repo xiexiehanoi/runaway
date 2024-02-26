@@ -1,4 +1,5 @@
 import React from 'react';
+import kakaoLogin from '../../image/Kakao_login.png';
 
 const KakaoLogin = () => {
     const REST_API_KEY = process.env.REACT_APP_KAKAO_REST_API_KEY;
@@ -9,7 +10,12 @@ const KakaoLogin = () => {
     return (
         <>
             <a href={KAKAO_AUTH_URI}>
-                <button className='btn-social-login' style={{ backgroundColor: '#FFEB00' }}><i className="xi-2x xi-kakaotalk text-dark"></i></button>
+                <button className='btn-social-login'>
+                    {/* <button className='btn-social-login' style={{ backgroundColor: '#FFEB00' }}> */}
+                    {/* <i className="xi-2x xi-kakaotalk text-dark"></i> */}
+                    <img alt='kakaotalk' src={kakaoLogin}
+                        style={{ width: '26px' }} />
+                </button>
             </a>
         </>
     );
