@@ -14,6 +14,7 @@ const WebCam = () => {
     const [showWebCamVideo, setShowWebCamVideo] = useState(false);
     const [storyList, setStoryList] = useState([]);
     const [showHeader, setShowHeader] = useState(true);
+    // const [closeClicked, setCloseClicked] = useState(false);
 
 
     const list = () => {
@@ -43,10 +44,14 @@ const WebCam = () => {
         setShowHeader(false);
     };
 
-    const handleBackButtonClick = () => {
-        setShowWebCamVideo(false);
-        setShowHeader(true); // 뒤로 가기 버튼을 누르면 헤더 표시
-    };
+    // // CloseWebCam 함수 수정
+    // const CloseWebCam = () => {
+    //     if (!closeClicked) {
+    //         setCloseClicked(true);
+    //         setShowWebCamVideo(false);
+    //         setShowHeader(true);
+    //     }
+    // };
 
 
     return (
@@ -66,7 +71,7 @@ const WebCam = () => {
                         style={{
                             color: '#f5f5f5',
                             fontWeight: '500',
-                            fontSize: '1em'
+                            fontSize: '1.1em'
                         }}
                     >Add Story</span>
                 </button>
@@ -81,8 +86,8 @@ const WebCam = () => {
                     unmountOnExit
                 >
                     <div className={`WebCamApp ${showWebCamVideo ? 'show' : ''}`}>
-                        <Link to="/addstory" style={{ width: '100%', height: '100%' }}>
-                            <WebcamVideo BackButton={handleBackButtonClick} />
+                        <Link to="/addstory" style={{ width: '100%', height: '100%', borderRadius: '8px 8px 0px 0px' }}>
+                            <WebcamVideo />
                         </Link>
                     </div>
                 </CSSTransition>

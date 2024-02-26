@@ -2,6 +2,8 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import Webcam from 'react-webcam';
 import WebCamTimer from './WebCamTimer';
 import axios from 'axios';
+import closeW from '../../image/close-white.png';
+import { useNavigate } from 'react-router-dom';
 
 
 const WebCamVideo = () => {
@@ -10,7 +12,7 @@ const WebCamVideo = () => {
     const [capturing, setCapturing] = useState(false);
     const [recordedChunks, setRecordedChunks] = useState([]);
     const [timer, setTimer] = useState(null); // timer 상태 추가
-    const [elapsedTime, setElapsedTime] = useState(10);
+    const [elapsedTime, setElapsedTime] = useState(6);
     const [mimeType, setMimeType] = useState('');
     // 줌 관련 변수 및 상태
     const [zoomValue, setZoomValue] = useState(1);
@@ -18,6 +20,7 @@ const WebCamVideo = () => {
     const BASE_URI = process.env.REACT_APP_BACKEND_URL;
     const token = window.localStorage.getItem("token");
     // const videoUrl = "https://kr.object.ncloudstorage.com/runaway/runaway_story/";
+    const navi = useNavigate();
 
     const getParams = (video, audio) => {
         return {
@@ -118,61 +121,13 @@ const WebCamVideo = () => {
         startWebcam();
     }, [webcamRef, mediaRecorderRef, handleDataAvailable]);
 
-    // useEffect(() => {
-    //     const initializeMediaRecorder = async () => {
-
-    //         try {
-    //             const devices = await navigator.mediaDevices.enumerateDevices();
-    //             const videoInputDevices = devices.filter((device) => device.kind === 'videoinput');
-
-    //             if (videoInputDevices.length === 0) {
-    //                 alert('해당 기기에 카메라가 발견되지 않았습니다. 카메라를 연결해주세요.');
-    //                 return;
-    //             }
-
-    //             if (webcamRef.current && webcamRef.current.video && webcamRef.current.video.srcObject) {
-    //                 const stream = webcamRef.current.video.srcObject;
-
-    //                 let type = 'video/webm';
-    //                 if (!MediaRecorder.isTypeSupported(type)) {
-    //                     type = 'video/mp4';
-    //                     if (!MediaRecorder.isTypeSupported(type)) {
-    //                         alert('모바일 브라우저에서 지원되지 않는 mimeType입니다.');
-    //                         return;
-    //                     }
-    //                 }
-    //                 setMimeType(type);
-
-    //                 // let mimeType = MediaRecorder.isTypeSupported('video/webm') ? 'video/webm' : 'video/mp4'; // MIME 유형 동적으로 결정
-    //                 // mediaRecorderRef.current = new MediaRecorder(webcamRef.current.stream, {
-    //                 mediaRecorderRef.current = new MediaRecorder(stream, {
-    //                     // mimeType: "video/mp4"
-    //                     mimeType: type
-    //                 });
-
-    //                 mediaRecorderRef.current.ondataavailable = handleDataAvailable;
-
-    //                 mediaRecorderRef.current.onstop = () => {
-    //                     // Handle the stop event if needed
-    //                     setCapturing(false);
-    //                 };
-
-    //             }
-    //         } catch (error) {
-    //             console.error('Error initializing media recorder:', error);
-    //         }
-    //     };
-
-    //     initializeMediaRecorder();
-    // }, [webcamRef, mediaRecorderRef, handleDataAvailable]);
-
     const handleStopCaptureClick = useCallback(() => {
         if (mediaRecorderRef.current && mediaRecorderRef.current.state === "recording") {
             mediaRecorderRef.current.stop();
             clearInterval(timer); // 타이머 멈춤
             // setCapturing(false);
             // setTimer(null);
-            setElapsedTime(10); // 타이머 초기화
+            setElapsedTime(6); // 타이머 초기화
             // console.log("Stop capturing. Recorded chunks:", recordedChunks); // 확인을 위한 로그 추가
         }
     }, [mediaRecorderRef, timer]);
@@ -206,7 +161,7 @@ const WebCamVideo = () => {
             setCapturing(true);
             setTimer(newTimer);
             setRecordedChunks([]);
-            setElapsedTime(10); // 녹화 시작 시간을 10으로 재설정
+            setElapsedTime(6); // 녹화 시작 시간을 10으로 재설정
             mediaRecorderRef.current.start();
         }
     }, [webcamRef, mediaRecorderRef, handleDataAvailable, mimeType, handleStopCaptureClick]);
@@ -274,6 +229,11 @@ const WebCamVideo = () => {
         }
     }, [recordedChunks, mimeType, BASE_URI, token]);
 
+    // const CloseWebCam = useCallback(() => {
+    //     navi('/story'); // 페이지 이동
+    // }, [navi]);
+
+
     return (
         <span className="WebCamContainer">
             <Webcam
@@ -297,6 +257,14 @@ const WebCamVideo = () => {
                     height: window.innerWidth,
                 }}
             />
+            <div className='closeWhite'
+                // onClick={CloseWebCam}>
+                onClick={() => navi("/story")}>
+                <img alt='backWhite' src={closeW} style={{
+                    width: '24px',
+                    textShadow: '-6px -6px 12px rgba(73, 73, 73, 0.20), 6px 6px 18px rgba(0, 0, 0, 0.80)'
+                }} />
+            </div>
 
             <div>
                 Zoom: <input className="ZoomControl" id="zoomInput" type="range" min="1" max="10" step="0.1" />

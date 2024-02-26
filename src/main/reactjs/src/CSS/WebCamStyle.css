@@ -35,7 +35,8 @@ button.WebCamVideoDownloadBtn {
     margin-top: 10px;
     padding: 10px 40px;
     border: none;
-    background-color: rgb(6, 191, 233);
+    background: linear-gradient(140deg, #a4b0f1 0%, #5d4fad 100%);
+    box-shadow: -6px -6px 12px rgba(73, 73, 73, 0.20), 6px 6px 12px rgba(0, 0, 0, 0.40);
     color: #fff;
     border-radius: 25px;
     cursor: pointer;
@@ -83,6 +84,24 @@ button.WebCamVideoDownloadBtn {
     padding-top: 8px;
 }
 
+.closeWhite,
+.closeBlack {
+    padding: 10px 30px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    z-index: 2;
+    width: 2%;
+    height: auto;
+    margin: 10px;
+    position: absolute;
+    left: 0%;
+    top: 3%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 img.WebCamImg {
     width: 100%;
     object-fit: cover;
@@ -104,8 +123,8 @@ img.WebCamImg {
 
 .WebCamTimer {
     position: absolute;
-    top: 10%;
-    right: 10px;
+    top: 6%;
+    right: 7%;
     color: white;
     font-size: 20px;
 }
