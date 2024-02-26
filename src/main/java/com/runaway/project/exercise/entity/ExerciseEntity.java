@@ -32,4 +32,7 @@ public class ExerciseEntity {
 
     @Column(nullable = false)
     private String exerciseType;
+
+    @Column(nullable = true)
+    private Integer calorie;
 }
