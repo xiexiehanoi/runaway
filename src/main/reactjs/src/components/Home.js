@@ -40,7 +40,7 @@ const Home = () => {
                 
             </div>   
         
-        <div>
+        <div className='startAnimation'>
             <Link to="/challengemain">
                 <button className='btn primaryButton-outset'
                 style={{ width:'100%',height:'80px',marginTop:'40%'}}>
