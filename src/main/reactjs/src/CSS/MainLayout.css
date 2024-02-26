@@ -7,6 +7,43 @@ body {
     color: #f5f5f5;
 }
 
+.custom-scrollbars__content {
+    overflow: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.custom-scrollbars__content::-webkit-scrollbar {
+    display: none;
+}
+
+.custom-scrollbars__track-and-thumb {
+    display: block;
+    height: 100%;
+    /* must have some height */
+    position: relative;
+    width: 16px;
+    /* must have some width */
+}
+
+/* The track is meant to fill the space it's given, so top and bottom are set to 0. */
+.custom-scrollbars__track {
+    bottom: 0;
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    width: 16px;
+    /* must have some width */
+}
+
+/* No top or bottom set for the thumb. That will be controlled by JavaScript. */
+.custom-scrollbars__thumb {
+    position: absolute;
+    width: 16px;
+    /* must have some width */
+}
+
+
 #phone-container {
     width: 389px;
     height: 790px;

@@ -78,7 +78,9 @@ const MainLayout = ({ children }) => {
           </div>
 
           <div id="screen-container">
-            <div id="screen">{children}</div>
+            <div id="screen" className="custom-scrollbars__content">{children}</div>
+
+
 
             <nav className="tabbar">
               <ul>
