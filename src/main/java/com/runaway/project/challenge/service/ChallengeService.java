@@ -8,6 +8,7 @@ import com.runaway.project.challenge.repository.RunningChallengeRepository;
 import com.runaway.project.running.entity.RunningEntity;
 import com.runaway.project.running.repository.RunningRepository;
 import com.runaway.project.user.entity.User;
+import com.runaway.project.user.repository.GradeRepository;
 import com.runaway.project.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,8 +29,12 @@ public class ChallengeService {
     @Autowired
     private MyRunningRepository myRunningRepository;
     private final RunningRepository runningRepository;
+    @Autowired
     private final UserRepository userRepository;
     private final RunningChallengeRepository runningChallengeRepository;
+
+    @Autowired
+    private GradeRepository gradeRepository;
 
     private boolean checkChallengeExists(Long userId, LocalDate startDate) {
         List<MyRunningDto> existChallenge = myRunningRepository.findAllByUserIdAndStartDate(userId, startDate);
@@ -88,7 +93,7 @@ public class ChallengeService {
     public void evaluateRunningChallenge(Long idx, Long userId) {
         var myRunning = myRunningRepository.findById(idx).orElseThrow();
         var userRuns = runningRepository.findByUserIdAndDateBetween(userId, myRunning.getStartDate(), myRunning.getEndDate());
-//        System.out.println("User runs found: " + userRuns.size());
+        System.out.println("User runs found: " + userRuns.size());
 
         boolean challengeSuccess = true;
         LocalDate currentDate = myRunning.getStartDate();
@@ -99,7 +104,7 @@ public class ChallengeService {
                     .mapToDouble(RunningEntity::getDistance)
                     .sum();
 
-//            System.out.println("Date: " + currentDate + ", Total distance: " + dailyTotalDistance);
+            System.out.println("Date: " + currentDate + ", Total distance: " + dailyTotalDistance);
             if (dailyTotalDistance < myRunning.getRunningChallenge().getDistance()) {
                 challengeSuccess = false;
                 System.out.println("실패");
@@ -111,7 +116,7 @@ public class ChallengeService {
 
         if (challengeSuccess) {
             var user = userRepository.findById(userId).orElseThrow();
-            user.addPoints(myRunning.getRunningChallenge().getExp());
+            user.addPoints(myRunning.getRunningChallenge().getExp(), gradeRepository);
             userRepository.save(user);
             myRunning.setDailySuccess(true);
         } else {

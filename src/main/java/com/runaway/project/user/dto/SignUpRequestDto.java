@@ -1,5 +1,6 @@
 package com.runaway.project.user.dto;
 
+import com.runaway.project.user.entity.Grade;
 import com.runaway.project.user.entity.User;
 import com.runaway.project.user.enums.Role;
 import com.runaway.project.user.enums.SocialType;
@@ -34,7 +35,7 @@ public class SignUpRequestDto {
     this.height = height;
   }
 
-  public User toEntity(final String encryptedPassword) {
+  public User toEntity(final String encryptedPassword, final Grade grade) {
     return User.builder()
         .username(this.getUsername())
         .email(this.getEmail())
@@ -44,6 +45,7 @@ public class SignUpRequestDto {
         .gender(this.gender)
         .weight(this.weight)
         .height(this.height)
+        .grade(grade)
         .socialType(LOCAL)
         .role(USER)
         .build();
