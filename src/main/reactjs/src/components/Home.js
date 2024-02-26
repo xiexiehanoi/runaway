@@ -40,7 +40,7 @@ const Home = () => {
 
             </div>
 
-            <div>
+            <div className='startAnimation'>
                 <Link to="/challengemain">
                     <button className='btn primaryButton-outset'
                         style={{ width: '100%', height: '80px', marginTop: '40%' }}>
@@ -71,27 +71,59 @@ const Home = () => {
 
                 </div>
 
-                <div style={{ display: 'flex' }}>
-                    <div className="exercise-container" style={{ textAlign: 'center', marginRight: '5%', height: '100px' }}>
-                        <Link to={"/pushup"}>
-                            <img src={pushupImage} alt="pushup" className='exercise-image'
-                                style={{ width: '50px', height: '50px', display: 'block', margin: '0 auto' }} />
-                            <span style={{ color: 'white' }}>Push-UP</span>
-                        </Link>
+                <div>
+                    <Link to="/challengemain">
+                        <button className='btn primaryButton-outset'
+                            style={{ width: '100%', height: '80px', marginTop: '40%' }}>
+                            <span style={{ color: 'white' }}>challenge</span>
+                        </button>
+                    </Link>
+
+
+
+                    <div style={{ display: 'flex', marginBottom: '-1%' }}>
+
+                        <div className="exercise-container" style={{ textAlign: 'center', marginRight: '5%', height: '100px' }}>
+                            <Link to={"/running"}>
+                                <img src={runawayimg} alt="running" className='exercise-image'
+                                    style={{ width: '50px', height: '50px', display: 'block', margin: '0 auto' }} />
+                                <span style={{ color: 'white' }}>Running</span>
+                            </Link>
+                        </div>
+
+                        <div className="exercise-container" style={{ textAlign: 'center', height: '100px' }}>
+                            <Link to={"/situp"}>
+                                <img src={situpImage} alt="situp" className='exercise-image'
+                                    style={{ width: '50px', height: '50px', display: 'block', margin: '0 auto' }} />
+                                <span style={{ color: 'white' }}>Sit-UP</span>
+                            </Link>
+                        </div>
+
+
                     </div>
 
+                    <div style={{ display: 'flex' }}>
+                        <div className="exercise-container" style={{ textAlign: 'center', marginRight: '5%', height: '100px' }}>
+                            <Link to={"/pushup"}>
+                                <img src={pushupImage} alt="pushup" className='exercise-image'
+                                    style={{ width: '50px', height: '50px', display: 'block', margin: '0 auto' }} />
+                                <span style={{ color: 'white' }}>Push-UP</span>
+                            </Link>
+                        </div>
 
-                    <div className="exercise-container" style={{ textAlign: 'center', height: '100px' }}>
-                        <Link to={"/squat"}>
-                            <img src={squatImage} alt="squat" className='exercise-image'
-                                style={{ width: '50px', height: '50px', display: 'block', margin: '0 auto' }} />
-                            <span style={{ color: 'white' }}>Squat</span>
-                        </Link>
+
+                        <div className="exercise-container" style={{ textAlign: 'center', height: '100px' }}>
+                            <Link to={"/squat"}>
+                                <img src={squatImage} alt="squat" className='exercise-image'
+                                    style={{ width: '50px', height: '50px', display: 'block', margin: '0 auto' }} />
+                                <span style={{ color: 'white' }}>Squat</span>
+                            </Link>
+                        </div>
+
                     </div>
-
                 </div>
+                {/* <Navbar/> */}
             </div>
-            {/* <Navbar/> */}
         </div>
     );
 };
