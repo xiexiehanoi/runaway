@@ -5,7 +5,7 @@ import { CSSTransition } from 'react-transition-group';
 import WebcamVideo from "./WebCamVideo";
 import StoryShow from "./StoryShow";
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const BASE_URI = process.env.REACT_APP_BACKEND_URL;
 const token = window.localStorage.getItem("token");
@@ -15,6 +15,7 @@ const WebCam = () => {
     const [storyList, setStoryList] = useState([]);
     const [showHeader, setShowHeader] = useState(true);
     // const [closeClicked, setCloseClicked] = useState(false);
+    const navi = useNavigate();
 
 
     const list = () => {
@@ -42,6 +43,8 @@ const WebCam = () => {
     const handleVideoButtonClick = () => {
         setShowWebCamVideo(true);
         setShowHeader(false);
+        navi("/addstory");
+        window.location.href = "/addstory";
     };
 
     // // CloseWebCam 함수 수정
@@ -85,10 +88,10 @@ const WebCam = () => {
                     style={{ width: '100%', height: '100%' }}
                     unmountOnExit
                 >
-                    <div className={`WebCamApp ${showWebCamVideo ? 'show' : ''}`}>
-                        <Link to="/addstory" style={{ width: '100%', height: '100%', borderRadius: '8px 8px 0px 0px' }}>
-                            <WebcamVideo />
-                        </Link>
+                    <div id='WebCamVideo' className={`WebCamApp ${showWebCamVideo ? 'show' : ''}`}
+                        style={{ width: '100%', height: '100%', borderRadius: '8px 8px 0px 0px' }}
+                    >
+                        <WebcamVideo />
                     </div>
                 </CSSTransition>
                 {!showWebCamVideo && (

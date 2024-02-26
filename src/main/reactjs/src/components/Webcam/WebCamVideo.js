@@ -229,9 +229,9 @@ const WebCamVideo = () => {
         }
     }, [recordedChunks, mimeType, BASE_URI, token]);
 
-    // const CloseWebCam = useCallback(() => {
-    //     navi('/story'); // 페이지 이동
-    // }, [navi]);
+    const CloseWebCam = useCallback(() => {
+        navi('/story'); // 페이지 이동
+    }, [navi]);
 
 
     return (
@@ -258,8 +258,9 @@ const WebCamVideo = () => {
                 }}
             />
             <div className='closeWhite'
-                // onClick={CloseWebCam}>
-                onClick={() => navi("/story")}>
+                onClick={CloseWebCam}>
+                {/*  onClick={() => navi("/story")}> */}
+
                 <img alt='backWhite' src={closeW} style={{
                     width: '24px',
                     textShadow: '-6px -6px 12px rgba(73, 73, 73, 0.20), 6px 6px 18px rgba(0, 0, 0, 0.80)'
