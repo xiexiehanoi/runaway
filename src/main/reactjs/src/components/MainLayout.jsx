@@ -4,6 +4,7 @@ import "../CSS/MainTabBar.css";
 import runawayQR from "../image/runawayQR.png";
 import { Link, useLocation } from "react-router-dom";
 import phoneHeader from '../image/phoneheader.png';
+import CustomScroll from 'react-custom-scroll';
 
 const MainLayout = ({ children }) => {
   const [activeTab, setActiveTab] = useState(0);
@@ -78,7 +79,12 @@ const MainLayout = ({ children }) => {
           </div>
 
           <div id="screen-container">
-            <div id="screen" className="custom-scrollbars__content">{children}</div>
+
+            <CustomScroll allowOuterScroll>
+              <div id="screen" className="custom-scrollbars__content">
+                {children}
+              </div>
+            </CustomScroll>
 
 
 
