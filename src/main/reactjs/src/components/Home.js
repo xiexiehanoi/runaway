@@ -48,25 +48,27 @@ const Home = () => {
 
             <Link to="/challengemain">
                 <button className='btn primaryButton-outset'
-                style={{ width:'300px',height:'100px',marginTop:'40%',marginLeft:'5%',marginRight:'5%'}}>
-                    <span style={{color:'white' }}>challenge</span>
+                style={{ width:'50%',height:'100px',marginTop:'40%',marginLeft:'5%',marginRight:'5%'}}>
+                    <span style={{color:'white' }}>My Challenge</span>
                 </button>
             </Link>
                     
           
 
             <div style={{ display: 'flex',marginBottom:'-1%' }}>  
-                <div className="exercise-container" style={{ textAlign: 'center',height:'100px' }}>
-                    <Link to={"/running"}>
-                        <img src={runawayimg}  alt="running" className='exercise-image' 
-                        style={{  width: '50px', height: '50px', display: 'block', margin: '0 auto' }}/>
-                        <span style={{color:'white' }}>Running</span>
-                    </Link>
+                <div className="home-container" style={{ textAlign: 'center',height:'100px' }}>
+                    
+                        <Link to={"/running"}>
+                            <img src={runawayimg}  alt="running" className='exercise-image' 
+                            style={{  width: '50px', height: '50px', display: 'block', margin: '0 auto' }}/>
+                            <span style={{color:'white' }}>Running</span>
+                        </Link>
+                      
                 </div>
             </div>
 
             <div style={{ display: 'flex' }}>
-                <div className="exercise-container" style={{ textAlign: 'center',height:'100px' }}>
+                <div className="home-container" style={{ textAlign: 'center',height:'100px' }}>
                     <Link to={"/exercise"}>
                         <img src={pushupImage}  alt="pushup" className='exercise-image' 
                         style={{ width: '50px', height: '50px', display: 'block', margin: '0 auto' }}/>
