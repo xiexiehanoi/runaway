@@ -5,7 +5,7 @@ import { CSSTransition } from 'react-transition-group';
 import WebcamVideo from "./WebCamVideo";
 import StoryShow from "./StoryShow";
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const BASE_URI = process.env.REACT_APP_BACKEND_URL;
 const token = window.localStorage.getItem("token");
@@ -14,6 +14,8 @@ const WebCam = () => {
     const [showWebCamVideo, setShowWebCamVideo] = useState(false);
     const [storyList, setStoryList] = useState([]);
     const [showHeader, setShowHeader] = useState(true);
+    // const [closeClicked, setCloseClicked] = useState(false);
+    const navi = useNavigate();
 
 
     const list = () => {
@@ -41,12 +43,18 @@ const WebCam = () => {
     const handleVideoButtonClick = () => {
         setShowWebCamVideo(true);
         setShowHeader(false);
+        navi("/addstory");
+        window.location.href = "/addstory";
     };
 
-    const handleBackButtonClick = () => {
-        setShowWebCamVideo(false);
-        setShowHeader(true); // 뒤로 가기 버튼을 누르면 헤더 표시
-    };
+    // // CloseWebCam 함수 수정
+    // const CloseWebCam = () => {
+    //     if (!closeClicked) {
+    //         setCloseClicked(true);
+    //         setShowWebCamVideo(false);
+    //         setShowHeader(true);
+    //     }
+    // };
 
 
     return (
@@ -66,7 +74,7 @@ const WebCam = () => {
                         style={{
                             color: '#f5f5f5',
                             fontWeight: '500',
-                            fontSize: '1em'
+                            fontSize: '1.1em'
                         }}
                     >Add Story</span>
                 </button>
@@ -80,10 +88,10 @@ const WebCam = () => {
                     style={{ width: '100%', height: '100%' }}
                     unmountOnExit
                 >
-                    <div className={`WebCamApp ${showWebCamVideo ? 'show' : ''}`}>
-                        <Link to="/addstory" style={{ width: '100%', height: '100%' }}>
-                            <WebcamVideo BackButton={handleBackButtonClick} />
-                        </Link>
+                    <div id='WebCamVideo' className={`WebCamApp ${showWebCamVideo ? 'show' : ''}`}
+                        style={{ width: '100%', height: '100%', borderRadius: '8px 8px 0px 0px' }}
+                    >
+                        <WebcamVideo />
                     </div>
                 </CSSTransition>
                 {!showWebCamVideo && (

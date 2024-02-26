@@ -16,7 +16,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
   Optional<User> findById(Long id);
 
-  @Query("SELECT new com.runaway.project.ranking.dto.RankingDto(u.id, u.nickname, u.point) FROM User u ORDER BY u.point DESC")
+  @Query("SELECT new com.runaway.project.ranking.dto.RankingDto(u.id, u.nickname, u.point) FROM User u WHERE u.point > 0 ORDER BY u.point DESC")
   List<RankingDto> findAllByOrderByPointDesc();
 
 
