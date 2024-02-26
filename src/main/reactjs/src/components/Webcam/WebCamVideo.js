@@ -2,6 +2,9 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import Webcam from 'react-webcam';
 import WebCamTimer from './WebCamTimer';
 import axios from 'axios';
+import closeW from '../../image/close-white.png';
+import { useNavigate } from 'react-router-dom';
+
 
 const WebCamVideo = () => {
     const webcamRef = useRef(null);
@@ -9,12 +12,33 @@ const WebCamVideo = () => {
     const [capturing, setCapturing] = useState(false);
     const [recordedChunks, setRecordedChunks] = useState([]);
     const [timer, setTimer] = useState(null); // timer 상태 추가
-    const [elapsedTime, setElapsedTime] = useState(10);
+    const [elapsedTime, setElapsedTime] = useState(6);
     const [mimeType, setMimeType] = useState('');
+    // 줌 관련 변수 및 상태
+    const [zoomValue, setZoomValue] = useState(1);
 
     const BASE_URI = process.env.REACT_APP_BACKEND_URL;
     const token = window.localStorage.getItem("token");
     // const videoUrl = "https://kr.object.ncloudstorage.com/runaway/runaway_story/";
+    const navi = useNavigate();
+
+    const getParams = (video, audio) => {
+        return {
+            video: {
+                deviceId: video ? { exact: video } : undefined,
+                pan: true,
+                tilt: true,
+                zoom: true
+            },
+            audio: {
+                deviceId: audio ? { exact: audio } : undefined,
+                options: {
+                    muted: true,
+                    mirror: true
+                }
+            }
+        }
+    }
 
     const handleDataAvailable = useCallback(({ data }) => {
         console.log("Data Available:", data);
@@ -24,8 +48,33 @@ const WebCamVideo = () => {
         }
     }, [setRecordedChunks]);
 
+
+
     useEffect(() => {
-        const initializeMediaRecorder = async () => {
+        const startWebcam = async () => {
+            const stream = await navigator.mediaDevices.getUserMedia(getParams(null, null));
+            const track = stream.getVideoTracks()[0];
+            const capabilities = track.getCapabilities();
+            setMimeType('video/mp4'); // 임시로 설정
+
+            // Zoom 관련 설정
+            if ('zoom' in capabilities) {
+                const zoomInput = document.querySelector('#zoomInput');
+                zoomInput.min = capabilities.zoom.min;
+                zoomInput.max = capabilities.zoom.max;
+                zoomInput.step = capabilities.zoom.step;
+                zoomInput.value = track.getSettings().zoom;
+                zoomInput.disabled = false;
+                zoomInput.oninput = async () => {
+                    try {
+                        await track.applyConstraints({ advanced: [{ zoom: zoomInput.value }] });
+                        setZoomValue(zoomInput.value);
+                    } catch (err) {
+                        console.log(err);
+                    }
+                };
+            }
+
 
             try {
                 const devices = await navigator.mediaDevices.enumerateDevices();
@@ -69,7 +118,7 @@ const WebCamVideo = () => {
             }
         };
 
-        initializeMediaRecorder();
+        startWebcam();
     }, [webcamRef, mediaRecorderRef, handleDataAvailable]);
 
     const handleStopCaptureClick = useCallback(() => {
@@ -78,7 +127,7 @@ const WebCamVideo = () => {
             clearInterval(timer); // 타이머 멈춤
             // setCapturing(false);
             // setTimer(null);
-            setElapsedTime(10); // 타이머 초기화
+            setElapsedTime(6); // 타이머 초기화
             // console.log("Stop capturing. Recorded chunks:", recordedChunks); // 확인을 위한 로그 추가
         }
     }, [mediaRecorderRef, timer]);
@@ -112,7 +161,7 @@ const WebCamVideo = () => {
             setCapturing(true);
             setTimer(newTimer);
             setRecordedChunks([]);
-            setElapsedTime(10); // 녹화 시작 시간을 10으로 재설정
+            setElapsedTime(6); // 녹화 시작 시간을 10으로 재설정
             mediaRecorderRef.current.start();
         }
     }, [webcamRef, mediaRecorderRef, handleDataAvailable, mimeType, handleStopCaptureClick]);
@@ -180,6 +229,11 @@ const WebCamVideo = () => {
         }
     }, [recordedChunks, mimeType, BASE_URI, token]);
 
+    // const CloseWebCam = useCallback(() => {
+    //     navi('/story'); // 페이지 이동
+    // }, [navi]);
+
+
     return (
         <span className="WebCamContainer">
             <Webcam
@@ -187,6 +241,8 @@ const WebCamVideo = () => {
                 audio={false} //나중에 true 로 바꿔야 오디오도 녹음 됨
                 ref={webcamRef}
                 mirrored={true}
+                // maxScale={5}
+                // scale={1.0}
                 videoConstraints={{
                     facingMode: 'user',
                     // aspectRatio: window.innerWidth / window.innerHeight,
@@ -201,6 +257,20 @@ const WebCamVideo = () => {
                     height: window.innerWidth,
                 }}
             />
+            <div className='closeWhite'
+                // onClick={CloseWebCam}>
+                onClick={() => navi("/story")}>
+                <img alt='backWhite' src={closeW} style={{
+                    width: '24px',
+                    textShadow: '-6px -6px 12px rgba(73, 73, 73, 0.20), 6px 6px 18px rgba(0, 0, 0, 0.80)'
+                }} />
+            </div>
+
+            <div>
+                Zoom: <input className="ZoomControl" id="zoomInput" type="range" min="1" max="10" step="0.1" />
+                Zoom Level: {zoomValue}
+            </div>
+
             {/* <video id="video-replay" height="400" width="500" controls></video> */}
             {capturing ? (
                 <button className="WebCamStopBtn" onClick={handleStopCaptureClick}>Stop Capture</button>
