@@ -166,45 +166,6 @@ const WebCamVideo = () => {
         }
     }, [webcamRef, mediaRecorderRef, handleDataAvailable, mimeType, handleStopCaptureClick]);
 
-    // const handleDownload = useCallback(() => {
-    //     if (recordedChunks.length) {
-    //         const blob = new Blob(recordedChunks, {
-    //             type: mimeType
-    //         });
-    //         const uploadVideo = new FormData();
-    //         uploadVideo.append('upload', blob, 'runaway-story.mp4');
-
-    //         axios({
-    //             method: 'post',
-    //             url: `${BASE_URI}/api/story/save`,
-    //             data: uploadVideo,
-    //             headers: {
-    //                 'Content-Type': 'multipart/form-data',
-    //                 Authorization: token
-    //             }
-    //         }).then(res => {
-    //             console.log("Story Uploaded successfully:", res.data);
-    //             alert("Story Uploaded successfully");
-    //             // 파일이 업로드된 후 클라우드 스토리지에서 반환한 파일 경로를 사용하여 다운로드 처리 등 추가 작업 수행 가능
-
-    //         }).catch(error => {
-    //             console.error("Error uploading file:", error);
-    //         });
-
-    //         // const url = URL.createObjectURL(blob);
-    //         // const a = document.createElement("a");
-    //         // document.body.appendChild(a);
-    //         // a.style = "display:none";
-    //         // a.href = url;
-    //         // a.download = "runaway-story.mp4";
-    //         // a.click();
-    //         // window.URL.revokeObjectURL(url);
-
-    //         // const video = document.getElementById("video-replay");
-    //         // video.src = url
-    //     }
-    // }, [recordedChunks, mimeType, BASE_URI, token]);
-
     const handleDownload = useCallback(async () => {
         if (recordedChunks.length) {
             try {
