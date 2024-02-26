@@ -1,6 +1,6 @@
 import React from "react";
 import "../../CSS/CommonApplicationStyle.css";
-import "../../CSS/Challenge.css";
+import "./CSS/ChallengeList.css";
 import situpImage from "../../image/sit-up.png";
 import pushupImage from "../../image/push-up.png";
 import squatImage from "../../image/squat.png";
@@ -42,7 +42,7 @@ const MyChallengeList = ({ row, idx }) => {
   return (
     <div
       className="primaryCard"
-      style={{ display: "flex", marginBottom: "10px", padding: "16px" }}
+      style={{ borderRadius:"20px",display: "flex", margin: "16px auto 10px auto", padding: "16px", width:"300px", }}
     >
       <div className="exercise-item">
         <div className="exercise-content">
