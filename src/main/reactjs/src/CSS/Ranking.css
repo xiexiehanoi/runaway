@@ -1,5 +1,5 @@
 
-  main.challengemain {
+  .challenge-main {
     
     background-color: #000000;
     -webkit-box-shadow: 0px 5px 15px 8px #e4e7fb;
@@ -23,14 +23,14 @@
   font-family: inherit;
   } */
 
- .bodyranking{
+ .body-ranking{
     height:100%;
     font: 16px/1.2 "Roboto", sans-serif;
 	  color: #333;
     border-radius: 8px;
  }
 
- .leaderboard .headranking {
+ .leader-board .head-ranking {
 	padding: 20px 16px;
 	color: snow;
 	font-size: 20px;
@@ -39,12 +39,12 @@
   border-radius: 8px;
   box-shadow: -9px -9px 16px rgba(73, 73, 73, 0.60), 9px 9px 16px rgba(0, 0, 0, 0.40);
 }
-.leaderboard .headranking h1 {
+.leader-board .head-ranking h1 {
 	display: inline-block;
 	margin-left: 4px;
 }
 
- .leaderboard .bodyranking{
+ .leader-board .body-ranking{
   color: snow;
 	font-size: 16px;
  }
@@ -53,11 +53,11 @@
 	counter-reset: number; 
 } */
 
-.leaderboard li {
+.leader-board li {
 	padding: 16px;
 	display: flex;
 }
-.leaderboard li mark {
+.leader-board li mark {
 	flex-grow: 1;
 	color: snow;
 	background-color: transparent;
@@ -68,17 +68,29 @@
 	margin-right: 4px;
 } */
 
-.leaderboard li:nth-child(1) {
+.leader-board li:nth-child(1) {
   border: solid 0.25em #ecc81a; 
   
 }
 
-.leaderboard li:nth-child(2) {
+.leader-board li:nth-child(2) {
   border: solid 0.25em #dbe2e8; 
 }
 
-.leaderboard li:nth-child(3) {
+.leader-board li:nth-child(3) {
   border: solid 0.25em #CD7F32; /* 세 번째 li의 border 두께를 0.25em으로 설정 */
+}
+
+.ranking-list-body{
+  background: #353535;
+  height: 100%;
+  width: 100%;
+  margin-bottom: 10px;
+  box-shadow: -9px -9px 16px rgba(73, 73, 73, 0.4),
+    9px 9px 16px rgba(0, 0, 0, 0.4);
+  display: flex; /* flexbox 레이아웃 적용 */
+  justify-content: center; /* 가로축 중앙 정렬 */
+  align-items: center; /* 세로축 중앙 정렬 */
 }
 
 
