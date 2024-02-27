@@ -23,31 +23,12 @@ const WebCamVideo = () => {
 
     const BASE_URI = process.env.REACT_APP_BACKEND_URL;
     const token = window.localStorage.getItem("token");
-    // const videoUrl = "https://kr.object.ncloudstorage.com/runaway/runaway_story/";
     const navi = useNavigate();
 
     useEffect(() => {
         const isDeviceMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
         setIsMobile(isDeviceMobile);
     }, []);
-
-    // const getParams = (video, audio) => {
-    //     return {
-    //         video: {
-    //             deviceId: video ? { exact: video } : undefined,
-    //             pan: true,
-    //             tilt: true,
-    //             zoom: true
-    //         },
-    //         audio: {
-    //             deviceId: audio ? { exact: audio } : undefined,
-    //             options: {
-    //                 muted: true,
-    //                 mirror: true
-    //             }
-    //         }
-    //     }
-    // }
 
     const handleDataAvailable = useCallback(({ data }) => {
         console.log("Data Available:", data);
@@ -61,30 +42,6 @@ const WebCamVideo = () => {
 
     useEffect(() => {
         const startWebcam = async () => {
-            // const stream = await navigator.mediaDevices.getUserMedia(getParams(null, null));
-            // const track = stream.getVideoTracks()[0];
-            // const capabilities = track.getCapabilities();
-            setMimeType('video/mp4'); // 임시로 설정
-
-            // Zoom 관련 설정
-            // if ('zoom' in capabilities) {
-            //     const zoomInput = document.querySelector('#zoomInput');
-            //     zoomInput.min = capabilities.zoom.min;
-            //     zoomInput.max = capabilities.zoom.max;
-            //     zoomInput.step = capabilities.zoom.step;
-            //     zoomInput.value = track.getSettings().zoom;
-            //     zoomInput.disabled = false;
-            //     zoomInput.oninput = async () => {
-            //         try {
-            //             await track.applyConstraints({ advanced: [{ zoom: zoomInput.value }] });
-            //             setZoomValue(zoomInput.value);
-            //         } catch (err) {
-            //             console.log(err);
-            //         }
-            //     };
-            // }
-
-
             try {
                 const devices = await navigator.mediaDevices.enumerateDevices();
                 const videoInputDevices = devices.filter((device) => device.kind === 'videoinput');
@@ -97,21 +54,34 @@ const WebCamVideo = () => {
                 if (webcamRef.current && webcamRef.current.video && webcamRef.current.video.srcObject) {
                     const stream = webcamRef.current.video.srcObject;
 
-                    let type = 'video/webm';
-                    if (!MediaRecorder.isTypeSupported(type)) {
-                        type = 'video/mp4';
-                        if (!MediaRecorder.isTypeSupported(type)) {
-                            alert('모바일 브라우저에서 지원되지 않는 mimeType입니다.');
-                            return;
-                        }
+                    // 모바일 브라우저에서 지원되는 MIME 유형 확인
+                    const supportedMimeTypes = MediaRecorder.getSupportedMimeTypes();
+                    console.log("Supported MIME types:", supportedMimeTypes);
+
+                    let mimeType = 'video/webm'; // 기본값 설정
+
+                    // 모바일 브라우저에서 지원되는 MIME 유형 중 하나를 선택
+                    if (!supportedMimeTypes.includes(mimeType)) {
+                        mimeType = supportedMimeTypes.find(type => type.startsWith('video/'));
                     }
-                    setMimeType(type);
+
+                    setMimeType(mimeType);
+
+                    // let type = 'video/webm';
+                    // if (!MediaRecorder.isTypeSupported(type)) {
+                    //     type = 'video/mp4';
+                    //     if (!MediaRecorder.isTypeSupported(type)) {
+                    //         alert('모바일 브라우저에서 지원되지 않는 mimeType입니다.');
+                    //         return;
+                    //     }
+                    // }
+                    // setMimeType(type);
 
                     // let mimeType = MediaRecorder.isTypeSupported('video/webm') ? 'video/webm' : 'video/mp4'; // MIME 유형 동적으로 결정
                     // mediaRecorderRef.current = new MediaRecorder(webcamRef.current.stream, {
                     mediaRecorderRef.current = new MediaRecorder(stream, {
                         // mimeType: "video/mp4"
-                        mimeType: type
+                        mimeType: mimeType
                     });
 
                     mediaRecorderRef.current.ondataavailable = handleDataAvailable;
@@ -134,8 +104,6 @@ const WebCamVideo = () => {
         if (mediaRecorderRef.current && mediaRecorderRef.current.state === "recording") {
             mediaRecorderRef.current.stop();
             clearInterval(timer); // 타이머 멈춤
-            // setCapturing(false);
-            // setTimer(null);
             setElapsedTime(6); // 타이머 초기화
             // console.log("Stop capturing. Recorded chunks:", recordedChunks); // 확인을 위한 로그 추가
         }
@@ -148,6 +116,7 @@ const WebCamVideo = () => {
             mediaRecorderRef.current = new MediaRecorder(stream, {
                 // mimeType: "video/mp4"
                 mimeType: mimeType
+                // mimeType: "video/webm" // 변경
             });
 
             mediaRecorderRef.current.ondataavailable = handleDataAvailable;
@@ -193,19 +162,33 @@ const WebCamVideo = () => {
 
                 console.log("Story Uploaded successfully:", res.data);
                 alert("Story Uploaded successfully");
+
+                // 파일 업로드가 성공하면 페이지를 이동합니다.
+                navi('/story');
             } catch (error) {
                 console.error("Error uploading file:", error);
             }
         }
-    }, [recordedChunks, mimeType, BASE_URI, token]);
+    }, [recordedChunks, mimeType, BASE_URI, token, navi]);
 
     const CloseWebCam = useCallback(() => {
         navi('/story'); // 페이지 이동
     }, [navi]);
 
-    const handleZoomButtonClick = (value) => {
+    const handleZoomButtonClick = useCallback((value) => {
         setZoomValue(value);
         setSelectedZoomButton(value);
+
+        // // 선택된 줌 버튼에 selectedZoom 클래스 추가
+        // const zoomButtons = document.querySelectorAll('.zoomBtn');
+        // zoomButtons.forEach(button => {
+        //     if (button.dataset.zoom === value.toString()) {
+        //         button.classList.add('selectedZoom');
+        //     } else {
+        //         button.classList.remove('selectedZoom');
+        //     }
+        // });
+
         // 줌 값을 변경할 때마다 웹캠에 반영
         const zoomInput = value; // 줌 값에 10을 곱해서 0.1 단위로 설정
 
@@ -213,7 +196,9 @@ const WebCamVideo = () => {
         const transformValue = isMirrored ? `scale(-${zoomInput}, ${zoomInput})` : `scale(${zoomInput}, ${zoomInput})`;
         // webcamRef.current.video.style.transform = `scale(${zoomInput})`;
         webcamRef.current.video.style.transform = transformValue;
-    };
+
+        alert(value); // 버튼 클릭 시 값을 확인하기 위해 alert 추가
+    }, [webcamRef, facingMode]);
 
 
     const toggleFacingMode = useCallback(async () => {
@@ -281,21 +266,24 @@ const WebCamVideo = () => {
                 }} />
             </div>
 
-            {isMobile && (
-                <div className='zoom'>
-                    {/* <input className="ZoomControl" id="zoomInput" type="range" min="1" max="10" step="0.1" /> */}
-                    {/* Zoom Level: {zoomValue} */}
-                    <button
-                        className={`zoomBtn zoomhalf primaryButton-inset ${selectedZoomButton === 'zoomhalf' ? 'selected' : ''}`}
-                        onClick={() => handleZoomButtonClick(1.0)}>1.0</button>
-                    <button
-                        className={`zoomBtn zoomnormal primaryButton-inset ${selectedZoomButton === 'zoomnormal' ? 'selected' : ''}`}
-                        onClick={() => handleZoomButtonClick(1.5)}>1.5</button>
-                    <button
-                        className={`zoomBtn zoomdouble primaryButton-inset ${selectedZoomButton === 'zoomdouble' ? 'selected' : ''}`}
-                        onClick={() => handleZoomButtonClick(2.0)}>2.0</button>
-                </div>
-            )}
+
+            <div className='zoom'>
+                {/* <input className="ZoomControl" id="zoomInput" type="range" min="1" max="10" step="0.1" /> */}
+                {/* Zoom Level: {zoomValue} */}
+                <button
+                    className={`zoomBtn zoomhalf primaryButton-inset`}
+                    style={{ border: `${selectedZoomButton === 'zoomhalf' ? ' 2px solid gold' : 'none'}` }}
+                    onClick={() => handleZoomButtonClick(1.0)}>1.0</button>
+                <button
+                    className={`zoomBtn zoomnormal primaryButton-inset`}
+                    style={{ border: `${selectedZoomButton === 'zoomnormal' ? '2px solid gold' : 'none'}` }}
+                    onClick={() => handleZoomButtonClick(1.5)}>1.5</button>
+                <button
+                    className={`zoomBtn zoomdouble primaryButton-inset`}
+                    style={{ border: `${selectedZoomButton === 'zoomdouble' ? '2px solid gold' : 'none'}` }}
+                    onClick={() => handleZoomButtonClick(2.0)}>2.0</button>
+            </div>
+
 
             {isMobile && (
                 <button className='switchCamera' onClick={toggleFacingMode}>

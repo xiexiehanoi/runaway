@@ -81,6 +81,10 @@ button.WebCamVideoDownloadBtn {
     line-height: 40px;
 }
 
+.selectedZoom {
+    border: 2px solid gold !important;
+}
+
 .ZoomControl {
 
     /* padding: 10px 40px; */
