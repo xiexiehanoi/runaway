@@ -6,8 +6,10 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.runaway.project.login.JwtProperties;
 import com.runaway.project.login.model.*;
+import com.runaway.project.user.entity.Grade;
 import com.runaway.project.user.entity.User;
 import com.runaway.project.user.enums.SocialType;
+import com.runaway.project.user.repository.GradeRepository;
 import com.runaway.project.user.repository.UserRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +31,7 @@ import java.util.Locale;
 public class NaverLoginService implements LoginService {
     @Autowired private NaverLoginConfig naverLoginConfig;
     @Autowired private UserRepository userRepository;
+    @Autowired private GradeRepository gradeRepository;
 
     @Override
     public User getMyInfo(HttpServletRequest request) {
@@ -99,10 +102,12 @@ public class NaverLoginService implements LoginService {
         User user = userRepository.findByEmail(profile.getNaverUserDetail().getEmail()).orElse(null);
 
         if (user == null) {
+            Grade firstGrade = gradeRepository.findByLevel("신입");
             user = User.builder()
                     .email(profile.getNaverUserDetail().getEmail())
                     .birthdate(profile.getNaverUserDetail().getBirthday())
                     .gender(profile.getNaverUserDetail().getGender())
+                    .grade(firstGrade)
                     .socialType(SocialType.NAVER)
                     .build();
 

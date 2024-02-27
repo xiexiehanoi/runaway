@@ -1,0 +1,174 @@
+.challengeImg {
+  display: flex;
+  align-items: center;
+}
+
+.myChallengeBox {
+  margin-left: 40px;
+  padding: 5px;
+  justify-content: center;
+  color: white;
+}
+
+.challengeImg img {
+  max-width: 60px;
+  margin-left: 5px;
+  height: auto;
+}
+
+.exerciseTypeContainer {
+  display: flex;
+  justify-content: center;
+  padding: 16px;
+}
+
+.exerciseTypeSection {
+  margin-right: 20px;
+  text-align: center;
+}
+
+.exerciseTypeSection:last-child {
+  margin-right: 0;
+}
+
+.situp .exerciseTypeImage {
+  max-width: 100px;
+  height: auto;
+  margin-left: 10px;
+}
+
+.pushup .exerciseTypeImage {
+  max-width: 100px;
+  height: auto;
+}
+
+.squat .exerciseTypeImage {
+  max-width: 100px;
+  height: auto;
+}
+
+/* 운동 리스트 */
+.exercise-container {
+  margin: 8px auto 0px auto;
+  display: flex;
+  justify-content: space-evenly; /* 내부 요소들을 균등하게 배치 */
+  align-items: center; /* 세로축 중앙 정렬 */
+  width: 300px; /* 컨테이너의 너비 */
+  height: 140px; /* 컨테이너의 높이 */
+  box-shadow: -9px -9px 16px rgba(73, 73, 73, 0.4),
+    9px 9px 16px rgba(0, 0, 0, 0.4);
+  border-radius: 20px;
+  padding: 10% 0; /* 상단과 하단에 padding 추가 */
+}
+
+.exercise-content {
+  background: #353535;
+  border-radius: 30%;
+  height: 80px;
+  width: 80px;
+  box-shadow: -9px -9px 16px rgba(73, 73, 73, 0.4),
+    9px 9px 16px rgba(0, 0, 0, 0.4);
+  display: flex; /* flexbox 레이아웃 적용 */
+  justify-content: center; /* 가로축 중앙 정렬 */
+  align-items: center; /* 세로축 중앙 정렬 */
+}
+
+/* 각 운동 이미지와 텍스트를 담는 컨테이너 */
+.exercise-item {
+  display: flex;
+  flex-direction: column; /* 아이템을 세로 방향으로 배치 */
+  align-items: center; /* 아이템을 수평 중앙으로 정렬 */
+  text-align: center;
+}
+
+/* 이미지 스타일 */
+.exercise-image {
+  width: 56%; /* 이미지의 너비를 % 값으로 조정 */
+  height: auto; /* 높이를 자동으로 설정하여 비율을 유지 */
+}
+
+.buttonBox {
+  margin-left: auto; /* 오른쪽으로 이동 */
+  margin-right: 16px; /* 간격 조정 */
+}
+
+.buttonBox-plus {
+  cursor: pointer;
+}
+
+.buttonBox-plus img {
+  width: 35px;
+  height: 35px;
+  margin-bottom: 33px;
+  cursor: pointer;
+}
+
+.challenge-subject {
+  display: flex;
+  width: 118px;
+  height: 20px;
+  padding: 40px 0px 0px 28px;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  flex-shrink: 0;
+  margin-bottom: 8px;
+}
+
+.challenge-daily {
+  justify-content: center;
+  padding: 8px 0px 0px 28px;
+}
+.subject1 {
+  color: #9a9a9a;
+  font-feature-settings: "clig" off, "liga" off;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 30px; /* 230.769% */
+  margin-right: 4px;
+}
+
+.subject2 {
+  color: #f5f5f5;
+  font-feature-settings: "clig" off, "liga" off;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 30px;
+  white-space: nowrap; /* 줄 바꿈 금지 */
+}
+
+.subject3 {
+  color: #fff;
+  font-feature-settings: "clig" off, "liga" off;
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 30px; /* 100% */
+}
+
+.subject4 {
+  color: #fff;
+  font-feature-settings: "clig" off, "liga" off;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 30px;
+}
+
+.exp-container {
+  position: relative;
+  width: 100%;
+  height: 50px;
+  text-align: center;
+}
+
+.exp-subject {
+  width: 100%; /* 부모 요소에 맞추기 위해 */
+  height: 100%; /* 부모 요소에 맞추기 위해 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}

@@ -1,11 +1,11 @@
-import React, {useRef, useState} from "react";
+import React, { useRef, useState } from "react";
 import "../../CSS/Login.css";
 import { useNavigate } from "react-router-dom";
 import KakaoLogin from "./KakaoLogin";
 import NaverLogin from "./NaverLogin";
 import GoogleLogin from "./GoogleLogin";
-import {useRecoilState} from "recoil";
-import {LoginAtom} from "../../global/LoginAtom";
+import { useRecoilState } from "recoil";
+import { LoginAtom } from "../../global/LoginAtom";
 import RunawayImage from "../../image/runaway.png";
 
 const LoginPage = () => {
@@ -60,32 +60,44 @@ const LoginPage = () => {
     <div className="loginCotainter">
 
       <div className="login_content">
-        <img src={RunawayImage} alt="user login"/>
+        <img src={RunawayImage} alt="user login" />
       </div>
       <div className="login_forms">
         <input className="login_input"
-               type="text"
-               name="email"
-               maxLength="50"
-               placeholder="ID"
-               onChange={(e) => setEmail(e.target.value)}
-               ref={emailInputRef} />
+          type="text"
+          name="email"
+          maxLength="50"
+          placeholder="ID"
+          onChange={(e) => setEmail(e.target.value)}
+          ref={emailInputRef} />
         <input className="login_input"
-               type="password"
-               maxLength="50"
-               placeholder="Password"
-               onChange={(e) => setPassword(e.target.value)}
-               ref={passwordInputRef} />
+          type="password"
+          maxLength="50"
+          placeholder="Password"
+          onChange={(e) => setPassword(e.target.value)}
+          ref={passwordInputRef} />
 
-        <div style={{textAlign: "right", marginTop: "2%"}}>
-          <a href="../member/doFindLoginIdForm">ID 찾기</a>
-          <span style={{color: "white"}}>&nbsp;/&nbsp;</span>{" "}
-          <a href="../member/doFindLoginPwForm">PW 찾기</a>
+        <div style={{
+          textAlign: "right",
+          marginTop: "-0.8%",
+          fontSize: '12px',
+          fontWeight: '600'
+        }}>
+          <a href="../member/doFindLoginIdForm">ID 찾기 </a>
+          <span style={{ color: "#f5f5f5" }}>&nbsp;/&nbsp;</span>{" "}
+          <a href="../member/doFindLoginPwForm"> PW 찾기</a>
         </div>
 
         <div>
           <button className='btn primaryButton-outset login_button' onClick={checkLogin}>
-            <span>로그인</span>
+            <span
+              style={{
+                color: '#f5f5f5',
+                fontWeight: '600',
+                fontSize: '1.1em'
+              }}>
+              로그인
+            </span>
           </button>
         </div>
 
@@ -94,17 +106,19 @@ const LoginPage = () => {
         </div>
       </div>
 
-      <div className="login_social">
+      <div className="login_social"
+        style={{ marginTop: "12px" }}>
         <GoogleLogin />
         <KakaoLogin />
         <NaverLogin />
-        <div style={{textAlign: "center", marginTop: "10%"}}>
-          <span className="login_account">계정이 없으신가요?</span>
-          <span className="login_signin"
-                onClick={() => {
-                  navi("/signup");
-                }}>회원 가입</span>
-        </div>
+      </div>
+      <div style={{ textAlign: "center", marginTop: "56px" }}
+        className="login_signup">
+        <span className="login_account">계정이 없으신가요?</span>
+        <span className="login_signin"
+          onClick={() => {
+            navi("/signup");
+          }}>회원 가입</span>
       </div>
     </div>
   );

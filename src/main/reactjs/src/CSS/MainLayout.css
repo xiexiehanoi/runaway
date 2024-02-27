@@ -7,6 +7,135 @@ body {
     color: #f5f5f5;
 }
 
+/* .custom-scrollbars__container {
+    background-color: white;
+    border: 1px solid #333;
+    border-radius: 12px;
+    display: grid;
+    height: 100%;
+    grid-template: auto / 1fr 50px;
+    overflow: hidden;
+    position: relative;
+} */
+
+.custom-scrollbars__content {
+    height: 90vh;
+    -ms-overflow-style: none;
+    overflow: auto;
+    /* padding: 0 1rem; */
+    scrollbar-width: none;
+}
+
+
+.custom-scroll-container {
+    max-height: 300px;
+    max-width: 300px;
+    border: 1px solid lightgray;
+    margin: 10px;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.container {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    flex-direction: column;
+    flex: 0 1 33%;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+    -webkit-flex: 0 1 33%;
+}
+
+.rcs-custom-scroll {
+    min-height: 0;
+    min-width: 0;
+}
+
+.rcs-custom-scroll .rcs-outer-container {
+    overflow: hidden;
+}
+
+.rcs-custom-scroll .rcs-outer-container .rcs-positioning {
+    position: relative;
+}
+
+.rcs-custom-scroll .rcs-outer-container:hover .rcs-custom-scrollbar {
+    opacity: 1;
+    transition-duration: 0.2s;
+}
+
+.rcs-custom-scroll .rcs-inner-container {
+    overflow-x: hidden;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+}
+
+.rcs-custom-scroll .rcs-inner-container:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    height: 0;
+    background-image: linear-gradient(to bottom,
+            rgba(0, 0, 0, 0.2) 0%,
+            rgba(0, 0, 0, 0.05) 60%,
+            rgba(0, 0, 0, 0) 100%);
+    pointer-events: none;
+    transition: height 0.1s ease-in;
+    will-change: height;
+}
+
+.rcs-custom-scroll .rcs-inner-container.rcs-content-scrolled:after {
+    height: 5px;
+    transition: height 0.15s ease-out;
+}
+
+.rcs-custom-scroll.rcs-scroll-handle-dragged .rcs-inner-container {
+    user-select: none;
+}
+
+.rcs-custom-scroll .rcs-custom-scrollbar {
+    position: absolute;
+    height: 100%;
+    width: 6px;
+    right: 0px;
+    opacity: 0;
+    z-index: 100;
+    transition: opacity 0.4s ease-out;
+    padding: 6px 0;
+    box-sizing: border-box;
+    will-change: opacity;
+    pointer-events: none;
+}
+
+.rcs-custom-scroll .rcs-custom-scrollbar.rcs-custom-scrollbar-rtl {
+    right: auto;
+    left: 3px;
+}
+
+.rcs-custom-scroll.rcs-scroll-handle-dragged .rcs-custom-scrollbar {
+    opacity: 1;
+}
+
+.rcs-custom-scroll .rcs-custom-scroll-handle {
+    position: absolute;
+    width: 100%;
+    top: 0;
+}
+
+.with-bg-color .rcs-inner-handle {
+    height: calc(100% - 12px);
+    margin-top: 6px;
+    background-color: rgba(100, 21, 255, 0.7);
+    border-radius: 3px;
+}
+
+
 #phone-container {
     width: 389px;
     height: 790px;
@@ -36,7 +165,7 @@ body {
     background-color: #303234;
     height: 61px;
     width: 348px;
-    top: 2.4%;
+    top: 2.45%;
     left: 5.9%;
     z-index: 1;
     /* z-index: 1; */
@@ -46,17 +175,20 @@ body {
     border-top-right-radius: 48px;
 }
 
-#phone-container {
-    position: relative;
-}
+/* #screen-container {
+    width: (61+607+83.5)px;
+    /* background-color: #303234; */
+/* overflow-y: hidden;
+border-radius: 48px;
+} */
 
 #screen {
     width: 348px;
-    height: 607px;
+    height: 609px;
     box-sizing: border-box;
     position: absolute;
     left: 0.9%;
-    top: 12.6%;
+    top: 12.4%;
     z-index: 1;
     background-color: #303234;
     font-family: Lato;
@@ -213,12 +345,13 @@ body {
     border-radius: 8px;
     width: 348px;
     background: #303234;
-    height: 83.5px;
+    height: 85.5px;
     padding: 0 4px;
     box-shadow: 9px 9px 16px rgba(0, 0, 0, 1);
     position: absolute;
-    right: 9.7%;
-    top: 89.399%;
+    right: 9.88%;
+    /* top: 89.399%; */
+    top: 89.29%;
     align-items: center;
     border-bottom-left-radius: 48px;
     border-bottom-right-radius: 49px;
@@ -262,12 +395,20 @@ body {
 
     #screen {
         display: block;
-        position: relative;
+        position: fixed;
+        /* 화면의 상단에 고정 */
+        top: 0;
+        /* 화면의 상단에 고정 */
+        left: 0;
+        width: 100%;
+        height: calc(100% - 10%);
+        /* 화면의 높이에서 탭 바의 높이를 뺀 나머지 */
+        /* position: relative; */
         overflow-y: auto;
-        width: 100vw;
-        height: 90vh;
+        /* width: 100vw; */
+        /* height: 90vh; */
         z-index: 1000;
-        left: 0%;
+        /* left: 0%; */
         background-color: #303234;
         border: none;
         /* padding-bottom: 10%; */
@@ -277,7 +418,7 @@ body {
         display: block;
         position: fixed;
         width: 100vw;
-        height: 10vh;
+        height: 10%;
         top: 90%;
         z-index: 1001;
         left: 0vh;

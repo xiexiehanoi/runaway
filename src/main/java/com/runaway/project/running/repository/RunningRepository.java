@@ -15,4 +15,9 @@ public interface RunningRepository  extends JpaRepository<RunningEntity ,Long> {
     @Query("SELECT r FROM RunningEntity r WHERE r.user.id = :userId AND r.date BETWEEN :startDate AND :endDate")
     List<RunningEntity> findByUserIdAndDateBetween(Long userId, LocalDate startDate, LocalDate endDate);
 
+    @Query("SELECT COALESCE(SUM(r.distance), 0) FROM RunningEntity r WHERE r.date = :date  AND r.user.id = :userId")
+    Integer sumRunningDistanceByDate(LocalDate date, Long userId);
+
+
+
 }

@@ -8,8 +8,10 @@ import com.runaway.project.login.JwtProperties;
 import com.runaway.project.login.model.GoogleLoginConfig;
 import com.runaway.project.login.model.GoogleProfile;
 import com.runaway.project.login.model.OauthToken;
+import com.runaway.project.user.entity.Grade;
 import com.runaway.project.user.entity.User;
 import com.runaway.project.user.enums.SocialType;
+import com.runaway.project.user.repository.GradeRepository;
 import com.runaway.project.user.repository.UserRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +33,7 @@ import java.util.Locale;
 public class GoogleLoginService implements LoginService {
     @Autowired private GoogleLoginConfig googleLoginConfig;
     @Autowired private UserRepository userRepository;
+    @Autowired private GradeRepository gradeRepository;
 
     @Override
     public User getMyInfo(HttpServletRequest request) {
@@ -108,10 +111,12 @@ public class GoogleLoginService implements LoginService {
         User user = userRepository.findByEmail(profile.getEmail()).orElse(null);
 
         if (user == null) {
+            Grade firstGrade = gradeRepository.findByLevel("신입");
             user = User.builder()
                     .email(profile.getEmail())
                     .username(profile.getName())
                     .imageUrl(profile.getPicture())
+                    .grade(firstGrade)
                     .socialType(SocialType.GOOGLE)
                     .build();
 
