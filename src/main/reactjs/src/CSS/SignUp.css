@@ -1,5 +1,9 @@
 .signUp {
     font-family: 'Noto Sans KR', sans-serif;
+
+    hr {
+
+    }
     h4 {
         font-weight: bold;
         text-align: center;
@@ -15,11 +19,12 @@
 
         .title {
             padding: 10px 0 1px;
-            color: black;
+            color: #f5f5f5;
             font-weight: bold;
         }
 
         .mustInput {
+            margin-bottom: 1%;
             &:after {
                 content: '';
                 display: inline-block;
@@ -36,9 +41,21 @@
         .input {
             width: 100%;
             padding: 10px 15px;
-            border: 0.5px solid gray;
-            font-size: small;
             outline: none;
+            border: none;
+            font-size: var(--normal-font-size);
+            font-weight: 600;
+            color: black;
+            text-align: center;
+            /*max-width: 100%;*/
+            /*max-height: 100%;*/
+            border-radius: 8px;
+            margin-bottom: 4%;
+            fill: radial-gradient(45.89% 60.07% at 50% 50%, #2E3134 0%, #292B2E 100%);
+            stroke-width: 1px;
+            stroke: #272829;
+            box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.40) inset;
+
 
             &:nth-child(3) {
                 border-bottom: 0px;
@@ -51,23 +68,73 @@
         }
 
         .numInput {
-            width: 40%;
+            width: 80%;
             padding: 10px 15px;
-            border: 0.5px solid gray;
-            font-size: small;
             outline: none;
+            /**/
+            border: none;
+            font-size: var(--normal-font-size);
+            font-weight: 600;
+            color: black;
+            text-align: left;
+            /*max-width: 100%;*/
+            /*max-height: 100%;*/
+            border-radius: 8px;
+            margin-bottom: 4%;
+            fill: radial-gradient(45.89% 60.07% at 50% 50%, #2E3134 0%, #292B2E 100%);
+            stroke-width: 1px;
+            stroke: #272829;
+            box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.40) inset;
         }
 
-        .label {
-            display: flex;
-            padding-bottom: 4px;
+        /*.label {*/
+        /*    display: flex;*/
+        /*    padding-bottom: 4px;*/
 
-            .radio {
-                -webkit-appearance: auto;
-            }
-            .text {
-                padding-left: 5px;
-            }
+        /*    .radio {*/
+        /*        -webkit-appearance: auto;*/
+        /*    }*/
+        /*    .text {*/
+        /*        padding-left: 5px;*/
+        /*    }*/
+        /*}*/
+
+        .form_radio_btn {
+            width: 47%;
+            height : 45px;
+            border: 1px solid #EAE7E7;
+            border-radius: 10px;
+        }
+
+        .form_radio_btn input[type=radio] {
+            display: none;
+        }
+
+        .form_radio_btn label {
+            font-weight: 600;
+            display: block;
+            border-radius: 10px;
+            margin: 0 auto;
+            text-align: center;
+            height: -webkit-fill-available;
+            line-height: 45px;
+        }
+
+        /* Checked */
+        .form_radio_btn input[type=radio]:checked + label {
+            font-family: 'Noto Sans KR', sans-serif;
+            background: #184DA0;
+            color: #fff;
+        }
+
+        /* Disabled */
+        .form_radio_btn input[type=radio] + label {
+            background: #F9FAFC;
+            color: #666;
+            fill: radial-gradient(45.89% 60.07% at 50% 50%, #2E3134 0%, #292B2E 100%);
+            stroke-width: 1px;
+            stroke: #272829;
+            box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.40) inset;
         }
 
         .inputCheck {
@@ -123,20 +190,34 @@
             .select {
                 padding: 8px 20px;
                 margin-right: 5px;
+                font-weight: 600;
                 border: 0.5px solid gray;
                 font-size: small;
-                outline: none;
+                border-radius: 8px;
+                background-color: #ffffff;
+                fill: radial-gradient(45.89% 60.07% at 50% 50%, #2E3134 0%, #292B2E 100%);
+                stroke-width: 1px;
+                stroke: #272829;
+                box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.40) inset;
+            }
+
+            option {
+                font-weight: 800;
+                font-size: small;
+
             }
         }
 
         .signupBtn {
             padding: 10px 15px;
             margin-top: 40px;
-            color: white;
-            background: dodgerblue;
-            font-size: small;
             text-align: center;
             cursor: pointer;
+            color: #f5f5f5;
+            font-weight: 600;
+            border-radius: 10px;
+            background: linear-gradient(140deg, #a4b0f1 -0.5%, #5d4fad 100%);
+            box-shadow: -9px -9px 16px rgba(73, 73, 73, 0.60), 9px 9px 16px rgba(0, 0, 0, 0.40);
         }
 
         .disabled {
