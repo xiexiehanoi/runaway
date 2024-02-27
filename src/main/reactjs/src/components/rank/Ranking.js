@@ -22,15 +22,15 @@ const Ranking = () => {
 }, []);
 
   return (
-    <main id="challenge-main">
-      <div class="header-in-screen">
+    <div id="challenge-main">
+      <div className="header-in-screen">
         <span style={{ marginLeft: "8%" }}>Ranking</span>
-      </div>  
-      <span className='CommonContainer'>
-        <div class="primaryCard"
-              style={{ width: '85%', height: '72%', margin: " auto",marginTop:'15%',marginBottom:'15%' }}>
+      </div>
+      <div className='CommonContainer'>
+        <div className="primaryCard"
+              style={{ width: '85%', height: '72%', margin: "8% auto" }}>
           <div className="leader-board">
-            <div className="head-ranking">
+            <div className="head-ranking" style={{marginBottom:"16px"}}>
                 <h1>Ranking</h1>
             </div>
             <div className="body-ranking">
@@ -43,8 +43,8 @@ const Ranking = () => {
             </div>
           </div>  
         </div>
-      </span>  
-    </main>
+      </div>  
+    </div>
   );
 };
 
