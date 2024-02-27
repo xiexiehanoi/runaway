@@ -27,7 +27,7 @@ const ChallengeMain = () => {
             },
           }
         );
-        console.log(response);
+        console.log(response.data);
         setMyChallengeList(response.data);
       } catch (error) {
         console.error("Error fetching exercise list:", error);
