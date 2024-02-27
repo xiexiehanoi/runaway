@@ -41,11 +41,15 @@ const StoryShow = ({ storyList }) => {
     return <div>Invalid story content</div>;
   }
 
+  // 확장자를 기반으로 MIME 유형을 결정합니다.
+  const mimeType = currentStory.storyContent.endsWith('.mp4') ? 'video/mp4' : 'video/webm';
+
   return (
     <div {...handlers} style={{ width: "100%", height: "100%" }} >
       <div {...handlers} style={{ width: "100%", height: "100%" }} >
         <VideoPlayer
           src={videoUrl + currentStory.storyContent}
+          mimeType={mimeType}
           width={100} // 부모 요소인 primaryCard에 가득 차도록 100%로 설정
           height={100} // 부모 요소인 primaryCard에 가득 차도록 100%로 설정
         />

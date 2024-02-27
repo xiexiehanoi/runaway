@@ -175,9 +175,20 @@ const WebCamVideo = () => {
         navi('/story'); // 페이지 이동
     }, [navi]);
 
-    const handleZoomButtonClick = (value) => {
+    const handleZoomButtonClick = useCallback((value) => {
         setZoomValue(value);
         setSelectedZoomButton(value);
+
+        // // 선택된 줌 버튼에 selectedZoom 클래스 추가
+        // const zoomButtons = document.querySelectorAll('.zoomBtn');
+        // zoomButtons.forEach(button => {
+        //     if (button.dataset.zoom === value.toString()) {
+        //         button.classList.add('selectedZoom');
+        //     } else {
+        //         button.classList.remove('selectedZoom');
+        //     }
+        // });
+
         // 줌 값을 변경할 때마다 웹캠에 반영
         const zoomInput = value; // 줌 값에 10을 곱해서 0.1 단위로 설정
 
@@ -185,7 +196,9 @@ const WebCamVideo = () => {
         const transformValue = isMirrored ? `scale(-${zoomInput}, ${zoomInput})` : `scale(${zoomInput}, ${zoomInput})`;
         // webcamRef.current.video.style.transform = `scale(${zoomInput})`;
         webcamRef.current.video.style.transform = transformValue;
-    };
+
+        alert(value); // 버튼 클릭 시 값을 확인하기 위해 alert 추가
+    }, [webcamRef, facingMode]);
 
 
     const toggleFacingMode = useCallback(async () => {
@@ -253,21 +266,24 @@ const WebCamVideo = () => {
                 }} />
             </div>
 
-            {isMobile && (
-                <div className='zoom'>
-                    {/* <input className="ZoomControl" id="zoomInput" type="range" min="1" max="10" step="0.1" /> */}
-                    {/* Zoom Level: {zoomValue} */}
-                    <button
-                        className={`zoomBtn zoomhalf primaryButton-inset ${selectedZoomButton === 'zoomhalf' ? 'selected' : ''}`}
-                        onClick={() => handleZoomButtonClick(1.0)}>1.0</button>
-                    <button
-                        className={`zoomBtn zoomnormal primaryButton-inset ${selectedZoomButton === 'zoomnormal' ? 'selected' : ''}`}
-                        onClick={() => handleZoomButtonClick(1.5)}>1.5</button>
-                    <button
-                        className={`zoomBtn zoomdouble primaryButton-inset ${selectedZoomButton === 'zoomdouble' ? 'selected' : ''}`}
-                        onClick={() => handleZoomButtonClick(2.0)}>2.0</button>
-                </div>
-            )}
+
+            <div className='zoom'>
+                {/* <input className="ZoomControl" id="zoomInput" type="range" min="1" max="10" step="0.1" /> */}
+                {/* Zoom Level: {zoomValue} */}
+                <button
+                    className={`zoomBtn zoomhalf primaryButton-inset`}
+                    style={{ border: `${selectedZoomButton === 'zoomhalf' ? ' 2px solid gold' : 'none'}` }}
+                    onClick={() => handleZoomButtonClick(1.0)}>1.0</button>
+                <button
+                    className={`zoomBtn zoomnormal primaryButton-inset`}
+                    style={{ border: `${selectedZoomButton === 'zoomnormal' ? '2px solid gold' : 'none'}` }}
+                    onClick={() => handleZoomButtonClick(1.5)}>1.5</button>
+                <button
+                    className={`zoomBtn zoomdouble primaryButton-inset`}
+                    style={{ border: `${selectedZoomButton === 'zoomdouble' ? '2px solid gold' : 'none'}` }}
+                    onClick={() => handleZoomButtonClick(2.0)}>2.0</button>
+            </div>
+
 
             {isMobile && (
                 <button className='switchCamera' onClick={toggleFacingMode}>
