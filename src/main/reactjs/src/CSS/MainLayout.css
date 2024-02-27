@@ -165,7 +165,7 @@ body {
     background-color: #303234;
     height: 61px;
     width: 348px;
-    top: 2.4%;
+    top: 2.45%;
     left: 5.9%;
     z-index: 1;
     /* z-index: 1; */
@@ -175,17 +175,20 @@ body {
     border-top-right-radius: 48px;
 }
 
-#phone-container {
-    position: relative;
-}
+/* #screen-container {
+    width: (61+607+83.5)px;
+    /* background-color: #303234; */
+/* overflow-y: hidden;
+border-radius: 48px;
+} */
 
 #screen {
     width: 348px;
-    height: 607px;
+    height: 609px;
     box-sizing: border-box;
     position: absolute;
     left: 0.9%;
-    top: 12.6%;
+    top: 12.4%;
     z-index: 1;
     background-color: #303234;
     font-family: Lato;
@@ -342,12 +345,13 @@ body {
     border-radius: 8px;
     width: 348px;
     background: #303234;
-    height: 83.5px;
+    height: 85.5px;
     padding: 0 4px;
     box-shadow: 9px 9px 16px rgba(0, 0, 0, 1);
     position: absolute;
-    right: 9.7%;
-    top: 89.399%;
+    right: 9.88%;
+    /* top: 89.399%; */
+    top: 89.29%;
     align-items: center;
     border-bottom-left-radius: 48px;
     border-bottom-right-radius: 49px;

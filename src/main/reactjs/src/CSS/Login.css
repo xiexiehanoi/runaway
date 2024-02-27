@@ -162,8 +162,8 @@ select {
 
   span {
     color: #f5f5f5;
-    fontWeight: 500;
-    fontSize: 1em;
+    font-weight: 500;
+    font-size: 1em;
   }
 }
 
@@ -195,21 +195,6 @@ select {
   background-color: #c4c4c4;
   border-radius: 50px;
 }
-
-/* .login_signup,
-.login_social {
-  position: absolute;
-  top: 80%;
-  left: 50%;
-  transform: translate(-50%, -10%); */
-/* width: 80%; */
-/* padding: 2%;
-  width: 100%;
-
-  a {
-    margin: 0px 8px;
-  }
-} */
 
 .login_social {
   /* margin: auto; */
