@@ -11,6 +11,7 @@ const MainLayout = ({ children }) => {
   const tabRefs = useRef([]);
   const [indicatorOffset, setIndicatorOffset] = useState(0);
   const location = useLocation(); // 현재 경로 가져오기
+  // const [screenHeight, setScreenHeight] = useState(""); // 스크린 높이 상태 추가
 
   const tabs = [
     {
@@ -39,14 +40,17 @@ const MainLayout = ({ children }) => {
     },
   ];
 
-  // useEffect(() => {
-  //   // 현재 경로가 /addstory인 경우 tabbar 숨기기
-  //   if (location.pathname === "/addstory") {
-  //     setShowTabBar(false);
-  //   } else {
-  //     setShowTabBar(true);
-  //   }
-  // }, [location.pathname]);
+  useEffect(() => {
+    // 현재 경로가 /addstory인 경우 tabbar 숨기기
+    const isHiddenPath = location.pathname === "/addstory" || location.pathname === "/login";
+    if (isHiddenPath) {
+      // setScreenHeight("100vh");
+      setActiveTab(-1); // 탭 선택을 초기화하여 탭 스타일이 제대로 적용되도록 함
+    }
+    // else {
+    // setScreenHeight(""); // 다른 경로로 이동할 때 스크린 높이 초기화
+    // }
+  }, [location.pathname]);
 
   //반응형을 위해 offset 값을 초기화해주는 작업
   useEffect(() => {
@@ -65,6 +69,16 @@ const MainLayout = ({ children }) => {
     return () => window.removeEventListener("resize", updateOffset);
   }, [activeTab]);
 
+  // 화면의 높이를 조정하는 함수
+  // const adjustScreenHeight = () => {
+  //   if (location.pathname === "/addstory" || location.pathname === "/login") {
+  //     const navHeight = document.querySelector(".tabbar")?.offsetHeight || 0;
+  //     return `calc(100% - ${navHeight}px)`;
+  //   } else {
+  //     return "607px";
+  //   }
+  // };
+
   return (
     <>
       <div className="main-container">
@@ -81,42 +95,49 @@ const MainLayout = ({ children }) => {
           <div id="screen-container">
 
             <CustomScroll allowOuterScroll>
-              <div id="screen" className="custom-scrollbars__content">
+              <div id="screen" className="custom-scrollbars__content"
+                style={{
+                  // height: adjustScreenHeight(),
+                  // maxHeight: '100%'
+                }}
+              >
                 {children}
               </div>
             </CustomScroll>
 
 
-
-            <nav className="tabbar">
-              <ul>
-                {tabs.map((tab, index) => (
-                  <li
-                    key={index}
-                    ref={(el) => (tabRefs.current[index] = el)}
-                    className={index === activeTab ? "active" : ""}
-                    onClick={() => setActiveTab(index)}
-                  >
-                    <Link to={tab.route}>
-                      <div>
-                        <span>
-                          <svg>
-                            <use xlinkHref={`#${tab.icon}`} />
-                          </svg>
-                        </span>
-                        <span>
-                          <svg>
-                            <use xlinkHref={`#${tab.filledIcon}`} />
-                          </svg>
-                        </span>
-                      </div>
-                      <strong>{tab.title}</strong>
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-              <em style={{ "--offset": `${indicatorOffset}px` }} />
-            </nav>
+            {(location.pathname !== "/addstory" && location.pathname !== "/login") && (
+              // "/addstory" 또는 "/loginPage" 경로가 아닐 때만 nav.tabbar 표시              
+              <nav className="tabbar">
+                <ul>
+                  {tabs.map((tab, index) => (
+                    <li
+                      key={index}
+                      ref={(el) => (tabRefs.current[index] = el)}
+                      className={index === activeTab ? "active" : ""}
+                      onClick={() => setActiveTab(index)}
+                    >
+                      <Link to={tab.route}>
+                        <div>
+                          <span>
+                            <svg>
+                              <use xlinkHref={`#${tab.icon}`} />
+                            </svg>
+                          </span>
+                          <span>
+                            <svg>
+                              <use xlinkHref={`#${tab.filledIcon}`} />
+                            </svg>
+                          </span>
+                        </div>
+                        <strong>{tab.title}</strong>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+                <em style={{ "--offset": `${indicatorOffset}px` }} />
+              </nav>
+            )}
 
             <svg xmlns="http://www.w3.org/2000/svg" style={{ display: "none" }}>
               <symbol
