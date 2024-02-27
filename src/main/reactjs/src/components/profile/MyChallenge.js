@@ -1,18 +1,34 @@
 import React from "react";
 import "../../CSS/CommonApplicationStyle.css";
-import "./CSS/ChallengeList.css";
+import "../../CSS/Challenge.css";
 import situpImage from "../../image/sit-up.png";
 import pushupImage from "../../image/push-up.png";
 import squatImage from "../../image/squat.png";
 import runningImage from "../../image/runaway.png";
+import DonutChart from "./DonutChart";
+import calculateSuccessFailure from "./calculateSuccessFailure.js"
 
-const MyChallengeList = ({ row, idx }) => {
+const MyChallenge = ({ row, idx }) => {
   const isExerciseChallenge = row.hasOwnProperty("exerciseChallengeDto");
   const challengeData = isExerciseChallenge
     ? row.exerciseChallengeDto
     : row.runningChallenge;
-    console.log(11)
-    console.log(challengeData)
+
+    
+    let exerciseData = {};
+    let runningData = {};
+    
+    if (row.exerciseChallengeDto) {
+      // 운동 데이터인 경우
+      exerciseData[idx] = row;
+    } else if (row.runningChallenge) {
+      // 러닝 데이터인 경우
+      runningData[idx] = row;
+      
+    }
+
+
+    console.log(row)
 
   const formatDate = (dateString) => {
     if (!dateString || typeof dateString !== "string") return "N/A";
@@ -24,6 +40,10 @@ const MyChallengeList = ({ row, idx }) => {
 
   const startDate = formatDate(row.start_date || row.startDate);
   const endDate = formatDate(row.end_date || row.endDate);
+
+   // 챌린지 데이터 분석 및 도넛 차트 데이터 준비
+   const { successCount, failureCount, totalDays } = calculateSuccessFailure(exerciseData,runningData,challengeData, isExerciseChallenge,idx);
+
 
   let exerciseImage;
   switch (challengeData?.exercise_type) {
@@ -44,7 +64,7 @@ const MyChallengeList = ({ row, idx }) => {
   return (
     <div
       className="primaryCard"
-      style={{ borderRadius:"20px",display: "flex", margin: "16px auto 10px auto", padding: "16px", width:"300px", }}
+      style={{ display: "flex", marginBottom: "10px", padding: "16px" }}
     >
       <div className="exercise-item">
         <div className="exercise-content">
@@ -61,6 +81,8 @@ const MyChallengeList = ({ row, idx }) => {
         {isExerciseChallenge ? (
           <>
             <strong>{challengeData?.exercise_type}</strong>
+             {/* DonutChart 컴포넌트에 성공 횟수와 실패 횟수 전달 */}
+      <DonutChart successCount={successCount} failureCount={failureCount} totalDays={totalDays} />
             <br />
             <strong>매일 </strong> {challengeData?.target_count}회<br />
             <strong>
@@ -83,4 +105,4 @@ const MyChallengeList = ({ row, idx }) => {
     </div>
   );
 };
-export default MyChallengeList;
+export default MyChallenge;
