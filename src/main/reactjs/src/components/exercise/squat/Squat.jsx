@@ -2,28 +2,53 @@ import React, { useRef, useState, useEffect, useCallback } from "react";
 import "./progress.css";
 import Modal from "../MaxInputModal";
 import axios from "axios";
-import { useLocation } from 'react-router-dom';
+import { useLocation } from "react-router-dom";
+import styled, { keyframes } from "styled-components";
+
+const blinkAnimation = keyframes`
+  0% { color: transparent; }
+  50% { color: white; }
+  100% { color: transparent; }
+`;
+
+const MessageBox = styled.div`
+width: 83%;
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  white-space: pre-line;
+  text-align: center;
+  font-size: 20px;  
+  font-weight: 900; 
+  font-family: 'Varela Round', sans-serif;
+  animation: ${blinkAnimation} 2.5s infinite linear forwards;
+`;
 
 const BASE_URL = process.env.REACT_APP_BACKEND_URL;
-const dateToSend = new Date().toISOString().split('T')[0];
+const dateToSend = new Date().toISOString().split("T")[0];
 
 const saveCountToDatabase = async (count, exerciseType) => {
   try {
-    const token = window.localStorage.getItem('token');
+    const token = window.localStorage.getItem("token");
     if (!token) {
-        console.log("Token not found.");
-        return;
+      console.log("Token not found.");
+      return;
     }
 
-    await axios.post(`${BASE_URL}/api/exercise/save`, {
-      date: dateToSend,
-      exerciseCount: count,
-      exerciseType: exerciseType,
-    } , {
-      headers: {
-        Authorization: token
+    await axios.post(
+      `${BASE_URL}/api/exercise/save`,
+      {
+        date: dateToSend,
+        exerciseCount: count,
+        exerciseType: exerciseType,
+      },
+      {
+        headers: {
+          Authorization: token,
+        },
       }
-    });
+    );
     console.log("Count saved successfully");
     alert("세트 하나 완료");
   } catch (error) {
@@ -39,16 +64,11 @@ const Squat = () => {
     textAlign: "center",
   };
 
-  const squatContextStyle = {
-    textAlign: "center",
-    position: "relative",
-  };
-
-  const squatButtonStyle = {
-    position: "relative",
-    margin: "0 auto",
-    display: "inline-block",
-    top: "2%",
+  const stopButtonStyle = {
+    position: "absolute",
+    left: "10px",
+    top: "10px",
+    zIndex: 10,
   };
 
   const canvasBox = {
@@ -61,12 +81,6 @@ const Squat = () => {
     height: "90%",
     position: "relative",
     top: "5%",
-  };
-
-  const messageBox = {
-    position: "relative",
-    top: "5%",
-    whiteSpace: "pre-line",
   };
 
   const webcamRef = useRef(null);
@@ -83,9 +97,10 @@ const Squat = () => {
   const countRef = useRef(count);
   const [maxCount, setMaxCount] = useState(10); // 기본 MAX 값
   const [showModal, setShowModal] = useState(false);
-  const [exerciseType, setExerciseType] = useState('');
+  const [exerciseType, setExerciseType] = useState("");
   const [audios, setAudios] = useState([]);
   const location = useLocation();
+  const [showStartButton, setShowStartButton] = useState(true);
 
   useEffect(() => {
     if (location.pathname.includes("/squat")) {
@@ -126,50 +141,52 @@ const Squat = () => {
   }, [count, progress]);
 
   const startExercise = async () => {
-    // 카메라 및 관련 기능 시작 로직
-    setMessage(
-      "지금부터 5초간 자세를 잡아주세요\n스쿼트는 옆모습으로 진행하여주세요"
-    );
-    setTimeout(async () => {
-      setMessage("");
-      await init();
-      setCameraActive(true);
-      loop();
-      if (progressRef.current) {
-        progressRef.current.style.display = "block";
-        if (!progress) {
-          const newProgress = new window.CircleProgress(progressRef.current, {
-            max: maxCount, // 사용자가 설정한 maxCount 사용
-            value: count,
-            animationDuration: 400,
-            textFormat: (val) => `${val}회`,
-          });
-          setProgress(newProgress);
-        } else {
-          progress.value = count;
-        }
+    await init();
+    setCameraActive(true);
+    loop();
+    if (progressRef.current) {
+      progressRef.current.style.display = "block";
+      if (!progress) {
+        const newProgress = new window.CircleProgress(progressRef.current, {
+          max: maxCount,
+          value: count,
+          animationDuration: 400,
+          textFormat: (val) => `${val}회`,
+        });
+        setProgress(newProgress);
+      } else {
+        progress.value = count;
       }
-    }, 5000);
+    }
   };
 
   const handleModalSave = (value) => {
     setMaxCount(value);
     setShowModal(false);
-    startExercise();
+    setShowStartButton(false);
+    setMessage(
+      "지금부터 5초간 자세를 잡아주세요\n스쿼트는 옆모습으로 진행하여주세요"
+    );
+    setTimeout(() => {
+      setMessage("");
+      startExercise();
+    }, 5000);
   };
 
   const handleModalClose = () => {
     setShowModal(false);
+    setShowStartButton(true);
   };
 
   const handleStartButtonClick = () => {
     setShowModal(true);
+    setShowStartButton(true);
   };
 
   const stopCameraAndFunction = () => {
     setMaxCount(0);
-    setCount(0); 
-    setCameraActive(false); 
+    setCount(0);
+    setCameraActive(false);
 
     if (webcamRef.current) {
       webcamRef.current.stop();
@@ -188,6 +205,7 @@ const Squat = () => {
       progressRef.current.style.display = "none";
     }
     setProgress(null);
+    setShowStartButton(true);
   };
 
   const playAudioAfterDelay = (audioFile) => {
@@ -202,13 +220,13 @@ const Squat = () => {
       const URL = "/squat/";
       const modelURL = URL + "model.json";
       const metadataURL = URL + "metadata.json";
-  
+
       const webcamWidth = 640;
       const webcamHeight = 480;
-  
+
       // 모델 로딩 시도
       modelRef.current = await window.tmPose.load(modelURL, metadataURL);
-  
+
       // 웹캠 설정 시도
       if (!webcamRef.current) {
         webcamRef.current = new window.tmPose.Webcam(
@@ -218,14 +236,16 @@ const Squat = () => {
         );
         await webcamRef.current.setup();
       }
-      
+
       // 웹캠 스트리밍 시작 시도
       await webcamRef.current.play();
     } catch (error) {
       console.error("Failed to initialize the model or webcam", error);
-      alert("모델 또는 웹캠을 초기화하는 데 실패했습니다. 자세한 정보는 콘솔을 확인해주세요.");
+      alert(
+        "모델 또는 웹캠을 초기화하는 데 실패했습니다. 자세한 정보는 콘솔을 확인해주세요."
+      );
     }
-    
+
     if (canvasRef.current) {
       const context = canvasRef.current.getContext("2d");
       context.drawImage(webcamRef.current.canvas, 0, 0);
@@ -264,7 +284,7 @@ const Squat = () => {
       setStatus("stand");
     } else if (prediction[0].probability.toFixed(2) === "1.00") {
       setStatus("nothing");
-    } 
+    }
     drawPose(pose);
   };
 
@@ -272,26 +292,30 @@ const Squat = () => {
     const loadedAudios = [];
     for (let i = 0; i <= 10; i++) {
       loadedAudios[i] = new Audio(`/squat/${i}.mp3`);
-      loadedAudios[i].oncanplaythrough = () => (loadedAudios[i].readyToPlay = true);
+      loadedAudios[i].oncanplaythrough = () =>
+        (loadedAudios[i].readyToPlay = true);
     }
     setAudios(loadedAudios);
   }, []);
 
-  const playCountAudio = useCallback((newCount) => {
-    const audioIndex = newCount % 10;
-    if (audios[audioIndex] && audios[audioIndex].readyToPlay) {
-      audios[audioIndex].play().catch((e) => {
-        console.error("오디오 재생 실패", e);
-      });
-    }
-  }, [audios]);
+  const playCountAudio = useCallback(
+    (newCount) => {
+      const audioIndex = newCount % 10;
+      if (audios[audioIndex] && audios[audioIndex].readyToPlay) {
+        audios[audioIndex].play().catch((e) => {
+          console.error("오디오 재생 실패", e);
+        });
+      }
+    },
+    [audios]
+  );
 
   useEffect(() => {
     console.log("Status has changed:", status);
   }, [status]);
 
   useEffect(() => {
-    console.log("Count from useEffect:", count); 
+    console.log("Count from useEffect:", count);
   }, [count]);
 
   useEffect(() => {
@@ -303,13 +327,13 @@ const Squat = () => {
       const newCount = count + 1;
       setCount(newCount);
       playCountAudio(newCount);
-  
+
       if (newCount === maxCount) {
         saveCountToDatabase(newCount, exerciseType)
           .then(() => {
             window.location = "/exercise";
           })
-          .catch(error => {
+          .catch((error) => {
             console.error("Failed to save count", error.response);
           });
       }
@@ -338,55 +362,60 @@ const Squat = () => {
   }, []);
 
   return (
-    <div style={squatBoxContainer}>
-      <div style={squatContextStyle}>squat</div>
-      {cameraActive ? (
-        <>
+    <>
+      <div style={squatBoxContainer}>
+        {showStartButton && (
+          <div
+            className="playButton-container"
+            onClick={handleStartButtonClick}
+          >
+            <div class="playButton-triangle"></div>
+          </div>
+        )}
+
+        {cameraActive && (
           <button
             type="button"
             onClick={stopCameraAndFunction}
-            style={squatButtonStyle}
+            style={stopButtonStyle}
           >
-            중단하기
+            X
           </button>
-          <div style={canvasBox}>
-            <div
-              ref={progressRef}
-              className="progress"
-              style={{ display: "block" }}
-            ></div>
-            <canvas
-              ref={canvasRef}
-              width="640px"
-              height="480px"
-              style={canvasStyle}
-            ></canvas>
-            <div
-              id="label-container"
-              style={{ position: "relative", top: "5%" }}
-            >
-              {predictions.map((p, index) => (
-                <div key={index}>{`${p.className}: ${p.probability}`}</div>
-              ))}
-            </div>
-          </div>
-        </>
-      ) : (
-        <button
-          type="button"
-          onClick={handleStartButtonClick}
-          style={squatButtonStyle}
-        >
-          측정시작
-        </button>
-      )}
+        )}
 
-      {showModal && (
-        <Modal onSave={handleModalSave} onClose={handleModalClose} />
-      )}
+        <div style={canvasBox}>
+          {cameraActive && (
+            <>
+              <div
+                ref={progressRef}
+                className="progress"
+                style={{ display: "block" }}
+              ></div>
+              <canvas
+                ref={canvasRef}
+                width="640px"
+                height="480px"
+                style={canvasStyle}
+              ></canvas>
+              {/* <div
+                id="label-container"
+                style={{ position: "relative", top: "5%" }}
+              >
+                {predictions.map((p, index) => (
+                  <div key={index}>{`${p.className}: ${p.probability}`}</div>
+                ))}
+              </div> */}
+            </>
+          )}
+        </div>
 
-      {message && <div style={messageBox}>{message}</div>}
-    </div>
+        {showModal && (
+          <Modal onSave={handleModalSave} onClose={handleModalClose} />
+        )}
+
+        {message && <MessageBox>{message}</MessageBox>}
+      </div>
+    </>
   );
 };
 
