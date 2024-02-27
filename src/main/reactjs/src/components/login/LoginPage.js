@@ -77,7 +77,12 @@ const LoginPage = () => {
           onChange={(e) => setPassword(e.target.value)}
           ref={passwordInputRef} />
 
-        <div style={{ textAlign: "right", marginTop: "-0.8%" }}>
+        <div style={{
+          textAlign: "right",
+          marginTop: "-0.8%",
+          fontSize: '12px',
+          fontWeight: '600'
+        }}>
           <a href="../member/doFindLoginIdForm">ID 찾기 </a>
           <span style={{ color: "#f5f5f5" }}>&nbsp;/&nbsp;</span>{" "}
           <a href="../member/doFindLoginPwForm"> PW 찾기</a>
