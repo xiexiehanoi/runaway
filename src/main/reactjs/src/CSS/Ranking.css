@@ -49,10 +49,6 @@
 	font-size: 16px;
  }
 
- /* .leaderboard li {
-	counter-reset: number; 
-} */
-
 .leader-board li {
 	padding: 16px;
 	display: flex;
@@ -62,11 +58,6 @@
 	color: snow;
 	background-color: transparent;
 }
-/* .leaderboard li:before {
-	counter-increment: number; 
-	content: counter(number) "."; 
-	margin-right: 4px;
-} */
 
 .leader-board li:nth-child(1) {
   border: solid 0.25em #ecc81a; 
