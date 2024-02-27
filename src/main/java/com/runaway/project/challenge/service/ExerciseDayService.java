@@ -34,7 +34,7 @@ public class ExerciseDayService {
         this.gradeRepository = gradeRepository;
     }
 
-    @Scheduled(cron = "00 07 18 * * *")
+    @Scheduled(cron = "0 0 0 * * *")
     @Transactional
     public void checkAndCompleteChallenges() {
         List<MyExerciseDto> myExercises = myExerciseRepository.findAll();
@@ -69,6 +69,7 @@ public class ExerciseDayService {
                 myExercise.setSuccessStatus(2);
                 User user = myExercise.getUser();
                 user.addPoints(challenge.getExp(), gradeRepository);
+                System.out.println("점수 "+challenge.getExp() + "등급"+gradeRepository);
                 userRepository.save(user);
             } else if (isAnyDayFailed) {
                 myExercise.setSuccessStatus(1);

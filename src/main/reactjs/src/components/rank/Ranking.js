@@ -22,22 +22,23 @@ const Ranking = () => {
 }, []);
 
   return (
-    <main id="challengemain">
-      <div class="header-inscreen">
+    <main id="challenge-main">
+      <div class="header-in-screen">
         <span style={{ marginLeft: "8%" }}>Ranking</span>
       </div>  
       <span className='CommonContainer'>
         <div class="primaryCard"
               style={{ width: '85%', height: '72%', margin: " auto",marginTop:'15%',marginBottom:'15%' }}>
-          <div className="leaderboard">
-            <div className="headranking">
+          <div className="leader-board">
+            <div className="head-ranking">
                 <h1>Ranking</h1>
             </div>
-            <div className="bodyranking">
-                         
-                {rankingList.map((row, idx) => (
-                    <RankingRowItem key={idx} row={row} idx={idx}/>
-                ))}
+            <div className="body-ranking">
+                <div>
+                  {rankingList.map((row, idx) => (
+                      <RankingRowItem key={idx} row={row} idx={idx}/>
+                  ))}
+                </div>        
             
             </div>
           </div>  
