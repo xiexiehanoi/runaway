@@ -10,34 +10,52 @@ const RankingRowItem = (props) => {
 
     console.log("row:"+row.rankChange)
     return (
-        <li key={row.id} className='ranking-list-body'>
-            <mark>
-                {idx + 1 === 1 ? (
-                    <img className="gold-medal" src={goldMedal} alt="gold medal" style={{ width: '20%', height: 'auto' }} />
-                ) : idx + 1 === 2 ? (
-                    <img className="silver-medal" src={silverMedal} alt="silver medal" style={{ width: '20%', height: 'auto' }} />
-                ) : idx + 1 === 3 ? (
-                    <img className="bronze-medal" src={bronzeMedal} alt="bronze medal" style={{ width: '20%', height: 'auto' }} />
-                ) : (
-                            idx + 1
-                        )} {row.nickname} ({row.point} 점)
-            </mark>
-            <div>
-                 {row.rankChange !== 0 ? (
-                    <div style={{display: 'flex', alignItems: 'center'}}>
-                        {row.rankChange > 0 ? (
-                            <img src={downArrow} alt="up arrow" style={{ width: '20px', height: 'auto' }} />
-                        ) : (
-                                    <img src={upArrow} alt="down arrow" style={{ width: '20px', height: 'auto' }} />
-                                )}
-                        <span>{Math.abs(row.rankChange)}</span>
-                    </div>
-                ) : (
-                            "-"
-                        )}
-            </div>
-        </li>
+        <li key={row.id} className='ranking-list-body' style={{ position: 'relative' }}>
+        {/* Position medal image at top left corner */}
+        {idx + 1 === 1 && (
+            <img
+                className="medal"
+                src={goldMedal}
+                alt="gold medal"
+                style={{ width: '12%', height: 'auto', position: 'absolute', top: -10, left: -15 }}
+            />
+        )}
+        {idx + 1 === 2 && (
+            <img
+                className="medal"
+                src={silverMedal}
+                alt="silver medal"
+                style={{ width: '12%', height: 'auto', position: 'absolute', top: -10, left: -15 }}
+            />
+        )}
+        {idx + 1 === 3 && (
+            <img
+                className="medal"
+                src={bronzeMedal}
+                alt="bronze medal"
+                style={{ width: '12%', height: 'auto', position: 'absolute', top: -10, left: -15 }}
+            />
+        )}
+        <mark>
+            {idx + 1}위 {row.nickname} ({row.point} 점)
+        </mark>
+        <div>
+            {row.rankChange !== 0 ? (
+                <div style={{ display: 'flex', alignItems: 'center' }}>
+                    {row.rankChange > 0 ? (
+                        <img src={downArrow} alt="up arrow" style={{ width: '20px', height: 'auto' }} />
+                    ) : (
+                        <img src={upArrow} alt="down arrow" style={{ width: '20px', height: 'auto' }} />
+                    )}
+                    <span>{Math.abs(row.rankChange)}</span>
+                </div>
+            ) : (
+                '-'
+            )}
+        </div>
+    </li>
+
     );
-};
+  };
 
 export default RankingRowItem;

@@ -26,7 +26,7 @@ const SocialLoginCallback = () => {
                 window.localStorage.setItem('token', token);
                 setIsLogin(token);
                 console.log(res);
-                navigate.current('/signup-add');
+                navigate.current('/');
             } catch (e) {
                 console.error(e);
                 navigate.current('/');

@@ -7,7 +7,7 @@ import pushupImage from '../image/push-up.png';
 import squatImage from '../image/squat.png';
 import plusButton from '../image/plus-button.png';
 import background from '../image/running.jpg';
-import { Link } from 'react-router-dom';
+import { Link,  useNavigate} from 'react-router-dom';
 
 import 'react-slideshow-image/dist/styles.css';
 import {  Fade } from 'react-slideshow-image'; //Fade , Zoom,Slide
@@ -41,6 +41,7 @@ const divStyle ={
 const Home = () => {
     var token = window.localStorage.getItem('token');
     const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+    const navi = useNavigate();
 
     if (token) {
         console.log("Token found:", token);
@@ -54,6 +55,11 @@ const Home = () => {
                     }
                 }
                 const res = await axios(request);
+                if (res.data.height === null || res.data.height === 0 ||
+                  res.data.weight === null || res.data.weight === 0) {
+                    alert("추가 정보 입력이 필요하여 추가 정보 입력 페이지로 이동합니다.");
+                    navi("/signup-add");
+                }
                 console.log(res);
             } catch (e) {
                 console.error(e);
