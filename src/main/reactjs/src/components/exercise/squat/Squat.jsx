@@ -4,6 +4,8 @@ import Modal from "../MaxInputModal";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
 import styled, { keyframes } from "styled-components";
+import xButtonImage from '../../../image/close-white.png';
+import ProgressBar from '../progressBar';
 
 const blinkAnimation = keyframes`
   0% { color: transparent; }
@@ -66,9 +68,13 @@ const Squat = () => {
 
   const stopButtonStyle = {
     position: "absolute",
-    left: "10px",
-    top: "10px",
-    zIndex: 10,
+    zIndex: 100,
+    width: '45px',
+    height: '45px',
+    border: 'none',
+    left:'43%',
+    top:'80%',
+    backgroundColor: 'transparent',
   };
 
   const canvasBox = {
@@ -77,10 +83,10 @@ const Squat = () => {
   };
 
   const canvasStyle = {
-    width: "90%",
-    height: "90%",
+    width: "100%",
+    height: "98%",
     position: "relative",
-    top: "5%",
+    top: "0%",
   };
 
   const webcamRef = useRef(null);
@@ -151,7 +157,7 @@ const Squat = () => {
           max: maxCount,
           value: count,
           animationDuration: 400,
-          textFormat: (val) => `${val}회`,
+          textFormat: (val) => `${val}%`,
         });
         setProgress(newProgress);
       } else {
@@ -379,18 +385,19 @@ const Squat = () => {
             onClick={stopCameraAndFunction}
             style={stopButtonStyle}
           >
-            X
+             <img src={xButtonImage} alt="" />
           </button>
         )}
 
         <div style={canvasBox}>
           {cameraActive && (
             <>
-              <div
+              {/* <div
                 ref={progressRef}
                 className="progress"
                 style={{ display: "block" }}
-              ></div>
+              ></div> */}
+              <ProgressBar maxCount={maxCount} count={count}  />
               <canvas
                 ref={canvasRef}
                 width="640px"
