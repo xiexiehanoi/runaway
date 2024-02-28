@@ -1,41 +1,40 @@
 import React from 'react';
-
-import axios from "axios";
-import runawayimg from "../image/runaway.png";
-import situpImage from '../image/sit-up.png';
-import pushupImage from '../image/push-up.png';
-import squatImage from '../image/squat.png';
-import plusButton from '../image/plus-button.png';
-import background from '../image/running.jpg';
 import { Link,  useNavigate} from 'react-router-dom';
 
-import 'react-slideshow-image/dist/styles.css';
-import {  Fade } from 'react-slideshow-image'; //Fade , Zoom,Slide
+import axios from "axios";
 
+//사용하는 이미지
+import runawayimg from "../image/runaway.png";
+
+import pushupImage from '../image/push-up.png';
+
+import background from '../image/running.jpg';
+import pushupimg from '../image/pushup.jpg';
+import homeimg1 from '../image/homeimg1.jpg';
+import homeimg2 from '../image/homeimg2.jpg';
+
+
+
+
+//사용하는 css
 import "../CSS/Main.css";
 
-const slideImages = [
-    {
-      url: 'https://images.unsplash.com/photo-1427384906349-30452365b5e8?dpr=2&auto=compress,format&fit=crop&w=1199&h=899&q=80&cs=tinysrgb&crop=',
-      caption: 'Slide 1'
-    },
-    {
-      url: 'https://images.unsplash.com/photo-1506710507565-203b9f24669b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1536&q=80',
-      caption: 'Slide 2'
-    },
-    {
-      url: 'https://images.unsplash.com/photo-1536987333706-fc9adfb10d91?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80',
-      caption: 'Slide 3'
-    },
-  ];
+//이동 
+import Slider from "react-slick";
 
-const divStyle ={
-    display:'flex',
-    alignItems: "center",
-    justifyContent : "center",
-    height : "100px",
-    backgroundSize: "100% 100px", // 배경 이미지를 요소에 맞춰서 축소 또는 확대하여 모두 보이도록 설정  
-}  
+
+
+
+
+var settings = {
+    className: "center",
+    centerMode: true,
+    infinite: true,
+    centerPadding: "60px",
+    speed: 500,
+    slidesToShow: 1
+    
+  };
 
 
 const Home = () => {
@@ -76,54 +75,53 @@ const Home = () => {
                 <span style={{fontFamily:'Anton' ,marginLeft: "8%" }}>Runaway</span>
                 
             </div>   
-        
-        <div className='startAnimation'>
 
-            
-                <div className='slide-container' style={{width:'90%',borderRadius:'25px',marginLeft : "5%",marginBottom :"-30%",marginTop:"10%"}}>
-                    <Fade>
-                        {slideImages.map((image, index) =>(
-                            <div key={index}>
-                                <div style={{...divStyle, backgroundImage:`url(${image.url})` }}>
-                                    
-                                </div>
-                            </div>
-                        ))}
-                    </Fade>
-                </div>
-            
-            
-                
-            <Link to="/challengemain">
-                <button className='btn primaryButton-outset'
-                style={{ width:'90%',height:'100px',marginTop:'40%',marginLeft:'5%',marginRight:'5%'}}>
-                    <span style={{color:'white' }}>My Challenge</span>
-                </button>
-            </Link>
-
-            <div style={{ display: 'flex',marginBottom:'-1%' }}>  
-                <div className="home-container" style={{ textAlign: 'center',height:'100px' }}>
-                    
+            <div className='startAnimation'>
+                <div style={{ display: 'flex' ,marginRight:'7%',marginTop:'10%'}}>
+                    <div className="home-container" style={{ textAlign: 'center',height:'100px' }}>
+                        
                         <Link to={"/running"}>
                             <img src={runawayimg}  alt="running" className='exercise-image' 
                             style={{  width: '50px', height: '50px', display: 'block', margin: '0 auto' }}/>
                             <span style={{color:'white' }}>Running</span>
                         </Link>
-                      
-                </div>
-            </div>
+                    
+                    </div>
 
-            <div style={{ display: 'flex' }}>
-                <div className="home-container" style={{ textAlign: 'center',height:'100px' }}>
-                    <Link to={"/exercise"}>
-                        <img src={pushupImage}  alt="pushup" className='exercise-image' 
-                        style={{ width: '50px', height: '50px', display: 'block', margin: '0 auto' }}/>
-                        <span style={{color:'white' }}>Exercise</span>
-                    </Link>
-                </div>
+                    <div className="home-container" style={{ textAlign: 'center',height:'100px' }}>
+                        <Link to={"/exercise"}>
+                            <img src={pushupImage}  alt="pushup" className='exercise-image' 
+                            style={{ width: '50px', height: '50px', display: 'block', margin: '0 auto' }}/>
+                            <span style={{color:'white' }}>Exercise</span>
+                        </Link>
+                    </div>
 
-            </div>
-        </div>
+                </div>
+                
+            
+                <Slider {...settings} style={{marginTop:'15%'}}>
+                    <div>   
+                        <img src={background} className='home-img' alt='c11'/>      
+                    </div>
+                    <div>
+                        <img src={pushupimg}  className='home-img' alt='22'/>   
+                    </div>
+                    <div>   
+                        <img src={homeimg1} className='home-img'  alt='33'/>   
+                    </div>
+                    <div>   
+                        <img src={homeimg2}  className='home-img' alt='44'/>   
+                    </div>
+                    
+                </Slider>
+
+                <Link to="/challengemain">
+                    <button className='btn primaryButton-outset'
+                    style={{ width:'90%',height:'50px',marginTop:'10%',marginLeft:'5%',marginRight:'5%'}}>
+                        <span style={{color:'white' }}>My Challenge</span>
+                    </button>
+                </Link>
+            </div>    
     </div>
     );
 };
