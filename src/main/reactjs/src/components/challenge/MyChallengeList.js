@@ -27,13 +27,13 @@ const MyChallengeList = ({ row, idx }) => {
 
   let exerciseImage;
   switch (challengeData?.exercise_type) {
-    case "Sit-UP":
+    case "situp":
       exerciseImage = situpImage;
       break;
-    case "Push-UP":
+    case "pushup":
       exerciseImage = pushupImage;
       break;
-    case "Squat":
+    case "squat":
       exerciseImage = squatImage;
       break;
     default:
@@ -46,8 +46,8 @@ const MyChallengeList = ({ row, idx }) => {
       className="primaryCard"
       style={{ borderRadius:"20px",display: "flex", margin: "16px auto 10px auto", padding: "16px", width:"300px", }}
     >
-      <div className="exercise-item">
-        <div className="exercise-content">
+      <div className="exercise-item-inner">
+        <div className="exercise-content-inner">
           {exerciseImage && (
             <img
               src={exerciseImage}
@@ -60,7 +60,7 @@ const MyChallengeList = ({ row, idx }) => {
       <div className="myChallengeBox">
         {isExerciseChallenge ? (
           <>
-            <strong>{challengeData?.exercise_type}</strong>
+            <strong>{challengeData?.exercise_type.toUpperCase()}</strong>
             <br />
             <strong>매일 </strong> {challengeData?.target_count}회<br />
             <strong>
