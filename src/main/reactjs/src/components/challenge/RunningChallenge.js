@@ -29,7 +29,7 @@ const RunningChallenge = () => {
       <header className="header-inscreen" style={{ padding: "10px" }}>
         러닝 도전하기
       </header>
-      <div className="exercise-container">
+      <div className="exercise-container" style={{marginBottom:"16px"}}>
         <div className="exercise-content" style={{width:"110px", height:"110px"}}>
           <img
             src={runningImg}
