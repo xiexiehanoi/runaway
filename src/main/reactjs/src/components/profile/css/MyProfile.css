@@ -1,0 +1,41 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap');
+
+.profile_main {
+    font-family: var(--font);
+    .my_info {
+        margin-top: 20%;
+        padding: 10%;
+        display: grid;
+        width: 100%;
+        height: 100%;
+        max-width: 100%;
+        max-height: 100%;
+        position: relative;
+        background-color: #303234;
+        border-radius: 50px;
+        box-shadow: -7px -7px 16px rgba(73, 73, 73, 0.6), 9px 9px 16px rgba(0, 0, 0, 0.40);
+
+        img {
+            width: 100px;
+            height: 100px;
+            border-radius: 500px;
+            position: absolute;
+            top: -10%;
+            left: 50%;
+            transform: translate(-50%, -10%);
+        }
+
+        .edit_button {
+            font-weight: 600;
+            /*position: absolute;*/
+            /*right: 10%;*/
+            /*top: 30%;*/
+            text-align: right;
+            margin: 5%;
+        }
+
+        .email_info {
+            margin-top: 10%;
+        }
+    }
+}

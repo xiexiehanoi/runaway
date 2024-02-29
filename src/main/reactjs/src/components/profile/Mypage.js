@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Logout from "../login/Logout";
 import MyChallenge from './MyChallenge';
+import MyProfile from "./MyProfile";
 //import './css/Mypage.css'
 
 const Mypage = () => {
@@ -60,26 +61,28 @@ const Mypage = () => {
 
   return (
     <div className="mypage-container">
-      <nav className="mypage-nav">
-        <Link to="/my" className="nav-link">내 정보 </Link>
-        <Link to="/runningRecord/" className="nav-link">나의 기록</Link>
-      </nav>
-      <header className="mypage-header">
-        <h1>마이페이지</h1>
-        {user && <div className="profile-picture" style={{ backgroundImage: `url(${user.profilePicture || 'defaultProfilePic.jpg'})` }}></div>}
-      </header>
-      <section className="user-info">
-        <h2>내 정보</h2>
-        <div className="info">
-          <p><strong>이름:</strong> {user?.username}</p>
-          <p><strong>이메일:</strong> {user?.email}</p>
-          <p><strong>등급:</strong> {user?.gradeName}</p>
-        </div>
-      </section>
-      <section className="user-actions">
-        <h2>활동</h2>
-        {/* Additional interactive elements or links to user activities could be added here */}
-      </section>
+      <MyProfile />
+      <br />
+      {/*<nav className="mypage-nav">*/}
+      {/*  <Link to="/my" className="nav-link">내 정보 </Link>*/}
+      {/*  <Link to="/runningRecord/" className="nav-link">나의 기록</Link>*/}
+      {/*</nav>*/}
+      {/*<header className="mypage-header">*/}
+      {/*  <h1>마이페이지</h1>*/}
+      {/*  {user && <div className="profile-picture" style={{ backgroundImage: `url(${user.profilePicture || 'defaultProfilePic.jpg'})` }}></div>}*/}
+      {/*</header>*/}
+      {/*<section className="user-info">*/}
+      {/*  <h2>내 정보</h2>*/}
+      {/*  <div className="info">*/}
+      {/*    <p><strong>이름:</strong> {user?.username}</p>*/}
+      {/*    <p><strong>이메일:</strong> {user?.email}</p>*/}
+      {/*    <p><strong>등급:</strong> {user?.gradeName}</p>*/}
+      {/*  </div>*/}
+      {/*</section>*/}
+      {/*<section className="user-actions">*/}
+      {/*  <h2>활동</h2>*/}
+      {/*  /!* Additional interactive elements or links to user activities could be added here *!/*/}
+      {/*</section>*/}
       <section>
         <head className="header-inscreen" style={{ padding: "10px" }}>
           진행중인 챌린지 목록
