@@ -8,7 +8,7 @@ ARG RUN_ENV
 ENV RUN_ENV=$RUN_ENV
 
 COPY src/main/reactjs/. .
-COPY runaway-private/.env.$RUN_ENV .
+COPY runaway-private/.env.$RUN_ENV .env
 COPY runaway-private/runaway_cert.pem .
 COPY runaway-private/runaway_privkey.pem .
 
