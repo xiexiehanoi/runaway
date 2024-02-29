@@ -18,7 +18,7 @@ const WebCamVideo = () => {
     const [mimeType, setMimeType] = useState('');
     // 줌 관련 변수 및 상태
     const [zoomValue, setZoomValue] = useState(1);
-    const [selectedZoomButton, setSelectedZoomButton] = useState('zoomnormal'); // 선택된 줌 버튼
+    const [selectedZoomButton, setSelectedZoomButton] = useState(1.5); // 선택된 줌 버튼
     const [isMobile, setIsMobile] = useState(false); // 추가: 모바일 여부 상태
     const [facingMode, setFacingMode] = useState('user'); // 카메라 방향 상태 추가
 
@@ -152,7 +152,9 @@ const WebCamVideo = () => {
                     type: mimeType
                 });
                 const uploadVideo = new FormData();
-                uploadVideo.append('upload', blob, 'runaway-story.mp4');
+
+                // uploadVideo.append('upload', blob, 'runaway-story.mp4');
+                uploadVideo.append('upload', blob, `runaway-story.mp4`);
 
                 const res = await axios.post(`${BASE_URI}/api/story/save`, uploadVideo, {
                     headers: {
@@ -195,38 +197,15 @@ const WebCamVideo = () => {
                 navi('/story')
                 // );
             } else {
-                // Swal.fire({
-                //     title: '',
-                //     confirmButtonText: "확인",
-                //     confirmButtonColor: 'linear-gradient(140deg, #a4b0f1 0%, #5d4fad 100%)',
-                //     customClass: {
-                //         confirmButton: 'sa2-confirm-button-class',
-                //         title: 'sa2-title-class',
-                //         icon: 'sa2-icon-class',
-                //         popup: 'sa2-popup-class',
-                //         container: 'sa2-container-class'
-                //     },
-                //     html: "이대로 나가신다면<br/>'Upload Story'를 통해<br/>업로드하지 않은 영상들은<br/>지워질 수 있습니다 "
-
-                // })
             }
         });
         // navi('/story'); // 페이지 이동
     }, [navi]);
 
+
     const handleZoomButtonClick = useCallback((value) => {
         setZoomValue(value);
         setSelectedZoomButton(value);
-
-        // // 선택된 줌 버튼에 selectedZoom 클래스 추가
-        // const zoomButtons = document.querySelectorAll('.zoomBtn');
-        // zoomButtons.forEach(button => {
-        //     if (button.dataset.zoom === value.toString()) {
-        //         button.classList.add('selectedZoom');
-        //     } else {
-        //         button.classList.remove('selectedZoom');
-        //     }
-        // });
 
         // 줌 값을 변경할 때마다 웹캠에 반영
         const zoomInput = value; // 줌 값에 10을 곱해서 0.1 단위로 설정
@@ -309,15 +288,15 @@ const WebCamVideo = () => {
             <div className='zoom'>
                 <button
                     className={`zoomBtn zoomhalf primaryButton-inset`}
-                    style={{ border: `${selectedZoomButton === 'zoomhalf' ? ' 2px solid gold' : 'none'}` }}
+                    style={{ border: `${selectedZoomButton === 1.0 ? ' 2px solid gold' : 'none'}` }}
                     onClick={() => handleZoomButtonClick(1.0)}>1.0</button>
                 <button
                     className={`zoomBtn zoomnormal primaryButton-inset`}
-                    style={{ border: `${selectedZoomButton === 'zoomnormal' ? '2px solid gold' : 'none'}` }}
+                    style={{ border: `${selectedZoomButton === 1.5 ? '2px solid gold' : 'none'}` }}
                     onClick={() => handleZoomButtonClick(1.5)}>1.5</button>
                 <button
                     className={`zoomBtn zoomdouble primaryButton-inset`}
-                    style={{ border: `${selectedZoomButton === 'zoomdouble' ? '2px solid gold' : 'none'}` }}
+                    style={{ border: `${selectedZoomButton === 2.0 ? '2px solid gold' : 'none'}` }}
                     onClick={() => handleZoomButtonClick(2.0)}>2.0</button>
             </div>
 

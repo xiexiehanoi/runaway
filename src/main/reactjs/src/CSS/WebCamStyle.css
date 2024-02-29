@@ -67,9 +67,9 @@ button.WebCamVideoUploadBtn {
 }
 
 .zoomBtn {
-    fill: radial-gradient(45.89% 60.07% at 50% 50%, #2E3134 0%, #292B2E 100%);
+    /* fill: radial-gradient(45.89% 60.07% at 50% 50%, #2E3134 0%, #292B2E 100%);
     stroke-width: 1px;
-    stroke: #272829;
+    stroke: #272829; */
     box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.30) inset;
     border: none;
     background-color: rgba(70, 72, 75, 0.8);
@@ -208,6 +208,39 @@ img.WebCamImg {
     /* 우측으로 슬라이드하는 애니메이션 */
 }
 
+
+/* storyInfo */
+.storyInfoContainer {
+    position: absolute;
+    width: 86%;
+    height: 14%;
+    top: 68.6%;
+    /* top: 0%; */
+    left: 7.5%;
+    z-index: 4;
+    opacity: 0.75;
+}
+
+.storyInfo1 {
+    color: #f5f5f5;
+    font-weight: 500;
+    font-size: 1.1em;
+    margin: 2% 4%;
+    z-index: 3;
+    position: absolute;
+    top: 25%;
+}
+
+.storyInfo2 {
+    color: #f5f5f5;
+    font-weight: 500;
+    font-size: 1.1em;
+    margin: 2% 4%;
+    z-index: 3;
+    position: absolute;
+    top: 50%;
+}
+
 @media screen and (max-width: 768px) {
 
     .WebCamContainer {
@@ -225,6 +258,16 @@ img.WebCamImg {
         height: 100vh;
         z-index: 1;
         background-color: rgba(99, 122, 159, 0.5);
+    }
+
+    .storyInfoContainer {
+        position: absolute;
+        width: 85%;
+        height: 14%;
+        top: 72.8%;
+        left: 7.5%;
+        z-index: 4;
+        opacity: 0.75;
     }
 
     button.WebCamStartBtn,
