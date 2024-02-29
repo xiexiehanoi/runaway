@@ -184,7 +184,7 @@ border-radius: 48px;
 
 #screen {
     width: 348px;
-    height: 609px;
+    height: 692.5px;
     box-sizing: border-box;
     position: absolute;
     left: 0.9%;
@@ -194,6 +194,9 @@ border-radius: 48px;
     font-family: Lato;
     /* border-top: 1px solid black; */
     overflow: auto;
+    border-bottom-left-radius: 48px;
+    border-bottom-right-radius: 48px;
+    /* padding-bottom: 90px; */
 }
 
 .operator-name {
@@ -349,7 +352,7 @@ border-radius: 48px;
     padding: 0 4px;
     box-shadow: 9px 9px 16px rgba(0, 0, 0, 1);
     position: absolute;
-    right: 9.88%;
+    right: 9.8%;
     /* top: 89.399%; */
     top: 89.29%;
     align-items: center;
@@ -401,7 +404,7 @@ border-radius: 48px;
         /* 화면의 상단에 고정 */
         left: 0;
         width: 100%;
-        height: calc(100% - 10%);
+        height: 100%;
         /* 화면의 높이에서 탭 바의 높이를 뺀 나머지 */
         /* position: relative; */
         overflow-y: auto;
@@ -412,6 +415,7 @@ border-radius: 48px;
         background-color: #303234;
         border: none;
         /* padding-bottom: 10%; */
+        border-radius: 0px;
     }
 
     .tabbar {
