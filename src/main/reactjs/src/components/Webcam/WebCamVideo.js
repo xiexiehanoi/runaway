@@ -144,7 +144,7 @@ const WebCamVideo = () => {
         }
     }, [webcamRef, mediaRecorderRef, handleDataAvailable, mimeType, handleStopCaptureClick]);
 
-    const handleDownload = useCallback(async () => {
+    const handleUpload = useCallback(async () => {
         if (recordedChunks.length) {
             try {
                 const blob = new Blob(recordedChunks, {
@@ -197,7 +197,7 @@ const WebCamVideo = () => {
         // webcamRef.current.video.style.transform = `scale(${zoomInput})`;
         webcamRef.current.video.style.transform = transformValue;
 
-        alert(value); // 버튼 클릭 시 값을 확인하기 위해 alert 추가
+        // alert(value); // 버튼 클릭 시 값을 확인하기 위해 alert 추가
     }, [webcamRef, facingMode]);
 
 
@@ -268,8 +268,6 @@ const WebCamVideo = () => {
 
 
             <div className='zoom'>
-                {/* <input className="ZoomControl" id="zoomInput" type="range" min="1" max="10" step="0.1" /> */}
-                {/* Zoom Level: {zoomValue} */}
                 <button
                     className={`zoomBtn zoomhalf primaryButton-inset`}
                     style={{ border: `${selectedZoomButton === 'zoomhalf' ? ' 2px solid gold' : 'none'}` }}
@@ -301,7 +299,7 @@ const WebCamVideo = () => {
                 <button className="WebCamStartBtn" onClick={handleStartCaptureClick}>Start Capture</button>
             )}
             {recordedChunks.length > 0 && (
-                <button className="WebCamVideoDownloadBtn" onClick={handleDownload}>Download</button>
+                <button className="WebCamVideoDownloadBtn" onClick={handleUpload}>Upload Story</button>
             )}
             <WebCamTimer elapsedTime={elapsedTime} />
         </span>
