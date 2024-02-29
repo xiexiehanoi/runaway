@@ -7,7 +7,7 @@ const VideoPlayer = ({ src, mimeType }) => {
 
     return (
         // <video autoPlay loop src={src} type="video/mp4"
-        <video autoPlay loop src={src} type="mimeType"
+        <video autoPlay loop src={src} type={mimeType}
             style={{
                 objectFit: "cover",
                 width: '100%', height: '100%',
