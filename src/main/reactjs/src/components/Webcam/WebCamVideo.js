@@ -5,6 +5,7 @@ import axios from 'axios';
 import closeW from '../../image/close-white.png';
 import switchCameraW from '../../image/switchCameraW.png';
 import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 
 const WebCamVideo = () => {
@@ -172,7 +173,54 @@ const WebCamVideo = () => {
     }, [recordedChunks, mimeType, BASE_URI, token, navi]);
 
     const CloseWebCam = useCallback(() => {
-        navi('/story'); // 페이지 이동
+        Swal.fire({
+            icon: "warning",
+            title: '이대로 나가시겠습니까?',
+            confirmButtonText: "확인",
+            confirmButtonColor: 'linear-gradient(140deg, #a4b0f1 0%, #5d4fad 100%)',
+            cancelButtonText: "취소",
+            cancelButtonColor: '#d64c6a',
+            showCancelButton: true,
+            // background: '#303234',
+            color: '#f5f5f5',
+            width: '90%',
+            customClass: {
+                confirmButton: 'sa2-confirm-button-class',
+                cancelButton: 'sa2-cancel-button-class',
+                title: 'sa2-title-class',
+                icon: 'sa2-icon-class',
+                popup: 'sa2-container-class'
+            },
+            html: "이대로 나가신다면<br/>'Upload Story'를 통해<br/>업로드하지 않은 영상들은<br/>지워질 수 있습니다 "
+
+        }).then(result => {
+            if (result.isConfirmed) {
+                Swal.fire(
+                    navi('/story')
+                );
+            } else {
+                Swal.fire({
+                    title: '이대로 나가시겠습니까?',
+                    confirmButtonText: "확인",
+                    confirmButtonColor: 'linear-gradient(140deg, #a4b0f1 0%, #5d4fad 100%)',
+                    cancelButtonText: "취소",
+                    cancelButtonColor: '#d64c6a',
+                    showCancelButton: true,
+                    // background: '#303234',
+                    color: '#f5f5f5',
+                    width: '90%',
+                    customClass: {
+                        confirmButton: 'sa2-confirm-button-class',
+                        title: 'sa2-title-class',
+                        icon: 'sa2-icon-class',
+                        popup: 'sa2-container-class'
+                    },
+                    html: "이대로 나가신다면<br/>'Upload Story'를 통해<br/>업로드하지 않은 영상들은<br/>지워질 수 있습니다 "
+
+                })
+            }
+        });
+        // navi('/story'); // 페이지 이동
     }, [navi]);
 
     const handleZoomButtonClick = useCallback((value) => {
@@ -299,7 +347,7 @@ const WebCamVideo = () => {
                 <button className="WebCamStartBtn" onClick={handleStartCaptureClick}>Start Capture</button>
             )}
             {recordedChunks.length > 0 && (
-                <button className="WebCamVideoDownloadBtn" onClick={handleUpload}>Upload Story</button>
+                <button className="WebCamVideoUploadBtn" onClick={handleUpload}>Upload Story</button>
             )}
             <WebCamTimer elapsedTime={elapsedTime} />
         </span>

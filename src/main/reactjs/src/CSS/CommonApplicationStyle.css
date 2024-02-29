@@ -106,6 +106,72 @@
 
 
 
+
+/* SweetAlert2 CSS */
+.sa2-confirm-button-class {
+    background: linear-gradient(140deg, #a4b0f1 -0.5%, #5d4fad 100%) !important;
+    box-shadow: -9px -9px 16px rgba(73, 73, 73, 0.60), 9px 9px 16px rgba(0, 0, 0, 0.40) !important;
+    color: #f5f5f5 !important;
+    border: none !important;
+}
+
+.sa2-cancel-button-class {
+    background: linear-gradient(140deg, #a4b0f1 -0.5%, #5d4fad 100%) !important;
+    box-shadow: -9px -9px 16px rgba(73, 73, 73, 0.60), 9px 9px 16px rgba(0, 0, 0, 0.40) !important;
+    color: #f5f5f5 !important;
+    border: none !important;
+}
+
+.sa2-title-class {
+    font-size: 15px !important;
+}
+
+
+.sa2-icon-class {
+    font-size: 10px !important;
+}
+
+.sa2-container-class {
+    background-color: #303234;
+    border-radius: 8px;
+    box-shadow: -9px -9px 16px rgba(73, 73, 73, 0.40), 9px 9px 16px rgba(0, 0, 0, 0.40);
+}
+
+.sa2-confirm-button-class .swal2-icon svg {
+    width: 12px !important;
+    height: 12px !important;
+}
+
+.swal2-actions .swal2-confirm {
+    background: linear-gradient(140deg, #a4b0f1 -0.5%, #5d4fad 100%) !important;
+    color: #f5f5f5 !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+.sa2-cancel-button-class .swal2-icon svg {
+    width: 12px !important;
+    height: 12px !important;
+}
+
+.swal2-actions .swal2-cancel {
+    border-color: #d64c6a !important;
+    box-shadow: none !important;
+    border: none !important;
+}
+
+.swal2-confirm:focus,
+.swal2-cancel:focus {
+    box-shadow: none !important;
+    border: none !important;
+}
+
+.swal2-actions button:hover {
+    border: none !important;
+}
+
+
+
 /* 반응형 조건문 */
 @media screen and (max-width: 768px) {
 
