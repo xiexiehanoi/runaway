@@ -27,6 +27,17 @@
     padding: 10px;
     margin: 0 auto;
     margin-top: 25px;
+    margin-left: 25px;
+  }
+
+  .home-img{
+    width: 80%;
+    height: 200px;
+    border-radius: 25px;
+    margin-right: 10%;
+    margin-left: 10%;
+    
+    
   }
 
  

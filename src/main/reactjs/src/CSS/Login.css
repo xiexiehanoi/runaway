@@ -199,7 +199,7 @@ select {
 .login_social {
   /* margin: auto; */
   position: absolute;
-  top: 80%;
+  top: 76%;
   left: 50%;
   transform: translate(-50%, -10%);
   display: flex;
@@ -209,7 +209,7 @@ select {
 
 .login_signup {
   position: absolute;
-  top: 85%;
+  top: 82%;
   left: 50%;
   transform: translate(-50%, -10%);
   width: 100%;

@@ -66,6 +66,48 @@
   border-radius: 30%;
   height: 80px;
   width: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  z-index: 1; 
+}
+
+/* 각 운동 이미지와 텍스트를 담는 컨테이너 */
+.exercise-item {
+  display: flex;
+  flex-direction: column; 
+  align-items: center; 
+  text-align: center;
+}
+
+.exercise-content::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  z-index: -1;
+  background: #353535;
+  border-radius: inherit;
+}
+
+.exercise-item:hover .exercise-content::before {
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.75), 0 0 20px rgba(255, 255, 255, 0.75); /* Increase the size for hover state */
+}
+
+/* 이미지 스타일 */
+.exercise-image {
+  width: 56%; 
+  height: auto;
+}
+
+.exercise-content-inner {
+  background: #353535;
+  border-radius: 30%;
+  height: 80px;
+  width: 80px;
   box-shadow: -9px -9px 16px rgba(73, 73, 73, 0.4),
     9px 9px 16px rgba(0, 0, 0, 0.4);
   display: flex; /* flexbox 레이아웃 적용 */
@@ -74,22 +116,17 @@
 }
 
 /* 각 운동 이미지와 텍스트를 담는 컨테이너 */
-.exercise-item {
+.exercise-item-inner {
   display: flex;
   flex-direction: column; /* 아이템을 세로 방향으로 배치 */
   align-items: center; /* 아이템을 수평 중앙으로 정렬 */
   text-align: center;
 }
 
-/* 이미지 스타일 */
-.exercise-image {
-  width: 56%; /* 이미지의 너비를 % 값으로 조정 */
-  height: auto; /* 높이를 자동으로 설정하여 비율을 유지 */
-}
 
 .buttonBox {
-  margin-left: auto; /* 오른쪽으로 이동 */
-  margin-right: 16px; /* 간격 조정 */
+  margin-left: auto;
+  margin-right: 16px;
 }
 
 .buttonBox-plus {
@@ -125,7 +162,7 @@
   font-size: 13px;
   font-style: normal;
   font-weight: 600;
-  line-height: 30px; /* 230.769% */
+  line-height: 30px;
   margin-right: 4px;
 }
 
@@ -136,7 +173,7 @@
   font-style: normal;
   font-weight: 600;
   line-height: 30px;
-  white-space: nowrap; /* 줄 바꿈 금지 */
+  white-space: nowrap;
 }
 
 .subject3 {
@@ -145,7 +182,7 @@
   font-size: 30px;
   font-style: normal;
   font-weight: 600;
-  line-height: 30px; /* 100% */
+  line-height: 30px; 
 }
 
 .subject4 {
@@ -165,8 +202,8 @@
 }
 
 .exp-subject {
-  width: 100%; /* 부모 요소에 맞추기 위해 */
-  height: 100%; /* 부모 요소에 맞추기 위해 */
+  width: 100%; 
+  height: 100%; 
   display: flex;
   justify-content: center;
   align-items: center;
