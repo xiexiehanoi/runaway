@@ -32,7 +32,7 @@ button.WebCamBtn {
 button.WebCamStartBtn,
 button.WebCamStopBtn,
 button.WebCamVideoDownloadBtn {
-    margin-top: 10px;
+    /* margin-top: 10px; */
     padding: 8px 40px;
     border: none;
     background: linear-gradient(140deg, #a4b0f1 0%, #5d4fad 100%);
@@ -42,8 +42,8 @@ button.WebCamVideoDownloadBtn {
     cursor: pointer;
     z-index: 2;
     width: calc(60% - 20px);
-    height: 56px;
-    margin: 10px;
+    height: 52px;
+    margin: 8px;
     position: absolute;
     left: auto;
     font-size: large;
@@ -59,7 +59,7 @@ button.WebCamVideoDownloadBtn {
     width: calc(47% - 24px);
     height: 54px;
     position: absolute;
-    top: 62%;
+    top: 64%;
     background-color: rgba(70, 72, 75, 0.6);
     border-radius: 54px;
     box-shadow: -4px -4px 8px rgba(73, 73, 73, 0.20), 4px 4px 8px rgba(0, 0, 0, 0.30);
@@ -122,11 +122,11 @@ button.WebCamVideoDownloadBtn {
 }
 
 button.WebCamStartBtn {
-    top: 75%;
+    top: 74%;
 }
 
 button.WebCamStopBtn {
-    top: 75%;
+    top: 74%;
 }
 
 button.WebCamVideoDownloadBtn {
