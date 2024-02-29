@@ -9,8 +9,10 @@ import com.runaway.project.login.dto.LoginUser;
 import com.runaway.project.login.model.KakaoLoginConfig;
 import com.runaway.project.login.model.KakaoProfile;
 import com.runaway.project.login.model.OauthToken;
+import com.runaway.project.user.entity.Grade;
 import com.runaway.project.user.entity.User;
 import com.runaway.project.user.enums.SocialType;
+import com.runaway.project.user.repository.GradeRepository;
 import com.runaway.project.user.repository.UserRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -32,6 +34,8 @@ import java.util.Locale;
 public class KakaoLoginService implements LoginService {
     @Autowired private KakaoLoginConfig kakaoLoginConfig;
     @Autowired private UserRepository userRepository;
+    @Autowired private GradeRepository gradeRepository;
+
 
     @Override
     public User getMyInfo(HttpServletRequest request) {
@@ -109,16 +113,18 @@ public class KakaoLoginService implements LoginService {
         User user = userRepository.findByEmail(profile.getKakao_account().getEmail()).orElse(null);
 
         if (user == null) {
+            Grade firstGrade = gradeRepository.findByLevel("신입");
             user = User.builder()
                     .email(profile.getKakao_account().getEmail())
                     .birthdate(profile.getKakao_account().getBirthday())
                     .gender(profile.getKakao_account().getGender())
+                    .grade(firstGrade)
                     .socialType(SocialType.KAKAO)
                     .build();
 
             userRepository.save(user);
         }
-
+        System.out.println("유저 " + user.getEmail());
         return createToken(user);
     }
 

@@ -1,43 +1,102 @@
 import axios from 'axios';
-import React, { useEffect, useState, Fragment } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import Logout from "../login/Logout";
+import MyChallenge from './MyChallenge';
+//import './css/Mypage.css'
 
 const Mypage = () => {
-  const [runningRecord, setRunningRecord] = useState([]);
+  const [user, setUser] = useState(null)
   const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+  const [myChallengeList, setMyChallengeList] = useState([]);
 
   useEffect(() => {
-    axios.get(`${BACKEND_URL}/api/profile/running/record`, {
-      params: { userId: 20 }
+    const token = window.localStorage.getItem('token');
+    if (!token) {
+      console.log("token not found")
+      return;
+    }
+    axios.get(`${BACKEND_URL}/api/login/me`, {
+      headers: {
+        Authorization: token
+      }
     })
       .then(function (response) {
-        setRunningRecord(response.data);
-        // Assuming that `response.data` is an array of records and `item.path` is defined
+        console.log(11);
+        console.log(response.data);
+        setUser(response.data)
       })
       .catch(function (error) {
         console.error(error);
       });
   }, []);
 
+  useEffect(() => {
+    const fetchMyChallengeList = async () => {
+      try {
+        const token = window.localStorage.getItem("token");
+        if (!token) {
+          console.log("Token not found.");
+          return;
+        }
+        const response = await axios.get(
+          `${BACKEND_URL}/api/challenge/challengemain/mychallengelist`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`, // 토큰을 Authorization 헤더에 포함
+            },
+          }
+        );
+        console.log(response.data);
+        
+        setMyChallengeList(response.data);
+      } catch (error) {
+        console.error("Error fetching exercise list:", error);
+      }
+    };
+    fetchMyChallengeList();
+  }, []);
+
   
 
   return (
-    <div style={{ width: '100%', fontFamily: 'sans-serif' }}>
-      {runningRecord.map((item) => (
-        <Fragment key={item.runIdx}>
-          <div style={{ cursor: 'pointer', marginBottom: '20px', border: '1px solid #ddd', borderRadius: '8px', padding: '10px' }}>
-          <Link to={`/runningRecordDetail/${item.runIdx}`}>
-            <h2>RunIdx {item.runIdx}</h2>
-            <p>Date: {item.date}</p>
-            <p>Distance: {item.distance} km</p>
-            <p>Time: {item.runningTime}</p>
-            <p>Calories: {item.calorie}</p>
-            </Link>
-          </div>
-        </Fragment>
-      ))}
+    <div className="mypage-container">
+      <nav className="mypage-nav">
+        <Link to="/my" className="nav-link">내 정보 </Link>
+        <Link to="/runningRecord/" className="nav-link">나의 기록</Link>
+      </nav>
+      <header className="mypage-header">
+        <h1>마이페이지</h1>
+        {user && <div className="profile-picture" style={{ backgroundImage: `url(${user.profilePicture || 'defaultProfilePic.jpg'})` }}></div>}
+      </header>
+      <section className="user-info">
+        <h2>내 정보</h2>
+        <div className="info">
+          <p><strong>이름:</strong> {user?.nickname}</p>
+          <p><strong>이메일:</strong> {user?.email}</p>
+          <p><strong>등급:</strong> {user?.grade.level}</p>
+        </div>
+      </section>
+      <section className="user-actions">
+        <h2>활동</h2>
+        {/* Additional interactive elements or links to user activities could be added here */}
+      </section>
+      <section>
+        <head className="header-inscreen" style={{ padding: "10px" }}>
+          진행중인 챌린지 목록
+        </head>
+        <div>    
+            <MyChallenge myChallengeList={myChallengeList} />
+        </div>
+      </section>
+      <footer className="mypage-footer">
+        <Logout />
+      </footer>
     </div>
   );
 };
+
+
+
 
 export default Mypage;

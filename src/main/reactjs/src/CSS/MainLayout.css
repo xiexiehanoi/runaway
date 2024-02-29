@@ -4,77 +4,253 @@
 body {
     font-family: Lato;
     background: #f5f5f5;
+    color: #f5f5f5;
+}
+
+/* .custom-scrollbars__container {
+    background-color: white;
+    border: 1px solid #333;
+    border-radius: 12px;
+    display: grid;
+    height: 100%;
+    grid-template: auto / 1fr 50px;
+    overflow: hidden;
+    position: relative;
+} */
+
+.custom-scrollbars__content {
+    height: 90vh;
+    -ms-overflow-style: none;
+    overflow: auto;
+    /* padding: 0 1rem; */
+    scrollbar-width: none;
+}
+
+
+.custom-scroll-container {
+    max-height: 300px;
+    max-width: 300px;
+    border: 1px solid lightgray;
+    margin: 10px;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.container {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    flex-direction: column;
+    flex: 0 1 33%;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+    -webkit-flex: 0 1 33%;
+}
+
+.rcs-custom-scroll {
+    min-height: 0;
+    min-width: 0;
+}
+
+.rcs-custom-scroll .rcs-outer-container {
+    overflow: hidden;
+}
+
+.rcs-custom-scroll .rcs-outer-container .rcs-positioning {
+    position: relative;
+}
+
+.rcs-custom-scroll .rcs-outer-container:hover .rcs-custom-scrollbar {
+    opacity: 1;
+    transition-duration: 0.2s;
+}
+
+.rcs-custom-scroll .rcs-inner-container {
+    overflow-x: hidden;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+}
+
+.rcs-custom-scroll .rcs-inner-container:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    height: 0;
+    background-image: linear-gradient(to bottom,
+            rgba(0, 0, 0, 0.2) 0%,
+            rgba(0, 0, 0, 0.05) 60%,
+            rgba(0, 0, 0, 0) 100%);
+    pointer-events: none;
+    transition: height 0.1s ease-in;
+    will-change: height;
+}
+
+.rcs-custom-scroll .rcs-inner-container.rcs-content-scrolled:after {
+    height: 5px;
+    transition: height 0.15s ease-out;
+}
+
+.rcs-custom-scroll.rcs-scroll-handle-dragged .rcs-inner-container {
+    user-select: none;
+}
+
+.rcs-custom-scroll .rcs-custom-scrollbar {
+    position: absolute;
+    height: 100%;
+    width: 6px;
+    right: 0px;
+    opacity: 0;
+    z-index: 100;
+    transition: opacity 0.4s ease-out;
+    padding: 6px 0;
+    box-sizing: border-box;
+    will-change: opacity;
+    pointer-events: none;
+}
+
+.rcs-custom-scroll .rcs-custom-scrollbar.rcs-custom-scrollbar-rtl {
+    right: auto;
+    left: 3px;
+}
+
+.rcs-custom-scroll.rcs-scroll-handle-dragged .rcs-custom-scrollbar {
+    opacity: 1;
+}
+
+.rcs-custom-scroll .rcs-custom-scroll-handle {
+    position: absolute;
+    width: 100%;
+    top: 0;
+}
+
+.with-bg-color .rcs-inner-handle {
+    height: calc(100% - 12px);
+    margin-top: 6px;
+    background-color: rgba(100, 21, 255, 0.7);
+    border-radius: 3px;
+}
+
+
+#phone-container {
+    width: 389px;
+    height: 790px;
+    z-index: 5;
+    position: relative;
 }
 
 #Iphone {
-    background-image: url("https://qr.io/assets/img/iphone-14.png");
     background-size: cover;
     background-repeat: no-repeat;
-    width: 319px;
-    height: 640px;
+    background-image: url("https://qr.io/assets/img/iphone-14.png");
+    width: 392px;
+    height: 790px;
     position: relative;
-    top: -10%;
-    left: -9%;
     z-index: 1;
+    top: 2.48%;
+    left: -5.1%;
+    /* background-color: #f5f5f5; */
+    background-color: transparent;
+    /* background-color: #303234; */
+    border: 2px;
+    border-radius: 62px;
 }
 
 #Iphone-header {
-    background-color: rgba(99, 122, 159, 0.5);
-    height: 49px;
-    width: 282px;
-    top: 2.225%;
-    left: 6%;
+    /* background-color: transparent; */
+    background-color: #303234;
+    height: 61px;
+    width: 348px;
+    top: 2.45%;
+    left: 5.9%;
     z-index: 1;
+    /* z-index: 1; */
     overflow: hidden;
     position: absolute;
-    border-top-left-radius: 40px;
-    border-top-right-radius: 40px;
+    border-top-left-radius: 48px;
+    border-top-right-radius: 48px;
 }
 
-#phone-container {
-    position: relative;
-}
+/* #screen-container {
+    width: (61+607+83.5)px;
+    /* background-color: #303234; */
+/* overflow-y: hidden;
+border-radius: 48px;
+} */
 
 #screen {
-    width: 282px;
-    height: 500px;
+    width: 348px;
+    height: 692.5px;
     box-sizing: border-box;
     position: absolute;
-    left: -3%;
-    top: 9.85%;
+    left: 0.9%;
+    top: 12.4%;
     z-index: 1;
-    background-color: rgba(99, 122, 159, 0.5);
+    background-color: #303234;
     font-family: Lato;
+    /* border-top: 1px solid black; */
     overflow: auto;
+    border-bottom-left-radius: 48px;
+    border-bottom-right-radius: 48px;
+    /* padding-bottom: 90px; */
 }
 
 .operator-name {
     position: absolute;
-    top: 26%;
+    top: 30%;
     left: 13%;
-    opacity: 0.8;
+    opacity: 1;
+    font-weight: 500;
+    /* font-size: 1.2em; */
+    font-size: 1em;
+    color: #f5f5f5;
+}
+
+.phone-header {
+    position: absolute;
+    width: 100px;
+    top: 22%;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 1;
+    font-weight: 500;
+    font-size: 1em;
+    color: #f5f5f5;
+    z-index: 5;
 }
 
 .operator-5g {
     position: absolute;
-    top: 26%;
+    top: 28%;
     left: 70%;
-    opacity: 0.8;
+    opacity: 1;
+    /* font-weight: bold; */
+    font-weight: 500;
+    /* font-size: 1.2em; */
+    font-size: 1em;
+    color: #f5f5f5;
 }
 
 .battery {
-    width: 30px;
+    font-weight: bold;
+    width: 33px;
+    /* height: 23px; */
     height: 20px;
     border: 2px solid rgb(102, 122, 159);
-    border-radius: 4px;
+    border-radius: 6px;
     text-align: center;
     color: rgb(0, 0, 0);
-    background: rgb(254, 254, 254);
-    font-weight: bold;
+    background: #f5f5f5;
+    font-weight: 600;
     position: absolute;
-    top: 29%;
+    top: 31%;
     left: 81%;
     text-shadow: none;
+    /* font-size: 0.8em; */
     font-size: 0.7em;
 }
 
@@ -123,6 +299,21 @@ body {
     margin-top: 10%;
 }
 
+#style-1::-webkit-scrollbar {
+    width: 6px;
+    background-color: #F5F5F5;
+}
+
+
+#style-1::-webkit-scrollbar-thumb {
+    background-color: #000000;
+}
+
+#style-1::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    background-color: #F5F5F5;
+}
+
 /*
 #pullmenu-icon {
     width: 40px;
@@ -154,16 +345,22 @@ body {
 } */
 
 .tabbar {
-    border-radius: 6px;
-    width: 282px;
-    background: #fff;
-    height: 70px;
+    border-radius: 8px;
+    width: 348px;
+    background: #303234;
+    height: 85.5px;
     padding: 0 4px;
-    box-shadow: 0 4px 12px -1px rgba(18, 22, 33, 0.08);
+    box-shadow: 9px 9px 16px rgba(0, 0, 0, 1);
     position: absolute;
-    right: 15%;
-    top: 88%;
+    right: 9.8%;
+    /* top: 89.399%; */
+    top: 89.29%;
     align-items: center;
+    border-bottom-left-radius: 48px;
+    border-bottom-right-radius: 49px;
+    z-index: 1;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
 }
 
 @media screen and (max-width: 768px) {
@@ -176,39 +373,64 @@ body {
 
     .main-container {
         display: block;
-        position: absolute;
+        position: relative;
         height: 90vh;
         width: 100vw;
         overflow-y: auto;
+        background-color: #f5f5f5;
     }
 
     #phone-container {
         height: 90vh;
         width: 100vw;
-        position: absolute;
+        position: relative;
         overflow-y: auto;
+        display: block;
+        background-color: #f5f5f5;
+    }
+
+    #screen-container {
+        width: 100vw;
+        /* background-color: #f5f5f5; */
+        background-color: #303234;
+        overflow-x: hidden;
     }
 
     #screen {
         display: block;
-        position: static;
+        position: fixed;
+        /* 화면의 상단에 고정 */
+        top: 0;
+        /* 화면의 상단에 고정 */
+        left: 0;
+        width: 100%;
+        height: 100%;
+        /* 화면의 높이에서 탭 바의 높이를 뺀 나머지 */
+        /* position: relative; */
         overflow-y: auto;
-        width: 100vw;
-        height: 90vh;
+        /* width: 100vw; */
+        /* height: 90vh; */
         z-index: 1000;
-        background-color: rgba(99, 122, 159, 0.5);
+        /* left: 0%; */
+        background-color: #303234;
+        border: none;
         /* padding-bottom: 10%; */
+        border-radius: 0px;
     }
 
     .tabbar {
         display: block;
         position: fixed;
         width: 100vw;
-        height: 10vh;
+        height: 10%;
         top: 90%;
         z-index: 1001;
         left: 0vh;
         align-items: center;
         overflow: hidden;
+        background-color: #303234;
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+        box-shadow: 9px 9px 16px rgba(0, 0, 0, 1);
     }
 }

@@ -1,4 +1,6 @@
 import React from 'react';
+import naverLogin from '../../image/Naver_login.png';
+
 
 const NaverLogin = () => {
     const REST_API_KEY = process.env.REACT_APP_NAVER_REST_API_KEY;
@@ -9,7 +11,13 @@ const NaverLogin = () => {
     return (
         <>
             <a href={NAVER_AUTH_URI}>
-            <button className='btn-social-login' style={{ backgroundColor: '#1FC700' }}><i className="xi-2x xi-naver"></i></button>&nbsp;&nbsp;
+                <button className='btn-social-login'>
+                    {/* <button className='btn-social-login' style={{ backgroundColor: '#1FC700' }}> */}
+                    {/* <i className="xi-2x xi-naver"></i> */}
+                    <img alt='kakaotalk' src={naverLogin}
+                        style={{ width: '26px' }} />
+                </button>
+                {/* &nbsp;&nbsp; */}
             </a>
         </>
     );

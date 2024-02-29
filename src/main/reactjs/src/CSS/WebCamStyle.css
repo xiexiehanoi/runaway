@@ -3,8 +3,10 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 100vw;
-    height: 90vh;
+    /* width: 100vw;
+    height: 90vh; */
+    width: 100%;
+    height: 100%;
     box-sizing: border-box;
     overflow: hidden;
     z-index: 1;
@@ -30,38 +32,124 @@ button.WebCamBtn {
 button.WebCamStartBtn,
 button.WebCamStopBtn,
 button.WebCamVideoDownloadBtn {
-    margin-top: 10px;
-    padding: 10px 40px;
+    /* margin-top: 10px; */
+    padding: 8px 40px;
     border: none;
+    background: linear-gradient(140deg, #a4b0f1 0%, #5d4fad 100%);
+    box-shadow: -4px -4px 8px rgba(73, 73, 73, 0.20), 4px 4px 8px rgba(0, 0, 0, 0.30);
+    color: #fff;
+    border-radius: 56px;
+    cursor: pointer;
+    z-index: 2;
+    width: calc(60% - 20px);
+    height: 52px;
+    margin: 8px;
+    position: absolute;
+    left: auto;
+    font-size: large;
+}
+
+.zoom {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     background-color: rgb(6, 191, 233);
+    z-index: 2;
+    width: calc(47% - 24px);
+    height: 54px;
+    position: absolute;
+    top: 64%;
+    background-color: rgba(70, 72, 75, 0.6);
+    border-radius: 54px;
+    box-shadow: -4px -4px 8px rgba(73, 73, 73, 0.20), 4px 4px 8px rgba(0, 0, 0, 0.30);
+    /* border: 3px solid rgba(70, 72, 75, 0.8); */
+}
+
+.zoomBtn {
+    fill: radial-gradient(45.89% 60.07% at 50% 50%, #2E3134 0%, #292B2E 100%);
+    stroke-width: 1px;
+    stroke: #272829;
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.30) inset;
+    border: none;
+    background-color: rgba(70, 72, 75, 0.8);
+    color: #f5f5f5;
+    width: 40px;
+    height: 40px;
+    border-radius: 40px;
+    margin: 2%;
+    line-height: 40px;
+}
+
+.selectedZoom {
+    border: 2px solid gold !important;
+}
+
+.ZoomControl {
+
+    /* padding: 10px 40px; */
+    padding-left: 10px;
+    padding-right: 10px;
+    border: none;
     color: #fff;
     border-radius: 25px;
     cursor: pointer;
     z-index: 2;
-    /* position: absolute; */
-    /* position: relative; */
-    width: calc(70% - 20px);
-    /* left: 50%;
-    transform: translateX(-50%); */
+
     margin: 10px;
     position: absolute;
-    /* 버튼의 위치를 상대적으로 지정합니다. */
-    /* left: 50%;
-    transform: translateX(-50%); */
-    left: auto;
+    top: 65%;
+}
+
+.switchCamera {
+    margin-top: 10px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 24px;
+    cursor: pointer;
+    z-index: 2;
+    width: 48px;
+    height: 48px;
+    margin: 10px;
+    position: absolute;
+    right: 4%;
+    top: 88%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(140deg, #a4b0f1 0%, #5d4fad 100%);
+    box-shadow: -4px -4px 8px rgba(73, 73, 73, 0.10), 4px 4px 8px rgba(0, 0, 0, 0.20);
 }
 
 button.WebCamStartBtn {
-    top: 75%;
+    top: 74%;
 }
 
 button.WebCamStopBtn {
-    top: 75%;
+    top: 74%;
 }
 
 button.WebCamVideoDownloadBtn {
     top: 83%;
     padding-top: 8px;
+}
+
+.closeWhite,
+.closeBlack {
+    padding: 10px 30px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    z-index: 2;
+    width: 2%;
+    height: auto;
+    margin: 10px;
+    position: absolute;
+    left: 0%;
+    top: 3%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 img.WebCamImg {
@@ -83,32 +171,44 @@ img.WebCamImg {
 
 .WebCamTimer {
     position: absolute;
-    top: 10%;
-    right: 10px;
+    top: 6%;
+    right: 7%;
     color: white;
     font-size: 20px;
 }
 
-@media screen and (max-width: 768px) {
-    /* .WebCamContainer {
-        display: block;
-        position: static;
-        overflow-y: hidden;
-        width: 100vw;
-        height: 100vh;
-        z-index: 100;
-        background-color: rgba(99, 122, 159, 0.5);
-    } */
+.webcam-slide-enter {
+    /* right: -100%; */
+    /* transition: right 300ms ease-in-out; */
+    opacity: 0;
+}
 
-    /* button.WebCamStartBtn,
-    button.WebCamStopBtn,
-    button.WebCamVideoDownloadBtn {
-        position: relative; */
-    /* 모바일 환경에서 상대 위치로 변경 */
-    /* width: 100%;
-        margin-top: 10px;
-        margin-bottom: 10px;
-    } */
+.webcam-slide-enter-active {
+    /* right: 0; */
+    opacity: 1;
+    transition: opacity 800ms;
+}
+
+.webcam-slide-exit {
+    /* right: 0; */
+    /* transition: right 300ms ease-in-out; */
+    opacity: 1;
+}
+
+.webcam-slide-exit-active {
+    /* right: -100%; */
+    opacity: 0;
+    transition: opacity 800ms;
+}
+
+.WebCamApp.show {
+    position: absolute;
+    right: 0;
+    transition: right 800ms ease-in-out;
+    /* 우측으로 슬라이드하는 애니메이션 */
+}
+
+@media screen and (max-width: 768px) {
 
     .WebCamContainer {
         /* 모바일에서 버튼이 표시되도록 변경 */

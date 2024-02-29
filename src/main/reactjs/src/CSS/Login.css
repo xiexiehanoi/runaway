@@ -1,269 +1,247 @@
-/* 폰트 1 */
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap');
 
-/* 폰트 2 */
-@font-face {
-    font-family: 'TmoneyRoundWindRegular';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-07@1.0/TmoneyRoundWindRegular.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
+:root {
+  /*    --color: #4AD395;*/
+  /*    --color-dark: #23004d;*/
+  /*    --color-light: #a49eac;*/
+  /*    --color-lighten: #f2f2f2;*/
+  --color-hover: #65bf97;
+  --font: "Open Sans", sans-serif;
+  /*    --big-font-size: 1.5rem;*/
+  --normal-font-size: 0.938rem;
+  --small-font-size: 0.813rem;
 }
 
-/* 폰트 1 */
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400&display=swap');
-
-/* 폰트 2 */
-@font-face {
-    font-family: 'TmoneyRoundWindRegular';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-07@1.0/TmoneyRoundWindRegular.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
+*,
+::before,
+::after {
+  box-sizing: border-box;
 }
 
-
-html{
-  font-family: 'Noto Sans KR', sans-serif;
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font);
+  font-size: var(--normal-font-size);
+  /*    color: var(--color-dark);*/
 }
 
-/* 노말라이즈 */
-body, ul, li, h1, h2, h3 {
-  margin:0;
-  padding:0;
-  list-style:none;
-}
-a {
-  color:inherit;
-  text-decoration:none;
-}
+@keyframes animateLogin {
+  0% {
+    transform: translateX(-200%);
+  }
 
-input{
-/*ios대응*/
-appearance: none;
--webkit-appearance: none;
--webkit-border-radius: 0;
+  50% {
+    transform: translateX(1%);
+  }
+
+  100% {
+    transform: translateX();
+  }
 }
 
-select{
-/*ios대응*/
--webkit-appearance: none;
--moz-appearance: none; 
-appearance: none;
+input {
+  /*ios대응*/
+  appearance: none;
+  -webkit-appearance: none;
+  -webkit-border-radius: 0;
 }
 
-/* 라이브러리 */
-.flex {
-  display:flex;
-}
-
-.flex-jc-c {
-  justify-content:center;
-}
-
-.flex-jc-fe {
-  justify-content:flex-end;
-}
-
-.flex-jc-fs {
-  justify-content:flex-start;
-}
-
-.flex-jc-sb{
-  justify-content:space-between;
-}
-
-.flex-jc-sa{
-  justify-content:space-around;
-}
-.flex-ai-c {
-  align-items:center;
-}
-
-.flex-ai-fe {
-  align-items:flex-end;
-}
-
-.flex-ai-fs{
-  align-items:flex-start;
-}
-
-.flex-as-c {
-  align-self:center;
-}
-
-.flex-wrap {
-  flex-wrap:wrap;
-}
-
-.flex-column {
-  flex-direction:column;
-
-}
-
-.flex-grow-1 {
-  flex-grow:1;
-}
-
-.flex-1-0-0 {
-  flex:1 0 0;
-}
-
-.con {
-  margin-left:auto;
-  margin-right:auto;
-}
-
-.min-height-100vh {
-  min-height:100vh;
-}
-
-.min-height-50vh {
-  min-height:50vh;
-}
-
-.bd{
-  border:3px solid;
-}
-
-.bd-w{
-  border:3px solid white;
-}
-
-.bd-green {
-  border:3px solid green;
-}
-
-.bd-red {
-  border:3px solid red;
-}
-
-.bd-purple {
-  border:3px solid purple;
-}
-
-.bd-blue {
-  border:3px solid blue;
-}
-
-.bg-pink {
-  background-color:pink;
-}
-
-.bg-red {
-  background-color:red;
-}
-
-.bg-blue {
-  background-color:blue;
-}
-
-.height-100p {
-  height:100%;
-}
-
-.height-70p{
-  height:70%;
-}
-
-.height-500px{
-  height:500px;
-}
-
-
-.block {
-  display:block;
+select {
+  /*ios대응*/
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
 }
 
 /* 스타일 파일에 다음 CSS 코드를 추가하세요. */
 .mobile-section-login {
-  text-align: center; /* 가운데 정렬 */
-  width: 50%; /* 너비를 50%로 설정 */
+  text-align: center;
+  /* 가운데 정렬 */
+  width: 100%;
+  /* 너비를 50%로 설정 */
   font-size: 0.9rem;
   font-weight: bold;
   padding: 20px 10px;
-  margin: 0 auto; /* 수평 가운데 정렬을 위한 추가 스타일 */
-}
-
-.mobile-section-login-form {
-  width: 100%;
-}
-
-.mobile-section-login-form > div {
-  padding: 5px;
-}
-
-.mobile-section-login-form > div:not(:last-child) {
-  padding: 5px 20px;
-}
-
-.mobile-login-title {
-  text-align: center;
-  font-size: 1.5rem;
-  margin: 10px;
-  margin-bottom: 30px;
-  border-bottom: 4px solid gray;
-  text-shadow: 2px 2px 4px gray;
-}
-
-.mobile-section-login-form > div > span {
-  padding-bottom: 3px;
-  border-bottom: 2.5px solid gray;
-}
-
-.mobile-login_cell__title {
-  color: black;
-}
-
-.mobile-login_cell__body > input {
-  font-size: 0.9rem;
-  font-weight: bold;
-  border: none;
-  border-bottom: 2px solid rgba(230, 230, 230, 1);
-  padding: 5px;
-  height: 35px;
-  width: 90%;
-  min-width: 150px;
-}
-
-.mobile-loginInput_cell {
-  margin-top: 10px;
-  font-size: 0.9rem;
-}
-
-.mobile-loginInput_cell > div:first-child {
-  display: flex;
-  flex-direction: column;
-}
-
-.mobile-loginInput_cell > div > button {
-  margin: 5px 2px;
-  padding: 0 20px;
-  font-size: 0.9rem;
-}
-
-.mobile-loginInput_cell > div:last-child {
-  text-align: center;
-  padding-top: 10px;
-}
-
-.mobile-loginInput_cell > div:last-child > a {
-  padding: 7px;
-}
-
-.mobile-loginInput_cell > div > a:hover {
-  color: red;
-  font-weight: bold;
-  text-decoration: underline;
+  margin: 0 auto;
+  /* 수평 가운데 정렬을 위한 추가 스타일 */
 }
 
 .btn-social-login {
   transition: all .2s;
   outline: 0;
   border: 1px solid transparent;
-  padding: .5rem !important;
-  border-radius: 50%;
-  color: #fff;
+  padding: .4rem !important;
+  border-radius: 20px;
+  width: 80px;
+  height: 64px;
+  color: #f5f5f5;
+  background-color: #303234;
+  margin-top: 10%;
+  /* border-radius: 8px; */
+  box-shadow: -7px -7px 16px rgba(73, 73, 73, 0.30), 9px 9px 16px rgba(0, 0, 0, 0.40);
 }
+
 .btn-social-login:focus {
-  box-shadow: 0 0 0 .2rem rgba(0,123,255,.25);
+  box-shadow: 0 0 0 .2rem rgba(0, 123, 255, .25);
 }
-.text-dark { color: #343a40!important; }
+
+/*.loginCotainter {*/
+/*  animation-duration: .4s;*/
+/*  animation-name: animateLogin;*/
+/*}*/
+
+
+.login_content {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  width: 152px;
+  height: 152px;
+  max-width: 100%;
+  max-height: 100%;
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  transform: translate(-50%, -10%);
+  background-color: #303234;
+  border-radius: 100px;
+  box-shadow: -7px -7px 16px rgba(73, 73, 73, 0.6), 9px 9px 16px rgba(0, 0, 0, 0.40);
+  animation-duration: 2s;
+  animation-name: animateLogin;
+}
+
+.login_content img {
+  width: 80px;
+  height: 80px;
+}
+
+.login_forms {
+  display: grid;
+  /*background-color: red;*/
+  width: 80%;
+  position: absolute;
+  top: 47%;
+  left: 50%;
+  transform: translate(-50%, -10%);
+  padding: 2%;
+
+  a {
+    text-decoration: none;
+  }
+
+}
+
+.login_input {
+  border: none;
+  outline: none;
+  font-size: var(--normal-font-size);
+  font-weight: 700;
+  color: black;
+  text-align: center;
+  width: 100%;
+  height: 44px;
+  /*max-width: 100%;*/
+  /*max-height: 100%;*/
+  border-radius: 8px;
+  margin-bottom: 4%;
+  fill: radial-gradient(45.89% 60.07% at 50% 50%, #2E3134 0%, #292B2E 100%);
+  stroke-width: 1px;
+  stroke: #272829;
+  box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.40) inset;
+}
+
+.login_button {
+  margin-top: 3%;
+  margin-bottom: 3%;
+  width: 100%;
+  height: 50px;
+  border-radius: 8px;
+  line-height: 1.1em;
+
+
+  span {
+    color: #f5f5f5;
+    font-weight: 500;
+    font-size: 1em;
+  }
+}
+
+.line {
+  display: flex;
+  flex-basis: 100%;
+  align-items: center;
+  color: #c4c4c4;
+  font-size: 14px;
+  margin: 2% 0px;
+}
+
+.line::before {
+  content: "";
+  flex-grow: 1;
+  margin-right: 16px;
+  height: 1.5px;
+  width: 10px;
+  background-color: #c4c4c4;
+  border-radius: 50px;
+}
+
+.line::after {
+  content: "";
+  flex-grow: 1;
+  margin-left: 16px;
+  height: 1.5px;
+  width: 10px;
+  background-color: #c4c4c4;
+  border-radius: 50px;
+}
+
+.login_social {
+  /* margin: auto; */
+  position: absolute;
+  top: 76%;
+  left: 50%;
+  transform: translate(-50%, -10%);
+  display: flex;
+  justify-content: space-between;
+  width: 75%;
+}
+
+.login_signup {
+  position: absolute;
+  top: 82%;
+  left: 50%;
+  transform: translate(-50%, -10%);
+  width: 100%;
+  padding: 2%;
+
+  a {
+    margin: 0px 8px;
+  }
+}
+
+/* .login_signup,  */
+.login_signin {
+  color: #f5f5f5;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+/* .login_signup,  */
+.login_account,
+.login_signin {
+  /* font-weight: 500; */
+  font-size: var(--small-font-size);
+}
+
+.login_account {
+  margin-right: 3%;
+  color: #c4c4c4;
+  font-weight: 500;
+}
+
+/* @media screen and (max-width: 768px) {
+  .loginCotainter {
+    width: 60%;
+  }
+} */

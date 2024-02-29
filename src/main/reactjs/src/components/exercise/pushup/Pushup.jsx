@@ -3,6 +3,29 @@ import "../squat/progress.css";
 import Modal from "../MaxInputModal";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
+import styled, { keyframes } from "styled-components";
+import xButtonImage from '../../../image/close-white.png';
+import ProgressBar from '../progressBar';
+
+const blinkAnimation = keyframes`
+  0% { color: transparent; }
+  50% { color: white; }
+  100% { color: transparent; }
+`;
+
+const MessageBox = styled.div`
+width: 83%;
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  white-space: pre-line;
+  text-align: center;
+  font-size: 20px;  
+  font-weight: 900; 
+  font-family: 'Varela Round', sans-serif;
+  animation: ${blinkAnimation} 2.5s infinite linear forwards;
+`;
 
 const BASE_URL = process.env.REACT_APP_BACKEND_URL;
 const dateToSend = new Date().toISOString().split("T")[0];
@@ -43,16 +66,15 @@ const Pushup = () => {
     textAlign: "center",
   };
 
-  const squatContextStyle = {
-    textAlign: "center",
-    position: "relative",
-  };
-
-  const squatButtonStyle = {
-    position: "relative",
-    margin: "0 auto",
-    display: "inline-block",
-    top: "2%",
+  const stopButtonStyle = {
+    position: "absolute",
+    zIndex: 100,
+    width: '45px',
+    height: '45px',
+    border: 'none',
+    left:'43%',
+    top:'80%',
+    backgroundColor: 'transparent',
   };
 
   const canvasBox = {
@@ -61,16 +83,10 @@ const Pushup = () => {
   };
 
   const canvasStyle = {
-    width: "90%",
-    height: "90%",
+    width: "100%",
+    height: "98%",
     position: "relative",
-    top: "5%",
-  };
-
-  const messageBox = {
-    position: "relative",
-    top: "5%",
-    whiteSpace: "pre-line",
+    top: "0%",
   };
 
   const webcamRef = useRef(null);
@@ -90,6 +106,7 @@ const Pushup = () => {
   const [exerciseType, setExerciseType] = useState("");
   const [audios, setAudios] = useState([]);
   const location = useLocation();
+  const [showStartButton, setShowStartButton] = useState(true);
 
   useEffect(() => {
     if (location.pathname.includes("/squat")) {
@@ -114,7 +131,7 @@ const Pushup = () => {
         max: maxCount,
         value: count,
         animationDuration: 400,
-        textFormat: (val) => `${val}회`,
+        textFormat: (val) => `${val}%`,
       });
       setProgress(newProgress); // 생성된 인스턴스를 progress 상태로 설정
     }
@@ -130,44 +147,46 @@ const Pushup = () => {
   }, [count, progress]);
 
   const startExercise = async () => {
-    // 카메라 및 관련 기능 시작 로직
-    setMessage(
-      "지금부터 5초간 자세를 잡아주세요\n푸쉬업은 정면모습으로 진행하여주세요"
-    );
-    setTimeout(async () => {
-      setMessage("");
-      await init();
-      setCameraActive(true);
-      loop();
-      if (progressRef.current) {
-        progressRef.current.style.display = "block";
-        if (!progress) {
-          const newProgress = new window.CircleProgress(progressRef.current, {
-            max: maxCount, // 사용자가 설정한 maxCount 사용
-            value: count,
-            animationDuration: 400,
-            textFormat: (val) => `${val}회`,
-          });
-          setProgress(newProgress);
-        } else {
-          progress.value = count;
-        }
+    await init();
+    setCameraActive(true);
+    loop();
+    if (progressRef.current) {
+      progressRef.current.style.display = "block";
+      if (!progress) {
+        const newProgress = new window.CircleProgress(progressRef.current, {
+          max: maxCount,
+          value: count,
+          animationDuration: 400,
+          textFormat: (val) => `${val}%`,
+        });
+        setProgress(newProgress);
+      } else {
+        progress.value = count;
       }
-    }, 5000);
+    }
   };
 
   const handleModalSave = (value) => {
     setMaxCount(value);
     setShowModal(false);
-    startExercise();
+    setShowStartButton(false);
+    setMessage(
+      "지금부터 5초간 자세를 잡아주세요\n푸쉬업은 엎드린 상태로\n정면을 바라보고 진행하여주세요"
+    );
+    setTimeout(() => {
+      setMessage("");
+      startExercise();
+    }, 5000);
   };
 
   const handleModalClose = () => {
     setShowModal(false);
+    setShowStartButton(true);
   };
 
   const handleStartButtonClick = () => {
     setShowModal(true);
+    setShowStartButton(true);
   };
 
   const stopCameraAndFunction = () => {
@@ -192,6 +211,7 @@ const Pushup = () => {
       progressRef.current.style.display = "none";
     }
     setProgress(null);
+    setShowStartButton(true);
   };
 
   const playAudioAfterDelay = (audioFile) => {
@@ -309,7 +329,7 @@ const Pushup = () => {
   }, [count]);
 
   useEffect(() => {
-    if (status === "pushup" && countRef.current === "pushdown") {
+    if (status === "stand" && countRef.current === "squat") {
       const newCount = count + 1;
       setCount(newCount);
       playCountAudio(newCount);
@@ -348,55 +368,61 @@ const Pushup = () => {
   }, []);
 
   return (
-    <div style={squatBoxContainer}>
-      <div style={squatContextStyle}>pushup</div>
-      {cameraActive ? (
-        <>
+    <>
+      <div style={squatBoxContainer}>
+        {showStartButton && (
+          <div
+            className="playButton-container"
+            onClick={handleStartButtonClick}
+          >
+            <div class="playButton-triangle"></div>
+          </div>
+        )}
+
+        {cameraActive && (
           <button
             type="button"
             onClick={stopCameraAndFunction}
-            style={squatButtonStyle}
+            style={stopButtonStyle}
           >
-            중단하기
+             <img src={xButtonImage} alt="" />
           </button>
-          <div style={canvasBox}>
-            <div
-              ref={progressRef}
-              className="progress"
-              style={{ display: "block" }}
-            ></div>
-            <canvas
-              ref={canvasRef}
-              width="640px"
-              height="480px"
-              style={canvasStyle}
-            ></canvas>
-            <div
-              id="label-container"
-              style={{ position: "relative", top: "5%" }}
-            >
-              {predictions.map((p, index) => (
-                <div key={index}>{`${p.className}: ${p.probability}`}</div>
-              ))}
-            </div>
-          </div>
-        </>
-      ) : (
-        <button
-          type="button"
-          onClick={handleStartButtonClick}
-          style={squatButtonStyle}
-        >
-          측정시작
-        </button>
-      )}
+        )}
 
-      {showModal && (
-        <Modal onSave={handleModalSave} onClose={handleModalClose} />
-      )}
+        <div style={canvasBox}>
+          {cameraActive && (
+            <>
+              {/* <div
+                ref={progressRef}
+                className="progress"
+                style={{ display: "block" }}
+              ></div> */}
+              <ProgressBar maxCount={maxCount} count={count}  />
+              <canvas
+                ref={canvasRef}
+                width="640px"
+                height="480px"
+                style={canvasStyle}
+              ></canvas>
+              {/* <div
+                id="label-container"
+                style={{ position: "relative", top: "5%" }}
+              >
+                {predictions.map((p, index) => (
+                  <div key={index}>{`${p.className}: ${p.probability}`}</div>
+                ))}
+              </div> */}
+            </>
+          )}
+        </div>
 
-      {message && <div style={messageBox}>{message}</div>}
-    </div>
+        {showModal && (
+          <Modal onSave={handleModalSave} onClose={handleModalClose} />
+        )}
+
+        {message && <MessageBox>{message}</MessageBox>}
+      </div>
+    </>
   );
 };
 

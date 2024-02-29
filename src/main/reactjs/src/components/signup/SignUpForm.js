@@ -139,7 +139,6 @@ const SignUpForm = () => {
     }
   };
   return (
-    <>
       <div className="signUp">
         <h4>회원 가입</h4>
         <form className="signUpBox">
@@ -180,7 +179,7 @@ const SignUpForm = () => {
               * 이메일 양식을 맞춰주세요!
             </p>
           )}
-          <hr />
+          <hr/>
           <p className="userPassword title mustInput">비밀번호</p>
           <input
             onChange={handleInput}
@@ -206,7 +205,7 @@ const SignUpForm = () => {
             placeholder="비밀번호 확인"
             autoComplete="current-password"
           />
-          <hr />
+          <hr/>
           {/* 이름 입력 */}
           <p className="userName title mustInput">이름</p>
           <input
@@ -217,7 +216,7 @@ const SignUpForm = () => {
             placeholder="이름을(를) 입력하세요"
             autoComplete="username"
           />
-          <hr />
+          <hr/>
           {/* 닉네임 입력 */}
           <p className="userNickname title mustInput">닉네임</p>
           <input
@@ -228,48 +227,72 @@ const SignUpForm = () => {
             placeholder="닉네임을(를) 입력하세요"
             autoComplete="username"
           />
-          <hr />
-          {/* 성별 입력 */}
+          <hr/>
           <p className="userGender title mustInput">성별</p>
-          <label className="userMale label">
-            <input
-              onChange={handleInput}
-              className="radio"
-              name="gender"
-              type="radio"
-              value="male"
-            />
-            <span className="text">남자</span>
-          </label>
-          <label className="userFemale label">
-            <input
-              onChange={handleInput}
-              className="radio"
-              name="gender"
-              type="radio"
-              value="female"
-            />
-            <span className="text">여자</span>
-          </label>
-          <hr />
+          <div className="form_toggle row-vh d-flex flex-row justify-content-between">
+            <div className="form_radio_btn radio_male">
+              <input
+                onChange={handleInput}
+                id="radio-1"
+                type="radio"
+                name="gender"
+                defaultValue="male"
+              />
+              <label htmlFor="radio-1">남자</label>
+            </div>
+
+            <div className="form_radio_btn">
+              <input
+                onChange={handleInput}
+                id="radio-2"
+                type="radio"
+                name="gender"
+                defaultValue="female"
+              />
+              <label htmlFor="radio-2">여자</label>
+            </div>
+          </div>
+          {/* 성별 입력 */}
+          {/*<p className="userGender title mustInput">성별</p>*/}
+          {/*<label className="userMale label">*/}
+          {/*  <input*/}
+          {/*    onChange={handleInput}*/}
+          {/*    className="radio"*/}
+          {/*    name="gender"*/}
+          {/*    type="radio"*/}
+          {/*    defaultValue="male"*/}
+          {/*  />*/}
+          {/*  <span className="text">남자</span>*/}
+          {/*</label>*/}
+          {/*<label className="userFemale label">*/}
+          {/*  <input*/}
+          {/*    onChange={handleInput}*/}
+          {/*    className="radio"*/}
+          {/*    name="gender"*/}
+          {/*    type="radio"*/}
+          {/*    defaultValue="female"*/}
+          {/*  />*/}
+          {/*  <span className="text">여자</span>*/}
+          {/*</label>*/}
+          <hr/>
           {/* 생년월일 입력 */}
           <div className="userBirthdate">
             <p className="title mustInput">생년월일</p>
             <div className="selectBox">
-              <select className="select" name="year" onChange={handleInput}>
-                <option value="" selected disabled hidden>연도</option>
+              <select className="select" name="year" onChange={handleInput} defaultValue="연도">
+                <option disabled hidden>연도</option>
                 {YEAR.map(y => {
                   return <option key={y}>{y}</option>;
                 })}
               </select>
-              <select className="select" name="month" onChange={handleInput}>
-                <option value="" selected disabled hidden>월</option>
+              <select className="select" name="month" onChange={handleInput} defaultValue="월">
+                <option disabled hidden>월</option>
                 {MONTH.map(m => {
                   return <option key={m}>{m}</option>;
                 })}
               </select>
-              <select className="select" name="day" onChange={handleInput}>
-                <option value="" selected disabled hidden>일</option>
+              <select className="select" name="day" onChange={handleInput} defaultValue="일">
+                <option disabled hidden>일</option>
                 {DAY.map(d => {
                   return <option key={d}>{d}</option>;
                 })}
@@ -278,25 +301,29 @@ const SignUpForm = () => {
           </div>
           <hr/>
           {/* 키 입력 */}
-          <p className="userHeight title mustInput">키</p>
-          <input
-            onChange={handleInput}
-            className="userInputHeight numInput"
-            name="height"
-            type="number"
-            placeholder="cm"
-          />
-          <hr />
-          {/* 몸무게 입력 */}
-          <p className="userWeight title mustInput">몸무게</p>
-          <input
-            onChange={handleInput}
-            className="userInputWeight numInput"
-            name="weight"
-            type="number"
-            placeholder="kg"
-          />
-
+          <div className="userHeightWeightContainer" style={{display: "flex"}}>
+            <div className="userInputContainer">
+              <p className="userHeight title mustInput">키</p>
+              <input
+                onChange={handleInput}
+                className="userInputHeight numInput"
+                name="height"
+                type="number"
+                placeholder="cm"
+              />
+            </div>
+            <div className="userInputContainer">
+              {/* 몸무게 입력 */}
+              <p className="userWeight title mustInput">몸무게</p>
+              <input
+                onChange={handleInput}
+                className="userInputWeight numInput"
+                name="weight"
+                type="number"
+                placeholder="kg"
+              />
+            </div>
+          </div>
           {/* 개인정보 유효기간 */}
           <div className="agree">
             <p className="name title">약관 동의</p>
@@ -306,7 +333,6 @@ const SignUpForm = () => {
           </div>
         </form>
       </div>
-    </>
   );
 };
 

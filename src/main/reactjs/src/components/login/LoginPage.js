@@ -1,9 +1,12 @@
-import React, {useRef, useState} from "react";
+import React, { useRef, useState } from "react";
 import "../../CSS/Login.css";
 import { useNavigate } from "react-router-dom";
 import KakaoLogin from "./KakaoLogin";
 import NaverLogin from "./NaverLogin";
 import GoogleLogin from "./GoogleLogin";
+import { useRecoilState } from "recoil";
+import { LoginAtom } from "../../global/LoginAtom";
+import RunawayImage from "../../image/runaway.png";
 
 const LoginPage = () => {
   const navi = useNavigate();
@@ -12,6 +15,7 @@ const LoginPage = () => {
   const [password, setPassword] = useState("");
   const emailInputRef = useRef(null);
   const passwordInputRef = useRef(null);
+  const [isLogin, setIsLogin] = useRecoilState(LoginAtom);
 
   const checkLogin = async e => {
     e.preventDefault();
@@ -43,6 +47,7 @@ const LoginPage = () => {
       if (response.ok) {
         alert('로그인 성공');
         localStorage.setItem('token', token);
+        setIsLogin(token);
         navi('/');
       } else {
         throw new Error('로그인 실패');
@@ -52,61 +57,68 @@ const LoginPage = () => {
     }
   };
   return (
-    <div className="mobile-section-login">
-      <div className="mobile-login-title">LOGIN</div>
-      <div className="mobile-login_cell__title">
-        <span>아이디</span>
+    <div className="loginCotainter">
+
+      <div className="login_content">
+        <img src={RunawayImage} alt="user login" />
       </div>
-      <div className="mobile-login_cell__body">
-        <input
+      <div className="login_forms">
+        <input className="login_input"
           type="text"
           name="email"
           maxLength="50"
           placeholder="ID"
-          className="mobile-login_cell__input"
           onChange={(e) => setEmail(e.target.value)}
-          ref={emailInputRef}
-        />
-      </div>
-      <div className="mobile-login_cell__title">
-        <span>비밀번호</span>
-      </div>
-      <div className="mobile-login_cell__body">
-        <input
+          ref={emailInputRef} />
+        <input className="login_input"
           type="password"
-          name="password"
           maxLength="50"
           placeholder="Password"
-          className="mobile-login_cell__input"
           onChange={(e) => setPassword(e.target.value)}
-          ref={passwordInputRef}
-        />
+          ref={passwordInputRef} />
+
+        <div style={{
+          textAlign: "right",
+          marginTop: "-0.8%",
+          fontSize: '12px',
+          fontWeight: '600'
+        }}>
+          <a href="../member/doFindLoginIdForm">ID 찾기 </a>
+          <span style={{ color: "#f5f5f5" }}>&nbsp;/&nbsp;</span>{" "}
+          <a href="../member/doFindLoginPwForm"> PW 찾기</a>
+        </div>
+
+        <div>
+          <button className='btn primaryButton-outset login_button' onClick={checkLogin}>
+            <span
+              style={{
+                color: '#f5f5f5',
+                fontWeight: '600',
+                fontSize: '1.1em'
+              }}>
+              로그인
+            </span>
+          </button>
+        </div>
+
+        <div className="line">
+          OR
+        </div>
       </div>
-      <div className="mobile-loginInput_cell">
-        <div>
-          <button className="btn btn-go" type="button" onClick={checkLogin}>
-            <i className="fas fa-sign-in-alt"></i> Login
-          </button>
-          <button className="btn btn-back" type="button">
-            <i className="fas fa-undo"></i> Back
-          </button>
-          <button
-            className="btn btn-go"
-            type="button"
-            onClick={() => {
-              navi("/signup");
-            }}
-          >
-            <i className="fas fa-sign-in-alt"></i> 회원가입
-          </button>
-        </div>
-        <div>
-          <a href="../member/doFindLoginIdForm">ID 찾기</a> /{" "}
-          <a href="../member/doFindLoginPwForm">PW 찾기</a>
-        </div>
+
+      <div className="login_social"
+        style={{ marginTop: "12px" }}>
         <GoogleLogin />
-        <NaverLogin />
         <KakaoLogin />
+        <NaverLogin />
+      </div>
+      <div style={{ textAlign: "center", marginTop: "56px" }}
+        className="login_signup">
+        <span className="login_account">계정이 없으신가요?</span>
+        <span className="login_signin"
+          onClick={() => {
+            navi("/signup");
+          }}>회원 가입</span>
       </div>
     </div>
   );

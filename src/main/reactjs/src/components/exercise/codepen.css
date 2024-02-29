@@ -1,0 +1,127 @@
+body {
+  background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
+}
+
+.exercisejs-container {
+  box-shadow: -9px -9px 16px rgba(73, 73, 73, 0.40), 9px 9px 16px rgba(0, 0, 0, 0.40);
+  position: relative;
+  width: 90%;
+  height: 20%;
+  border-radius: 25px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 10px;
+  margin: 0 auto;
+  margin-top: 25px;
+}
+
+.squat-IconBox {
+  position: relative;
+  width: 70px;
+  height: 85px;
+  border-radius: 15px;
+  box-shadow: -9px -9px 16px rgba(73, 73, 73, 0.40), 9px 9px 16px rgba(0, 0, 0, 0.40);
+}
+
+.situp-IconBox {
+  position: relative;
+  width: 70px;
+  height: 85px;
+  border-radius: 15px;
+  box-shadow: -9px -9px 16px rgba(73, 73, 73, 0.40), 9px 9px 16px rgba(0, 0, 0, 0.40);
+}
+
+.pushup-IconBox {
+  position: relative;
+  width: 70px;
+  height: 85px;
+  border-radius: 15px;
+  box-shadow: -9px -9px 16px rgba(73, 73, 73, 0.40), 9px 9px 16px rgba(0, 0, 0, 0.40);
+}
+
+.modalButton:active {
+  transform: translateY(2px); /* 버튼이 눌렸을 때 아래로 조금 이동 */
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2); /* 그림자 조절로 눌림 효과 강조 */
+}
+
+.squat-IconBox,
+.situp-IconBox,
+.pushup-IconBox {
+  flex-grow: 1;
+  margin: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.exercisejs-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 15px;
+}
+
+.graff-container {
+  width: 90%;
+  height: 30%;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  top: 5%;
+  z-index: 190;
+}
+
+.graff {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  z-index: 200;
+}
+
+.graff-container2 {
+  width: 90%;
+  height: 30%;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  z-index: 190;
+  top: 5%;
+}
+
+.graff2 {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  z-index: 200;
+}
+
+@media (max-width: 768px) {
+
+  .squat-IconBox,
+  .situp-IconBox,
+  .pushup-IconBox {
+    width: 70px;
+    height: 80%;
+    margin: 5px 8px;
+  }
+
+  .graff,
+  .graff2 {
+    position: relative;
+    width: 100%;
+    height: auto;
+  }
+
+  .graff-container,
+  .graff-container2 {
+    position: relative;
+    width: 90%;
+    height: 200px;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+  }
+}
