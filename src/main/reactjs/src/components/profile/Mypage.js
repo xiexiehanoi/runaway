@@ -22,6 +22,7 @@ const Mypage = () => {
       }
     })
       .then(function (response) {
+        console.log(11);
         console.log(response.data);
         setUser(response.data)
       })
@@ -47,7 +48,7 @@ const Mypage = () => {
           }
         );
         console.log(response.data);
-        console.log("1111:"+response);
+        
         setMyChallengeList(response.data);
       } catch (error) {
         console.error("Error fetching exercise list:", error);
@@ -71,9 +72,9 @@ const Mypage = () => {
       <section className="user-info">
         <h2>내 정보</h2>
         <div className="info">
-          <p><strong>이름:</strong> {user?.username}</p>
+          <p><strong>이름:</strong> {user?.nickname}</p>
           <p><strong>이메일:</strong> {user?.email}</p>
-          <p><strong>등급:</strong> {user?.gradeName}</p>
+          <p><strong>등급:</strong> {user?.grade.level}</p>
         </div>
       </section>
       <section className="user-actions">
@@ -84,10 +85,8 @@ const Mypage = () => {
         <head className="header-inscreen" style={{ padding: "10px" }}>
           진행중인 챌린지 목록
         </head>
-        <div>
-          {myChallengeList.map((rowData, idx) => (
-            <MyChallenge key={idx} row={rowData} idx={idx} />
-          ))}
+        <div>    
+            <MyChallenge myChallengeList={myChallengeList} />
         </div>
       </section>
       <footer className="mypage-footer">

@@ -1,9 +1,7 @@
 package com.runaway.project.challenge.service;
 
 import com.runaway.project.challenge.dto.*;
-import com.runaway.project.challenge.repository.MyExerciseRepository;
 import com.runaway.project.challenge.repository.MyRunningRepository;
-import com.runaway.project.exercise.respository.ExerciseRepository;
 import com.runaway.project.running.repository.RunningRepository;
 import com.runaway.project.user.entity.User;
 import com.runaway.project.user.repository.GradeRepository;
@@ -33,7 +31,7 @@ public class RunningDayService {
         this.gradeRepository = gradeRepository;
     }
 
-    @Scheduled(cron = "00 50 17 * * *")
+    @Scheduled(cron = "0 0 0 * * *")
     @Transactional
     public void checkAndCompleteChallenges() {
         List<MyRunningDto> myRunnings = myRunningRepository.findAll();
