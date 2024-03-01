@@ -79,6 +79,7 @@ const Mypage = () => {
         </div>
       </section>
 
+      {/* 경험치바: className='Exp'까지 같이 가져가야 출력됩니다 */}
       <section>
           <div className='Exp'>
             <ExpBar level={user?.grade.level} exp={user?.point} min={user?.grade.minPoint} max={user?.grade.maxPoint}/>
