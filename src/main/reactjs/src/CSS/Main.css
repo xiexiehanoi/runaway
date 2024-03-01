@@ -1,50 +1,66 @@
-.startAnimation{
-    animation-name: startAnime;
-    animation-duration: 2s;
+.startAnimation {
+  animation-name: startAnime;
+  animation-duration: 2s;
 }
 
 @keyframes startAnime {
-    0% {
-      transform: translateY(200%);
-    }
-    50% {
-      transform: translateY(-1%);
-    }
-    100% {
-      transform: translateY();
-    }
+  0% {
+    transform: translateY(200%);
   }
-
-  .home-container {
-    box-shadow: -9px -9px 16px rgba(73, 73, 73, 0.40), 9px 9px 16px rgba(0, 0, 0, 0.40);
-    position: relative;
-    width: 90%;
-    height: 20%;
-    border-radius: 25px;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    padding: 10px;
-    margin: 0 auto;
-    margin-top: 25px;
-    margin-left: 25px;
+  50% {
+    transform: translateY(-1%);
   }
-
-  .home-img{
-    width: 80%;
-    height: 200px;
-    border-radius: 25px;
-    margin-right: 10%;
-    margin-left: 10%;
-    
-    
+  100% {
+    transform: translateY();
   }
+}
 
- 
+.home-container {
+  box-shadow: -9px -9px 16px rgba(73, 73, 73, 0.4),
+    9px 9px 16px rgba(0, 0, 0, 0.4);
+  position: relative;
+  width: 90%;
+  height: 20%;
+  border-radius: 25px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 10px;
+  margin: 0 auto;
+  margin-top: 25px;
+  margin-left: 25px;
+}
 
-  
+.home-img {
+  width: 80%;
+  height: 200px;
+  border-radius: 25px;
+  margin-right: 10%;
+  margin-left: 10%;
+}
 
+.home-exercise-img {
+  width: 100%;
+  height: auto;
+  border-radius: 20%;
+}
 
+.home-exercise-content {
+  border-radius: 20%;
+  width: 100px;
+  height: 100px;
+  margin: 0 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  padding: 8px;
+  pointer-events: auto;
+}
 
-  
-  
+.home-exercise-item {
+  display: flex;
+  justify-content: space-between;
+  width: 80%;
+  margin: 10%;
+}

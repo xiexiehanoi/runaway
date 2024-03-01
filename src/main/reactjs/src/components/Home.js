@@ -72,45 +72,43 @@ const Home = () => {
       </div>
 
       <div className="startAnimation">
-        <div style={{ display: "flex", marginRight: "7%", marginTop: "10%" }}>
-          <div
-            className="home-container"
-            style={{ textAlign: "center", height: "100px" }}
-          >
-            <Link to={"/running"}>
-              <img
-                src={runawayimg}
-                alt="running"
-                className="exercise-image"
-                style={{
-                  width: "50px",
-                  height: "50px",
-                  display: "block",
-                  margin: "0 auto",
-                }}
-              />
-              <span style={{ color: "white" }}>Running</span>
-            </Link>
-          </div>
+        <div
+          className="primaryCard"
+          style={{
+            width: "100%",
+            height: "150px",
+            display: "flex",
+            justifyContent: "space-between",
+          }}
+        >
+          <div className="home-exercise-item">
+            <div
+              className="home-exercise-content primaryCard"
+              style={{ textAlign: "center" }}
+            >
+              <Link to={"/running"}>
+                <img
+                  src={runawayimg}
+                  alt="running"
+                  className="home-exercise-img"
+                />
+                <span style={{ color: "white" }}>Running</span>
+              </Link>
+            </div>
 
-          <div
-            className="home-container"
-            style={{ textAlign: "center", height: "100px" }}
-          >
-            <Link to={"/exercise"}>
-              <img
-                src={pushupImage}
-                alt="pushup"
-                className="exercise-image"
-                style={{
-                  width: "50px",
-                  height: "50px",
-                  display: "block",
-                  margin: "0 auto",
-                }}
-              />
-              <span style={{ color: "white" }}>Exercise</span>
-            </Link>
+            <div
+              className="home-exercise-content primaryCard"
+              style={{ textAlign: "center" }}
+            >
+              <Link to={"/exercise"}>
+                <img
+                  src={pushupImage}
+                  alt="pushup"
+                  className="home-exercise-img"
+                />
+                <span style={{ color: "white" }}>Exercise</span>
+              </Link>
+            </div>
           </div>
         </div>
 

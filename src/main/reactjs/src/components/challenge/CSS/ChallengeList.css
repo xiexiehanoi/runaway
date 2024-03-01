@@ -5,16 +5,16 @@
   justify-content: center;
 }
 
-.challenge-list-title{
+.challenge-list-title {
   margin-left: 10px;
 }
 
-.exercise-main-container{
-  border-radius:20px;
+.exercise-main-container {
+  border-radius: 20px;
   display: flex;
   margin: 16px auto 10px auto;
   padding: 16px;
-  width:330px;
+  width: 330px;
 }
 
 /* 운동 리스트 */
@@ -39,28 +39,28 @@
   justify-content: center;
   align-items: center;
   position: relative;
-  z-index: 1; 
+  z-index: 1;
   cursor: pointer;
 }
 
-.exercise-button{
+.exercise-button {
   display: flex;
   justify-content: space-around;
-  flex-direction: row; 
-  align-items: center; 
+  flex-direction: row;
+  align-items: center;
   text-align: center;
 }
 
 /* 각 운동 이미지와 텍스트를 담는 컨테이너 */
 .exercise-item {
   display: flex;
-  flex-direction: column; 
-  align-items: center; 
+  flex-direction: column;
+  align-items: center;
   text-align: center;
 }
 
 .exercise-content::before {
-  content: '';
+  content: "";
   position: absolute;
   top: -2px;
   left: -2px;
@@ -75,19 +75,19 @@
   border: 4px solid gray;
 }
 
-.exercise-item:focus .exercise-content::before{
+.exercise-item:focus .exercise-content::before {
   border: 4px solid gray;
 }
 
 /* 이미지 스타일 */
 .exercise-image {
-  width: 60px; 
+  width: 100%;
   height: auto;
-  margin:auto;
+  margin: auto;
   border-radius: 20%;
 }
 
-.exercise-challenge-list{
+.exercise-challenge-list {
   position: relative;
   display: flex;
   width: 330px;
@@ -110,12 +110,12 @@
 /* 각 운동 이미지와 텍스트를 담는 컨테이너 */
 .exercise-item-inner {
   display: flex;
-  flex-direction: column; 
-  align-items: center; 
+  flex-direction: column;
+  align-items: center;
   text-align: center;
 }
 
-.exercise-challenge-list-body{
+.exercise-challenge-list-body {
   margin-top: 40px;
   width: 100%;
   display: flex;
@@ -181,7 +181,7 @@
   font-size: 25px;
   font-style: normal;
   font-weight: 600;
-  line-height: 30px; 
+  line-height: 30px;
 }
 
 .subject4 {
@@ -201,16 +201,16 @@
 }
 
 .exp-subject {
-  width: 100%; 
-  height: 100%; 
+  width: 100%;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
 }
 
-.exp-bar{
-  background: linear-gradient(to right, #A1B1EA, #4756A1);
+.exp-bar {
+  background: linear-gradient(to right, #a1b1ea, #4756a1);
   position: absolute;
   width: 120%;
   height: 32px;
