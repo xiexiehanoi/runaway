@@ -5,9 +5,7 @@ import axios from "axios";
 
 //사용하는 이미지
 import runawayimg from "../image/runaway.png";
-
 import pushupImage from '../image/push-up.png';
-
 import background from '../image/running.jpg';
 import pushupimg from '../image/pushup.jpg';
 import homeimg1 from '../image/homeimg1.jpg';
