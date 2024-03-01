@@ -45,22 +45,23 @@ const StoryShow = ({ storyList }) => {
   const mimeType = currentStory.storyContent.endsWith('.mp4') ? 'video/mp4' : 'video/webm';
 
   return (
-    <div {...handlers} style={{ width: "100%", height: "100%", overflow: "hidden" }} >
+    <div {...handlers} style={{ width: "100%", height: "100%", overflow: "hidden", position: 'relative' }} >
       <VideoPlayer
         src={videoUrl + currentStory.storyContent}
         mimeType={mimeType}
+        currentStory={currentStory}
       // width={100} // 부모 요소인 primaryCard에 가득 차도록 100%로 설정
       // height={100} // 부모 요소인 primaryCard에 가득 차도록 100%로 설정
       >
       </VideoPlayer>
-      <span className="primaryCard storyInfoContainer" >
+      {/* <span className="primaryCard storyInfoContainer" >
         <p className="storyInfo1">
           User: {currentStory.user.username}
         </p>
         <p className="storyInfo2">
           Upload Time: {currentStory.storyUploadTime}
         </p>
-      </span>
+      </span> */}
     </div>
 
   );
