@@ -15,7 +15,6 @@ const calculateSuccessFailure = (row, exerciseData) => {
     pendingCount = row.runningDays.filter(day => day.successStatus === 0).length;
 
   }
- 
   return { ...exerciseData, successCount, failureCount, pendingCount };
 };
   export default calculateSuccessFailure;
