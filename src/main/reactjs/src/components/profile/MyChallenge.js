@@ -11,20 +11,21 @@ const MyChallenge = ({ myChallengeList }) => {
   const [sitUpData, setSitUpData] = useState({ successCount: 0, failureCount: 0, pendingCount: 7 });
   const [pushUpData, setPushUpData] = useState({ successCount: 0, failureCount: 0, pendingCount: 7 });
 
+  
   useEffect(() => {
     myChallengeList.forEach((row) => {
       let result = { successCount: 0, failureCount: 0, pendingCount: 0 };
-
-      switch (row?.exercise_type) {
-        case "Sit-UP":
+      
+      switch (row.exerciseChallengeDto?.exercise_type) {
+        case "situp":
           result = calculateSuccessFailure(row, sitUpData);
           setSitUpData(result);
           break;
-        case "Push-UP":
+        case "pushup":
           result = calculateSuccessFailure(row, pushUpData);
           setPushUpData(result);
           break;
-        case "Squat":
+        case "squat":
           result = calculateSuccessFailure(row, squatData);
           setSquatData(result);
           break;
