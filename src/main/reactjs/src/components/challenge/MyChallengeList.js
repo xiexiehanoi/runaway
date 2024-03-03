@@ -11,8 +11,6 @@ const MyChallengeList = ({ row, idx }) => {
   const challengeData = isExerciseChallenge
     ? row.exerciseChallengeDto
     : row.runningChallenge;
-    console.log(11)
-    console.log(challengeData)
 
   const formatDate = (dateString) => {
     if (!dateString || typeof dateString !== "string") return "N/A";
@@ -43,11 +41,10 @@ const MyChallengeList = ({ row, idx }) => {
 
   return (
     <div
-      className="primaryCard"
-      style={{ borderRadius:"20px",display: "flex", margin: "16px auto 10px auto", padding: "16px", width:"300px", }}
+      className="primaryCard CommonContainer"
+      style={{ borderRadius:"20px",display: "flex", margin: "16px auto 10px auto", padding: "16px", width:"330px" }}
     >
-      <div className="exercise-item-inner">
-        <div className="exercise-content-inner">
+      <div className="exercise-content-inner">
           {exerciseImage && (
             <img
               src={exerciseImage}
@@ -55,28 +52,27 @@ const MyChallengeList = ({ row, idx }) => {
               className="exercise-image"
             />
           )}
-        </div>
       </div>
       <div className="myChallengeBox">
         {isExerciseChallenge ? (
           <>
-            <strong>{challengeData?.exercise_type.toUpperCase()}</strong>
-            <br />
-            <strong>매일 </strong> {challengeData?.target_count}회<br />
-            <strong>
-              {startDate}~{endDate}&nbsp; ({challengeData?.target_date}일)
-            </strong>
+            <div className="subject1">
+             {challengeData?.target_date} Days Challenge&nbsp;
+             <span className="subject2">( {challengeData?.exercise_type.toUpperCase()} )</span>
+            </div>
+            <div className="subject3">
+              매일 {challengeData?.target_count} 회
+          </div>
           </>
         ) : (
           <>
-            <strong>Running</strong>
-            <br />
-            <strong>매일 {challengeData?.distance}km </strong>
-            <br />
-            <strong>
-              {startDate}~{endDate}
-              &nbsp; ({challengeData?.target_date}일)
-            </strong>
+           <div className="subject1">
+              {challengeData?.target_date} Days Challenge&nbsp;
+              <span className="subject2">(Running)</span>
+            </div>
+            <div className="subject3">
+              매일 {challengeData?.distance} km
+          </div>
           </>
         )}
       </div>

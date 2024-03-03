@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import MyChallengeList from "./MyChallengeList";
 import "../../CSS/CommonApplicationStyle.css";
 import exerciseImg from "../../image/exercise.png";
-import runningImg from "../../image/runaway.png";
+import runningImg from "../../image/running.png";
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
@@ -37,14 +37,17 @@ const ChallengeMain = () => {
   }, []);
 
   return (
-    <div style={{ height: "100vh" }}>
+    <div className="CommonContainer" style={{ height: "100vh" }}>
       <div className="header-inscreen" style={{ padding: "10px" }}>
         챌린지 도전하기
       </div>
       <section style={{ marginBottom: "16px" }}>
-        <div className="exercise-container">
-          <div className="exercise-item">
-            <div className="exercise-content">
+        <div className="exercise-main-container exercise-button primaryCard">
+          <div className="exercise-item" style={{ padding: "5px" }}>
+            <div
+              className="exercise-content primaryCard"
+              style={{ marginBottom: "8px" }}
+            >
               <Link to="/exercisechallenge">
                 <img
                   src={exerciseImg}
@@ -57,14 +60,17 @@ const ChallengeMain = () => {
             </div>
             <span>맨몸운동</span>
           </div>
-          <div className="exercise-item">
-            <div className="exercise-content">
+          <div className="exercise-item" style={{ padding: "5px" }}>
+            <div
+              className="exercise-content primaryCard"
+              style={{ marginBottom: "8px" }}
+            >
               <Link to="/runningchallenge">
                 <img
                   src={runningImg}
                   alt="Running Challenge"
                   className="exercise-image"
-                  style={{ width: "80%", height: "80%" }}
+                  style={{ width: "100%", height: "100%" }}
                 />
                 <br />
               </Link>
@@ -74,7 +80,10 @@ const ChallengeMain = () => {
         </div>
       </section>
       <section>
-        <div className="header-inscreen" style={{ padding: "10px" }}>
+        <div
+          className="subject1 challenge-list-title"
+          style={{ fontSize: "1.5em" }}
+        >
           진행중인 챌린지 목록
         </div>
         <div>

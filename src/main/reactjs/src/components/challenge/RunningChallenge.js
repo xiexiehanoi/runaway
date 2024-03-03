@@ -29,26 +29,18 @@ const RunningChallenge = () => {
       <header className="header-inscreen" style={{ padding: "10px" }}>
         러닝 도전하기
       </header>
-      <div className="exercise-container" style={{marginBottom:"16px"}}>
-        <div className="exercise-content" style={{width:"110px", height:"110px"}}>
+      <div className="exercise-main-container exercise-container primaryCard">
+      <div  className="exercise-item primaryCard">
+        <div className="exercise-content" style={{width:"100px", height:"100px"}}>
           <img
             src={runningImg}
-            alt="Squat"
-            className="exercise-image"
-            style={{ width: "90%" }}
+            alt="Running"
+            className="exercise-image" style={{width:"90%", height:"90%"}}
           />
         </div>
       </div>
-      <div
-        className="runningChallengeListBody"
-        style={{
-          marginTop: "40px",
-          width: "100%",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-        }}
-      >
+      </div>
+      <div className="exercise-challenge-list-body">
         {runningList.map((rowData, idx) => (
           <RunningChallengeRowItem key={idx} row={rowData} idx={idx} />
         ))}
