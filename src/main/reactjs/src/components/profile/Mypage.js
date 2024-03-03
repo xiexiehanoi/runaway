@@ -7,6 +7,7 @@ import MyChallenge from './MyChallenge';
 import ExpBar from './ExpBar';
 
 import MyChallengeMonthlyRecord from './MyChallengeMonthlyRecord';
+import MyProfile from "./MyProfile";
 
 //import './css/Mypage.css'
 
@@ -91,22 +92,7 @@ const Mypage = () => {
 
   return (
     <div className="mypage-container">
-      <nav className="mypage-nav">
-        <Link to="/my" className="nav-link">내 정보 </Link>
-        <Link to="/runningRecord/" className="nav-link">나의 기록</Link>
-      </nav>
-      <header className="mypage-header">
-        <h1>마이페이지</h1>
-        {user && <div className="profile-picture" style={{ backgroundImage: `url(${user.profilePicture || 'defaultProfilePic.jpg'})` }}></div>}
-      </header>
-      <section className="user-info">
-        <h2>내 정보</h2>
-        <div className="info">
-          <p><strong>이름:</strong> {user?.nickname}</p>
-          <p><strong>이메일:</strong> {user?.email}</p>
-          <p><strong>등급:</strong> {user?.grade.level}</p>
-        </div>
-      </section>
+      <MyProfile />
 
       {/* 경험치바: className='Exp'까지 같이 가져가야 출력됩니다 */}
       <section>
@@ -115,10 +101,6 @@ const Mypage = () => {
           </div>
       </section>
 
-      <section className="user-actions">
-        <h2>활동</h2>
-        {/* Additional interactive elements or links to user activities could be added here */}
-      </section>
       <section className="challenge-info">
         <head className="header-inscreen" style={{ padding: "10px" }}>
           진행중인 챌린지 목록

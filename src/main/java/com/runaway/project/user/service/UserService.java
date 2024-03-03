@@ -4,7 +4,6 @@ import com.runaway.project.login.service.LoginService;
 import com.runaway.project.user.dto.SignUpRequestDto;
 import com.runaway.project.user.entity.Grade;
 import com.runaway.project.user.entity.User;
-import com.runaway.project.user.enums.SocialType;
 import com.runaway.project.user.repository.GradeRepository;
 import com.runaway.project.user.repository.UserRepository;
 import jakarta.servlet.http.HttpServletRequest;
@@ -65,5 +64,13 @@ public class UserService {
     if(!findUsers.isEmpty()) {
       throw new RuntimeException("이미 가입된 이메일 입니다.");
     }
+  }
+
+  @Transactional
+  public void profileImageAdd(Long id, String imageUrl) {
+    User addUserInfo = userRepository.findById(id).orElse(null);
+    addUserInfo.setImageUrl(imageUrl);
+
+    userRepository.save(addUserInfo);
   }
 }

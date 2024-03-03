@@ -16,7 +16,7 @@ const Logout = () => {
   return (
     <div>
       <button className='btn primaryButton-outset'
-              style={{margin: "10% 12%", width: '55%'}}
+              style={{margin: "10% 25%", width: '55%'}}
               onClick={handleLogoutButtonClick}>
                 <span
                   style={{
