@@ -19,8 +19,8 @@ export const useFetchUserInfo = () => {
         url: `${BACKEND_URL}/api/login/me`,
         headers: {
           Authorization: token
-        }
-      }
+        },
+      };
       const res = await axios(request);
       console.log(res.data);
       setUserInfo(res.data);
