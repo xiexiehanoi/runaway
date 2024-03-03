@@ -11,8 +11,8 @@ const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
 const ExerciseChallenge = () => {
   const [exerciseList, setExerciseList] = useState([]);
-  const [filteredExerciseList, setFilteredExerciseList] = useState([]); // 필터링된 챌린지 목록 상태
-  const [selectedType, setSelectedType] = useState("situp"); // 선택된 챌린지 유형 상태 (기본값: situp)
+  const [filteredExerciseList, setFilteredExerciseList] = useState([]); 
+  const [selectedType, setSelectedType] = useState("situp");
 
   useEffect(() => {
     const fetchExerciseList = async () => {
@@ -29,7 +29,7 @@ const ExerciseChallenge = () => {
     fetchExerciseList();
   }, []);
 
-  // 챌린지 유형을 선택하고 해당 유형의 챌린지만 필터링하는 함수
+
   const filterExerciseList = (type) => {
     if (type === selectedType) {
       setFilteredExerciseList([]);
@@ -49,10 +49,10 @@ const ExerciseChallenge = () => {
         맨몸운동 도전하기
       </header>
       {/* 챌린지 유형별 필터링 섹션 */}
-      <div className="challenge-mainbox">
-        <div className="exercise-container">
+      <>
+        <div className="exercise-main-container exercise-container primaryCard">
           <div
-            className="exercise-item"
+            className="exercise-item primaryCard"
             onClick={() => filterExerciseList("squat")}
           >
             <div className="exercise-content">
@@ -60,12 +60,11 @@ const ExerciseChallenge = () => {
                 src={squatImage}
                 alt="Squat"
                 className="exercise-image"
-                style={{ width: "56%" }}
               />
             </div>
           </div>
           <div
-            className="exercise-item"
+            className="exercise-item  primaryCard"
             onClick={() => filterExerciseList("situp")}
           >
             <div className="exercise-content">
@@ -73,7 +72,7 @@ const ExerciseChallenge = () => {
             </div>
           </div>
           <div
-            className="exercise-item"
+            className="exercise-item  primaryCard"
             onClick={() => filterExerciseList("pushup")}
           >
             <div className="exercise-content">
@@ -81,19 +80,9 @@ const ExerciseChallenge = () => {
             </div>
           </div>
         </div>
+      </>
 
-      </div>
-
-      <div
-        className="exerciseChallengeListBody"
-        style={{
-          marginTop: "40px",
-          width: "100%",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-        }}
-      >
+      <div className="exercise-challenge-list-body">
         {filteredExerciseList.length > 0
           ? filteredExerciseList.map((rowData, idx) => (
               <ExerciseChallengeRowItem key={idx} row={rowData} />
