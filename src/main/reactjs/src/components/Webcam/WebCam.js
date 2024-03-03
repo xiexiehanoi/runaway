@@ -96,7 +96,12 @@ const WebCam = () => {
                 </CSSTransition>
                 {!showWebCamVideo && (
                     <div className='primaryCard'
-                        style={{ width: '85%', height: '72%', margin: " auto" }}>
+                        style={{
+                            width: '85%',
+                            height: '72%',
+                            margin: " auto",
+                            position: 'relative'
+                        }}>
                         <StoryShow storyList={storyList} />
                     </div>
                 )}
