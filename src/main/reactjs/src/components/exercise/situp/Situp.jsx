@@ -30,6 +30,19 @@ width: 83%;
 const BASE_URL = process.env.REACT_APP_BACKEND_URL;
 const dateToSend = new Date().toISOString().split("T")[0];
 
+const calculateCalories = (count, exerciseType) => {
+  switch (exerciseType) {
+    case 'squat':
+      return count * 1.2;
+    case 'situp':
+      return count * 0.9;
+    case 'pushup':
+      return count * 0.7;
+    default:
+      return 0;
+  }
+};
+
 const saveCountToDatabase = async (count, exerciseType) => {
   try {
     const token = window.localStorage.getItem("token");
@@ -38,18 +51,20 @@ const saveCountToDatabase = async (count, exerciseType) => {
       return;
     }
 
+    const calories = calculateCalories(count, exerciseType);
     await axios.post(
-      `${BASE_URL}/api/exercise/save`,
-      {
-        date: dateToSend,
-        exerciseCount: count,
-        exerciseType: exerciseType,
-      },
-      {
-        headers: {
-          Authorization: token,
+        `${BASE_URL}/api/exercise/save`,
+        {
+          date: dateToSend,
+          exerciseCount: count,
+          exerciseType: exerciseType,
+          calories: calories,
         },
-      }
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
     );
     console.log("Count saved successfully");
     alert("세트 하나 완료");

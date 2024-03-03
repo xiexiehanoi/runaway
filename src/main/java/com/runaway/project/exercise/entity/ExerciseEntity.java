@@ -34,5 +34,5 @@ public class ExerciseEntity {
     private String exerciseType;
 
     @Column(nullable = true)
-    private Integer calorie;
+    private Double calorie;
 }
