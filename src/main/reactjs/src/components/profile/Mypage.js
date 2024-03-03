@@ -3,7 +3,11 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Logout from "../login/Logout";
 import MyChallenge from './MyChallenge';
+
+import ExpBar from './ExpBar';
+
 import MyChallengeMonthlyRecord from './MyChallengeMonthlyRecord';
+
 //import './css/Mypage.css'
 
 const Mypage = () => {
@@ -103,6 +107,14 @@ const Mypage = () => {
           <p><strong>등급:</strong> {user?.grade.level}</p>
         </div>
       </section>
+
+      {/* 경험치바: className='Exp'까지 같이 가져가야 출력됩니다 */}
+      <section>
+          <div className='Exp'>
+            <ExpBar level={user?.grade.level} exp={user?.point} min={user?.grade.minPoint} max={user?.grade.maxPoint}/>
+          </div>
+      </section>
+
       <section className="user-actions">
         <h2>활동</h2>
         {/* Additional interactive elements or links to user activities could be added here */}
