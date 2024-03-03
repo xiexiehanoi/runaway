@@ -6,11 +6,13 @@ import RunawayFemaleImage from "./Img/runaway_female_image.jpg";
 import "./css/MyProfile.css";
 import ChallengerIcon from "./Img/challenger_icon.jpg";
 import axios from "axios";
+import {useNavigate} from "react-router-dom";
 const MyProfile = () => {
   const fetchUserInfo = useFetchUserInfo();
   const userInfo = useRecoilValue(UserInfoAtom);
   const BASE_URL = process.env.REACT_APP_BACKEND_URL;
   const IMAGE_URL = "https://kr.object.ncloudstorage.com/runaway/profile_image/";
+  const navi = useNavigate();
 
   useEffect(() => {
       fetchUserInfo();
@@ -22,6 +24,10 @@ const MyProfile = () => {
     } else {
       e.target.src = `${RunawayFemaleImage}`;
     }
+  };
+
+  const goToEditInfoForm = () => {
+    navi("/edit-info");
   };
 
   // 파일 업로드 이벤트
@@ -59,7 +65,7 @@ const MyProfile = () => {
           <p className="user_email">{userInfo.email}aaaaa@naver.com</p>
         </div>
         <div className="edit_info" style={{marginTop: "9%"}}>
-          <button className="edit_button btn primaryButton-outset">편집</button>
+          <button className="edit_button btn primaryButton-outset" onClick={goToEditInfoForm}>편집</button>
         </div>
       </div>
     </div>
