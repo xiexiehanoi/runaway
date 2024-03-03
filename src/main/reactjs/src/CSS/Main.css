@@ -40,27 +40,26 @@
 }
 
 .home-exercise-img {
-  width: 100%;
+  max-width: 50%;
   height: auto;
   border-radius: 20%;
+  object-fit: contain;
 }
 
 .home-exercise-content {
+  height: 90px;
+  width: 250px;
   border-radius: 20%;
-  width: 100px;
-  height: 100px;
   margin: 0 10px;
   display: flex;
   justify-content: center;
   align-items: center;
-  cursor: pointer;
-  padding: 8px;
-  pointer-events: auto;
 }
 
 .home-exercise-item {
   display: flex;
-  justify-content: space-between;
-  width: 80%;
-  margin: 10%;
+  justify-content: space-around;
+  width: auto;
+  margin: 5%;
+  padding: auto;
 }
