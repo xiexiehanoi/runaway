@@ -73,4 +73,12 @@ public class UserService {
 
     userRepository.save(addUserInfo);
   }
+
+  @Transactional
+  public void editInfo(Long id, User user) {
+    User editUserInfo = userRepository.findById(id).orElse(null);
+    editUserInfo.editInfo(user);
+
+    userRepository.save(editUserInfo);
+  }
 }

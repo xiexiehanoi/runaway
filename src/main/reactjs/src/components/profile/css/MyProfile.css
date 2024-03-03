@@ -4,7 +4,7 @@
     /*font-family: var(--font);*/
     .my_info {
         /*margin-top: 10%;*/
-        padding: 5%;
+        /*padding: 5%;*/
         display: inline-flex;
         /*width: 90%;*/
         /*margin-left: 5%;*/
@@ -12,8 +12,8 @@
         /*max-width: 100%;*/
         /*max-height: 100%;*/
         position: relative;
-        left: 50%;
-        margin-top: 10%;
+        left: 48%;
+        margin-top: 15%;
         transform: translate(-50%, -10%);
         /*background-color: #303234;*/
         /*border-radius: 50px;*/
