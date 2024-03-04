@@ -1,0 +1,143 @@
+[1mdiff --git a/src/main/java/com/runaway/project/challenge/controller/ChallengeController.java b/src/main/java/com/runaway/project/challenge/controller/ChallengeController.java[m
+[1mindex fc33696..d99448b 100644[m
+[1m--- a/src/main/java/com/runaway/project/challenge/controller/ChallengeController.java[m
+[1m+++ b/src/main/java/com/runaway/project/challenge/controller/ChallengeController.java[m
+[36m@@ -128,4 +128,16 @@[m [mpublic class ChallengeController {[m
+         return currentMonthMyChallengeList;[m
+     }[m
+ [m
+[32m+[m[32m    @GetMapping("/challengemain/mychallengerecordlist")[m
+[32m+[m[32m    public List<?> getMyChallengeAllList (HttpServletRequest request) {[m
+[32m+[m[32m        User user = userService.getUserByReqeust(request);[m
+[32m+[m[32m        System.out.println(user);[m
+[32m+[m[32m        if (user == null) ResponseEntity.badRequest().body("Error in token");[m
+[32m+[m
+[32m+[m[32m        List<?> myChallengeList = challengeService.getMyChallengeAllList(user.getId());[m
+[32m+[m
+[32m+[m[32m        return myChallengeList;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m
+ }[m
+[1mdiff --git a/src/main/java/com/runaway/project/challenge/repository/MyExerciseRepository.java b/src/main/java/com/runaway/project/challenge/repository/MyExerciseRepository.java[m
+[1mindex e74e3f7..ab361be 100644[m
+[1m--- a/src/main/java/com/runaway/project/challenge/repository/MyExerciseRepository.java[m
+[1m+++ b/src/main/java/com/runaway/project/challenge/repository/MyExerciseRepository.java[m
+[36m@@ -11,11 +11,14 @@[m [mpublic interface MyExerciseRepository extends JpaRepository<MyExerciseDto, Long>[m
+     @Query("SELECT me FROM MyExerciseDto me WHERE me.user.id = :userId AND me.exerciseChallengeDto.exercise_type = :exerciseType AND me.end_date > CURRENT_DATE")[m
+     List<MyExerciseDto> findAllActiveByUserIdAndExerciseType(@Param("userId") Long userId, @Param("exerciseType") String exerciseType);[m
+ [m
+[31m-    @Query("select mx from MyExerciseDto mx where mx.user.id=:userId order by mx.start_date DESC")[m
+[32m+[m[32m    @Query("select mx from MyExerciseDto mx where mx.user.id=:userId AND mx.start_date <= CURRENT_DATE AND mx.end_date >= CURRENT_DATE order by mx.start_date DESC")[m
+     List<MyExerciseDto> findByUserExerciseChallengeList(@Param("userId") Long userId);[m
+ [m
+[32m+[m
+     @Query("select mx from MyExerciseDto mx where mx.user.id=:userId AND YEAR(mx.start_date) <= YEAR(CURRENT_DATE) AND MONTH(mx.start_date) <= MONTH(CURRENT_DATE) AND YEAR(mx.end_date) >= YEAR(CURRENT_DATE) AND MONTH(mx.end_date) >= MONTH(CURRENT_DATE) order by mx.start_date DESC")[m
+     List<MyExerciseDto> findByUserCurrentMonthExerciseChallengeList(@Param("userId") Long userId);[m
+ [m
+ [m
+[32m+[m[32m    @Query("select mx from MyExerciseDto mx where mx.user.id=:userId order by mx.start_date DESC")[m
+[32m+[m[32m    List<MyExerciseDto> findAllByUserId(Long userId);[m
+ }[m
+[1mdiff --git a/src/main/java/com/runaway/project/challenge/repository/MyRunningRepository.java b/src/main/java/com/runaway/project/challenge/repository/MyRunningRepository.java[m
+[1mindex 06e8f2e..1ae1ab4 100644[m
+[1m--- a/src/main/java/com/runaway/project/challenge/repository/MyRunningRepository.java[m
+[1m+++ b/src/main/java/com/runaway/project/challenge/repository/MyRunningRepository.java[m
+[36m@@ -18,6 +18,9 @@[m [mpublic interface MyRunningRepository extends JpaRepository<MyRunningDto,Long> {[m
+     @Query("select mr from MyRunningDto mr where mr.user.id=:userId AND YEAR(mr.startDate) <= YEAR(CURRENT_DATE) AND MONTH(mr.startDate) <= MONTH(CURRENT_DATE) AND YEAR(mr.endDate) >= YEAR(CURRENT_DATE) AND MONTH(mr.endDate) >= MONTH(CURRENT_DATE) order by mr.startDate DESC")[m
+     List<MyRunningDto> findByUserCurrentMonthRunningChallengeList(@Param("userId") Long userId);[m
+ [m
+[32m+[m[32m    @Query("select mr from MyRunningDto mr where mr.user.id=:userId order by mr.startDate DESC")[m
+[32m+[m[32m    List<MyRunningDto> findAllByUserId(Long userId);[m
+[32m+[m
+ [m
+ [m
+ [m
+[36m@@ -25,5 +28,4 @@[m [mpublic interface MyRunningRepository extends JpaRepository<MyRunningDto,Long> {[m
+     List<MyRunningDto> findAllByUserIdAndDateRange(@Param("userId") Long userId, @Param("currentDate") LocalDate currentDate);[m
+ [m
+     List<MyRunningDto> findAllByUserIdAndEndDateGreaterThan(Long userId, LocalDate endDate);[m
+[31m-[m
+ }[m
+[1mdiff --git a/src/main/java/com/runaway/project/challenge/service/ChallengeService.java b/src/main/java/com/runaway/project/challenge/service/ChallengeService.java[m
+[1mindex 1553cb2..7420839 100644[m
+[1m--- a/src/main/java/com/runaway/project/challenge/service/ChallengeService.java[m
+[1m+++ b/src/main/java/com/runaway/project/challenge/service/ChallengeService.java[m
+[36m@@ -82,7 +82,7 @@[m [mpublic class ChallengeService {[m
+         combinedChallenges.addAll(exerciseChallenges);[m
+         combinedChallenges.addAll(runningChallenges);[m
+ [m
+[31m-//        System.out.println("결과: " +combinedChallenges);[m
+[32m+[m
+         return combinedChallenges;[m
+     }[m
+ [m
+[36m@@ -95,7 +95,17 @@[m [mpublic class ChallengeService {[m
+         combinedChallenges.addAll(exerciseChallenges);[m
+         combinedChallenges.addAll(runningChallenges);[m
+ [m
+[31m-//        System.out.println("결과: " +combinedChallenges);[m
+[32m+[m[32m        return combinedChallenges;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public List<Object> getMyChallengeAllList(Long userId) {[m
+[32m+[m[32m        List<MyExerciseDto> exerciseChallenges = myExerciseRepository.findAllByUserId (userId);[m
+[32m+[m[32m        List<MyRunningDto> runningChallenges = myRunningRepository.findAllByUserId (userId);[m
+[32m+[m
+[32m+[m[32m        List<Object> combinedChallenges = new ArrayList<>();[m
+[32m+[m[32m        combinedChallenges.addAll(exerciseChallenges);[m
+[32m+[m[32m        combinedChallenges.addAll(runningChallenges);[m
+[32m+[m
+         return combinedChallenges;[m
+     }[m
+ [m
+[1mdiff --git a/src/main/reactjs/src/components/profile/MyChallengeList.js b/src/main/reactjs/src/components/profile/MyChallengeList.js[m
+[1mdeleted file mode 100644[m
+[1mindex 5a08492..0000000[m
+[1m--- a/src/main/reactjs/src/components/profile/MyChallengeList.js[m
+[1m+++ /dev/null[m
+[36m@@ -1,98 +0,0 @@[m
+[31m-import React from "react";[m
+[31m-// import "../../CSS/CommonApplicationStyle.css";[m
+[31m-import "./css/MyChallenge.css";[m
+[31m-import situpImage from "../../image/sit-up.png";[m
+[31m-import pushupImage from "../../image/push-up.png";[m
+[31m-import squatImage from "../../image/squat.png";[m
+[31m-import runningImage from "../../image/runaway.png";[m
+[31m-import DonutChart from "./DonutChart";[m
+[31m-import calculateSuccessFailure from "./calculateSuccessFailure.js"[m
+[31m-[m
+[31m-const MyChallengeList = ({ row, idx }) => {[m
+[31m-  const isExerciseChallenge = row.hasOwnProperty("exerciseChallengeDto");[m
+[31m-  const challengeData = isExerciseChallenge[m
+[31m-    ? row.exerciseChallengeDto[m
+[31m-    : row.runningChallenge;[m
+[31m-[m
+[31m-    [m
+[31m-    let exerciseData = {};[m
+[31m-    let runningData = {};[m
+[31m-    [m
+[31m-    if (row.exerciseChallengeDto) {[m
+[31m-      // 운동 데이터인 경우[m
+[31m-      exerciseData[idx] = row;[m
+[31m-    } else if (row.runningChallenge) {[m
+[31m-      // 러닝 데이터인 경우[m
+[31m-      runningData[idx] = row;[m
+[31m-      [m
+[31m-    }[m
+[31m-[m
+[31m-[m
+[31m-    console.log(row)[m
+[31m-[m
+[31m-  const formatDate = (dateString) => {[m
+[31m-    if (!dateString || typeof dateString !== "string") return "N/A";[m
+[31m-    const date = new Date(dateString);[m
+[31m-    const month = (date.getMonth() + 1).toString().padStart(2, "0");[m
+[31m-    const day = date.getDate().toString().padStart(2, "0");[m
+[31m-    return `${month}-${day}`;[m
+[31m-  };[m
+[31m-[m
+[31m-  const startDate = formatDate(row.start_date || row.startDate);[m
+[31m-  const endDate = formatDate(row.end_date || row.endDate);[m
+[31m-[m
+[31m-   // 챌린

@@ -18,6 +18,9 @@ public interface MyRunningRepository extends JpaRepository<MyRunningDto,Long> {
     @Query("select mr from MyRunningDto mr where mr.user.id=:userId AND YEAR(mr.startDate) <= YEAR(CURRENT_DATE) AND MONTH(mr.startDate) <= MONTH(CURRENT_DATE) AND YEAR(mr.endDate) >= YEAR(CURRENT_DATE) AND MONTH(mr.endDate) >= MONTH(CURRENT_DATE) order by mr.startDate DESC")
     List<MyRunningDto> findByUserCurrentMonthRunningChallengeList(@Param("userId") Long userId);
 
+    @Query("select mr from MyRunningDto mr where mr.user.id=:userId order by mr.startDate DESC")
+    List<MyRunningDto> findAllByUserId(Long userId);
+
 
 
 
@@ -25,5 +28,4 @@ public interface MyRunningRepository extends JpaRepository<MyRunningDto,Long> {
     List<MyRunningDto> findAllByUserIdAndDateRange(@Param("userId") Long userId, @Param("currentDate") LocalDate currentDate);
 
     List<MyRunningDto> findAllByUserIdAndEndDateGreaterThan(Long userId, LocalDate endDate);
-
 }

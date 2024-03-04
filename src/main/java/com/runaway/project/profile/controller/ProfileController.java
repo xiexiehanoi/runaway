@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
@@ -39,6 +40,45 @@ public class ProfileController {
 
 
     }
+
+    @GetMapping("running/MonthlyRunningData")
+    public List<Map<String, Object>> getMonthlyRunningDat(HttpServletRequest request){
+        User user = userService.getUserByReqeust(request);
+        if (user == null) ResponseEntity.badRequest().body("Error in token");
+
+        List<Map<String, Object>> monthlyRunningData = profileService.getMonthlyRunningData(user.getId());
+
+        return monthlyRunningData;
+    }
+
+    @GetMapping("start/date")
+    public Map<String, Object> getStartDate(HttpServletRequest request){
+        User user = userService.getUserByReqeust(request);
+        if (user == null) ResponseEntity.badRequest().body("Error in token");
+
+        Map<String, Object> startDate = profileService.getStartDate(user.getId());
+
+        return startDate;
+    }
+
+    @GetMapping("running/recordss")
+    public ResponseEntity<?> getRuningRecordss(
+            HttpServletRequest request,
+            @RequestParam(value = "period", required = false) String period,
+            @RequestParam(value = "detail", required = false) String detail){
+
+        User user = userService.getUserByReqeust(request);
+        if (user == null) {
+            return ResponseEntity.badRequest().body("Error in token");
+        }
+
+        // 비즈니스 로직 수행, 예: 사용자 ID와 쿼리 파라미터를 기반으로 데이터 조회
+        List<RunningEntity> records = profileService.getRunningRecords(user.getId(), period, detail);
+
+        // 조회된 데이터 반환
+        return ResponseEntity.ok(records);
+    }
+
 
 
 }
