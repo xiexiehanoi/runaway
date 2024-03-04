@@ -11,7 +11,7 @@ const NaverLogin = () => {
     return (
         <>
             <a href={NAVER_AUTH_URI}>
-                <button className='btn-social-login'>
+                <button className='btn-social-login CommonContainer'>
                     {/* <button className='btn-social-login' style={{ backgroundColor: '#1FC700' }}> */}
                     {/* <i className="xi-2x xi-naver"></i> */}
                     <img alt='kakaotalk' src={naverLogin}

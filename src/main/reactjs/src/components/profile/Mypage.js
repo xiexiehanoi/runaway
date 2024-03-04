@@ -3,12 +3,20 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Logout from "../login/Logout";
 import MyChallenge from './MyChallenge';
+
+import ExpBar from './ExpBar';
+
+import MyChallengeMonthlyRecord from './MyChallengeMonthlyRecord';
+import MyProfile from "./MyProfile";
+
 //import './css/Mypage.css'
 
 const Mypage = () => {
   const [user, setUser] = useState(null)
   const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
   const [myChallengeList, setMyChallengeList] = useState([]);
+  const [currentMonthMyChallengeList, setCurrentMonthMyChallengeList] = useState([]);
+  
 
   useEffect(() => {
     const token = window.localStorage.getItem('token');
@@ -22,8 +30,6 @@ const Mypage = () => {
       }
     })
       .then(function (response) {
-        console.log(11);
-        console.log(response.data);
         setUser(response.data)
       })
       .catch(function (error) {
@@ -47,8 +53,6 @@ const Mypage = () => {
             },
           }
         );
-        console.log(response.data);
-        
         setMyChallengeList(response.data);
       } catch (error) {
         console.error("Error fetching exercise list:", error);
@@ -57,46 +61,63 @@ const Mypage = () => {
     fetchMyChallengeList();
   }, []);
 
+  useEffect(() => {
+    const fetchCurrentMonthMyChallengeList = async () => {
+      try {
+        const token = window.localStorage.getItem("token");
+        if (!token) {
+          console.log("Token not found.");
+          return;
+        }
+        const response = await axios.get(
+          `${BACKEND_URL}/api/challenge/challengemain/currentMonthMychallengelist`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`, // 토큰을 Authorization 헤더에 포함
+            },
+          }
+        );
+        console.log(11)
+        console.log(response.data);
+        
+        setCurrentMonthMyChallengeList(response.data);
+      } catch (error) {
+        console.error("Error fetching exercise list:", error);
+      }
+    };
+    fetchCurrentMonthMyChallengeList();
+  }, []);
+
   
 
   return (
     <div className="mypage-container">
-      <nav className="mypage-nav">
-        <Link to="/my" className="nav-link">내 정보 </Link>
-        <Link to="/runningRecord/" className="nav-link">나의 기록</Link>
-      </nav>
-      <header className="mypage-header">
-        <h1>마이페이지</h1>
-        {user && <div className="profile-picture" style={{ backgroundImage: `url(${user.profilePicture || 'defaultProfilePic.jpg'})` }}></div>}
-      </header>
-      <section className="user-info">
-        <h2>내 정보</h2>
-        <div className="info">
-          <p><strong>이름:</strong> {user?.nickname}</p>
-          <p><strong>이메일:</strong> {user?.email}</p>
-          <p><strong>등급:</strong> {user?.grade.level}</p>
+      <div className="header-inscreen">
+        <span style={{fontFamily: 'Anton', marginLeft: "8%"}}>MY INFO</span>
+      </div>
+      <MyProfile/>
+      {/* 경험치바: className='Exp'까지 같이 가져가야 출력됩니다 */}
+      <section>
+        <div className='Exp'>
+          <ExpBar level={user?.grade.level} exp={user?.point} min={user?.grade.minPoint} max={user?.grade.maxPoint}/>
         </div>
       </section>
-      <section className="user-actions">
-        <h2>활동</h2>
-        {/* Additional interactive elements or links to user activities could be added here */}
-      </section>
-      <section>
-        <head className="header-inscreen" style={{ padding: "10px" }}>
+
+      <section className="challenge-info">
+        <head className="header-inscreen" style={{padding: "10px"}}>
           진행중인 챌린지 목록
         </head>
-        <div>    
-            <MyChallenge myChallengeList={myChallengeList} />
+        <div>
+          <MyChallenge myChallengeList={myChallengeList}/>
+          {/* <MyChallengeMonthlyRecord currentMonthMyChallengeList={currentMonthMyChallengeList}/> */}
         </div>
       </section>
       <footer className="mypage-footer">
-        <Logout />
+        <Logout/>
       </footer>
     </div>
   );
 };
-
-
 
 
 export default Mypage;

@@ -117,4 +117,15 @@ public class ChallengeController {
         return myChallengeList;
     }
 
+    @GetMapping("/challengemain/currentMonthMychallengelist")
+    public List<?> getCurrentMonthMyChallengeList(HttpServletRequest request) {
+        User user = userService.getUserByReqeust(request);
+        System.out.println(user);
+        if (user == null) ResponseEntity.badRequest().body("Error in token");
+
+        List<?> currentMonthMyChallengeList = challengeService.getAllCurrentMonthMyChallengesList(user.getId());
+
+        return currentMonthMyChallengeList;
+    }
+
 }

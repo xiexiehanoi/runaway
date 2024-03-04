@@ -10,7 +10,7 @@ const KakaoLogin = () => {
     return (
         <>
             <a href={KAKAO_AUTH_URI}>
-                <button className='btn-social-login'>
+                <button className='btn-social-login CommonContainer'>
                     {/* <button className='btn-social-login' style={{ backgroundColor: '#FFEB00' }}> */}
                     {/* <i className="xi-2x xi-kakaotalk text-dark"></i> */}
                     <img alt='kakaotalk' src={kakaoLogin}
