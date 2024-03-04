@@ -8,10 +8,10 @@ import runawayimg from "../image/runaway.png";
 
 import pushupImage from "../image/exercise.png";
 
-import background from "../image/running.jpg";
-import pushupimg from "../image/pushup.jpg";
-import homeimg1 from "../image/homeimg1.jpg";
-import homeimg2 from "../image/homeimg2.jpg";
+import background from "../image/로고사진.png";
+import pushupimg from "../image/KakaoTalk_20240304_145319261.png";
+
+import homeimg2 from "../image/3조.png";
 
 //사용하는 css
 import "../CSS/Main.css";
@@ -23,9 +23,10 @@ var settings = {
   className: "center",
   centerMode: true,
   infinite: true,
-  centerPadding: "60px",
+  centerPadding: "40px",
   speed: 500,
   slidesToShow: 1,
+  arrow: false
 };
 
 const Home = () => {
@@ -66,18 +67,18 @@ const Home = () => {
   }
 
   return (
-    <div>
+    <div >
       <div className="header-inscreen">
         <span style={{ fontFamily: "Anton", marginLeft: "8%" }}>Runaway</span>
       </div>
 
-      <div className="startAnimation">
+      <div className="startAnimation" style={{ marginTop: '15%' }}>
         <div className="home-exercise-item">
           <div
             className="home-exercise-content primaryCard"
             style={{ textAlign: "center" }}
           >
-            <Link to={"/running"}>
+            <Link to={"/running"} style={{ textDecoration: "none" }}>
               <img
                 src={runawayimg}
                 alt="running"
@@ -92,7 +93,7 @@ const Home = () => {
             className="home-exercise-content primaryCard"
             style={{ textAlign: "center" }}
           >
-            <Link to={"/exercise"}>
+            <Link to={"/exercise"} style={{ textDecoration: "none" }}>
               <img
                 src={pushupImage}
                 alt="pushup"
@@ -112,10 +113,8 @@ const Home = () => {
           <div className="home-img-banner">
             <img src={pushupimg} className="home-img" alt="22" />
           </div>
-          <div className="home-img-banner">
-            <img src={homeimg1} className="home-img" alt="33" />
-          </div>
-          <div className="home-img-banner">
+
+          <div>
             <img src={homeimg2} className="home-img" alt="44" />
           </div>
         </Slider>

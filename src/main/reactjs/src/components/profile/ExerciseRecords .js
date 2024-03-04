@@ -62,11 +62,23 @@ const ExerciseRecords = () => {
   };
   
 
+  // useEffect(() => {
+  //   // 선택된 기간에 따라 세부 옵션 생성
+  //   const options = generateDetailOptions(period, startDate);
+  //   console.log(options)
+  //   setSelectedDetail(options.length > 0 ? options[0].value : '');
+  // }, [period, startDate]);
+
   useEffect(() => {
-    // 선택된 기간에 따라 세부 옵션 생성
     const options = generateDetailOptions(period, startDate);
-    setSelectedDetail(options.length > 0 ? options[0].value : '');
-  }, [period, startDate]);
+    if (options.some(option => option.value === selectedDetail)) {
+      // 이미 선택된 세부 옵션이 새 목록에도 존재하는 경우, 선택 유지
+      setSelectedDetail(selectedDetail);
+    } else {
+      // 존재하지 않는 경우, 첫 번째 옵션을 기본값으로 설정
+      setSelectedDetail(options.length > 0 ? options[0].value : '');
+    }
+  }, [period, startDate, selectedDetail]);
 
   useEffect(() => {
     const fetchRecords = async () => {
@@ -77,6 +89,12 @@ const ExerciseRecords = () => {
           console.log("Token not found.");
           return;
         }
+
+         // 선택된 세부사항(selectedDetail)이 유효한지 확인
+      if (!selectedDetail) {
+        console.log("Selected detail is empty or invalid.");
+        return; // selectedDetail이 유효하지 않으면 여기서 함수 종료
+      }
 
         // 선택된 기간과 세부사항을 쿼리에 포함
         const query = selectedDetail ? `&detail=${selectedDetail}` : '';

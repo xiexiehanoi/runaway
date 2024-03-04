@@ -46,11 +46,11 @@
 }
 
 .home-img {
-  width: 94%;
-  height: 300px;
-  border-radius: 20px;
-  /* margin-right: 10%;*/
-  margin-left: 2.5%;
+  width: 90%;
+  height: 200px;
+  border-radius: 25px;
+  margin-right: 5%;
+  margin-left: 5%;
 }
 
 .home-exercise-img {
