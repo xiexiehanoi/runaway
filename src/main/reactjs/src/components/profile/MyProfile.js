@@ -62,7 +62,7 @@ const MyProfile = () => {
         </div>
         <div className="show_info">
           <span className="user_nickname">{userInfo.nickname}</span>
-          <p className="user_email">{userInfo.email}aaaaa@naver.com</p>
+          <p className="user_email">{userInfo.email}</p>
         </div>
         <div className="edit_info" style={{marginTop: "9%"}}>
           <button className="edit_button btn primaryButton-outset" onClick={goToEditInfoForm}>편집</button>

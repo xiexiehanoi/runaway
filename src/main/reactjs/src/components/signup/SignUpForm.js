@@ -324,13 +324,14 @@ const SignUpForm = () => {
               />
             </div>
           </div>
-          {/* 개인정보 유효기간 */}
-          <div className="agree">
-            <p className="name title">약관 동의</p>
-          </div>
+          {/*/!* 개인정보 유효기간 *!/*/}
+          {/*<div className="agree">*/}
+          {/*  <p className="name title">약관 동의</p>*/}
+          {/*</div>*/}
           <div className={`signupBtn ${activeBtn}`} onClick={checkSignUp}>
             가입하기
           </div>
+          <div className="abort" onClick={() => navi("/login")}>이전으로</div>
         </form>
       </div>
   );
