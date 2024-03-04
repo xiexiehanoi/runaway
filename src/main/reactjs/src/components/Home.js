@@ -4,9 +4,9 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 //사용하는 이미지
-import runawayimg from "../image/running.png";
+import runawayimg from "../image/runaway.png";
 
-import pushupImage from "../image/push-up.png";
+import pushupImage from "../image/exercise.png";
 
 import background from "../image/running.jpg";
 import pushupimg from "../image/pushup.jpg";
@@ -84,7 +84,7 @@ const Home = () => {
                 className="home-exercise-img"
               />
               <br />
-              <span style={{ color: "white" }}>Running</span>
+              {/* <span style={{ color: "white" }}>Running</span> */}
             </Link>
           </div>
 
@@ -97,40 +97,34 @@ const Home = () => {
                 src={pushupImage}
                 alt="pushup"
                 className="home-exercise-img"
+                style={{ width: '33%' }}
               />
               <br />
-              <span style={{ color: "white" }}>Exercise</span>
+              {/* <span style={{ color: "white" }}>Exercise</span> */}
             </Link>
           </div>
         </div>
 
-        <Slider {...settings} style={{ marginTop: "15%" }}>
-          <div>
+        <Slider {...settings} className="home-slider-container">
+          <div className="home-img-banner">
             <img src={background} className="home-img" alt="c11" />
           </div>
-          <div>
+          <div className="home-img-banner">
             <img src={pushupimg} className="home-img" alt="22" />
           </div>
-          <div>
+          <div className="home-img-banner">
             <img src={homeimg1} className="home-img" alt="33" />
           </div>
-          <div>
+          <div className="home-img-banner">
             <img src={homeimg2} className="home-img" alt="44" />
           </div>
         </Slider>
 
         <Link to="/challengemain">
           <button
-            className="btn primaryButton-outset"
-            style={{
-              width: "90%",
-              height: "50px",
-              marginTop: "10%",
-              marginLeft: "5%",
-              marginRight: "5%",
-            }}
+            className="btn primaryButton-outset home-challenge-btn"
           >
-            <span style={{ color: "white" }}>My Challenge</span>
+            <span>My Challenge</span>
           </button>
         </Link>
       </div>
