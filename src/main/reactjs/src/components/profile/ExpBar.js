@@ -1,11 +1,12 @@
 import React from 'react';
 import '../../CSS/ExpBar.css';
-import challengerIcon from './Img/challenger_icon.jpg';
-import silverIcon from './Img/silver_icon 1.png';
-import goldIcon from './Img/gold_icon 1.png';
-import platinumIcon from './Img/platinum_icon 1.png';
-import bronzeIcon from './Img/bronze_icon 1.png';
-import unrankIcon from './Img/unrank_icon 1.png';
+import challengerIcon from './Img/챌린저.png';
+import silverIcon from './Img/실버 (1).png';
+import goldIcon from './Img/골드.png';
+import platinumIcon from './Img/플래티넘.png';
+import bronzeIcon from './Img/브론즈.png';
+import unrankIcon from './Img/언랭크 (1).png';
+
 
 const ExpBar = ({ level, exp,min,max }) => {
     const barWidth = Math.round(((exp - min) / (max - min)) * 100) + '%';
@@ -31,17 +32,17 @@ const ExpBar = ({ level, exp,min,max }) => {
         <div>
             <div style={{display:'flex'}}>
 
-                <div className='previousLevel' style={{marginRight:'5%'}}>
+                <div className='previousLevel' style={{marginRight:'3%'}}>
                     <img src={previousStep} alt='previousLevel' style={{width:'50px',height:'50px'}}/>
                 </div>
 
                 <div className="progressbar" style={{marginTop:'5%'}} >
                     <div className='bar' style={{ width: barWidth }}>
-                        <span style={{marginLeft:'90%'}}>{barWidth}</span>
+                        <span style={{marginLeft:'50%'}}>{barWidth}</span>
                     </div>
                 </div>
 
-                <div className='nextLevel' style={{marginLeft:'5%'}}>
+                <div className='nextLevel' style={{marginLeft:'3%'}}>
                     <img src={nextStep} alt='nextLevel' style={{width:'50px',height:'50px'}}/>
                 </div>
 

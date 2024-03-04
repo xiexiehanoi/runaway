@@ -8,10 +8,10 @@ import runawayimg from "../image/running.png";
 
 import pushupImage from "../image/push-up.png";
 
-import background from "../image/running.jpg";
-import pushupimg from "../image/pushup.jpg";
+import background from "../image/로고사진.png";
+import pushupimg from "../image/KakaoTalk_20240304_145319261.png";
 import homeimg1 from "../image/homeimg1.jpg";
-import homeimg2 from "../image/homeimg2.jpg";
+import homeimg2 from "../image/3조.png";
 
 //사용하는 css
 import "../CSS/Main.css";
