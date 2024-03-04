@@ -72,7 +72,7 @@ const Home = () => {
         <span style={{ fontFamily: "Anton", marginLeft: "8%" }}>Runaway</span>
       </div>
 
-      <div className="startAnimation" style={{ marginTop: '15%' }}>
+      <div className="startAnimation" style={{ marginTop: '24px' }}>
         <div className="home-exercise-item">
           <div
             className="home-exercise-content primaryCard"

@@ -36,6 +36,7 @@
 .home-slider-container {
   margin-top: 8%;
   position: relative;
+  width: 100%;
 }
 
 .home-img-banner {
@@ -43,22 +44,21 @@
   align-items: center;
   justify-content: center;
   position: relative;
+  width: 100%;
 }
 
 .home-img {
   width: 90%;
-  height: 200px;
+  height: 320px;
   border-radius: 25px;
-  margin-right: 5%;
-  margin-left: 5%;
+  margin-left: 4.5%;
+  padding-left: 2%;
+  padding-right: 2%;
 }
 
 .home-exercise-img {
-  /* max-width: 70%; */
   width: 35%;
-  /* max-height: 80%; */
   height: auto;
-  /* border-radius: 20%; */
   object-fit: contain;
 }
 
@@ -84,8 +84,6 @@
   width: 80%;
   height: 48px;
   margin-top: 6%;
-  /* margin-left: 5%;
-  margin-right: 5%; */
   position: absolute;
   left: 50%;
   transform: translate(-50%);
@@ -111,7 +109,7 @@
   }
 
   .home-slider-container {
-    margin-top: 10%;
+    margin-top: 32px;
   }
 
   .home-img-banner {
@@ -124,12 +122,14 @@
     height: 320px;
     border-radius: 20px;
     margin: auto;
+    padding-left: 4%;
+    padding-right: 4%;
   }
 
   .home-challenge-btn {
     width: 72%;
     height: 48px;
-    margin-top: 6%;
+    margin-top: 32px;
     /* margin-left: 5%;
     margin-right: 5%; */
     position: absolute;
