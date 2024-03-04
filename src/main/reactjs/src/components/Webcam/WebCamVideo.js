@@ -52,6 +52,7 @@ const WebCamVideo = () => {
                     return;
                 }
 
+
                 if (webcamRef.current && webcamRef.current.video && webcamRef.current.video.srcObject) {
                     const stream = webcamRef.current.video.srcObject;
 
@@ -215,8 +216,10 @@ const WebCamVideo = () => {
         // webcamRef.current.video.style.transform = `scale(${zoomInput})`;
         webcamRef.current.video.style.transform = transformValue;
 
+        alert(zoomValue);
+
         // alert(value); // 버튼 클릭 시 값을 확인하기 위해 alert 추가
-    }, [webcamRef, facingMode]);
+    }, [webcamRef, facingMode, zoomValue]);
 
 
     const toggleFacingMode = useCallback(async () => {
