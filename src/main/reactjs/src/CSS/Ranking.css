@@ -32,7 +32,6 @@
 
  .leader-board .head-ranking {
 	padding: 20px 16px;
-	color: snow;
 	font-size: 20px;
 	text-align: center;
   background: linear-gradient(140deg, #a4b0f1 0%, #5d4fad 100%);
@@ -45,7 +44,6 @@
 }
 
  .leader-board .body-ranking{
-  color: snow;
 	font-size: 16px;
  }
 
@@ -60,23 +58,18 @@
 }
 
 .leader-board li:nth-child(1) {
-  border: solid 0.25em #ecc81a;
-  box-shadow: 0px 0px 5px #ecc81a,
-  5px 5px 10px #ecc81a;
-   
-  
+  border: solid 0.09em rgba(236	200	26);
+  box-shadow: 2px 2px 3px rgba(236, 200, 26, 0.5);
 }
 
 .leader-board li:nth-child(2) {
-  border: solid 0.25em #dbe2e8;
-  box-shadow: 0px 0px 5px #dbe2e8,
-    5px 5px 10px #dbe2e8; 
+  border: solid 0.09em rgba(219,226,232);
+  box-shadow: 2px 2px 3px rgba(219,226,232, 0.5); 
 }
 
 .leader-board li:nth-child(3) {
-  border: solid 0.25em #CD7F32; /* 세 번째 li의 border 두께를 0.25em으로 설정 */
-  box-shadow: 0px 0px 5px #CD7F32,
-  5px 5px 10px #CD7F32; 
+  border: solid 0.09em rgba(205	127	50);
+  box-shadow: 2px 2px 3px rgba(205, 127, 50, 0.5); 
 }
 
 .ranking-list-body{
