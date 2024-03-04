@@ -23,9 +23,10 @@ var settings = {
   className: "center",
   centerMode: true,
   infinite: true,
-  centerPadding: "60px",
+  centerPadding: "40px",
   speed: 500,
   slidesToShow: 1,
+  arrow: false
 };
 
 const Home = () => {
@@ -66,18 +67,18 @@ const Home = () => {
   }
 
   return (
-    <div>
+    <div >
       <div className="header-inscreen">
         <span style={{ fontFamily: "Anton", marginLeft: "8%" }}>Runaway</span>
       </div>
 
-      <div className="startAnimation">
+      <div className="startAnimation" style={{marginTop:'15%'}}>
         <div className="home-exercise-item">
           <div
             className="home-exercise-content primaryCard"
             style={{ textAlign: "center" }}
           >
-            <Link to={"/running"}>
+            <Link to={"/running"} style={{textDecoration:"none"}}>
               <img
                 src={runawayimg}
                 alt="running"
@@ -92,7 +93,7 @@ const Home = () => {
             className="home-exercise-content primaryCard"
             style={{ textAlign: "center" }}
           >
-            <Link to={"/exercise"}>
+            <Link to={"/exercise"} style={{textDecoration:"none"}}>
               <img
                 src={pushupImage}
                 alt="pushup"

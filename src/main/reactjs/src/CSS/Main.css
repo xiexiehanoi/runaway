@@ -32,11 +32,11 @@
 }
 
 .home-img {
-  width: 80%;
+  width: 90%;
   height: 200px;
   border-radius: 25px;
-  margin-right: 10%;
-  margin-left: 10%;
+  margin-right: 5%;
+  margin-left: 5%;
 }
 
 .home-exercise-img {
