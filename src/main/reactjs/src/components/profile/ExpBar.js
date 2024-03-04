@@ -38,7 +38,7 @@ const ExpBar = ({ level, exp,min,max }) => {
 
                 <div className="progressbar" style={{marginTop:'5%'}} >
                     <div className='bar' style={{ width: barWidth }}>
-                        <span style={{marginLeft:'50%'}}>{barWidth}</span>
+                        <span style={{marginLeft:'20%'}}>({exp}/{max}){barWidth}</span>
                     </div>
                 </div>
 

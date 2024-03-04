@@ -10,7 +10,7 @@ import pushupImage from "../image/push-up.png";
 
 import background from "../image/로고사진.png";
 import pushupimg from "../image/KakaoTalk_20240304_145319261.png";
-import homeimg1 from "../image/homeimg1.jpg";
+
 import homeimg2 from "../image/3조.png";
 
 //사용하는 css
@@ -112,9 +112,7 @@ const Home = () => {
           <div>
             <img src={pushupimg} className="home-img" alt="22" />
           </div>
-          <div>
-            <img src={homeimg1} className="home-img" alt="33" />
-          </div>
+          
           <div>
             <img src={homeimg2} className="home-img" alt="44" />
           </div>
