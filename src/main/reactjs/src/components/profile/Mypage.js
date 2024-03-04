@@ -92,32 +92,32 @@ const Mypage = () => {
 
   return (
     <div className="mypage-container">
-      <MyProfile />
-
+      <div className="header-inscreen">
+        <span style={{fontFamily: 'Anton', marginLeft: "8%"}}>MY INFO</span>
+      </div>
+      <MyProfile/>
       {/* 경험치바: className='Exp'까지 같이 가져가야 출력됩니다 */}
       <section>
-          <div className='Exp'>
-            <ExpBar level={user?.grade.level} exp={user?.point} min={user?.grade.minPoint} max={user?.grade.maxPoint}/>
-          </div>
+        <div className='Exp'>
+          <ExpBar level={user?.grade.level} exp={user?.point} min={user?.grade.minPoint} max={user?.grade.maxPoint}/>
+        </div>
       </section>
 
       <section className="challenge-info">
-        <head className="header-inscreen" style={{ padding: "10px" }}>
+        <head className="header-inscreen" style={{padding: "10px"}}>
           진행중인 챌린지 목록
         </head>
-        <div>    
-            <MyChallenge myChallengeList={myChallengeList} />
-            {/* <MyChallengeMonthlyRecord currentMonthMyChallengeList={currentMonthMyChallengeList}/> */}
+        <div>
+          <MyChallenge myChallengeList={myChallengeList}/>
+          {/* <MyChallengeMonthlyRecord currentMonthMyChallengeList={currentMonthMyChallengeList}/> */}
         </div>
       </section>
       <footer className="mypage-footer">
-        <Logout />
+        <Logout/>
       </footer>
     </div>
   );
 };
-
-
 
 
 export default Mypage;

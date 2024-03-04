@@ -63,5 +63,10 @@ public class UserController {
 
     userService.profileImageAdd(id, uploadFilename);
   }
+
+  @PatchMapping("/edit-info/{id}")
+  public void editInfo(@PathVariable Long id, final @Valid @RequestBody User user) {
+    userService.editInfo(id, user);
+  }
 }
 

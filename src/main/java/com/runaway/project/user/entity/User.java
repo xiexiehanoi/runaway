@@ -126,5 +126,11 @@ public class User {
     this.role = Role.USER;
   }
 
+  public void editInfo(User user) {
+    this.nickname = user.nickname;
+    this.weight = user.weight;
+    this.height = user.height;
+  }
+
 
 }

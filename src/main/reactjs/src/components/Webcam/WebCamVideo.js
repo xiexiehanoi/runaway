@@ -52,6 +52,7 @@ const WebCamVideo = () => {
                     return;
                 }
 
+
                 if (webcamRef.current && webcamRef.current.video && webcamRef.current.video.srcObject) {
                     const stream = webcamRef.current.video.srcObject;
 
@@ -94,6 +95,7 @@ const WebCamVideo = () => {
 
                 }
             } catch (error) {
+                alert(error);
                 console.error('Error initializing media recorder:', error);
             }
         };
@@ -169,6 +171,7 @@ const WebCamVideo = () => {
                 // 파일 업로드가 성공하면 페이지를 이동합니다.
                 navi('/story');
             } catch (error) {
+                alert(error);
                 console.error("Error uploading file:", error);
             }
         }
@@ -202,7 +205,6 @@ const WebCamVideo = () => {
         // navi('/story'); // 페이지 이동
     }, [navi]);
 
-
     const handleZoomButtonClick = useCallback((value) => {
         setZoomValue(value);
         setSelectedZoomButton(value);
@@ -215,8 +217,10 @@ const WebCamVideo = () => {
         // webcamRef.current.video.style.transform = `scale(${zoomInput})`;
         webcamRef.current.video.style.transform = transformValue;
 
+        alert(zoomValue);
+
         // alert(value); // 버튼 클릭 시 값을 확인하기 위해 alert 추가
-    }, [webcamRef, facingMode]);
+    }, [webcamRef, facingMode, zoomValue]);
 
 
     const toggleFacingMode = useCallback(async () => {
@@ -256,6 +260,7 @@ const WebCamVideo = () => {
                 handleStopCaptureClick();
             }
         } catch (error) {
+            alert(error);
             console.error('Error toggling facing mode:', error);
         }
     }, [webcamRef, mediaRecorderRef, mimeType, capturing, handleDataAvailable, handleStopCaptureClick, facingMode]);
