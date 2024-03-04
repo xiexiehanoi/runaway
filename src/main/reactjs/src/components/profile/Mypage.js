@@ -123,22 +123,20 @@ const Mypage = () => {
         <span style={{ fontFamily: 'Anton', marginLeft: "8%" }}>MY INFO</span>
       </div>
       <MyProfile />
-      {/* 경험치바: className='Exp'까지 같이 가져가야 출력됩니다 */}
-      <section>
+      <div>
         <div className='Exp'>
           <ExpBar level={user?.grade.level} exp={user?.point} min={user?.grade.minPoint} max={user?.grade.maxPoint} />
         </div>
-      </section>
-
-      <section className="challenge-info">
+      </div>
+      <div className="challenge-info">
         <div>
           <MyChallenge myChallengeList={myChallengeList} />
           <MonthlyActivitySummary currentMonthlyExerciseData={currentMonthlyExerciseData} start={start} />
         </div>
-      </section>
-      <footer className="mypage-footer">
+      </div>
+      <div className="mypage-footer">
         <Logout />
-      </footer>
+      </div>
     </div>
   );
 };
