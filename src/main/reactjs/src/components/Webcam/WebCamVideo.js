@@ -95,6 +95,7 @@ const WebCamVideo = () => {
 
                 }
             } catch (error) {
+                alert(error);
                 console.error('Error initializing media recorder:', error);
             }
         };
@@ -170,6 +171,7 @@ const WebCamVideo = () => {
                 // 파일 업로드가 성공하면 페이지를 이동합니다.
                 navi('/story');
             } catch (error) {
+                alert(error);
                 console.error("Error uploading file:", error);
             }
         }
@@ -258,6 +260,7 @@ const WebCamVideo = () => {
                 handleStopCaptureClick();
             }
         } catch (error) {
+            alert(error);
             console.error('Error toggling facing mode:', error);
         }
     }, [webcamRef, mediaRecorderRef, mimeType, capturing, handleDataAvailable, handleStopCaptureClick, facingMode]);

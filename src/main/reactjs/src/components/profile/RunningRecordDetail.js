@@ -60,6 +60,9 @@ function RunningRecordDetail() {
                             path={polylinePath}
                             strokeColor="#5347AA"
                             strokeWeight={5} // Optional: Adjust line thickness
+                            startIcon={window.naver.maps.PointingIcon.CIRCLE }
+                            endIcon={window.naver.maps.PointingIcon.OPEN_ARROW}
+
                         />
                     )}
                 </NaverMap>

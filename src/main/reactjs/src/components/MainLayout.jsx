@@ -52,6 +52,15 @@ const MainLayout = ({ children }) => {
     else {
       // If not, set padding-bottom of #screen back to 90px
       document.getElementById("screen").style.paddingBottom = "90px";
+
+      // reload
+      const currentPath = location.pathname;
+      const foundTab = tabs.findIndex(tab => tab.route === currentPath);
+      if (foundTab >= 0) {
+        setActiveTab(foundTab);
+      } else {
+        setActiveTab(0);
+      }
     }
   }, [location.pathname]);
 
