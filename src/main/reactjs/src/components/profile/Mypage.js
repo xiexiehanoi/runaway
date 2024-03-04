@@ -6,7 +6,7 @@ import MyChallenge from './MyChallenge';
 
 import ExpBar from './ExpBar';
 
-import MyChallengeMonthlyRecord from './MyChallengeMonthlyRecord';
+import MonthlyActivitySummary from './MonthlyActivitySummary';
 
 //import './css/Mypage.css'
 
@@ -14,7 +14,8 @@ const Mypage = () => {
   const [user, setUser] = useState(null)
   const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
   const [myChallengeList, setMyChallengeList] = useState([]);
-  const [currentMonthMyChallengeList, setCurrentMonthMyChallengeList] = useState([]);
+  const [currentMonthlyExerciseData, setCurrentMonthlyExerciseData] = useState([]);
+  const [start,setStart] = useState({});
   
 
   useEffect(() => {
@@ -61,7 +62,7 @@ const Mypage = () => {
   }, []);
 
   useEffect(() => {
-    const fetchCurrentMonthMyChallengeList = async () => {
+    const fetchCurrentMonthlyRunningData = async () => {
       try {
         const token = window.localStorage.getItem("token");
         if (!token) {
@@ -69,23 +70,50 @@ const Mypage = () => {
           return;
         }
         const response = await axios.get(
-          `${BACKEND_URL}/api/challenge/challengemain/currentMonthMychallengelist`,
+          `${BACKEND_URL}/api/profile/running/MonthlyRunningData`,
           {
             headers: {
               Authorization: `Bearer ${token}`, // 토큰을 Authorization 헤더에 포함
             },
           }
         );
-        console.log(11)
-        console.log(response.data);
         
-        setCurrentMonthMyChallengeList(response.data);
+        setCurrentMonthlyExerciseData(response.data);
       } catch (error) {
         console.error("Error fetching exercise list:", error);
       }
     };
-    fetchCurrentMonthMyChallengeList();
+    fetchCurrentMonthlyRunningData();
   }, []);
+
+
+  const fetchStart = async () => {
+    try {
+      const token = window.localStorage.getItem("token");
+        if (!token) {
+          console.log("Token not found.");
+          return;
+        }
+        const response = await axios.get(
+          `${BACKEND_URL}/api/profile/start/date`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`, // 토큰을 Authorization 헤더에 포함
+            },
+          }
+        );
+      
+   
+      setStart(response.data);
+
+    } catch (error) {
+      console.error("Failed to fetch start date: ", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchStart();
+  }, []); 
 
   
 
@@ -120,12 +148,11 @@ const Mypage = () => {
         {/* Additional interactive elements or links to user activities could be added here */}
       </section>
       <section className="challenge-info">
-        <head className="header-inscreen" style={{ padding: "10px" }}>
-          진행중인 챌린지 목록
-        </head>
+
+          
         <div>    
             <MyChallenge myChallengeList={myChallengeList} />
-            {/* <MyChallengeMonthlyRecord currentMonthMyChallengeList={currentMonthMyChallengeList}/> */}
+            <MonthlyActivitySummary currentMonthlyExerciseData={currentMonthlyExerciseData} start={start} />
         </div>
       </section>
       <footer className="mypage-footer">
