@@ -34,7 +34,8 @@ const StoryShow = ({ storyList }) => {
     return <div>Invalid video index</div>;
   }
 
-  const currentStory = storyList[videoIndex];
+  const reversedStoryList = [...storyList].reverse();
+  const currentStory = reversedStoryList[videoIndex];
 
   // 현재 스토리가 존재하고 storyContent가 존재하는지 확인
   if (!currentStory || !currentStory.storyContent) {

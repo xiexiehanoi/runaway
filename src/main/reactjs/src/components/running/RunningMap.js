@@ -29,7 +29,6 @@ function RunningMapComponent({path, initialLocation}) {
         }
     }, [initialLocation]);
 
-
     return (
             <NaverMap
                 ref={setMap}
@@ -43,6 +42,8 @@ function RunningMapComponent({path, initialLocation}) {
                             map.setCenter(it.getAt(it.length -1))
                         }
                     }}
+                    startIcon={window.naver.maps.PointingIcon.CIRCLE}
+                    endIcon={window.naver.maps.PointingIcon.OPEN_ARROW}
                 >
                 </Polyline>
             </NaverMap>

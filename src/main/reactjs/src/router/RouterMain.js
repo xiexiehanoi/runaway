@@ -27,6 +27,7 @@ import Logout from "../components/login/Logout";
 import ExpBar from "../components/profile/ExpBar";
 import MyChallengeRecordList from '../components/profile/MyChallengeRecordList';
 import ExerciseRecords from '../components/profile/ExerciseRecords ';
+import EditInfoForm from "../components/profile/EditInfoForm";
 
 
 const RouterMain = () => {
@@ -59,8 +60,8 @@ const RouterMain = () => {
                 <Route path="/ranking" element={<LoginRouter><Ranking /></LoginRouter>} />
                 <Route path="/mychallengelist" element={<LoginRouter><MyChallengeList /></LoginRouter>} />
                 <Route path="/signup-add" element={<LoginRouter><SignUpAddForm /></LoginRouter>} />
-                <Route path="/logout" element={<Logout />} />
                 <Route path="/expbar" element={<ExpBar/>}/>
+                <Route path="/edit-info" element={<LoginRouter><EditInfoForm /></LoginRouter>} />
 
                 {/* /가 항상 제일 마지막*/}
                 <Route path="/" element={<LoginRouter><Home /></LoginRouter>} />

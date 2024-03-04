@@ -13,7 +13,7 @@ const GoogleLogin = () => {
           className="btn-social-login"
           style={{ backgroundColor: "#D93025" }}
         > */}
-        <button className='btn-social-login'>
+        <button className='btn-social-login CommonContainer'>
 
           {/* <i className="xi-2x xi-google"></i> */}
           <img alt='kakaotalk' src={googleLogin}
