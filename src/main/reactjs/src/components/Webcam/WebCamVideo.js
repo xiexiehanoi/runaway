@@ -203,7 +203,6 @@ const WebCamVideo = () => {
         // navi('/story'); // 페이지 이동
     }, [navi]);
 
-
     const handleZoomButtonClick = useCallback((value) => {
         setZoomValue(value);
         setSelectedZoomButton(value);
