@@ -4,14 +4,14 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 //사용하는 이미지
-import runawayimg from "../image/running.png";
+import runawayimg from "../image/runaway.png";
 
-import pushupImage from "../image/push-up.png";
+import pushupImage from "../image/exercise.png";
 
-import background from "../image/running.jpg";
-import pushupimg from "../image/pushup.jpg";
-import homeimg1 from "../image/homeimg1.jpg";
-import homeimg2 from "../image/homeimg2.jpg";
+import background from "../image/로고사진.png";
+import pushupimg from "../image/KakaoTalk_20240304_145319261.png";
+
+import homeimg2 from "../image/3조.png";
 
 //사용하는 css
 import "../CSS/Main.css";
@@ -23,9 +23,10 @@ var settings = {
   className: "center",
   centerMode: true,
   infinite: true,
-  centerPadding: "60px",
+  centerPadding: "40px",
   speed: 500,
   slidesToShow: 1,
+  arrow: false
 };
 
 const Home = () => {
@@ -66,25 +67,25 @@ const Home = () => {
   }
 
   return (
-    <div>
+    <div >
       <div className="header-inscreen">
         <span style={{ fontFamily: "Anton", marginLeft: "8%" }}>Runaway</span>
       </div>
 
-      <div className="startAnimation">
+      <div className="startAnimation" style={{ marginTop: '24px' }}>
         <div className="home-exercise-item">
           <div
             className="home-exercise-content primaryCard"
             style={{ textAlign: "center" }}
           >
-            <Link to={"/running"}>
+            <Link to={"/running"} style={{ textDecoration: "none" }}>
               <img
                 src={runawayimg}
                 alt="running"
                 className="home-exercise-img"
               />
               <br />
-              <span style={{ color: "white" }}>Running</span>
+              {/* <span style={{ color: "white" }}>Running</span> */}
             </Link>
           </div>
 
@@ -92,28 +93,27 @@ const Home = () => {
             className="home-exercise-content primaryCard"
             style={{ textAlign: "center" }}
           >
-            <Link to={"/exercise"}>
+            <Link to={"/exercise"} style={{ textDecoration: "none" }}>
               <img
                 src={pushupImage}
                 alt="pushup"
                 className="home-exercise-img"
+                style={{ width: '33%' }}
               />
               <br />
-              <span style={{ color: "white" }}>Exercise</span>
+              {/* <span style={{ color: "white" }}>Exercise</span> */}
             </Link>
           </div>
         </div>
 
-        <Slider {...settings} style={{ marginTop: "15%" }}>
-          <div>
+        <Slider {...settings} className="home-slider-container">
+          <div className="home-img-banner">
             <img src={background} className="home-img" alt="c11" />
           </div>
-          <div>
+          <div className="home-img-banner">
             <img src={pushupimg} className="home-img" alt="22" />
           </div>
-          <div>
-            <img src={homeimg1} className="home-img" alt="33" />
-          </div>
+
           <div>
             <img src={homeimg2} className="home-img" alt="44" />
           </div>
@@ -121,16 +121,9 @@ const Home = () => {
 
         <Link to="/challengemain">
           <button
-            className="btn primaryButton-outset"
-            style={{
-              width: "90%",
-              height: "50px",
-              marginTop: "10%",
-              marginLeft: "5%",
-              marginRight: "5%",
-            }}
+            className="btn primaryButton-outset home-challenge-btn"
           >
-            <span style={{ color: "white" }}>My Challenge</span>
+            <span>My Challenge</span>
           </button>
         </Link>
       </div>
