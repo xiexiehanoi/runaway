@@ -6,6 +6,7 @@ import pushupImage from "../../image/push-up.png";
 import squatImage from "../../image/squat.png";
 import { Chart as ChartJS, registerables } from 'chart.js';
 import { Line } from 'react-chartjs-2';
+import ScreenHeader from "../ScreenHeader";
 ChartJS.register(...registerables);
 
 const Exercise = () => {
@@ -154,9 +155,7 @@ const Exercise = () => {
   
   return (
     <>
-      <header className="header-inscreen" style={{ padding: "10px" }}>
-        Exercise
-      </header>
+      <ScreenHeader title={"Exercise"} />
 
       <div className="exercisejs-container">
         <div className="squat-IconBox">
