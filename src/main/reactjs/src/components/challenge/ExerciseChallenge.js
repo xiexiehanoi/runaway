@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import ExerciseChallengeRowItem from "./ExerciseChallengeRowItem";
 import "../../CSS/CommonApplicationStyle.css";
-import "./CSS/ChallengeList.css";
+import "../../CSS/ChallengeList.css";
 import situpImage from "../../image/sit-up.png";
 import pushupImage from "../../image/push-up.png";
 import squatImage from "../../image/squat.png";
@@ -60,6 +60,7 @@ const ExerciseChallenge = () => {
                 src={squatImage}
                 alt="Squat"
                 className="exercise-image"
+                style={{width:"60%", height:"auto"}}
               />
             </div>
           </div>
