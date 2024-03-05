@@ -1,29 +1,46 @@
 /* 전체 컨테이너 스타일링 */
 .MyChallenge-container {
-    display: flex;
-    justify-content: space-around; /* 항목들 사이에 균일한 간격 유지 */
-    flex-wrap: wrap; /* 필요시 여러 줄로 항목을 나눔 */
-    padding: 16px 8px 30px 8px; /* 컨테이너 내부 여백 */
-    border: 2px solid #ddd; /* 경계선 스타일링 */
-    border-radius: 10px; /* 경계선 둥글게 처리 */
-    background-color: #303234; /* 배경색 */
-    max-width: 92%; /* 컨테이너 최대 너비 */
-    margin: auto; /* 페이지 중앙 정렬 */
-  }
+  display: flex;
+  flex-direction: column; /* 컨테이너의 자식 요소들을 세로로 정렬 */
+  padding: 8px 12px 30px 12px; /* 컨테이너 내부 여백 */
+  border-radius: 10px; /* 경계선 둥글게 처리 */
+  background-color: #303234; /* 배경색 */
+  max-width: 92%; /* 컨테이너 최대 너비 */
+  margin: auto; /* 페이지 중앙 정렬 */
+  box-shadow: -9px -9px 16px rgba(73, 73, 73, 0.40), 9px 9px 16px rgba(0, 0, 0, 0.40);
+ 
+  margin-top: 10px;
+  height: 170px;
+}
+
+.MyChallenge-title {
+  display: flex;
+  justify-content: space-between; /* "Challenge 달성률"과 링크를 양 끝으로 정렬합니다. */
+  align-items: center; /* 세로 방향으로 가운데 정렬합니다. */
+  width: 100%; /* 필요하다면 너비를 조정합니다. */
+  margin-bottom: 24px;
+}
+
+
+.MyChallenge-items-container {
+  display: flex;
+  flex-direction: row; /* 아이템들을 가로로 일렬로 배치 */
+  justify-content: center; /* 가로 방향으로 가운데 정렬 */
+  flex-wrap: wrap; /* 필요시 아이템들을 다음 줄로 넘김 */
+}
+
+.MyChallenge-item {
+  width: 62px;
+  height: 62px;
+  display: flex;
+  flex-direction: column; /* 아이템 내부 요소를 세로로 정렬 */
+  justify-content: center; /* 세로 방향으로 가운데 정렬 */
+  align-items: center; /* 가로 방향으로 가운데 정렬 */
+  margin: 5px; /* 아이템 간 간격 조정 */
+  font-size: clamp(12px, 2vw, 24px);
+}
   
-  /* 각 항목 스타일링 */
-  .MyChallenge-item {
-    display: flex;
-    flex-direction: column; /* 항목 내부를 수직으로 정렬 */
-    align-items: center; /* 중앙 정렬 */
-    margin-bottom: 10px; /* 항목 간의 하단 여백 */
-  }
   
-  .MyChallenge-item strong {
-    margin-top: 10px; /* 도넛 차트와 제목 사이의 여백 */
-    text-align: center; /* 텍스트 중앙 정렬 */
-    color: #ddd; /* 텍스트 색상 */
-  }
 
   /* CSS Variables */
 :root {
@@ -119,16 +136,61 @@
   
 
 .currentMonthMyChallenge-container{
-  display: flex;
     justify-content: space-around; /* 항목들 사이에 균일한 간격 유지 */
     flex-wrap: wrap; /* 필요시 여러 줄로 항목을 나눔 */
-    padding: 16px 8px 30px 8px; /* 컨테이너 내부 여백 */
-    border: 2px solid #ddd; /* 경계선 스타일링 */
+    padding: 16px 16px 30px 16px; /* 컨테이너 내부 여백 */
+    box-shadow: -9px -9px 16px rgba(73, 73, 73, 0.40), 9px 9px 16px rgba(0, 0, 0, 0.40);
     border-radius: 10px; /* 경계선 둥글게 처리 */
     background-color: #303234; /* 배경색 */
     max-width: 92%; /* 컨테이너 최대 너비 */
     margin: auto; /* 페이지 중앙 정렬 */
     margin-top: 10px;
-    height: 100px;
+    height: 250px;
 }
+
+/* MonthlyActivitySummary */
+
+.date {
+  margin-bottom: 16px;
+  margin-left:9px;
+  display: flex;
+  justify-content: space-between; /* "Challenge 달성률"과 링크를 양 끝으로 정렬합니다. */
+  align-items: center; 
+}
+
+.total-distance .number {
+  font-size: 56px;
+  font-weight: bold;
+  line-height: 1;
+  margin-left:16px;
+  margin-bottom: 16px;
+}
+
+.total-distance .label {
+  font-size: 12px;
+  margin-left:9px;
+}
+.total-distance{
+  margin-bottom: 20px;
+}
+
+.runningstats-container {
+  display: flex;
+  /* justify-content: space-between; */
+  justify-content: space-around;
+}
+
+
+
+
+.stat .number {
+  font-size: 23px;
+  font-weight: bold;
+  line-height: 1;
+}
+
+.stat .label {
+  font-size: 12px;
+}
+
 

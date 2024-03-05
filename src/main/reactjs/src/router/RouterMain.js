@@ -24,7 +24,11 @@ import RunningRecord from '../components/profile/RunningRecord';
 import LoginRouter from "./LoginRouter";
 import LoginBackRouter from "./LoginBackRouter";
 import ExpBar from "../components/profile/ExpBar";
+import MyChallengeRecordList from '../components/profile/MyChallengeRecordList';
 import EditInfoForm from "../components/profile/EditInfoForm";
+import RunningRecords from '../components/profile/RunningRecords ';
+import ExerciseRecords from '../components/profile/ExerciseRecords';
+
 
 const RouterMain = () => {
     return (
@@ -40,8 +44,11 @@ const RouterMain = () => {
                 <Route path="/runningchallenge" element={<LoginRouter><RunningChallenge /></LoginRouter>} />
                 <Route path="/exercise" element={<LoginRouter><Exercise /></LoginRouter>} />
                 <Route path="/exercisechallenge" element={<LoginRouter><ExerciseChallenge /></LoginRouter>} />
+                <Route path='mychallengerecordlist'element={<LoginRouter><MyChallengeRecordList /></LoginRouter>} ></Route>
                 <Route path="/my" element={<LoginRouter><MyPage /></LoginRouter>} />
                 <Route path='/runningRecord' element={<LoginRouter><RunningRecord /></LoginRouter>} />
+                <Route path='/runningRecords' element={<LoginRouter><RunningRecords/></LoginRouter>} />
+                <Route path='/exerciseRecords' element={<LoginRouter><ExerciseRecords/></LoginRouter>} />
                 <Route path="/runningRecordDetail/:runIdx" element={<LoginRouter><RunningRecordDetail /></LoginRouter>} />
                 {/* <Route path="/story" element={<LoginRouter><WebCam /></LoginRouter>} /> */}
                 <Route path="/story" element={<WebCam />} />

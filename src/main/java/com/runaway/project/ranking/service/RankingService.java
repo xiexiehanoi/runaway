@@ -12,7 +12,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class RankingService {
@@ -31,40 +33,42 @@ public class RankingService {
     public List<RankingDto> getRankingList() {
         List<User> users = userRepository.findAllByOrderByPointDesc();
         List<RankingDto> rankingDtoList = new ArrayList<>();
+        Map<Long, Integer> previousRanks = new HashMap<>();
         int rank = 1;
 
+        // Step 1: Update the ranking for all users first
         for (User user : users) {
-            if (user.getPoint() <= 0) {
-                continue;
-            }
+            if (user.getPoint() <= 0) continue;
 
-            Rank lastRank = rankRepository.findByUserId(user.getId()).orElse(null);
-//            System.out.println("lasRank: "+ lastRank);
-            Integer lastRankValue = lastRank != null ? lastRank.getRanking() : null;
+            Rank lastRank = rankRepository.findByUserId(user.getId()).orElse(new Rank());
+            lastRank.setUserId(user.getId());
+            lastRank.setPreviousRank(lastRank.getRanking());
+            lastRank.setRanking(rank);
+            lastRank.setDateTime(LocalDateTime.now());
 
-            LocalDateTime scheduledTime = LocalDateTime.now().withHour(6).withMinute(0).withSecond(0);
-            LocalDateTime currentTime = LocalDateTime.now();
+            rankRepository.save(lastRank);
 
-            if (currentTime.isAfter(scheduledTime)) {
-                // 스케줄 실행 시간 이후에만 랭킹을 갱신
-                if (lastRankValue != null && lastRankValue != rank) {
-                    Rank rankEntity = lastRank != null ? lastRank : new Rank();
-                    rankEntity.setUserId(user.getId());
-                    rankEntity.setRanking(rank);
-                    rankEntity.setDateTime(LocalDateTime.now());
-                    rankEntity.setPreviousRank(lastRankValue);
-
-                    rankRepository.save(rankEntity);
-                }
-            }
-
-            int change = rank - lastRankValue;
-//            System.out.println("change:"+change);
-
-            RankingDto rankingDto = new RankingDto(user.getId(), user.getNickname(), user.getPoint(), rank, lastRankValue, change);
-            rankingDtoList.add(rankingDto);
-
+            previousRanks.put(user.getId(), lastRank.getPreviousRank());
             rank++;
+        }
+
+        // Step 2: Create RankingDto objects based on the updated ranking information
+        for (User user : users) {
+            if (user.getPoint() <= 0) continue;
+
+            Rank updatedRank = rankRepository.findByUserId(user.getId()).orElseThrow();
+            int previousRankValue = previousRanks.getOrDefault(user.getId(), 0);
+            int change = updatedRank.getRanking() - previousRankValue;
+
+            RankingDto rankingDto = new RankingDto(
+                    user.getId(),
+                    user.getNickname(),
+                    user.getPoint(),
+                    updatedRank.getRanking(),
+                    previousRankValue,
+                    change
+            );
+            rankingDtoList.add(rankingDto);
         }
 
         return rankingDtoList;

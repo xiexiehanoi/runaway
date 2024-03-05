@@ -82,7 +82,7 @@ public class ChallengeService {
         combinedChallenges.addAll(exerciseChallenges);
         combinedChallenges.addAll(runningChallenges);
 
-//        System.out.println("결과: " +combinedChallenges);
+
         return combinedChallenges;
     }
 
@@ -95,7 +95,17 @@ public class ChallengeService {
         combinedChallenges.addAll(exerciseChallenges);
         combinedChallenges.addAll(runningChallenges);
 
-//        System.out.println("결과: " +combinedChallenges);
+        return combinedChallenges;
+    }
+
+    public List<Object> getMyChallengeAllList(Long userId) {
+        List<MyExerciseDto> exerciseChallenges = myExerciseRepository.findAllByUserId (userId);
+        List<MyRunningDto> runningChallenges = myRunningRepository.findAllByUserId (userId);
+
+        List<Object> combinedChallenges = new ArrayList<>();
+        combinedChallenges.addAll(exerciseChallenges);
+        combinedChallenges.addAll(runningChallenges);
+
         return combinedChallenges;
     }
 

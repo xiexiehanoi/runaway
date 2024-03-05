@@ -32,20 +32,19 @@
 
  .leader-board .head-ranking {
 	padding: 20px 16px;
-	color: snow;
 	font-size: 20px;
 	text-align: center;
-  background: linear-gradient(140deg, #a4b0f1 0%, #5d4fad 100%);
-  border-radius: 8px;
-  box-shadow: -9px -9px 16px rgba(73, 73, 73, 0.60), 9px 9px 16px rgba(0, 0, 0, 0.40);
+    background: linear-gradient(140deg, #a4b0f1 0%, #5d4fad 100%);
+    border-radius: 8px;
+    box-shadow: -9px -9px 16px rgba(73, 73, 73, 0.60), 9px 9px 16px rgba(0, 0, 0, 0.40);
 }
 .leader-board .head-ranking h1 {
 	display: inline-block;
 	margin-left: 4px;
+    font-weight: 700;
 }
 
  .leader-board .body-ranking{
-  color: snow;
 	font-size: 16px;
  }
 
@@ -60,23 +59,21 @@
 }
 
 .leader-board li:nth-child(1) {
-  border: solid 0.25em #ecc81a;
-  box-shadow: 0px 0px 5px #ecc81a,
-  5px 5px 10px #ecc81a;
-   
-  
+  border: solid 0.09em rgba(236,200,26,0.4);
+  box-shadow: 0px 0px 5px rgba(236, 200, 26, 0.5),
+  3px 3px 5px rgba(236, 200, 26, 0.5);
 }
 
 .leader-board li:nth-child(2) {
-  border: solid 0.25em #dbe2e8;
-  box-shadow: 0px 0px 5px #dbe2e8,
-    5px 5px 10px #dbe2e8; 
+  border: solid 0.09em rgba(219,226,232,0.4);
+  box-shadow: 0px 0px 5px rgba(219,226,232, 0.5),
+  3px 3px 5px rgba(219,226,232, 0.5); 
 }
 
 .leader-board li:nth-child(3) {
-  border: solid 0.25em #CD7F32; /* 세 번째 li의 border 두께를 0.25em으로 설정 */
-  box-shadow: 0px 0px 5px #CD7F32,
-  5px 5px 10px #CD7F32; 
+  border: solid 0.09em rgba(205,127,50,0.4);
+  box-shadow: 0px 0px 5px rgba(205, 127, 50, 0.5),
+  3px 3px 5px rgba(205, 127, 50, 0.5); 
 }
 
 .ranking-list-body{
@@ -100,7 +97,7 @@
   overflow: hidden;
   position: sticky;
   top: -0.2%;
-  font-weight: 500;
+  font-weight: 900;
   font-size: 1.5em;
   color: #f5f5f5;
 
