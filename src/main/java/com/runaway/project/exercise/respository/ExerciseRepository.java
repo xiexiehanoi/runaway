@@ -19,4 +19,9 @@ public interface ExerciseRepository extends JpaRepository<ExerciseEntity,Long> {
     @Query("SELECT MIN(e.date) AS startDate FROM ExerciseEntity e WHERE e.user.id = :userId AND e.exerciseType = :exerciseType")
     LocalDate findStartDateByUserIdAndType(@Param("userId") Long userId, @Param("exerciseType") String exerciseType);
 
+    @Query("SELECT e FROM ExerciseEntity e WHERE  e.exerciseType = :exerciseType AND e.user.id = :userId")
+    List<ExerciseEntity> findByUserId(Long userId, String exerciseType);
+
+    @Query("SELECT e FROM ExerciseEntity e WHERE e.user.id = :userId AND e.exerciseType = :exerciseType AND e.date BETWEEN :startDate AND :endDate")
+    List<ExerciseEntity> findByUserIdAndDateBetween(Long userId, LocalDate startDate, LocalDate endDate, String exerciseType);
 }

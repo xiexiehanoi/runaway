@@ -70,7 +70,7 @@ const Mypage = () => {
           return;
         }
         const response = await axios.get(
-          `${BACKEND_URL}/api/profile/running/MonthlyRunningData`,
+          `${BACKEND_URL}/api/profile/exercise/MonthlyExerciseData`,
           {
             headers: {
               Authorization: `Bearer ${token}`, // 토큰을 Authorization 헤더에 포함

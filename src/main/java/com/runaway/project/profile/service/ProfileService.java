@@ -37,7 +37,7 @@ public class ProfileService {
 
     }
 
-    public List<Map<String, Object>> getMonthlyRunningData(Long userId) {
+    public List<Map<String, Object>> getMonthlyExerciseData(Long userId) {
 
 
         List<RunningEntity> runningRecords = runningRepository.findByUserCurrentMonth(userId);
@@ -184,18 +184,18 @@ public class ProfileService {
     public List<RunningEntity> getRunningRecords(Long userId, String period, String detail) {
         switch (period) {
             case "weekly":
-                return getWeeklyRecords(userId, detail);
+                return getWeeklyRunningRecords(userId, detail);
             case "monthly":
-                return getMonthlyRecords(userId, detail);
+                return getMonthlyRunningRecords(userId, detail);
             case "yearly":
-                return getYearlyRecords(userId, detail);
+                return getYearlyRunningRecords(userId, detail);
             default:
                 // 처리할 수 없는 period 값이 주어진 경우 빈 리스트 반환
                 return runningRepository.findByUserId(userId);
         }
     }
 
-    private List<RunningEntity> getWeeklyRecords(Long userId, String startDateStr) {
+    private List<RunningEntity> getWeeklyRunningRecords(Long userId, String startDateStr) {
         LocalDate startDate = LocalDate.parse(startDateStr, DateTimeFormatter.ISO_DATE);
 
         return runningRepository.findByUserIdAndDateBetween(
@@ -204,18 +204,56 @@ public class ProfileService {
                 startDate.plusWeeks(1).minusDays(1));
     }
 
-    private List<RunningEntity> getMonthlyRecords(Long userId, String yearMonthStr) {
+    private List<RunningEntity> getMonthlyRunningRecords(Long userId, String yearMonthStr) {
         YearMonth yearMonth = YearMonth.parse(yearMonthStr, DateTimeFormatter.ofPattern("yyyy-MM"));
         LocalDate startOfMonth = yearMonth.atDay(1);
         LocalDate endOfMonth = yearMonth.atEndOfMonth();
         return runningRepository.findByUserIdAndDateBetween(userId, startOfMonth, endOfMonth);
     }
 
-    private List<RunningEntity> getYearlyRecords(Long userId, String yearStr) {
+    private List<RunningEntity> getYearlyRunningRecords(Long userId, String yearStr) {
         int year = Integer.parseInt(yearStr);
         LocalDate startOfYear = LocalDate.of(year, 1, 1);
         LocalDate endOfYear = LocalDate.of(year, 12, 31);
         return runningRepository.findByUserIdAndDateBetween(userId, startOfYear, endOfYear);
+    }
+
+    public List<ExerciseEntity> getExerciseRecords(Long userId, String period, String detail, String exerciseType) {
+        switch (period) {
+            case "weekly":
+                return getWeeklyRecords(userId, detail, exerciseType);
+            case "monthly":
+                return getMonthlyRecords(userId, detail, exerciseType);
+            case "yearly":
+                return getYearlyRecords(userId, detail, exerciseType);
+            default:
+                // 처리할 수 없는 period 값이 주어진 경우 빈 리스트 반환
+                return exerciseRepository.findByUserId(userId, exerciseType);
+        }
+    }
+
+    private List<ExerciseEntity> getWeeklyRecords(Long userId, String startDateStr, String exerciseType) {
+        LocalDate startDate = LocalDate.parse(startDateStr, DateTimeFormatter.ISO_DATE);
+
+        return exerciseRepository.findByUserIdAndDateBetween(
+                userId,
+                startDate,
+                startDate.plusWeeks(1).minusDays(1),
+                exerciseType);
+    }
+
+    private List<ExerciseEntity> getMonthlyRecords(Long userId, String yearMonthStr, String exerciseType) {
+        YearMonth yearMonth = YearMonth.parse(yearMonthStr, DateTimeFormatter.ofPattern("yyyy-MM"));
+        LocalDate startOfMonth = yearMonth.atDay(1);
+        LocalDate endOfMonth = yearMonth.atEndOfMonth();
+        return exerciseRepository.findByUserIdAndDateBetween(userId, startOfMonth, endOfMonth ,exerciseType);
+    }
+
+    private List<ExerciseEntity> getYearlyRecords(Long userId, String yearStr, String exerciseType) {
+        int year = Integer.parseInt(yearStr);
+        LocalDate startOfYear = LocalDate.of(year, 1, 1);
+        LocalDate endOfYear = LocalDate.of(year, 12, 31);
+        return exerciseRepository.findByUserIdAndDateBetween(userId, startOfYear, endOfYear, exerciseType);
     }
 }
 
