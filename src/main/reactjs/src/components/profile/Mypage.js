@@ -120,7 +120,7 @@ const Mypage = () => {
   return (
     <div className="mypage-container">
       <div className="header-inscreen">
-        <span style={{ fontFamily: 'Anton', marginLeft: "8%" }}>MY INFO</span>
+        <span style={{ marginLeft: "8%" }}>MY INFO</span>
       </div>
       <MyProfile />
       <div>
