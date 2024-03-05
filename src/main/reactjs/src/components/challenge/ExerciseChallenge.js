@@ -60,6 +60,7 @@ const ExerciseChallenge = () => {
                 src={squatImage}
                 alt="Squat"
                 className="exercise-image"
+                style={{width:"60%", height:"auto"}}
               />
             </div>
           </div>

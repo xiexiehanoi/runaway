@@ -50,6 +50,7 @@ const MyChallengeList = ({ row, idx }) => {
               src={exerciseImage}
               alt={challengeData?.exercise_type}
               className="exercise-image"
+              style={{width:'50%'}}
             />
           )}
       </div>
