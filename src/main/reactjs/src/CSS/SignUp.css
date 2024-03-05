@@ -10,7 +10,7 @@
     }
     .signUpBox {
         max-width: 500px;
-        margin: 30px auto 100px;
+        margin: 30px auto;
         padding: 0 20px;
         font-size: small;
         color: black;
@@ -240,8 +240,6 @@
         }
 
         .editAbort {
-            width: 100px;
-            margin-left: 20%;
             padding: 10px 15px;
             margin-top: 40px;
             text-align: center;
@@ -251,11 +249,6 @@
             border-radius: 10px;
             background: gray;
             box-shadow: -9px -9px 16px rgba(73, 73, 73, 0.60), 9px 9px 16px rgba(0, 0, 0, 0.40);
-        }
-
-        .editBtn_group {
-            display: flex;
-            margin-left: 8%;
         }
 
         .disabled {
@@ -268,6 +261,18 @@
             border: whitesmoke solid 1px;
             border-radius: 10px;
             padding: 0px 10px;
+        }
+
+        .abort {
+            padding: 10px 15px;
+            margin-top: 40px;
+            text-align: center;
+            cursor: pointer;
+            font-weight: 600;
+            border-radius: 10px;
+            box-shadow: -9px -9px 16px rgba(73, 73, 73, 0.60), 9px 9px 16px rgba(0, 0, 0, 0.40);
+            color: white;
+            background: gray;
         }
     }
 }
