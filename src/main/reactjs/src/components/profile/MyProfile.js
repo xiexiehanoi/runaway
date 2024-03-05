@@ -6,6 +6,8 @@ import RunawayFemaleImage from "./Img/runaway_female_image.jpg";
 import "./css/MyProfile.css";
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
+import RankOutside from "../profile/Img/border_img/flower.png"
+
 const MyProfile = () => {
   const fetchUserInfo = useFetchUserInfo();
   const userInfo = useRecoilValue(UserInfoAtom);
@@ -49,20 +51,20 @@ const MyProfile = () => {
   return (
     <div className="profile_main">
       <div className="my_info">
+        <img src={RankOutside} className="rank_outside"/>
         <div className="rank_border">
-          <img src={`${IMAGE_URL}${userInfo?.imageUrl}`}
-               alt="profile_image"
-               className="profile_image"
-               onError={handleImageError} />
           <input type="file" id="file" style={{display: 'none'}} onChange={uploadPhoto}/>
           <label htmlFor="file">
-            <ion-icon name="create"></ion-icon>
+            <img src={`${IMAGE_URL}${userInfo?.imageUrl}`}
+                 alt="profile_image"
+                 className="profile_image"
+                 onError={handleImageError}/>
           </label>
         </div>
         <div className="show_info">
           <span className="user_nickname">{userInfo.nickname}</span>
-          <p className="user_email">{userInfo.email}</p>
           <button className="edit_button btn primaryButton-outset" onClick={goToEditInfoForm}>편집</button>
+          <p className="user_email">{userInfo.email}aaaaaaaa@naver.com</p>
         </div>
       </div>
     </div>
