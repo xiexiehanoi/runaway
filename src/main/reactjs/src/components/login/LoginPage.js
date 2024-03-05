@@ -7,6 +7,8 @@ import GoogleLogin from "./GoogleLogin";
 import { useRecoilState } from "recoil";
 import { LoginAtom } from "../../global/LoginAtom";
 import RunawayImage from "../../image/runaway.png";
+import Swal from "sweetalert2";
+import "../../CSS/CommonApplicationStyle.css";
 
 const LoginPage = () => {
   const navi = useNavigate();
@@ -19,17 +21,46 @@ const LoginPage = () => {
 
   const checkLogin = async e => {
     e.preventDefault();
-    if (!email.trim()) {
-      alert("이메일을 입력해주세요.");
-      emailInputRef.current.focus();
+
+    if (!email.trim() || email === "") {
+      Swal.fire({
+        icon: "warning",
+        title: '이메일을 입력해주세요.',
+        confirmButtonText: "OK",
+        allowOutsideClick: false,
+        customClass: {
+          confirmButton: 'sa2-confirm-button-class',
+          title: 'sa2-title-class',
+          icon: 'sa2-icon-class',
+          popup: 'sa2-popup-class',
+          container: 'sa2-container-class'
+        },
+      }).then(result => {
+        emailInputRef.current.focus();
+      });
       return;
     }
 
-    if (!password.trim()) {
-      alert("비밀번호를 입력해주세요.");
-      passwordInputRef.current.focus();
+
+    if (email.trim() && !password.trim()) {
+      Swal.fire({
+        icon: "warning",
+        title: '비밀번호를 입력해주세요.',
+        confirmButtonText: "OK",
+        allowOutsideClick: false,
+        customClass: {
+          confirmButton: 'sa2-confirm-button-class',
+          title: 'sa2-title-class',
+          icon: 'sa2-icon-class',
+          popup: 'sa2-popup-class',
+          container: 'sa2-container-class'
+        },
+      }).then(result => {
+        passwordInputRef.current.focus();
+      });
       return;
     }
+
     try {
       const response = await fetch(`${BASE_URL}/api/user/sign-in`, {
         method: 'POST',
@@ -45,7 +76,6 @@ const LoginPage = () => {
       const token = response.headers.get('Authorization');
 
       if (response.ok) {
-        alert('로그인 성공');
         localStorage.setItem('token', token);
         setIsLogin(token);
         navi('/');
@@ -67,7 +97,7 @@ const LoginPage = () => {
           type="text"
           name="email"
           maxLength="50"
-          placeholder="ID"
+          placeholder="Email"
           onChange={(e) => setEmail(e.target.value)}
           ref={emailInputRef} />
         <input className="login_input"
@@ -77,16 +107,16 @@ const LoginPage = () => {
           onChange={(e) => setPassword(e.target.value)}
           ref={passwordInputRef} />
 
-        <div style={{
-          textAlign: "right",
-          marginTop: "-0.8%",
-          fontSize: '12px',
-          fontWeight: '600'
-        }}>
-          <a href="../member/doFindLoginIdForm">ID 찾기 </a>
-          <span style={{ color: "#f5f5f5" }}>&nbsp;/&nbsp;</span>{" "}
-          <a href="../member/doFindLoginPwForm"> PW 찾기</a>
-        </div>
+        {/*<div style={{*/}
+        {/*  textAlign: "right",*/}
+        {/*  marginTop: "-0.8%",*/}
+        {/*  fontSize: '12px',*/}
+        {/*  fontWeight: '600'*/}
+        {/*}}>*/}
+        {/*  <a href="../member/doFindLoginIdForm">ID 찾기 </a>*/}
+        {/*  <span style={{ color: "#f5f5f5" }}>&nbsp;/&nbsp;</span>{" "}*/}
+        {/*  <a href="../member/doFindLoginPwForm"> PW 찾기</a>*/}
+        {/*</div>*/}
 
         <div>
           <button className='btn primaryButton-outset login_button' onClick={checkLogin}>

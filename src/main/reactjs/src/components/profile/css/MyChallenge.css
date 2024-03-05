@@ -37,7 +37,7 @@
   justify-content: center; /* 세로 방향으로 가운데 정렬 */
   align-items: center; /* 가로 방향으로 가운데 정렬 */
   margin: 5px; /* 아이템 간 간격 조정 */
-  font-size: clamp(12px, 2vw, 24px);
+  font-size: clamp(10px, 2vw, 12px);
 }
   
   
