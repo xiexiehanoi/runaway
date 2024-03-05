@@ -93,7 +93,7 @@ const handlePushupClick = () => {
                         <div className="activity-summary">
                             <div className="date">
                                 <div> {year}년 {month}월</div>
-                                <button onClick={handleRunningClick}>+</button>
+                                <button className="show-all-data-btn" onClick={handleRunningClick}>+</button>
                             </div>
                             <div className="total-distance">
                                 <span className="number">{selectedData.totalDistance}</span><br />
@@ -153,7 +153,7 @@ const handlePushupClick = () => {
                         <div className="activity-summary">
                             <div className="date">
                                 <div> {year}년 {month}월</div>
-                                <button onClick={handleSitupClick}>+</button>
+                                <button onClick={handleSitupClick} style={{fontSize:''}}>+</button>
                             </div>
                             <div className="total-SquatCount">
                                 <span className="number">{selectedData.totalSitUpCount}</span><br />
@@ -222,7 +222,7 @@ const handlePushupClick = () => {
                     onChange={handleChange}
                 />
                 <label htmlFor="tab-1" className="segmented-control__1">
-                    <p>Running</p>
+                    <p style={{marginBottom: '0px'}}>running</p>
                 </label>
 
                 <input
@@ -234,7 +234,7 @@ const handlePushupClick = () => {
                     onChange={handleChange}
                 />
                 <label htmlFor="tab-2" className="segmented-control__2">
-                    <p>Squat</p>
+                    <p style={{marginBottom: '0px'}}>squat</p>
                 </label>
 
                 <input
@@ -246,7 +246,7 @@ const handlePushupClick = () => {
                     onChange={handleChange}
                 />
                 <label htmlFor="tab-3" className="segmented-control__3">
-                    <p>Sit-Up</p>
+                    <p style={{marginBottom: '0px'}}>situp</p>
                 </label>
 
                 <input
@@ -258,7 +258,7 @@ const handlePushupClick = () => {
                     onChange={handleChange}
                 />
                 <label htmlFor="tab-4" className="segmented-control__3">
-                    <p>Push-Up</p>
+                    <p style={{marginBottom: '0px'}}>pushup</p>
                 </label>
                 <div className="segmented-control__color"></div>
             </div>

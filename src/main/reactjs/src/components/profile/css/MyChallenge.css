@@ -53,8 +53,8 @@
   --greyLight-3: #bec8e4;
   --greyDark: #9baacf;
 
-  --shadow: .3rem .3rem .6rem var(--greyLight-2), -.2rem -.2rem .5rem var(--white);
-  --inner-shadow: inset .2rem .2rem .5rem var(--greyLight-2), inset -.2rem -.2rem .5rem var(--white);
+  --shadow: .3rem .3rem .6rem var(--greyLight-2), -.2rem -.2rem .5rem var(--primary);
+  --inner-shadow: inset .2rem .2rem .5rem var(--primary), inset -.2rem -.2rem .5rem var(--primary);
 }
 
 .segmented-control {
@@ -62,7 +62,7 @@
   grid-row: 1 / 2;
   width: 20rem; /* 너비를 4개의 탭을 수용할 수 있도록 조정 */
   height: 4rem;
-  box-shadow: var(--shadow);
+  box-shadow:  -9px -9px 16px rgba(73, 73, 73, 0.40), 9px 9px 16px rgba(0, 0, 0, 0.40);
   border-radius: 1rem;
   display: flex;
   align-items: center;
@@ -70,6 +70,7 @@
   margin-left: auto; /* 왼쪽 마진 자동 설정 */
   margin-right: auto; /* 오른쪽 마진 자동 설정 */
   margin-top: 16px;
+  margin-bottom: 16px;
 }
 
 .segmented-control input {
@@ -161,6 +162,13 @@
   justify-content: space-between; /* "Challenge 달성률"과 링크를 양 끝으로 정렬합니다. */
   align-items: center; 
 }
+
+.show-all-data-btn {
+  background-color: transparent;
+  color: white;
+  border: none; /* 버튼 테두리도 없애고 싶다면 추가 */
+}
+
 
 .total-distance .number {
   font-size: 56px;
