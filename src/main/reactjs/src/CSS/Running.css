@@ -87,7 +87,7 @@
 }
 
 .circle__btn {
-  position:relative;
+  position: relative;
   grid-row: 1/2;
   grid-column: 1/2;
   width: 4rem;
@@ -130,13 +130,16 @@
 
 .circle__back-1,
 .circle__back-2 {
-  position:absolute;
+  position: absolute;
   width: 4rem;
   height: 4rem;
   border-radius: 50%;
   filter: blur(1px);
   z-index: -1;
   margin: 0.6rem;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .circle__back-1 {

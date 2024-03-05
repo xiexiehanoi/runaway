@@ -162,8 +162,9 @@ function Running() {
                             // isPlaying이 false이면 play 아이콘이 보이고, true이면 숨겨짐
                             <ion-icon className="play visibility" name="play" style={{ marginLeft: '8px', fontSize: '32px' }}></ion-icon>
                         )}
+
+                        <div className={`circle__back-1 ${isPlaying ? '' : 'paused'}`}></div>
                     </div>
-                    <div className={`circle__back-1 ${isPlaying ? '' : 'paused'}`}></div>
 
                     {/* 정지 버튼 */}
 
