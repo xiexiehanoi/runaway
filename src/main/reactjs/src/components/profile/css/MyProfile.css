@@ -1,61 +1,79 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap');
 
 .profile_main {
+
     /*font-family: var(--font);*/
     .my_info {
         /*margin-top: 10%;*/
         /*padding: 5%;*/
-        display: inline-flex;
-        /*width: 90%;*/
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: row;
+        width: 90%;
         /*margin-left: 5%;*/
         /*height: 100%;*/
         /*max-width: 100%;*/
         /*max-height: 100%;*/
         position: relative;
-        left: 48%;
-        margin-top: 15%;
-        transform: translate(-50%, -10%);
+        /* left: 50%; */
+        margin-top: 24px;
+        /* transform: translate(-50%); */
         /*background-color: #303234;*/
         /*border-radius: 50px;*/
         /*box-shadow: -7px -7px 16px rgba(73, 73, 73, 0.6), 9px 9px 16px rgba(0, 0, 0, 0.40);*/
 
         .profile_image {
-            width: 90px;
-            height: 90px;
-            border-radius: 500px;
-
+            width: 56px;
+            height: 56px;
+            border-radius: 64px;
+            position: absolute;
         }
 
         .rank_border {
-            border-radius: 500px;
+            border-radius: 88px;
             border: black solid 10px;
-            width: 110px;
-            height: 110px;
-            margin-top: 7%;
-            margin-right: 5%;
+            width: 76px;
+            height: 76px;
+            margin-top: 0%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /* margin-right: 16px; */
             /*position: absolute;*/
             /*top: -20%;*/
             /*left: 25%;*/
             /*transform: translate(-50%, -10%);*/
-         }
-
-        .rank_border ion-icon {
-            position: absolute;
-            top: 77%;
-            font-size: 22px;
-            cursor: pointer;
         }
+
+        .uploadProfileImg img.changeProfileImg {
+            /* position: absolute;
+            top: 70%;
+            left: 18%; */
+            margin-top: 54px;
+            margin-left: -20px;
+            /* font-size: 22px; */
+            cursor: pointer;
+            z-index: 1.5;
+            width: 20px;
+            height: auto;
+
+        }
+
         .edit_button {
-            /*position: absolute;*/
+            /* position: absolute; */
             /*right: 10%;*/
-            /*top: 30%;*/
+            /* top: 30%; */
             /*margin: 5%;*/
-            width: 46px;
-            height: 25px;
+            width: 14px;
+            height: auto;
             color: #f5f5f5;
-            float: right;
-            font-size: 10px;
-            font-weight: 600;
+            /* float: right; */
+            /* font-size: 12px; */
+            /* line-height: 12px; */
+            /* font-weight: 600; */
+            /* margin-top: -44px; */
+            margin-left: 8px;
         }
 
         .email_info {
@@ -67,9 +85,9 @@
 
         .show_info {
             text-align: left;
-            padding-top: 10%;
-            padding-left: 5%;
-            width: 210px;
+            padding-top: 18px;
+            padding-left: 12px;
+            width: 200px;
         }
 
         .show_info ion-icon {
@@ -82,7 +100,8 @@
         }
 
         .user_nickname {
-            font-weight: bolder;
+            font-weight: 700;
+            font-size: 20px;
         }
 
         .user_email {

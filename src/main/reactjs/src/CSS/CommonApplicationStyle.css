@@ -4,7 +4,7 @@
 }
 
 /* 각 화면의 제목이 나오는 부분 */
-.header-inscreen {
+/* .header-inscreen {
     background-color: #303234;
     box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.40);
     height: 48px;
@@ -15,12 +15,13 @@
     top: -0.2%;
     font-weight: 900;
     font-size: 1.5em;
-    color: #f5f5f5;
+    color: #f5f5f5;*/
 
-    /* Flexbox 추가해서 제목이 세로 정렬 중앙에 오도록 배치 */
-    display: flex;
+/* Flexbox 추가해서 제목이 세로 정렬 중앙에 오도록 배치 */
+/* display: flex;
     align-items: center;
-}
+    justify-content: center;
+}  */
 
 
 
