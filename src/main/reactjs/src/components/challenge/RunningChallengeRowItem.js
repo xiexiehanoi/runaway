@@ -47,7 +47,7 @@ const RunningChallengeRowItem = (props) => {
       })
     }
    } catch (error) {
-    if (error.response && error.response.status === 409) {
+    if (error.response && error.response.status === 400) {
       Swal.fire({
         icon: "warning",
         title:'이미 해당 운동에 대한<br /> 챌린지가 존재합니다.',
@@ -63,7 +63,7 @@ const RunningChallengeRowItem = (props) => {
       } else {
         Swal.fire({
           icon: "Error",
-          title:'챌린지 추가 실패: error.response.data.message',
+          title: '챌린지 추가 실패: ' + error.response.data.message,
           confirmButtonText: '확인',
           customClass: {
             title: 'sa2-title-class',
