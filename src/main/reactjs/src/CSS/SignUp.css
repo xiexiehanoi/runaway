@@ -1,6 +1,4 @@
 .signUp {
-    font-family: 'Noto Sans KR', sans-serif;
-
     hr {
 
     }
@@ -117,7 +115,6 @@
         }
 
         .gender_selected {
-            font-family: 'Noto Sans KR', sans-serif;
             background: gray;
             color: black;
         }
@@ -145,7 +142,6 @@
 
         /* Checked */
         .form_radio_btn input[type=radio]:checked + label {
-            font-family: 'Noto Sans KR', sans-serif;
             background: #184DA0;
             color: #fff;
         }

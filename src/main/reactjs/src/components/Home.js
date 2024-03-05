@@ -69,7 +69,7 @@ const Home = () => {
   return (
     <div >
       <div className="header-inscreen">
-        <span style={{ fontFamily: "Anton", marginLeft: "8%" }}>Runaway</span>
+        <span style={{ marginLeft: "8%" }}>Runaway</span>
       </div>
 
       <div className="startAnimation" style={{ marginTop: '24px' }}>

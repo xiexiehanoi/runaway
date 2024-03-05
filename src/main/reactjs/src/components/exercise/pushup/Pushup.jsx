@@ -25,7 +25,6 @@ const MessageBox = styled.div`
   font-size: 18px;
   opacity: 0.6;
   font-weight: 900;
-  font-family: "Varela Round", sans-serif;
   animation: ${blinkAnimation} 2.5s infinite linear forwards;
 `;
 
