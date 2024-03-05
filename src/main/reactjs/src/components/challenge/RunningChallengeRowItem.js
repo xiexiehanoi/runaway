@@ -1,7 +1,7 @@
 import axios from "axios";
 import plusButton from "../../image/plus-button.png";
 import "../../CSS/CommonApplicationStyle.css";
-import "./CSS/ChallengeList.css";
+import "../../CSS/ChallengeList.css";
 import React from "react";
 import Swal from 'sweetalert2';
 
@@ -38,7 +38,7 @@ const RunningChallengeRowItem = (props) => {
         title:'챌린지 등록이<br /> 완료되었습니다.',
         confirmButtonText: '확인',
         customClass: {
-          confirmButton: 'sa2-confirm-button-class',
+          confirmButton: 'sa-confirm-button-class-custom',
           title: 'sa2-title-class',
           icon: 'sa2-icon-class',
           popup: 'sa2-popup-class',
