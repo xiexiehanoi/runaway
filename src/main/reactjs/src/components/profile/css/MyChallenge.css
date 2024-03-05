@@ -38,6 +38,12 @@
   align-items: center; /* 가로 방향으로 가운데 정렬 */
   margin: 5px; /* 아이템 간 간격 조정 */
   font-size: clamp(10px, 2vw, 12px);
+
+}
+
+.donutChart-description{
+  margin-top: 8px;
+  font-size: 12px;
 }
   
   
@@ -54,8 +60,8 @@
   --greyLight-3: #bec8e4;
   --greyDark: #9baacf;
 
-  --shadow: .3rem .3rem .6rem var(--greyLight-2), -.2rem -.2rem .5rem var(--white);
-  --inner-shadow: inset .2rem .2rem .5rem var(--greyLight-2), inset -.2rem -.2rem .5rem var(--white);
+  --shadow: .3rem .3rem .6rem var(--greyLight-2), -.2rem -.2rem .5rem var(--primary);
+  --inner-shadow: inset .2rem .2rem .5rem var(--primary), inset -.2rem -.2rem .5rem var(--primary);
 }
 
 .segmented-control {
@@ -63,7 +69,7 @@
   grid-row: 1 / 2;
   width: 20rem; /* 너비를 4개의 탭을 수용할 수 있도록 조정 */
   height: 4rem;
-  box-shadow: var(--shadow);
+  box-shadow:  -9px -9px 16px rgba(73, 73, 73, 0.40), 9px 9px 16px rgba(0, 0, 0, 0.40);
   border-radius: 1rem;
   display: flex;
   align-items: center;
@@ -71,6 +77,7 @@
   margin-left: auto; /* 왼쪽 마진 자동 설정 */
   margin-right: auto; /* 오른쪽 마진 자동 설정 */
   margin-top: 16px;
+  margin-bottom: 16px;
 }
 
 .segmented-control input {
@@ -135,31 +142,38 @@
 }
   
 
-.currentMonthMyChallenge-container{
-    justify-content: space-around; /* 항목들 사이에 균일한 간격 유지 */
-    flex-wrap: wrap; /* 필요시 여러 줄로 항목을 나눔 */
-    padding: 16px 16px 30px 16px; /* 컨테이너 내부 여백 */
-    box-shadow: -9px -9px 16px rgba(73, 73, 73, 0.40), 9px 9px 16px rgba(0, 0, 0, 0.40);
-    border-radius: 10px; /* 경계선 둥글게 처리 */
-    background-color: #303234; /* 배경색 */
-    max-width: 92%; /* 컨테이너 최대 너비 */
-    margin: auto; /* 페이지 중앙 정렬 */
-    margin-top: 10px;
-    height: 250px;
+
+.running-summary{
+  justify-content: space-around; /* 항목들 사이에 균일한 간격 유지 */
+  flex-wrap: wrap; /* 필요시 여러 줄로 항목을 나눔 */
+  padding: 16px 16px 30px 16px; /* 컨테이너 내부 여백 */
+  box-shadow: -9px -9px 16px rgba(73, 73, 73, 0.40), 9px 9px 16px rgba(0, 0, 0, 0.40);
+  border-radius: 10px; /* 경계선 둥글게 처리 */
+  background-color: #303234; /* 배경색 */
+  max-width: 92%; /* 컨테이너 최대 너비 */
+  margin: auto; /* 페이지 중앙 정렬 */
+  margin-top: 10px;
+  height: 250px;
 }
 
-/* MonthlyActivitySummary */
-
 .date {
-  margin-bottom: 16px;
+  margin-bottom: 24px;
   margin-left:9px;
   display: flex;
   justify-content: space-between; /* "Challenge 달성률"과 링크를 양 끝으로 정렬합니다. */
   align-items: center; 
 }
 
+.show-all-data-btn {
+  background-color: transparent;
+  color: white;
+  border: none; /* 버튼 테두리도 없애고 싶다면 추가 */
+  font-size: 18px;
+}
+
+
 .total-distance .number {
-  font-size: 56px;
+  font-size: 50px;
   font-weight: bold;
   line-height: 1;
   margin-left:16px;
@@ -168,10 +182,11 @@
 
 .total-distance .label {
   font-size: 12px;
-  margin-left:9px;
+  margin-left:12px;
+  margin-top: 8px;
 }
 .total-distance{
-  margin-bottom: 20px;
+  margin-bottom: 24px;
 }
 
 .runningstats-container {
@@ -184,7 +199,7 @@
 
 
 .stat .number {
-  font-size: 23px;
+  font-size: 20px;
   font-weight: bold;
   line-height: 1;
 }
@@ -193,4 +208,56 @@
   font-size: 12px;
 }
 
+
+
+.exercise-summary{
+  justify-content: space-around; /* 항목들 사이에 균일한 간격 유지 */
+  flex-wrap: wrap; /* 필요시 여러 줄로 항목을 나눔 */
+  padding: 16px 16px 30px 16px; /* 컨테이너 내부 여백 */
+  box-shadow: -9px -9px 16px rgba(73, 73, 73, 0.40), 9px 9px 16px rgba(0, 0, 0, 0.40);
+  border-radius: 10px; /* 경계선 둥글게 처리 */
+  background-color: #303234; /* 배경색 */
+  max-width: 92%; /* 컨테이너 최대 너비 */
+  margin: auto; /* 페이지 중앙 정렬 */
+  margin-top: 24px;
+  height: 150px;
+}
+
+
+
+.exercise-stats-container .label {
+  font-size: 18px;
+  
+}
+.exercise-stats-container .number {
+  margin-left: 2px;
+  
+}
+.total-exercise-count{
+  margin-bottom: 20px;
+}
+
+.exercise-stats-container {
+  display: flex;
+  /* justify-content: space-between; */
+  justify-content: space-around;
+  margin-top: 30px;
+}
+
+/* running-records-summary */
+
+
+.running-records-summary{
+  justify-content: space-around; /* 항목들 사이에 균일한 간격 유지 */
+  flex-wrap: wrap; /* 필요시 여러 줄로 항목을 나눔 */
+  padding: 16px 16px 30px 16px; /* 컨테이너 내부 여백 */
+  box-shadow: -9px -9px 16px rgba(73, 73, 73, 0.40), 9px 9px 16px rgba(0, 0, 0, 0.40);
+  border-radius: 10px; /* 경계선 둥글게 처리 */
+  background-color: #303234; /* 배경색 */
+  max-width: 92%; /* 컨테이너 최대 너비 */
+  margin: auto; /* 페이지 중앙 정렬 */
+  margin-top: 30px;
+  margin-bottom: 30px;
+  height: 180px;
+}
 
