@@ -169,7 +169,7 @@ function Running() {
                     {/* 정지 버튼 */}
 
                     <div className="circle__btn stop-btn" onClick={stopRun}>
-                        <ion-icon name="stop" style={{ fontSize: '34px' }}></ion-icon>
+                        <ion-icon name="stop" style={{ fontSize: '32px' }}></ion-icon>
                     </div>
 
                 </div>

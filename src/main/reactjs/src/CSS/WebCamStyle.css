@@ -47,6 +47,7 @@ button.WebCamVideoUploadBtn {
     position: absolute;
     left: auto;
     font-size: large;
+    font-weight: 700;
 }
 
 .zoom {

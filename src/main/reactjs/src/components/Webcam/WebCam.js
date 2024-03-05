@@ -72,7 +72,7 @@ const WebCam = () => {
                     <span
                         style={{
                             color: '#f5f5f5',
-                            fontWeight: '500',
+                            fontWeight: '700',
                             fontSize: '1.1em'
                         }}
                     >Add Story</span>
