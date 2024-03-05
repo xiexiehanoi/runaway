@@ -7,6 +7,7 @@ import downArrow from "../../image/down-arrow.png";
 
 const RankingRowItem = (props) => {
     const {row, idx} = props;
+    console.log(row);
 
     console.log("row:"+row.rankChange)
     return (
@@ -39,21 +40,22 @@ const RankingRowItem = (props) => {
         <mark>
             {idx + 1}위 {row.nickname} ({row.point} 점)
         </mark>
-        <div>
-            {row.rankChange !== 0 ? (
-                <div style={{ display: 'flex', alignItems: 'center' }}>
-                    {row.rankChange > 0 ? (
-                        <img src={downArrow} alt="up arrow" style={{ width: '20px', height: 'auto' }} />
-                    ) : (
-                        <img src={upArrow} alt="down arrow" style={{ width: '20px', height: 'auto' }} />
-                    )}
-                    <span>{Math.abs(row.rankChange)}</span>
-                </div>
+        <div style={{ display: 'flex', alignItems: 'center', marginRight: '10px' }}>
+    {row.rankChange !== 0 ? (
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+            {row.rankChange > 0 ? (
+                <img src={downArrow} alt="down arrow" style={{ width: '20px', height: 'auto' }} />
             ) : (
-                '-'
+                <img src={upArrow} alt="up arrow" style={{ width: '20px', height: 'auto' }} />
             )}
+              <span style={{color: "white"}}>{Math.abs(row.rankChange)}</span>
         </div>
-    </li>
+    ) : (
+        <span>-</span>
+    )}
+</div>
+
+        </li>
 
     );
   };
