@@ -19,6 +19,7 @@ import "../CSS/Main.css";
 //이동
 import Slider from "react-slick";
 import Swal from "sweetalert2";
+import ScreenHeader from "./ScreenHeader";
 
 var settings = {
   className: "center",
@@ -79,10 +80,7 @@ const Home = () => {
 
   return (
     <div >
-      <div className="header-inscreen">
-        <span style={{ marginLeft: "8%" }}>Runaway</span>
-      </div>
-
+      <ScreenHeader title={"Runaway"} />
       <div className="startAnimation" style={{ marginTop: '24px' }}>
         <div className="home-exercise-item">
           <div

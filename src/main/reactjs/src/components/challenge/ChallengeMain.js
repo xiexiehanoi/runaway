@@ -5,6 +5,7 @@ import MyChallengeList from "./MyChallengeList";
 import "../../CSS/CommonApplicationStyle.css";
 import exerciseImg from "../../image/exercise.png";
 import runningImg from "../../image/running.png";
+import ScreenHeader from "../ScreenHeader";
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
@@ -38,9 +39,7 @@ const ChallengeMain = () => {
 
   return (
     <div className="CommonContainer" style={{ height: "100vh" }}>
-      <div className="header-inscreen" style={{ padding: "10px" }}>
-        챌린지 도전하기
-      </div>
+      <ScreenHeader title={"챌린지 도전하기"} />
       <section style={{ marginBottom: "16px" }}>
         <div className="exercise-main-container exercise-button primaryCard">
           <div className="exercise-item" style={{ padding: "5px" }}>
