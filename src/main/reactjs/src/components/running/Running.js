@@ -69,16 +69,6 @@ function Running() {
         event.preventDefault()
     };
 
-<<<<<<< HEAD
-
-
-
-
-
-
-
-=======
->>>>>>> develop
     // 초 단위의 타이머 값을 00:00 형식으로 변환하는 함수
     const formatTime = (time) => {
         const minutes = Math.floor(time / 60).toString().padStart(2, '0');
@@ -176,16 +166,8 @@ function Running() {
                     <div className={`circle__back-1 ${isPlaying ? '' : 'paused'}`}></div>
 
                     {/* 정지 버튼 */}
-<<<<<<< HEAD
-                    {showAlert && <div id="alert-box" class="alert">
-                        <span class="alert-icon"><i class="fas fa-hand-pointer"></i></span>
-                        <span class="alert-text">정지 버튼을 길게 누르면<br /> 러닝이 중단됩니다</span>
-                    </div>}
-                    <span className="circle__btn stop-btn" onTouchStart={handleTouchDown} onTouchEnd={handleTouchUp} onMouseDown={handleMouseDown} onMouseUp={handleMouseUp} style={{ marginLeft: '200px' }}>
-=======
 
                     <div className="circle__btn stop-btn" onClick={stopRun}>
->>>>>>> develop
                         <ion-icon name="stop" style={{ fontSize: '34px' }}></ion-icon>
                     </div>
 
