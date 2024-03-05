@@ -21,7 +21,6 @@ function Running() {
     // 추가된 상태 관리 로직
     const [isPlaying, setIsPlaying] = useState(false); // 재생 상태
 
-
     const [time, setTimer] = useState(null);
     const [alertTimer, setAlertTimer] = useState(null);
     const [showAlert, setShowAlert] = useState(false);
@@ -69,13 +68,6 @@ function Running() {
         clearTimeout(time);
         event.preventDefault()
     };
-
-    
-
-
-
-
-
 
     // 초 단위의 타이머 값을 00:00 형식으로 변환하는 함수
     const formatTime = (time) => {
@@ -138,7 +130,7 @@ function Running() {
             console.log(error);
         });
 
-
+        navigate('/home');
     }
 
     return (
@@ -162,7 +154,7 @@ function Running() {
             </div>
             <div className="control-buttons">
                 <div className="circle">
-                    <span className={`circle__btn ${isPlaying ? 'shadow' : ''}`} onClick={togglePlayPause} style={{ marginRight: '90px' }}>
+                    <div className={`circle__btn ${isPlaying ? 'shadow' : ''}`} onClick={togglePlayPause}>
                         {/* isPlaying이 true이면 pause 아이콘이 보이고, false이면 숨겨짐 */}
                         {isPlaying ? (
                             <ion-icon className="pause visibility" name="pause" style={{ fontSize: '34px' }}></ion-icon>
@@ -170,17 +162,15 @@ function Running() {
                             // isPlaying이 false이면 play 아이콘이 보이고, true이면 숨겨짐
                             <ion-icon className="play visibility" name="play" style={{ marginLeft: '8px', fontSize: '32px' }}></ion-icon>
                         )}
-                    </span>
+                    </div>
+                    <div className={`circle__back-1 ${isPlaying ? '' : 'paused'}`}></div>
+
                     {/* 정지 버튼 */}
-                    {showAlert && <div id="alert-box" class="alert">
-                        <span class="alert-icon"><i class="fas fa-hand-pointer"></i></span>
-                        <span class="alert-text">정지 버튼을 길게 누르면<br/> 러닝이 중단됩니다</span>
-                    </div>}
-                    <span className="circle__btn stop-btn" onTouchStart={handleTouchDown} onTouchEnd={handleTouchUp} onMouseDown={handleMouseDown} onMouseUp={handleMouseUp} style={{ marginLeft: '200px' }}>
+
+                    <div className="circle__btn stop-btn" onClick={stopRun}>
                         <ion-icon name="stop" style={{ fontSize: '34px' }}></ion-icon>
-                    </span>
-                    <span className={`circle__back-1 ${isPlaying ? '' : 'paused'}`} style={{ marginRight: '80px' }}></span>
-                    <span className={`circle__back-2 ${isPlaying ? '' : 'paused'}`} style={{ marginRight: '80px' }}></span>
+                    </div>
+
                 </div>
                 {/* <button onClick={stopRun} className="stop-button">■</button> */}
             </div>
