@@ -44,11 +44,11 @@ const RouterMain = () => {
                 <Route path="/runningchallenge" element={<LoginRouter><RunningChallenge /></LoginRouter>} />
                 <Route path="/exercise" element={<LoginRouter><Exercise /></LoginRouter>} />
                 <Route path="/exercisechallenge" element={<LoginRouter><ExerciseChallenge /></LoginRouter>} />
-                <Route path='mychallengerecordlist'element={<LoginRouter><MyChallengeRecordList /></LoginRouter>} ></Route>
+                <Route path='mychallengerecordlist' element={<LoginRouter><MyChallengeRecordList /></LoginRouter>} ></Route>
                 <Route path="/my" element={<LoginRouter><MyPage /></LoginRouter>} />
                 <Route path='/runningRecord' element={<LoginRouter><RunningRecord /></LoginRouter>} />
-                <Route path='/runningRecords' element={<LoginRouter><RunningRecords/></LoginRouter>} />
-                <Route path='/exerciseRecords' element={<LoginRouter><ExerciseRecords/></LoginRouter>} />
+                <Route path='/runningRecords' element={<LoginRouter><RunningRecords /></LoginRouter>} />
+                <Route path='/exerciseRecords' element={<LoginRouter><ExerciseRecords /></LoginRouter>} />
                 <Route path="/runningRecordDetail/:runIdx" element={<LoginRouter><RunningRecordDetail /></LoginRouter>} />
                 {/* <Route path="/story" element={<LoginRouter><WebCam /></LoginRouter>} /> */}
                 <Route path="/story" element={<WebCam />} />
@@ -61,7 +61,7 @@ const RouterMain = () => {
                 <Route path="/ranking" element={<LoginRouter><Ranking /></LoginRouter>} />
                 <Route path="/mychallengelist" element={<LoginRouter><MyChallengeList /></LoginRouter>} />
                 <Route path="/signup-add" element={<LoginRouter><SignUpAddForm /></LoginRouter>} />
-                <Route path="/expbar" element={<ExpBar/>}/>
+                <Route path="/expbar" element={<ExpBar />} />
                 <Route path="/edit-info" element={<LoginRouter><EditInfoForm /></LoginRouter>} />
 
                 {/* /가 항상 제일 마지막*/}
