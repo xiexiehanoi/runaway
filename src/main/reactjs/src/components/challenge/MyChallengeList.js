@@ -44,7 +44,7 @@ const MyChallengeList = ({ row, idx }) => {
       className="primaryCard CommonContainer"
       style={{ borderRadius:"20px",display: "flex", margin: "16px auto 10px auto", padding: "16px", width:"330px" }}
     >
-      <div className="exercise-content-inner">
+      <div className="exercise-content-inner" style={{marginLeft:"-10%"}}>
           {exerciseImage && (
             <img
               src={exerciseImage}
