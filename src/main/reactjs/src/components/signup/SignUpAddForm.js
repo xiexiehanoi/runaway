@@ -3,6 +3,7 @@ import {useFetchUserInfo, UserInfoAtom} from "../../global/UserInfoAtom";
 import {useRecoilValue} from "recoil";
 import {useNavigate} from "react-router-dom";
 import "../../CSS/SignUp.css"
+import Swal from "sweetalert2";
 
 const SignUpAddForm = () => {
   const fetchUserInfo = useFetchUserInfo();
@@ -116,8 +117,21 @@ const SignUpAddForm = () => {
       });
 
       if (response.ok) {
-        alert('수정 완료');
-        navi('/');
+        Swal.fire({
+          icon: "success",
+          title: '가입 완료',
+          confirmButtonText: "OK",
+          allowOutsideClick: false,
+          customClass: {
+            confirmButton: 'sa2-confirm-button-class',
+            title: 'sa2-title-class',
+            icon: 'sa2-icon-class',
+            popup: 'sa2-popup-class',
+            container: 'sa2-container-class'
+          },
+        }).then(result => {
+          navi("/");
+        });
       } else {
         throw new Error('회원가입 실패');
       }
@@ -127,26 +141,8 @@ const SignUpAddForm = () => {
   };
   return (
       <div className="signUp">
-        <h4>정보 수정</h4>
+        <h4>추가 정보 입력</h4>
         <form className="signUpBox">
-          {/* <div className="profileBox">
-            <label className="imgBoxLabel" htmlFor="profileImg">
-              {imageUrl ? (
-                <img className="labelImg" src={imageUrl} alt="uploadImg"/>
-              ) : null}
-              <div className="imgUploadBtn">
-                <i className="fa-sharp fa-solid fa-camera"/>
-              </div>
-              <input
-                id="profileImg"
-                className="profileImgInput"
-                type="file"
-                name="imageUrl"
-                ref={imgRef}
-                onChange={onChangeImage}
-              />
-            </label>
-          </div> */}
 
           {/* 이메일 비밀번호 */}
           <p className="userEmail title mustInput">이메일</p>
@@ -224,30 +220,6 @@ const SignUpAddForm = () => {
               <label htmlFor="radio-2">여자</label>
             </div>
           </div>
-          {/* 성별 입력 */}
-          {/*<p className="userGender title mustInput">성별</p>*/}
-          {/*<label className="userMale label">*/}
-          {/*  <input*/}
-          {/*    onChange={handleInput}*/}
-          {/*    className="radio"*/}
-          {/*    name="gender"*/}
-          {/*    type="radio"*/}
-          {/*    value="male"*/}
-          {/*    // defaultChecked={userInfo.gender === 'male' || userInfo.gender === 'M'}*/}
-          {/*  />*/}
-          {/*  <span className="text">남자</span>*/}
-          {/*</label>*/}
-          {/*<label className="userFemale label">*/}
-          {/*  <input*/}
-          {/*    onChange={handleInput}*/}
-          {/*    className="radio"*/}
-          {/*    name="gender"*/}
-          {/*    type="radio"*/}
-          {/*    value="female"*/}
-          {/*    // defaultChecked={userInfo.gender === 'female' || userInfo.gender === 'W'}*/}
-          {/*  />*/}
-          {/*  <span className="text">여자</span>*/}
-          {/*</label>*/}
           <hr/>
           {/* 생년월일 입력 */}
           <div className="userBirthdate">
@@ -298,12 +270,10 @@ const SignUpAddForm = () => {
               />
             </div>
           </div>
-              {/* 개인정보 유효기간 */}
-              <div className="agree">
-                <p className="name title">약관 동의</p>
-              </div>
+          <br />
+          <br />
               <div className={`signupBtn ${activeBtn}`} onClick={checkSignUp}>
-                가입하기
+                가입 완료
               </div>
         </form>
       </div>

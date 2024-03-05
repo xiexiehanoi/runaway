@@ -1,11 +1,11 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import Logout from "../login/Logout";
 import MyChallenge from './MyChallenge';
 import ExpBar from './ExpBar';
 import MonthlyActivitySummary from './MonthlyActivitySummary';
 import MyProfile from "./MyProfile";
+import ScreenHeader from "../../router/ScreenHeader";
 
 
 //import './css/Mypage.css'
@@ -119,9 +119,7 @@ const Mypage = () => {
 
   return (
     <div className="mypage-container">
-      <div className="header-inscreen">
-        <span style={{ marginLeft: "8%" }}>MY INFO</span>
-      </div>
+      <ScreenHeader title={"MY INFO"} />
       <MyProfile />
       <div>
         <div className='Exp'>

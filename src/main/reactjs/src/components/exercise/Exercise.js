@@ -1,12 +1,12 @@
 import React, { useEffect, useRef } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import codepen from "./codepen.css";
+import { Link } from "react-router-dom";
+import "./codepen.css";
 import situpImage from "../../image/sit-up.png";
 import pushupImage from "../../image/push-up.png";
 import squatImage from "../../image/squat.png";
 import { Chart as ChartJS, registerables } from 'chart.js';
 import { Line } from 'react-chartjs-2';
-import backW from '../../image/back-white.png';
+import ScreenHeader from "../../router/ScreenHeader";
 ChartJS.register(...registerables);
 
 
@@ -14,7 +14,7 @@ const Exercise = () => {
   const chartRef1 = useRef(null);
   const chartRef2 = useRef(null);
 
-  const navi = useNavigate();
+  // const navi = useNavigate();
 
   useEffect(() => {
     const chartInstance = chartRef1.current;
@@ -158,21 +158,7 @@ const Exercise = () => {
 
   return (
     <>
-      <header className="header-inscreen">
-        <div className='common-backBtn'
-          style={{ marginLeft: "8%" }}
-          onClick={() => {
-            navi("/home")
-          }}>
-          {/*  onClick={() => navi("/story")}> */}
-
-          <img alt='backWhite' src={backW} style={{
-            width: '24px',
-            textShadow: '-6px -6px 12px rgba(73, 73, 73, 0.20), 6px 6px 18px rgba(0, 0, 0, 0.80)'
-          }} />
-          <span >Exercise</span>
-        </div>
-      </header>
+      <ScreenHeader title={"Exercise"} />
 
       <div className="exercisejs-container">
         <div className="squat-IconBox">

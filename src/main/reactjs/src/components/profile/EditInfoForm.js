@@ -3,6 +3,7 @@ import {useFetchUserInfo, UserInfoAtom} from "../../global/UserInfoAtom";
 import {useRecoilValue} from "recoil";
 import {useNavigate} from "react-router-dom";
 import "../../CSS/SignUp.css"
+import Swal from "sweetalert2";
 
 const SignUpAddForm = () => {
   const fetchUserInfo = useFetchUserInfo();
@@ -78,8 +79,21 @@ const SignUpAddForm = () => {
       });
 
       if (response.ok) {
-        alert('수정 완료');
-        navi('/');
+        Swal.fire({
+          icon: "success",
+          title: '수정 완료',
+          confirmButtonText: "OK",
+          allowOutsideClick: false,
+          customClass: {
+            confirmButton: 'sa2-confirm-button-class',
+            title: 'sa2-title-class',
+            icon: 'sa2-icon-class',
+            popup: 'sa2-popup-class',
+            container: 'sa2-container-class'
+          },
+        }).then(result => {
+          navi("/my");
+        });
       } else {
         throw new Error('회원가입 실패');
       }
@@ -231,12 +245,10 @@ const SignUpAddForm = () => {
             </div>
           </div>
           <hr />
-          <div className="editBtn_group">
-              <div className={`signupBtn ${activeBtn}`} onClick={checkSignUp} style={{width: "100px"}}>
-                수정
-              </div>
-              <div className="editAbort" onClick={() => navi("/my")}>취소</div>
-          </div>
+            <div className={`signupBtn ${activeBtn}`} onClick={checkSignUp}>
+              수정
+            </div>
+            <div className="editAbort" onClick={() => navi("/my")}>취소</div>
         </form>
       </div>
 );

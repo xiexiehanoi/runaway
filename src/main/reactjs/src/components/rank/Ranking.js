@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import RankingRowItem from "./RankingRowItem";
 import "../../CSS/Ranking.css";
+import ScreenHeader from "../../router/ScreenHeader";
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
@@ -23,9 +24,7 @@ const Ranking = () => {
 
   return (
     <div id="challenge-main">
-      <div className="header-in-screen">
-        <span style={{ marginLeft: "8%" }}>Ranking</span>
-      </div>
+      <ScreenHeader title={"Ranking"} />
       <div className='CommonContainer'>
         <div className="primaryCard"
               style={{ width: '85%', height: '72%', margin: "8% auto" }}>

@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import RunningChallengeRowItem from "./RunningChallengeRowItem";
 import runningImg from "../../image/running.png";
+import ScreenHeader from "../../router/ScreenHeader";
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
@@ -26,9 +27,7 @@ const RunningChallenge = () => {
 
   return (
     <div>
-      <header className="header-inscreen" style={{ padding: "10px" }}>
-        러닝 도전하기
-      </header>
+      <ScreenHeader title={"러닝 도전하기"} />
       <div className="exercise-main-container exercise-container primaryCard">
       <div  className="exercise-item primaryCard">
         <div className="exercise-content" style={{width:"100px", height:"100px"}}>

@@ -6,6 +6,7 @@ import "../../CSS/ChallengeList.css";
 import situpImage from "../../image/sit-up.png";
 import pushupImage from "../../image/push-up.png";
 import squatImage from "../../image/squat.png";
+import ScreenHeader from "../../router/ScreenHeader";
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
@@ -45,9 +46,7 @@ const ExerciseChallenge = () => {
 
   return (
     <div>
-      <header className="header-inscreen" style={{ padding: "10px" }}>
-        맨몸운동 도전하기
-      </header>
+      <ScreenHeader title={"맨몸운동 도전하기"} />
       {/* 챌린지 유형별 필터링 섹션 */}
       <>
         <div className="exercise-main-container exercise-container primaryCard">
