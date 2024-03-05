@@ -1,11 +1,12 @@
 import React, { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-import codepen from "./codepen.css";
+import "./codepen.css";
 import situpImage from "../../image/sit-up.png";
 import pushupImage from "../../image/push-up.png";
 import squatImage from "../../image/squat.png";
 import { Chart as ChartJS, registerables } from 'chart.js';
 import { Line } from 'react-chartjs-2';
+import ScreenHeader from "../ScreenHeader";
 ChartJS.register(...registerables);
 
 const Exercise = () => {
@@ -154,25 +155,23 @@ const Exercise = () => {
   
   return (
     <>
-      <header className="header-inscreen" style={{ padding: "10px" }}>
-        Exercise
-      </header>
+      <ScreenHeader title={"Exercise"} />
 
       <div className="exercisejs-container">
         <div className="squat-IconBox">
-          <Link to={"/squat"}>
-            <img src={squatImage} alt="Squat" className="exercisejs-image" />
+          <Link to={"/squat"} className="squatLink">
+            <img src={squatImage} alt="Squat" className="exerciseSquat-image" />
           </Link>
         </div>
 
         <div className="situp-IconBox">
-          <Link to={"/situp"}>
-            <img src={situpImage} alt="Sit-up" className="exercisejs-image" />
+          <Link to={"/situp"} className="squatLink">
+            <img src={situpImage} alt="Sit-up" className="exerciseSitup-image" />
           </Link>
         </div>
         <div className="pushup-IconBox">
-          <Link to={"/pushup"}>
-            <img src={pushupImage} alt="Pushup" className="exercisejs-image" />
+          <Link to={"/pushup"} className="squatLink">
+            <img src={pushupImage} alt="Pushup" className="exercisePushup-image" />
           </Link>
         </div>
       </div>

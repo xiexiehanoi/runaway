@@ -6,6 +6,7 @@ import WebcamVideo from "./WebCamVideo";
 import StoryShow from "./StoryShow";
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import ScreenHeader from "../ScreenHeader";
 
 const BASE_URI = process.env.REACT_APP_BACKEND_URL;
 const token = window.localStorage.getItem("token");
@@ -61,9 +62,7 @@ const WebCam = () => {
         <>
             {/* Header 표시 여부에 따라 조건부 렌더링 */}
             {showHeader && (
-                <div className="header-inscreen">
-                    <span style={{ marginLeft: "8%" }}>Stories</span>
-                </div>
+                <ScreenHeader title={"Stories"} />
             )}
 
             {!showWebCamVideo && (

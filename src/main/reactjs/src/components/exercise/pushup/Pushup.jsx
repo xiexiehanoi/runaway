@@ -25,7 +25,6 @@ const MessageBox = styled.div`
   font-size: 18px;
   opacity: 0.6;
   font-weight: 900;
-  font-family: "Varela Round", sans-serif;
   animation: ${blinkAnimation} 2.5s infinite linear forwards;
 `;
 
@@ -217,7 +216,7 @@ const Pushup = () => {
     setShowStartButton(true);
   };
 
-  const stopCameraAndFunction = () => {
+  const stopCameraAndFunction = useCallback(() => {
     setMaxCount(0);
     setCount(0);
     setCameraActive(false);
@@ -240,7 +239,20 @@ const Pushup = () => {
     }
     setProgress(null);
     setShowStartButton(true);
-  };
+  }, [
+    // 상태 업데이트 함수들
+    setMaxCount,
+    setCount,
+    setCameraActive,
+    setProgress,
+    setShowStartButton,
+  
+    // ref의 current 값들
+    webcamRef,
+    animationFrameId,
+    canvasRef,
+    progressRef,
+  ]);
 
   const playAudioAfterDelay = (audioFile) => {
     setTimeout(() => {
@@ -433,7 +445,7 @@ const Pushup = () => {
             className="playButton-container"
             onClick={handleStartButtonClick}
           >
-            <div class="playButton-triangle"></div>
+            <div className="playButton-triangle"></div>
           </div>
         )}
 

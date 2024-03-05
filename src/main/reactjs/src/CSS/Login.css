@@ -6,7 +6,6 @@
   /*    --color-light: #a49eac;*/
   /*    --color-lighten: #f2f2f2;*/
   --color-hover: #65bf97;
-  --font: "Open Sans", sans-serif;
   /*    --big-font-size: 1.5rem;*/
   --normal-font-size: 0.938rem;
   --small-font-size: 0.813rem;
@@ -21,7 +20,6 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: var(--font);
   font-size: var(--normal-font-size);
   /*    color: var(--color-dark);*/
 }

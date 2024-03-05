@@ -37,6 +37,7 @@
   justify-content: center; /* 세로 방향으로 가운데 정렬 */
   align-items: center; /* 가로 방향으로 가운데 정렬 */
   margin: 5px; /* 아이템 간 간격 조정 */
+  font-size: clamp(12px, 2vw, 24px);
 }
   
   
@@ -149,11 +150,6 @@
 }
 
 /* MonthlyActivitySummary */
-
-.activity-summary {
-  font-family: 'Noto Sans', sans-serif;
-  
-}
 
 .date {
   margin-bottom: 16px;
