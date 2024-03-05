@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import RunningMap from "./RunningMap";
 import axios from 'axios';
 import { RunningLocationTracking } from './RunningLocationTracking';
-import './css/Running.css'
+import '../../CSS/Running.css'
 import { useNavigate } from 'react-router-dom';
 
 function Running() {
@@ -54,11 +54,11 @@ function Running() {
             navigate('/home');
         }, 3000);
         setTimer(timeout);
-        
+
     };
 
     const handleTouchUp = (event) => {
-        event.preventDefault(); 
+        event.preventDefault();
         // 알림 표시
         setShowAlert(true);
         // 2초 후 알림 사라짐
@@ -86,7 +86,7 @@ function Running() {
         }
     };
 
-  
+
 
     const stopRun = () => {
         console.log("Function stopRun");
@@ -123,12 +123,12 @@ function Running() {
                 Authorization: token
             }
         })
-        .then(function (response) {
-            console.log(response);
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
+            .then(function (response) {
+                console.log(response);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
 
         navigate('/home');
     }
@@ -162,8 +162,9 @@ function Running() {
                             // isPlaying이 false이면 play 아이콘이 보이고, true이면 숨겨짐
                             <ion-icon className="play visibility" name="play" style={{ marginLeft: '8px', fontSize: '32px' }}></ion-icon>
                         )}
+
+                        <div className={`circle__back-1 ${isPlaying ? '' : 'paused'}`}></div>
                     </div>
-                    <div className={`circle__back-1 ${isPlaying ? '' : 'paused'}`}></div>
 
                     {/* 정지 버튼 */}
 

@@ -41,7 +41,7 @@ button.WebCamVideoUploadBtn {
     border-radius: 56px;
     cursor: pointer;
     z-index: 2;
-    width: calc(60% - 20px);
+    width: calc(65% - 20px);
     height: 52px;
     margin: 8px;
     position: absolute;
