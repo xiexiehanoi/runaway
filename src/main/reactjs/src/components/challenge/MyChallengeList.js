@@ -1,6 +1,6 @@
 import React from "react";
 import "../../CSS/CommonApplicationStyle.css";
-import "./CSS/ChallengeList.css";
+import "../../CSS/ChallengeList.css";
 import situpImage from "../../image/sit-up.png";
 import pushupImage from "../../image/push-up.png";
 import squatImage from "../../image/squat.png";
@@ -50,6 +50,7 @@ const MyChallengeList = ({ row, idx }) => {
               src={exerciseImage}
               alt={challengeData?.exercise_type}
               className="exercise-image"
+              style={{width:'50%'}}
             />
           )}
       </div>
