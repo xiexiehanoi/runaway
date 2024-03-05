@@ -4,8 +4,9 @@ import Modal from "../MaxInputModal";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
 import styled, { keyframes } from "styled-components";
-import xButtonImage from '../../../image/close-white.png';
-import ProgressBar from '../progressBar';
+import xButtonImage from "../../../image/close-white.png";
+import ProgressBar from "../progressBar";
+import Swal from "sweetalert2";
 
 const blinkAnimation = keyframes`
   0% { color: transparent; }
@@ -14,16 +15,17 @@ const blinkAnimation = keyframes`
 `;
 
 const MessageBox = styled.div`
-width: 83%;
+  width: 83%;
   position: absolute;
-  top: 40%;
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   white-space: pre-line;
   text-align: center;
-  font-size: 20px;  
-  font-weight: 900; 
-  font-family: 'Varela Round', sans-serif;
+  font-size: 18px;
+  opacity: 0.6;
+  font-weight: 900;
+  font-family: "Varela Round", sans-serif;
   animation: ${blinkAnimation} 2.5s infinite linear forwards;
 `;
 
@@ -32,11 +34,11 @@ const dateToSend = new Date().toISOString().split("T")[0];
 
 const calculateCalories = (count, exerciseType) => {
   switch (exerciseType) {
-    case 'squat':
+    case "squat":
       return count * 1.2;
-    case 'situp':
+    case "situp":
       return count * 0.9;
-    case 'pushup':
+    case "pushup":
       return count * 0.7;
     default:
       return 0;
@@ -53,18 +55,18 @@ const saveCountToDatabase = async (count, exerciseType) => {
 
     const calories = calculateCalories(count, exerciseType);
     await axios.post(
-        `${BASE_URL}/api/exercise/save`,
-        {
-          date: dateToSend,
-          exerciseCount: count,
-          exerciseType: exerciseType,
-          calories: calories,
+      `${BASE_URL}/api/exercise/save`,
+      {
+        date: dateToSend,
+        exerciseCount: count,
+        exerciseType: exerciseType,
+        calories: calories,
+      },
+      {
+        headers: {
+          Authorization: token,
         },
-        {
-          headers: {
-            Authorization: token,
-          },
-        }
+      }
     );
     console.log("Count saved successfully");
     alert("세트 하나 완료");
@@ -77,32 +79,43 @@ const Pushup = () => {
   const squatBoxContainer = {
     position: "relative",
     width: "100%",
-    height: "110%",
+    height: "102%",
     textAlign: "center",
   };
 
   const stopButtonStyle = {
     position: "absolute",
     zIndex: 100,
-    width: '45px',
-    height: '45px',
-    border: 'none',
-    left:'43%',
-    top:'80%',
-    backgroundColor: 'transparent',
+    width: "45px",
+    height: "45px",
+    border: "none",
+    left: "43%",
+    top: "80%",
+    backgroundColor: "transparent",
   };
 
   const canvasBox = {
-    height: "92%",
+    height: "100%",
     width: "100%",
+    overflowY: "hidden",
   };
 
   const canvasStyle = {
     width: "100%",
-    height: "98%",
+    height: "100%",
     position: "relative",
     top: "0%",
   };
+
+  const successCheck = {
+    width: '150px',
+    height: '150px',
+    position: "absolute",
+    transform: 'translate(-50%, -50%)',
+    top: "50%",
+    left: "50%",
+    backgroundColor: "transparent",
+  }
 
   const webcamRef = useRef(null);
   const modelRef = useRef(null);
@@ -186,7 +199,7 @@ const Pushup = () => {
     setShowModal(false);
     setShowStartButton(false);
     setMessage(
-      "지금부터 5초간 자세를 잡아주세요\n푸쉬업은 엎드린 상태로\n정면을 바라보고 진행하여주세요"
+      "지금부터 5초간 자세를 잡아주세요\n푸쉬업은 엎드린 상태로\n정면을 바라보고 진행해주세요"
     );
     setTimeout(() => {
       setMessage("");
@@ -344,7 +357,7 @@ const Pushup = () => {
   }, [count]);
 
   useEffect(() => {
-    if (status === "stand" && countRef.current === "squat") {
+    if (status === "pushup" && countRef.current === "pushdown") {
       const newCount = count + 1;
       setCount(newCount);
       playCountAudio(newCount);
@@ -352,7 +365,13 @@ const Pushup = () => {
       if (newCount === maxCount) {
         saveCountToDatabase(newCount, exerciseType)
           .then(() => {
-            window.location = "/exercise";
+            setMessage({ type: "image", value: "/squat/SuccessCheck3.gif" });
+            setTimeout(() => {
+              setMessage(""); // 또는 setMessage(null); 로 상태를 비워 GIF를 제거
+            }, 2400);
+            setTimeout(() => {
+              window.location = "/exercise";
+            }, 3400);
           })
           .catch((error) => {
             console.error("Failed to save count", error.response);
@@ -382,6 +401,30 @@ const Pushup = () => {
     };
   }, []);
 
+  const CloseCanvasCam = useCallback(() => {
+    Swal.fire({
+      icon: "warning",
+      title: "정말로 나가시겠습니까?",
+      confirmButtonText: "네, 나가겠습니다",
+      cancelButtonText: "아니요, 돌아가겠습니다",
+      showCancelButton: true,
+      customClass: {
+        confirmButton: "sa2-confirm-button-class",
+        cancelButton: "sa2-cancel-button-class",
+        title: "sa2-title-class",
+        icon: "sa2-icon-class",
+        popup: "sa2-popup-class",
+        container: "sa2-container-class",
+      },
+      html: "이대로 나가신다면<br/>지금까지 수행한 운동 기록은<br/>지워질 수 있습니다.",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        stopCameraAndFunction();
+      } else {
+      }
+    });
+  }, [stopCameraAndFunction]);
+
   return (
     <>
       <div style={squatBoxContainer}>
@@ -397,10 +440,10 @@ const Pushup = () => {
         {cameraActive && (
           <button
             type="button"
-            onClick={stopCameraAndFunction}
+            onClick={CloseCanvasCam}
             style={stopButtonStyle}
           >
-             <img src={xButtonImage} alt="" />
+            <img src={xButtonImage} alt="" />
           </button>
         )}
 
@@ -412,7 +455,7 @@ const Pushup = () => {
                 className="progress"
                 style={{ display: "block" }}
               ></div> */}
-              <ProgressBar maxCount={maxCount} count={count}  />
+              <ProgressBar maxCount={maxCount} count={count} />
               <canvas
                 ref={canvasRef}
                 width="640px"
@@ -435,7 +478,17 @@ const Pushup = () => {
           <Modal onSave={handleModalSave} onClose={handleModalClose} />
         )}
 
-        {message && <MessageBox>{message}</MessageBox>}
+        {message && message.type === "text" && (
+          <div className="message-container">
+            <MessageBox>{message.value}</MessageBox>
+          </div>
+        )}
+
+        {message && message.type === "image" && (
+          <div style={{ textAlign: "center" }}>
+            <img src={message.value} alt="" style={successCheck} />
+          </div>
+        )}
       </div>
     </>
   );

@@ -39,28 +39,28 @@ const MonthlyActivitySummary = ({ currentMonthlyExerciseData , start }) => {
 const handleRunningClick = () => {
     // 새로운 페이지로 이동하면서 데이터를 전달
     const runningStartDate=start.runningStartDate;
-    navigate("/exerciseRecords", { state: { startDate: runningStartDate } });
+    navigate("/runningRecords", { state: { startDate: runningStartDate , exerciseType:'running'} });
 };
 
 // Squat 탭에 대한 handleClick 함수
 const handleSquatClick = () => {
     // 새로운 페이지로 이동하면서 데이터를 전달
     const squatStartDate=start.squatStartDate;
-    navigate("/exerciseRecords", { state: { startDate:squatStartDate  } });
+    navigate("/exerciseRecords", { state: { startDate:squatStartDate , exerciseType:'squat' } });
 };
 
 // Sit-Up 탭에 대한 handleClick 함수
 const handleSitupClick = () => {
     // 새로운 페이지로 이동하면서 데이터를 전달
     const situpStartDate=start.situpStartDate;
-    navigate("/exerciseRecords", { state: { startDate: situpStartDate } });
+    navigate("/exerciseRecords", { state: { startDate: situpStartDate , exerciseType:'situp'} });
 };
 
 // Push-Up 탭에 대한 handleClick 함수
 const handlePushupClick = () => {
     // 새로운 페이지로 이동하면서 데이터를 전달
     const pushupStartDate=start.pushupStartDate;
-    navigate("/exerciseRecords", { state: { startDate: pushupStartDate } });
+    navigate("/exerciseRecords", { state: { startDate: pushupStartDate , exerciseType:'pushup'} });
 };
 
 
