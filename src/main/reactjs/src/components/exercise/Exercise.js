@@ -6,7 +6,7 @@ import pushupImage from "../../image/push-up.png";
 import squatImage from "../../image/squat.png";
 import { Chart as ChartJS, registerables } from 'chart.js';
 import { Line } from 'react-chartjs-2';
-import ScreenHeader from "../ScreenHeader";
+import ScreenHeader from "../../router/ScreenHeader";
 ChartJS.register(...registerables);
 
 const Exercise = () => {

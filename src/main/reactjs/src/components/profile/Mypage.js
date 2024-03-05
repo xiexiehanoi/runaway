@@ -5,7 +5,7 @@ import MyChallenge from './MyChallenge';
 import ExpBar from './ExpBar';
 import MonthlyActivitySummary from './MonthlyActivitySummary';
 import MyProfile from "./MyProfile";
-import ScreenHeader from "../ScreenHeader";
+import ScreenHeader from "../../router/ScreenHeader";
 
 
 //import './css/Mypage.css'
