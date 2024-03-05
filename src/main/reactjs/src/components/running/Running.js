@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import RunningMap from "./RunningMap";
 import axios from 'axios';
 import { RunningLocationTracking } from './RunningLocationTracking';
-import './css/Running.css'
+import '../../CSS/Running.css'
 import { useNavigate } from 'react-router-dom';
 
 function Running() {
@@ -55,11 +55,11 @@ function Running() {
             navigate('/home');
         }, 3000);
         setTimer(timeout);
-        
+
     };
 
     const handleTouchUp = (event) => {
-        event.preventDefault(); 
+        event.preventDefault();
         // 알림 표시
         setShowAlert(true);
         // 2초 후 알림 사라짐
@@ -70,7 +70,7 @@ function Running() {
         event.preventDefault()
     };
 
-    
+
 
 
 
@@ -94,7 +94,7 @@ function Running() {
         }
     };
 
-  
+
 
     const stopRun = () => {
         console.log("Function stopRun");
@@ -131,12 +131,12 @@ function Running() {
                 Authorization: token
             }
         })
-        .then(function (response) {
-            console.log(response);
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
+            .then(function (response) {
+                console.log(response);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
 
 
     }
@@ -174,7 +174,7 @@ function Running() {
                     {/* 정지 버튼 */}
                     {showAlert && <div id="alert-box" class="alert">
                         <span class="alert-icon"><i class="fas fa-hand-pointer"></i></span>
-                        <span class="alert-text">정지 버튼을 길게 누르면<br/> 러닝이 중단됩니다</span>
+                        <span class="alert-text">정지 버튼을 길게 누르면<br /> 러닝이 중단됩니다</span>
                     </div>}
                     <span className="circle__btn stop-btn" onTouchStart={handleTouchDown} onTouchEnd={handleTouchUp} onMouseDown={handleMouseDown} onMouseUp={handleMouseUp} style={{ marginLeft: '200px' }}>
                         <ion-icon name="stop" style={{ fontSize: '34px' }}></ion-icon>

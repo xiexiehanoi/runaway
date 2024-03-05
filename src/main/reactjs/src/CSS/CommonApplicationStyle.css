@@ -107,6 +107,30 @@
 
 
 
+
+/* Back Button */
+.common-backBtn {
+    /* padding: 10px 30px; */
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    z-index: 2;
+    width: 2%;
+    height: auto;
+    /* margin: 10px; */
+    position: absolute;
+    left: 0%;
+    top: 3%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+
+
+
+
 /* SweetAlert2 CSS */
 .sa2-confirm-button-class {
     background: linear-gradient(140deg, #a4b0f1 -0.5%, #5d4fad 100%) !important;
