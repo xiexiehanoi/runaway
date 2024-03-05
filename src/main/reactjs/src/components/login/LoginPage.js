@@ -8,6 +8,7 @@ import { useRecoilState } from "recoil";
 import { LoginAtom } from "../../global/LoginAtom";
 import RunawayImage from "../../image/runaway.png";
 import Swal from "sweetalert2";
+import "../../CSS/CommonApplicationStyle.css";
 
 const LoginPage = () => {
   const navi = useNavigate();

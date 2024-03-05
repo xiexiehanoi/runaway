@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {useNavigate} from "react-router-dom";
 import "../../CSS/SignUp.css"
+import Swal from "sweetalert2";
 
 const SignUpForm = () => {
   const BASE_URL = process.env.REACT_APP_BACKEND_URL;
@@ -129,8 +130,21 @@ const SignUpForm = () => {
       });
 
       if (response.ok) {
-        alert('회원가입 성공');
-        navi('/login');
+        Swal.fire({
+          icon: "success",
+          title: '가입 완료',
+          confirmButtonText: "OK",
+          allowOutsideClick: false,
+          customClass: {
+            confirmButton: 'sa2-confirm-button-class',
+            title: 'sa2-title-class',
+            icon: 'sa2-icon-class',
+            popup: 'sa2-popup-class',
+            container: 'sa2-container-class'
+          },
+        }).then(result => {
+          navi("/login");
+        });
       } else {
         throw new Error('회원가입 실패');
       }

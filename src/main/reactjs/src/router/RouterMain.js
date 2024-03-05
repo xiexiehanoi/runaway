@@ -23,7 +23,6 @@ import MyChallengeList from '../components/challenge/MyChallengeList';
 import RunningRecord from '../components/profile/RunningRecord';
 import LoginRouter from "./LoginRouter";
 import LoginBackRouter from "./LoginBackRouter";
-import Logout from "../components/login/Logout";
 import ExpBar from "../components/profile/ExpBar";
 import EditInfoForm from "../components/profile/EditInfoForm";
 

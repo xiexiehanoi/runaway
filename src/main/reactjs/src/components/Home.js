@@ -18,6 +18,7 @@ import "../CSS/Main.css";
 
 //이동
 import Slider from "react-slick";
+import Swal from "sweetalert2";
 
 var settings = {
   className: "center",
@@ -51,12 +52,22 @@ const Home = () => {
           res.data.weight === null ||
           res.data.weight === 0
         ) {
-          alert(
-            "추가 정보 입력이 필요하여 추가 정보 입력 페이지로 이동합니다."
-          );
-          navi("/signup-add");
+          Swal.fire({
+            icon: "warning",
+            title: '추가 정보 입력이 \n 필요하여 추가 정보 입력 \n 페이지로 이동합니다.',
+            confirmButtonText: "OK",
+            allowOutsideClick: false,
+            customClass: {
+              confirmButton: 'sa2-confirm-button-class',
+              title: 'sa2-title-class',
+              icon: 'sa2-icon-class',
+              popup: 'sa2-popup-class',
+              container: 'sa2-container-class'
+            },
+          }).then(result => {
+            navi("/signup-add");
+          });
         }
-        console.log(res);
       } catch (e) {
         console.error(e);
       }

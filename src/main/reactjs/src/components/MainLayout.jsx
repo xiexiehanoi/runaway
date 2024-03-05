@@ -42,7 +42,7 @@ const MainLayout = ({ children }) => {
 
   useEffect(() => {
     // 현재 경로가 /addstory인 경우 tabbar 숨기기
-    const isHiddenPath = location.pathname === "/addstory" || location.pathname === "/login";
+    const isHiddenPath = location.pathname === "/addstory" || location.pathname === "/login" || location.pathname === "/signup" || location.pathname === "/signup-add";
     if (isHiddenPath) {
       // If the current path is /addstory or /login, set padding-bottom of #screen to 0
       document.getElementById("screen").style.paddingBottom = "0";
@@ -110,7 +110,7 @@ const MainLayout = ({ children }) => {
 
 
           </div>
-          {(location.pathname !== "/addstory" && location.pathname !== "/login") && (
+          {(location.pathname !== "/addstory" && location.pathname !== "/login" && location.pathname !== "/signup" && location.pathname !== "/signup-add") && (
             // "/addstory" 또는 "/loginPage" 경로가 아닐 때만 nav.tabbar 표시              
             <nav className="tabbar">
               <ul>

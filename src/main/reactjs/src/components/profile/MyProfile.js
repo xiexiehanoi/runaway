@@ -4,7 +4,6 @@ import {useRecoilValue} from "recoil";
 import RunawayMaleImage from "./Img/runaway_male_image.jpg";
 import RunawayFemaleImage from "./Img/runaway_female_image.jpg";
 import "./css/MyProfile.css";
-import ChallengerIcon from "./Img/challenger_icon.jpg";
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
 const MyProfile = () => {
@@ -54,7 +53,7 @@ const MyProfile = () => {
           <img src={`${IMAGE_URL}${userInfo?.imageUrl}`}
                alt="profile_image"
                className="profile_image"
-               onError={handleImageError}/>
+               onError={handleImageError} />
           <input type="file" id="file" style={{display: 'none'}} onChange={uploadPhoto}/>
           <label htmlFor="file">
             <ion-icon name="create"></ion-icon>
@@ -63,8 +62,6 @@ const MyProfile = () => {
         <div className="show_info">
           <span className="user_nickname">{userInfo.nickname}</span>
           <p className="user_email">{userInfo.email}</p>
-        </div>
-        <div className="edit_info" style={{marginTop: "9%"}}>
           <button className="edit_button btn primaryButton-outset" onClick={goToEditInfoForm}>편집</button>
         </div>
       </div>
