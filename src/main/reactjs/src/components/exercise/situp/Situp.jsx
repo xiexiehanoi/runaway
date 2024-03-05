@@ -215,7 +215,7 @@ const Situp = () => {
     setShowStartButton(true);
   };
 
-  const stopCameraAndFunction = () => {
+  const stopCameraAndFunction = useCallback(() => {
     setMaxCount(0);
     setCount(0);
     setCameraActive(false);
@@ -238,7 +238,20 @@ const Situp = () => {
     }
     setProgress(null);
     setShowStartButton(true);
-  };
+  }, [
+    // 상태 업데이트 함수들
+    setMaxCount,
+    setCount,
+    setCameraActive,
+    setProgress,
+    setShowStartButton,
+  
+    // ref의 current 값들
+    webcamRef,
+    animationFrameId,
+    canvasRef,
+    progressRef,
+  ]);
 
   const playAudioAfterDelay = (audioFile) => {
     setTimeout(() => {
@@ -431,7 +444,7 @@ const Situp = () => {
             className="playButton-container"
             onClick={handleStartButtonClick}
           >
-            <div class="playButton-triangle"></div>
+            <div className="playButton-triangle"></div>
           </div>
         )}
 
