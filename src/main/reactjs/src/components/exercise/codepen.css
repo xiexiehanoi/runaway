@@ -55,11 +55,32 @@ body {
   align-items: center;
 }
 
-.exercisejs-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+.exerciseSquat-image {
+  width: 60%;
+  height: 80%;
   border-radius: 15px;
+  position:relative;
+}
+
+.squatLink {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.exerciseSitup-image {
+  width: 70%;
+  height: 80%;
+  position: relative;
+}
+
+.exercisePushup-image {
+  width: 70%;
+  height: 80%;
+  position: relative;
 }
 
 .graff-container {
