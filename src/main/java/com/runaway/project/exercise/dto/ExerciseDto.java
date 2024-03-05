@@ -21,6 +21,6 @@ public class ExerciseDto {
 
     private String exerciseType;
 
-    private int calorie;
+    private double calorie;
 
 }

@@ -6,7 +6,6 @@
   /*    --color-light: #a49eac;*/
   /*    --color-lighten: #f2f2f2;*/
   --color-hover: #65bf97;
-  --font: "Open Sans", sans-serif;
   /*    --big-font-size: 1.5rem;*/
   --normal-font-size: 0.938rem;
   --small-font-size: 0.813rem;
@@ -21,7 +20,6 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: var(--font);
   font-size: var(--normal-font-size);
   /*    color: var(--color-dark);*/
 }
@@ -76,7 +74,7 @@ select {
   width: 80px;
   height: 64px;
   color: #f5f5f5;
-  background-color: #303234;
+  /*background-color: #303234;*/
   margin-top: 10%;
   /* border-radius: 8px; */
   box-shadow: -7px -7px 16px rgba(73, 73, 73, 0.30), 9px 9px 16px rgba(0, 0, 0, 0.40);
@@ -113,7 +111,7 @@ select {
 
 .login_content img {
   width: 80px;
-  height: 80px;
+  height: auto;
 }
 
 .login_forms {

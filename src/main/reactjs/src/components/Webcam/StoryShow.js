@@ -34,7 +34,8 @@ const StoryShow = ({ storyList }) => {
     return <div>Invalid video index</div>;
   }
 
-  const currentStory = storyList[videoIndex];
+  const reversedStoryList = [...storyList].reverse();
+  const currentStory = reversedStoryList[videoIndex];
 
   // 현재 스토리가 존재하고 storyContent가 존재하는지 확인
   if (!currentStory || !currentStory.storyContent) {
@@ -45,33 +46,23 @@ const StoryShow = ({ storyList }) => {
   const mimeType = currentStory.storyContent.endsWith('.mp4') ? 'video/mp4' : 'video/webm';
 
   return (
-    <div {...handlers} style={{ width: "100%", height: "100%" }} >
-      <div {...handlers} style={{ width: "100%", height: "100%" }} >
-        <VideoPlayer
-          src={videoUrl + currentStory.storyContent}
-          mimeType={mimeType}
-          width={100} // 부모 요소인 primaryCard에 가득 차도록 100%로 설정
-          height={100} // 부모 요소인 primaryCard에 가득 차도록 100%로 설정
-        />
-      </div>
-      <p style={{
-        color: '#f5f5f5',
-        fontWeight: '500',
-        fontSize: '1.1em',
-        margin: '2% 4%',
-        zIndex: '3'
-      }}>
-        User: {currentStory.user.username}
-      </p>
-      <p style={{
-        color: '#f5f5f5',
-        fontWeight: '500',
-        fontSize: '1.1em',
-        margin: '2% 4%',
-        zIndex: '3'
-      }}>
-        Upload Time: {currentStory.storyUploadTime}
-      </p>
+    <div {...handlers} style={{ width: "100%", height: "100%", overflow: "hidden", position: 'relative' }} >
+      <VideoPlayer
+        src={videoUrl + currentStory.storyContent}
+        mimeType={mimeType}
+        currentStory={currentStory}
+      // width={100} // 부모 요소인 primaryCard에 가득 차도록 100%로 설정
+      // height={100} // 부모 요소인 primaryCard에 가득 차도록 100%로 설정
+      >
+      </VideoPlayer>
+      {/* <span className="primaryCard storyInfoContainer" >
+        <p className="storyInfo1">
+          User: {currentStory.user.username}
+        </p>
+        <p className="storyInfo2">
+          Upload Time: {currentStory.storyUploadTime}
+        </p>
+      </span> */}
     </div>
 
   );

@@ -1,5 +1,4 @@
 .progress-meter text {
-    font-family:"Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 24px;
     font-weight: bold;
 }
@@ -8,5 +7,5 @@
     position: absolute;
     z-index: 100;
     background-color: transparent;
-    left: 55%;
+    left: 58%;
 }

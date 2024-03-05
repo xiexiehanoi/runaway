@@ -31,7 +31,7 @@ button.WebCamBtn {
 
 button.WebCamStartBtn,
 button.WebCamStopBtn,
-button.WebCamVideoDownloadBtn {
+button.WebCamVideoUploadBtn {
     /* margin-top: 10px; */
     padding: 8px 40px;
     border: none;
@@ -67,9 +67,9 @@ button.WebCamVideoDownloadBtn {
 }
 
 .zoomBtn {
-    fill: radial-gradient(45.89% 60.07% at 50% 50%, #2E3134 0%, #292B2E 100%);
+    /* fill: radial-gradient(45.89% 60.07% at 50% 50%, #2E3134 0%, #292B2E 100%);
     stroke-width: 1px;
-    stroke: #272829;
+    stroke: #272829; */
     box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.30) inset;
     border: none;
     background-color: rgba(70, 72, 75, 0.8);
@@ -129,7 +129,7 @@ button.WebCamStopBtn {
     top: 74%;
 }
 
-button.WebCamVideoDownloadBtn {
+button.WebCamVideoUploadBtn {
     top: 83%;
     padding-top: 8px;
 }
@@ -208,6 +208,60 @@ img.WebCamImg {
     /* 우측으로 슬라이드하는 애니메이션 */
 }
 
+
+/* storyInfo */
+.storyInfoContainer {
+    position: absolute;
+    width: 100.5%;
+    height: 24%;
+    top: 76.5%;
+    /* top: 0%; */
+    /* left: 7.5%; */
+    left: 0%;
+    z-index: 4;
+    /* opacity: 0.7; */
+    /* border: 2px solid black; */
+}
+
+.storyProfileImg {
+    width: 64px;
+    height: 64px;
+    border-radius: 64px;
+    position: absolute;
+    top: -24px;
+    background-color: #5d4fad;
+    left: 6%;
+    border: 4px double black;
+}
+
+.storyInfo1 {
+    color: #f5f5f5;
+    font-weight: 500;
+    font-size: 1.1em;
+    margin: 2% 6%;
+    z-index: 3;
+    position: absolute;
+    top: 6%;
+    font-size: 24px;
+    line-height: 24px;
+    font-weight: 500;
+    left: 25%;
+}
+
+.storyInfo2 {
+    color: #888888;
+    font-weight: 500;
+    font-size: 1.1em;
+    margin: 2% 6%;
+    z-index: 3;
+    position: absolute;
+    top: 35%;
+    font-size: 14px;
+    line-height: 14px;
+    font-weight: 400;
+    left: 25%;
+}
+
 @media screen and (max-width: 768px) {
 
     .WebCamContainer {
@@ -227,10 +281,26 @@ img.WebCamImg {
         background-color: rgba(99, 122, 159, 0.5);
     }
 
+    .storyInfoContainer {
+        position: absolute;
+        width: 100.5%;
+        /* margin: auto; */
+        height: 24%;
+        /* top: 72.8%;
+        left: 7.5%; */
+        /* bottom: 0; */
+        left: auto;
+        top: 76.5%;
+        z-index: 4;
+        opacity: 0.7;
+        padding: 10px;
+        /* 필요한 경우에 조정 */
+        /* box-sizing: border-box; */
+    }
+
     button.WebCamStartBtn,
     button.WebCamStopBtn,
     button.WebCamVideoDownloadBtn {
-        /* position 속성을 상대 위치로 변경하지 않고 그대로 유지 */
         width: calc(60% - 20px);
         /* 버튼의 너비를 조정하여 화면 크기에 맞게 표시 */
         margin: 10px;

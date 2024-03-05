@@ -1,8 +1,9 @@
 import React from "react";
 import "../../CSS/CommonApplicationStyle.css";
-import "./CSS/ChallengeList.css";
+import "../../CSS/ChallengeList.css";
 import plusButton from "../../image/plus-button.png";
 import axios from "axios";
+import Swal from 'sweetalert2';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
@@ -36,13 +37,45 @@ const ExerciseChallengeRowItem = ({ row }) => {
         }
       );
       if (response.status === 200) {
-        alert("챌린지 등록이 완료되었습니다.");
+        Swal.fire({
+          icon: "success",
+          title:'챌린지 등록이<br /> 완료되었습니다.',
+          confirmButtonText: '확인',
+          customClass: {
+            confirmButton: 'sa-confirm-button-class-custom',
+            title: 'sa2-title-class',
+            icon: 'sa2-icon-class',
+            popup: 'sa2-popup-class',
+            container: 'sa2-container-class'
+          }
+        })
       }
     } catch (error) {
       if (error.response && error.response.status === 409) {
-        alert("이미 해당 운동에 관한 챌린지가 존재합니다.");
+        Swal.fire({
+          icon: "warning",
+          title:'이미 해당 운동에 대한<br /> 챌린지가 존재합니다.',
+          confirmButtonText: '확인',
+          customClass: {
+            title: 'sa2-title-class',
+            icon: 'sa2-icon-class',
+            popup: 'sa2-popup-class',
+            container: 'sa2-container-class'
+          },
+          html: "이전에 등록한 챌린지를 완료 후<br /> 다시 등록해주세요."
+        })
       } else {
-        alert("챌린지 추가 실패: " + error.response.data.message);
+        Swal.fire({
+          icon: "Error",
+          title:'챌린지 추가 실패: error.response.data.message',
+          confirmButtonText: '확인',
+          customClass: {
+            title: 'sa2-title-class',
+            icon: 'sa2-icon-class',
+            popup: 'sa2-popup-class',
+            container: 'sa2-container-class'
+          }
+        })
       }
     }
   };
@@ -52,20 +85,7 @@ const ExerciseChallengeRowItem = ({ row }) => {
   };
 
   return (
-    <div
-      className="primaryCard"
-      style={{
-        position: "relative",
-        display: "flex",
-        width: "300px",
-        height: "122px",
-        alignItems: "center",
-        marginBottom: "24px",
-        color: "white",
-        overflow: "hidden",
-        borderRadius: "20px",
-      }}
-    >
+    <div className="primaryCard exercise-challenge-list">
       <div
         style={{
           flexGrow: 1,
@@ -74,10 +94,10 @@ const ExerciseChallengeRowItem = ({ row }) => {
       >
         <div className="challenge-subject">
           <span className="subject1">Challenge</span>
-          <span className="subject2">({row.exercise_type})</span>
+          <span className="subject2">({row.exercise_type.toUpperCase()})</span>
         </div>
         <div className="challenge-daily">
-          <span className="subject3">매일 {row.target_count} 회</span>
+          <span className="subject3">매일 {row.target_count} 회</span>&nbsp;
           <span className="subject4">({row.target_date}일)</span>
         </div>
         <br />
@@ -85,19 +105,7 @@ const ExerciseChallengeRowItem = ({ row }) => {
           className="exp-container"
           style={{ position: "relative", textAlign: "center" }}
         >
-          <p
-            style={{
-              background: "linear-gradient(to right, #A1B1EA, #4756A1)",
-              position: "absolute",
-              width: "300px",
-              height: "32px",
-              zIndex: 1,
-              lineHeight: "32px",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
+          <p className="exp-bar">
             <span
               className="exp-subject"
               style={{ position: "relative", zIndex: 2 }}

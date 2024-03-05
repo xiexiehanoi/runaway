@@ -5,6 +5,7 @@ import axios from 'axios';
 import closeW from '../../image/close-white.png';
 import switchCameraW from '../../image/switchCameraW.png';
 import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 
 const WebCamVideo = () => {
@@ -17,7 +18,7 @@ const WebCamVideo = () => {
     const [mimeType, setMimeType] = useState('');
     // 줌 관련 변수 및 상태
     const [zoomValue, setZoomValue] = useState(1);
-    const [selectedZoomButton, setSelectedZoomButton] = useState('zoomnormal'); // 선택된 줌 버튼
+    const [selectedZoomButton, setSelectedZoomButton] = useState(1.5); // 선택된 줌 버튼
     const [isMobile, setIsMobile] = useState(false); // 추가: 모바일 여부 상태
     const [facingMode, setFacingMode] = useState('user'); // 카메라 방향 상태 추가
 
@@ -50,6 +51,7 @@ const WebCamVideo = () => {
                     alert('해당 기기에 카메라가 발견되지 않았습니다. 카메라를 연결해주세요.');
                     return;
                 }
+
 
                 if (webcamRef.current && webcamRef.current.video && webcamRef.current.video.srcObject) {
                     const stream = webcamRef.current.video.srcObject;
@@ -93,6 +95,7 @@ const WebCamVideo = () => {
 
                 }
             } catch (error) {
+                alert(error);
                 console.error('Error initializing media recorder:', error);
             }
         };
@@ -151,7 +154,9 @@ const WebCamVideo = () => {
                     type: mimeType
                 });
                 const uploadVideo = new FormData();
-                uploadVideo.append('upload', blob, 'runaway-story.mp4');
+
+                // uploadVideo.append('upload', blob, 'runaway-story.mp4');
+                uploadVideo.append('upload', blob, `runaway-story.mp4`);
 
                 const res = await axios.post(`${BASE_URI}/api/story/save`, uploadVideo, {
                     headers: {
@@ -166,28 +171,43 @@ const WebCamVideo = () => {
                 // 파일 업로드가 성공하면 페이지를 이동합니다.
                 navi('/story');
             } catch (error) {
+                alert(error);
                 console.error("Error uploading file:", error);
             }
         }
     }, [recordedChunks, mimeType, BASE_URI, token, navi]);
 
     const CloseWebCam = useCallback(() => {
-        navi('/story'); // 페이지 이동
+        Swal.fire({
+            icon: "warning",
+            title: '정말로 나가시겠습니까?',
+            confirmButtonText: "네, 나가겠습니다",
+            cancelButtonText: "아니요, 돌아가겠습니다",
+            showCancelButton: true,
+            customClass: {
+                confirmButton: 'sa2-confirm-button-class',
+                cancelButton: 'sa2-cancel-button-class',
+                title: 'sa2-title-class',
+                icon: 'sa2-icon-class',
+                popup: 'sa2-popup-class',
+                container: 'sa2-container-class'
+            },
+            html: "이대로 나가신다면<br/>'Upload Story'를 통해<br/>업로드하지 않은 영상들은<br/>지워질 수 있습니다 "
+
+        }).then(result => {
+            if (result.isConfirmed) {
+                // Swal.fire(
+                navi('/story')
+                // );
+            } else {
+            }
+        });
+        // navi('/story'); // 페이지 이동
     }, [navi]);
 
     const handleZoomButtonClick = useCallback((value) => {
         setZoomValue(value);
         setSelectedZoomButton(value);
-
-        // // 선택된 줌 버튼에 selectedZoom 클래스 추가
-        // const zoomButtons = document.querySelectorAll('.zoomBtn');
-        // zoomButtons.forEach(button => {
-        //     if (button.dataset.zoom === value.toString()) {
-        //         button.classList.add('selectedZoom');
-        //     } else {
-        //         button.classList.remove('selectedZoom');
-        //     }
-        // });
 
         // 줌 값을 변경할 때마다 웹캠에 반영
         const zoomInput = value; // 줌 값에 10을 곱해서 0.1 단위로 설정
@@ -197,8 +217,10 @@ const WebCamVideo = () => {
         // webcamRef.current.video.style.transform = `scale(${zoomInput})`;
         webcamRef.current.video.style.transform = transformValue;
 
+        alert(zoomValue);
+
         // alert(value); // 버튼 클릭 시 값을 확인하기 위해 alert 추가
-    }, [webcamRef, facingMode]);
+    }, [webcamRef, facingMode, zoomValue]);
 
 
     const toggleFacingMode = useCallback(async () => {
@@ -238,6 +260,7 @@ const WebCamVideo = () => {
                 handleStopCaptureClick();
             }
         } catch (error) {
+            alert(error);
             console.error('Error toggling facing mode:', error);
         }
     }, [webcamRef, mediaRecorderRef, mimeType, capturing, handleDataAvailable, handleStopCaptureClick, facingMode]);
@@ -270,15 +293,15 @@ const WebCamVideo = () => {
             <div className='zoom'>
                 <button
                     className={`zoomBtn zoomhalf primaryButton-inset`}
-                    style={{ border: `${selectedZoomButton === 'zoomhalf' ? ' 2px solid gold' : 'none'}` }}
+                    style={{ border: `${selectedZoomButton === 1.0 ? ' 2px solid gold' : 'none'}` }}
                     onClick={() => handleZoomButtonClick(1.0)}>1.0</button>
                 <button
                     className={`zoomBtn zoomnormal primaryButton-inset`}
-                    style={{ border: `${selectedZoomButton === 'zoomnormal' ? '2px solid gold' : 'none'}` }}
+                    style={{ border: `${selectedZoomButton === 1.5 ? '2px solid gold' : 'none'}` }}
                     onClick={() => handleZoomButtonClick(1.5)}>1.5</button>
                 <button
                     className={`zoomBtn zoomdouble primaryButton-inset`}
-                    style={{ border: `${selectedZoomButton === 'zoomdouble' ? '2px solid gold' : 'none'}` }}
+                    style={{ border: `${selectedZoomButton === 2.0 ? '2px solid gold' : 'none'}` }}
                     onClick={() => handleZoomButtonClick(2.0)}>2.0</button>
             </div>
 
@@ -299,7 +322,7 @@ const WebCamVideo = () => {
                 <button className="WebCamStartBtn" onClick={handleStartCaptureClick}>Start Capture</button>
             )}
             {recordedChunks.length > 0 && (
-                <button className="WebCamVideoDownloadBtn" onClick={handleUpload}>Upload Story</button>
+                <button className="WebCamVideoUploadBtn" onClick={handleUpload}>Upload Story</button>
             )}
             <WebCamTimer elapsedTime={elapsedTime} />
         </span>

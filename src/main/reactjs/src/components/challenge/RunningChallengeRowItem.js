@@ -1,8 +1,9 @@
 import axios from "axios";
 import plusButton from "../../image/plus-button.png";
 import "../../CSS/CommonApplicationStyle.css";
-import "./CSS/ChallengeList.css";
+import "../../CSS/ChallengeList.css";
 import React from "react";
+import Swal from 'sweetalert2';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const RunningChallengeRowItem = (props) => {
@@ -31,13 +32,46 @@ const RunningChallengeRowItem = (props) => {
           },
         }
       );
-      console.log("챌린지 추가:", response);
-      alert("챌린지가 추가되었습니다.");
-    } catch (error) {
-      if (error.response && error.response.data) {
-        alert("현재 진행중인 Challenge 종료 후 추가 하실 수 있습니다.");
+      if (response.status === 200) {
+      Swal.fire({
+        icon: "success",
+        title:'챌린지 등록이<br /> 완료되었습니다.',
+        confirmButtonText: '확인',
+        customClass: {
+          confirmButton: 'sa-confirm-button-class-custom',
+          title: 'sa2-title-class',
+          icon: 'sa2-icon-class',
+          popup: 'sa2-popup-class',
+          container: 'sa2-container-class'
+        }
+      })
+    }
+   } catch (error) {
+    if (error.response && error.response.status === 400) {
+      Swal.fire({
+        icon: "warning",
+        title:'이미 해당 운동에 대한<br /> 챌린지가 존재합니다.',
+        confirmButtonText: '확인',
+        customClass: {
+          title: 'sa2-title-class',
+          icon: 'sa2-icon-class',
+          popup: 'sa2-popup-class',
+          container: 'sa2-container-class'
+        },
+        html: "이전에 등록한 챌린지를 완료 후<br /> 다시 등록해주세요."
+      })
       } else {
-        console.error("챌린지 추가 실패:", error);
+        Swal.fire({
+          icon: "Error",
+          title: '챌린지 추가 실패: ' + error.response.data.message,
+          confirmButtonText: '확인',
+          customClass: {
+            title: 'sa2-title-class',
+            icon: 'sa2-icon-class',
+            popup: 'sa2-popup-class',
+            container: 'sa2-container-class'
+          }
+        })
       }
     }
   };
@@ -46,20 +80,7 @@ const RunningChallengeRowItem = (props) => {
     addChallenge(challengeId, challengeTargetDate);
   };
   return (
-    <div
-      className="primaryCard"
-      style={{
-        position: "relative",
-        display: "flex",
-        width: "300px",
-        height: "122px",
-        alignItems: "center",
-        marginBottom: "24px",
-        color: "white",
-        overflow: "hidden",
-        borderRadius: "20px",
-      }}
-    >
+    <div className="primaryCard exercise-challenge-list">
       <div
         style={{
           flexGrow: 1,
@@ -79,19 +100,7 @@ const RunningChallengeRowItem = (props) => {
           className="exp-container"
           style={{ position: "relative", textAlign: "center" }}
         >
-          <p
-            style={{
-              background: "linear-gradient(to right, #A1B1EA, #4756A1)",
-              position: "absolute",
-              width: "300px",
-              height: "32px",
-              zIndex: 1,
-              lineHeight: "32px",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
+          <p className="exp-bar">
             <span
               className="exp-subject"
               style={{ position: "relative", zIndex: 2 }}

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import DonutChart from "./DonutChart";
 import calculateSuccessFailure from "./calculateSuccessFailure.js"
 import './css/MyChallenge.css'
+import { Link } from "react-router-dom";
 
 
 
@@ -11,20 +12,21 @@ const MyChallenge = ({ myChallengeList }) => {
   const [sitUpData, setSitUpData] = useState({ successCount: 0, failureCount: 0, pendingCount: 7 });
   const [pushUpData, setPushUpData] = useState({ successCount: 0, failureCount: 0, pendingCount: 7 });
 
+  
   useEffect(() => {
     myChallengeList.forEach((row) => {
       let result = { successCount: 0, failureCount: 0, pendingCount: 0 };
-
-      switch (row?.exercise_type) {
-        case "Sit-UP":
+      
+      switch (row.exerciseChallengeDto?.exercise_type) {
+        case "situp":
           result = calculateSuccessFailure(row, sitUpData);
           setSitUpData(result);
           break;
-        case "Push-UP":
+        case "pushup":
           result = calculateSuccessFailure(row, pushUpData);
           setPushUpData(result);
           break;
-        case "Squat":
+        case "squat":
           result = calculateSuccessFailure(row, squatData);
           setSquatData(result);
           break;
@@ -39,23 +41,29 @@ const MyChallenge = ({ myChallengeList }) => {
 
   return (
     <div className="MyChallenge-container">
-      <div className="MyChallenge-item" style={{ width: '62px', height: '62px' }}>
-        <DonutChart successCount={runningData.successCount} failureCount={runningData.failureCount} pendingCount={runningData.pendingCount} />
-        <strong>Running</strong>
-      </div>
-      <div className="MyChallenge-item" style={{ width: '62px', height: '62px' }}>
-        <DonutChart successCount={squatData.successCount} failureCount={squatData.failureCount} pendingCount={squatData.pendingCount} />
-        <strong>Squat</strong>
-      </div>
-      <div className="MyChallenge-item" style={{ width: '62px', height: '62px' }}>
-        <DonutChart successCount={sitUpData.successCount} failureCount={sitUpData.failureCount} pendingCount={sitUpData.pendingCount} />
-        <strong>Sit-Up</strong>
-      </div>
-      <div className="MyChallenge-item" style={{ width: '62px', height: '62px' }}>
-        <DonutChart successCount={pushUpData.successCount} failureCount={pushUpData.failureCount} pendingCount={pushUpData.pendingCount} />
-        <strong>Push-Up</strong>
-      </div>
+  <div className="MyChallenge-title">
+    <div>Challenge 달성률</div>
+    <div style={{fontSize:'24px'}}><Link to="/mychallengerecordlist/" className="nav-link">+</Link></div>
+  </div>
+  <div className="MyChallenge-items-container">
+    <div className="MyChallenge-item" style={{ width: '62px', height: '62px' }}>
+      <DonutChart successCount={runningData.successCount} failureCount={runningData.failureCount} pendingCount={runningData.pendingCount} />
+      <strong>Running</strong>
     </div>
+    <div className="MyChallenge-item" style={{ width: '62px', height: '62px' }}>
+      <DonutChart successCount={squatData.successCount} failureCount={squatData.failureCount} pendingCount={squatData.pendingCount} />
+      <strong>Squat</strong>
+    </div>
+    <div className="MyChallenge-item" style={{ width: '62px', height: '62px' }}>
+      <DonutChart successCount={sitUpData.successCount} failureCount={sitUpData.failureCount} pendingCount={sitUpData.pendingCount} />
+      <strong>Sit-Up</strong>
+    </div>
+    <div className="MyChallenge-item" style={{ width: '62px', height: '62px' }}>
+      <DonutChart successCount={pushUpData.successCount} failureCount={pushUpData.failureCount} pendingCount={pushUpData.pendingCount} />
+      <strong>Push-Up</strong>
+    </div>
+  </div>
+</div>
   );
 };
 

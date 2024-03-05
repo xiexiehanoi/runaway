@@ -1,6 +1,4 @@
 .signUp {
-    font-family: 'Noto Sans KR', sans-serif;
-
     hr {
 
     }
@@ -99,6 +97,28 @@
         /*    }*/
         /*}*/
 
+        .editForm_gender_male, .editForm_gender_female {
+            background-color: lightgray;
+            color: lightgray;
+            width: 47%;
+            height : 45px;
+            border: 1px solid #EAE7E7;
+            border-radius: 10px;
+            fill: radial-gradient(45.89% 60.07% at 50% 50%, #2E3134 0%, #292B2E 100%);
+            stroke-width: 1px;
+            stroke: #272829;
+            box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.40) inset;
+            text-align: center;
+            height: -webkit-fill-available;
+            line-height: 45px;
+            font-weight: 600;
+        }
+
+        .gender_selected {
+            background: gray;
+            color: black;
+        }
+
         .form_radio_btn {
             width: 47%;
             height : 45px;
@@ -122,7 +142,6 @@
 
         /* Checked */
         .form_radio_btn input[type=radio]:checked + label {
-            font-family: 'Noto Sans KR', sans-serif;
             background: #184DA0;
             color: #fff;
         }
@@ -218,6 +237,25 @@
             border-radius: 10px;
             background: linear-gradient(140deg, #a4b0f1 -0.5%, #5d4fad 100%);
             box-shadow: -9px -9px 16px rgba(73, 73, 73, 0.60), 9px 9px 16px rgba(0, 0, 0, 0.40);
+        }
+
+        .editAbort {
+            width: 100px;
+            margin-left: 20%;
+            padding: 10px 15px;
+            margin-top: 40px;
+            text-align: center;
+            cursor: pointer;
+            color: white;
+            font-weight: 600;
+            border-radius: 10px;
+            background: gray;
+            box-shadow: -9px -9px 16px rgba(73, 73, 73, 0.60), 9px 9px 16px rgba(0, 0, 0, 0.40);
+        }
+
+        .editBtn_group {
+            display: flex;
+            margin-left: 8%;
         }
 
         .disabled {

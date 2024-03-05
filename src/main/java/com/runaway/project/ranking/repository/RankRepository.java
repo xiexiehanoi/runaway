@@ -9,4 +9,5 @@ import java.util.Optional;
 public interface RankRepository extends JpaRepository<Rank, Integer> {
     Optional<Rank> findByUserId(Long userId);
     List<Rank> findByRankingGreaterThanEqualOrderByDateTimeDesc(int ranking);
+    List<Rank> findAllByRankingBetween(int startRank, int endRank);
 }

@@ -5,9 +5,11 @@ import com.runaway.project.challenge.dto.MyRunningDto;
 import com.runaway.project.challenge.repository.MyExerciseRepository;
 import com.runaway.project.challenge.repository.MyRunningRepository;
 import com.runaway.project.challenge.repository.RunningChallengeRepository;
+import com.runaway.project.exercise.dto.ExerciseDto;
+import com.runaway.project.exercise.entity.ExerciseEntity;
+import com.runaway.project.exercise.respository.ExerciseRepository;
 import com.runaway.project.running.entity.RunningEntity;
 import com.runaway.project.running.repository.RunningRepository;
-import com.runaway.project.user.entity.User;
 import com.runaway.project.user.repository.GradeRepository;
 import com.runaway.project.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -17,15 +19,18 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
 @RequiredArgsConstructor
 public class ChallengeService {
 
+
+    @Autowired
+    private ExerciseRepository exerciseRepository;
     @Autowired
     private MyExerciseRepository myExerciseRepository;
-
     @Autowired
     private MyRunningRepository myRunningRepository;
     private final RunningRepository runningRepository;
@@ -77,7 +82,30 @@ public class ChallengeService {
         combinedChallenges.addAll(exerciseChallenges);
         combinedChallenges.addAll(runningChallenges);
 
-//        System.out.println("결과: " +combinedChallenges);
+
+        return combinedChallenges;
+    }
+
+    public List<Object> getAllCurrentMonthMyChallengesList(Long userId) {
+        List<MyExerciseDto> exerciseChallenges = myExerciseRepository.findByUserCurrentMonthExerciseChallengeList(userId);
+        Optional<ExerciseEntity> exerciseEntity = exerciseRepository.findById(userId);
+        List<MyRunningDto> runningChallenges = myRunningRepository.findByUserCurrentMonthRunningChallengeList(userId);
+
+        List<Object> combinedChallenges = new ArrayList<>();
+        combinedChallenges.addAll(exerciseChallenges);
+        combinedChallenges.addAll(runningChallenges);
+
+        return combinedChallenges;
+    }
+
+    public List<Object> getMyChallengeAllList(Long userId) {
+        List<MyExerciseDto> exerciseChallenges = myExerciseRepository.findAllByUserId (userId);
+        List<MyRunningDto> runningChallenges = myRunningRepository.findAllByUserId (userId);
+
+        List<Object> combinedChallenges = new ArrayList<>();
+        combinedChallenges.addAll(exerciseChallenges);
+        combinedChallenges.addAll(runningChallenges);
+
         return combinedChallenges;
     }
 
