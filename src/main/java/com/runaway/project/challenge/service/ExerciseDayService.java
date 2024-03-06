@@ -111,6 +111,7 @@ public class ExerciseDayService {
 
         for (MyExerciseDto myExercise : myExercises) {
             if (myExercise.getEnd_date().isBefore(LocalDate.now())) continue;
+            if (myExercise.getSuccessStatus() == ExerciseState.SUCCESS.ordinal()) continue;
 
             ExerciseChallengeDto challenge = myExercise.getExerciseChallengeDto();
             List<ExerciseDayDto> exerciseDays = myExercise.getExerciseDays();
