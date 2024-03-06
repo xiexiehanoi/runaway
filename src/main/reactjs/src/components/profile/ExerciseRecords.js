@@ -197,7 +197,8 @@ const ExerciseRecords = () => {
         const selectedItemCount = filteredRecords.length;
 
         // 칼로리 총합 계산
-        const totalCalories = filteredRecords.reduce((acc, curr) => acc + parseFloat(curr.calorie), 0);
+        const calories = filteredRecords.reduce((acc, curr) => acc + parseFloat(curr.calorie), 0);
+        const totalCalories = Number(calories.toFixed(1));
         const totalExerciseCount = filteredRecords.reduce((acc, curr) => acc + parseFloat(curr.exerciseCount), 0);
         return { selectedItemCount, totalCalories, totalExerciseCount };
 
