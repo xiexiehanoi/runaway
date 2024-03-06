@@ -26,6 +26,8 @@ const WebCamVideo = () => {
     const token = window.localStorage.getItem("token");
     const navi = useNavigate();
 
+    var isUploading = false;
+
     useEffect(() => {
         const isDeviceMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
         setIsMobile(isDeviceMobile);
@@ -148,8 +150,11 @@ const WebCamVideo = () => {
     }, [webcamRef, mediaRecorderRef, handleDataAvailable, mimeType, handleStopCaptureClick]);
 
     const handleUpload = useCallback(async () => {
+        if (isUploading) return;
+
         if (recordedChunks.length) {
             try {
+                isUploading = true;
                 const blob = new Blob(recordedChunks, {
                     type: mimeType
                 });
@@ -172,6 +177,7 @@ const WebCamVideo = () => {
                 navi('/story');
             } catch (error) {
                 alert(error);
+                isUploading = false;
                 console.error("Error uploading file:", error);
             }
         }
