@@ -104,11 +104,13 @@ const RunningRecords = () => {
     const [start, end] = optionValue.split(' - ');
     const startDate = moment(start, "YYYY-MM-DD");
     const endDate = moment(end, "YYYY-MM-DD");
-
+    
     // 이번 주인지 확인
     if (startDate.isSameOrAfter(startOfWeek) && endDate.isSameOrBefore(endOfWeek)) {
       return '이번 주';
     }
+
+    
 
     // 지난 주인지 확인
     if (startDate.isSameOrAfter(lastWeekStart) && endDate.isSameOrBefore(lastWeekEnd)) {
@@ -405,7 +407,8 @@ const RunningRecords = () => {
       {exerciseType === 'running' && (
         <div className="running-record-container">
           {records.length > 0 ? (
-            records.map((item, index) => (
+            records.sort((a, b) => new Date(b.date) - new Date(a.date)) 
+            .map((item, index) => (
               <Link to={`/runningRecordDetail/${item.runIdx}`} style={{ textDecoration: 'none', color: 'white' }}>
                 <div key={index} className="record-item">
                   {/* <img src={defaultImage} alt="Run" className="record-img" /> */}

@@ -44,34 +44,55 @@ const calculateCalories = (count, exerciseType) => {
   }
 };
 
-const saveCountToDatabase = async (count, exerciseType) => {
-  try {
-    const token = window.localStorage.getItem("token");
-    if (!token) {
-      console.log("Token not found.");
-      return;
-    }
+const saveCountToDatabase = async (count, exerciseType, exitLambda) => {
+    try {
+        const token = window.localStorage.getItem("token");
+        if (!token) {
+            console.log("Token not found.");
+            return;
+        }
 
-    const calories = calculateCalories(count, exerciseType);
-    await axios.post(
-      `${BASE_URL}/api/exercise/save`,
-      {
-        date: dateToSend,
-        exerciseCount: count,
-        exerciseType: exerciseType,
-        calories: calories,
-      },
-      {
-        headers: {
-          Authorization: token,
-        },
-      }
-    );
-    console.log("Count saved successfully");
-  } catch (error) {
-    console.error("Failed to save count", error.response);
-  }
+        const calories = calculateCalories(count, exerciseType);
+        await axios.post(
+            `${BASE_URL}/api/exercise/getResultWithSave`,
+            {
+                date: dateToSend,
+                exerciseCount: count,
+                exerciseType: exerciseType,
+                calories: calories,
+            },
+            {
+                headers: {
+                    Authorization: token,
+                },
+            }
+        ).then(res => {
+                if (res.data === "SUCCESS") {
+                    Swal.fire({
+                        icon: "success",
+                        title: '성공한 챌린지가 있습니다.',
+                        confirmButtonText: "OK",
+                        allowOutsideClick: false,
+                        customClass: {
+                            confirmButton: 'sa2-confirm-button-class',
+                            title: 'sa2-title-class',
+                            icon: 'sa2-icon-class',
+                            popup: 'sa2-popup-class',
+                            container: 'sa2-container-class'
+                        }
+                    }).then(result=> {
+                        if (result.isConfirmed) {
+                            exitLambda()
+                        }
+                    });
+                }
+            }
+        );
+    } catch (error) {
+        console.error("Failed to save count", error.response);
+    }
 };
+
 
 const Situp = () => {
   const squatBoxContainer = {
@@ -367,6 +388,16 @@ const Situp = () => {
     countRef.current = count;
   }, [count]);
 
+    const exitLambda = () => {
+        setMessage({ type: "image", value: "/squat/SuccessCheck3.gif" });
+        setTimeout(() => {
+            setMessage(""); // 또는 setMessage(null); 로 상태를 비워 GIF를 제거
+        }, 2400);
+        setTimeout(() => {
+            window.location = "/exercise";
+        }, 3400);
+    };
+
   useEffect(() => {
     if (status === "sitdown" && countRef.current === "situp") {
       const newCount = count + 1;
@@ -374,7 +405,7 @@ const Situp = () => {
       playCountAudio(newCount);
 
       if (newCount === maxCount) {
-        saveCountToDatabase(newCount, exerciseType)
+          saveCountToDatabase(newCount, exerciseType, exitLambda)
           .then(() => {
             setMessage({ type: "image", value: "/squat/SuccessCheck3.gif" });
             setTimeout(() => {

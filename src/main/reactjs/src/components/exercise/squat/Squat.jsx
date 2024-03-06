@@ -44,7 +44,7 @@ const calculateCalories = (count, exerciseType) => {
   }
 };
 
-const saveCountToDatabase = async (count, exerciseType) => {
+const saveCountToDatabase = async (count, exerciseType, exitLambda) => {
   try {
     const token = window.localStorage.getItem("token");
     if (!token) {
@@ -54,7 +54,7 @@ const saveCountToDatabase = async (count, exerciseType) => {
 
     const calories = calculateCalories(count, exerciseType);
     await axios.post(
-      `${BASE_URL}/api/exercise/save`,
+      `${BASE_URL}/api/exercise/getResultWithSave`,
       {
         date: dateToSend,
         exerciseCount: count,
@@ -66,8 +66,28 @@ const saveCountToDatabase = async (count, exerciseType) => {
           Authorization: token,
         },
       }
+    ).then(res => {
+        if (res.data === "SUCCESS") {
+          Swal.fire({
+            icon: "success",
+            title: '성공한 챌린지가 있습니다.',
+            confirmButtonText: "OK",
+            allowOutsideClick: false,
+            customClass: {
+              confirmButton: 'sa2-confirm-button-class',
+              title: 'sa2-title-class',
+              icon: 'sa2-icon-class',
+              popup: 'sa2-popup-class',
+              container: 'sa2-container-class'
+            }
+          }).then(result=> {
+              if (result.isConfirmed) {
+                exitLambda()
+              }
+          });
+        }
+      }
     );
-    console.log("Count saved successfully");
   } catch (error) {
     console.error("Failed to save count", error.response);
   }
@@ -370,6 +390,16 @@ const Squat = () => {
     countRef.current = count;
   }, [count]);
 
+  const exitLambda = () => {
+    setMessage({ type: "image", value: "/squat/SuccessCheck3.gif" });
+    setTimeout(() => {
+      setMessage(""); // 또는 setMessage(null); 로 상태를 비워 GIF를 제거
+    }, 2400);
+    setTimeout(() => {
+      window.location = "/exercise";
+    }, 3400);
+  };
+
   useEffect(() => {
     if (status === "stand" && countRef.current === "squat") {
       const newCount = count + 1;
@@ -377,16 +407,7 @@ const Squat = () => {
       playCountAudio(newCount);
 
       if (newCount === maxCount) {
-        saveCountToDatabase(newCount, exerciseType)
-          .then(() => {
-            setMessage({ type: "image", value: "/squat/SuccessCheck3.gif" });
-            setTimeout(() => {
-              setMessage(""); // 또는 setMessage(null); 로 상태를 비워 GIF를 제거
-            }, 2400);
-            setTimeout(() => {
-              window.location = "/exercise";
-            }, 3400);
-          })
+        saveCountToDatabase(newCount, exerciseType, exitLambda)
           .catch((error) => {
             console.error("Failed to save count", error.response);
           });

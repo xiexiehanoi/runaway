@@ -121,6 +121,18 @@ public class ProfileService {
             }
         }
 
+        BigDecimal squatbd = new BigDecimal(totalSquatCalorie);
+        squatbd = squatbd.setScale(1, RoundingMode.HALF_UP);
+        totalSquatCalorie = squatbd.doubleValue();
+
+        BigDecimal situpbd = new BigDecimal(totalSitUpCalorie);
+        situpbd = situpbd.setScale(1, RoundingMode.HALF_UP);
+        totalSitUpCalorie = situpbd.doubleValue();
+
+        BigDecimal pushupbd = new BigDecimal(totalPushUpCalorie);
+        pushupbd = pushupbd.setScale(1, RoundingMode.HALF_UP);
+        totalPushUpCalorie = pushupbd.doubleValue();
+
         Map<String, Object> squatData = new HashMap<>();
         Map<String, Object> situpData = new HashMap<>();
         Map<String, Object> pushupData = new HashMap<>();
