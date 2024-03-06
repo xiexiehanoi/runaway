@@ -24,15 +24,15 @@
         /*box-shadow: -7px -7px 16px rgba(73, 73, 73, 0.6), 9px 9px 16px rgba(0, 0, 0, 0.40);*/
 
         .profile_image {
-            width: 56px;
-            height: 56px;
+            width: 63px;
+            height: 63px;
             border-radius: 64px;
             position: absolute;
         }
 
         .rank_border {
-            border-radius: 88px;
-            border: black solid 10px;
+            /*border-radius: 88px;*/
+            /*border: black solid 10px;*/
             width: 76px;
             height: 76px;
             margin-top: 0%;
