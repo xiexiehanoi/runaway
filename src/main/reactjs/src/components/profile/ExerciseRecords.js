@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import moment from 'moment';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
-import defaultImage from './Img/default-img.jpg';
+import Select from 'react-select';
+import ScreenHeader from "../../router/ScreenHeader";
 
 
 const ExerciseRecords = () => {
@@ -14,14 +15,41 @@ const ExerciseRecords = () => {
     const startDate = location.state?.startDate ? moment(location.state.startDate) : moment(); // 서버에서 받은 시작 날짜를 사용하거나 기본값으로 현재 날짜 설정
     const exerciseType = location.state?.exerciseType || 'running';
     const [summary, setSummary] = useState({ totalDistance: 0 });
+    const [selectedTab, setSelectedTab] = useState('tab-2');
 
     useEffect(() => {
         const sum = calculateSumForSelectedPeriod();
         setSummary(sum);
     }, [records, selectedDetail, period]); // 의존성 배열에 records, selectedDetail, period 추가
 
-    console.log(records);
-    console.log(11)
+
+    const formatDetailOption = (optionValue) => {
+        // 현재 날짜와 비교할 moment 객체 생성
+        const now = moment();
+        const startOfWeek = now.startOf('isoWeek');
+        const endOfWeek = now.endOf('isoWeek');
+        const lastWeekStart = moment().subtract(1, 'weeks').startOf('isoWeek');
+        const lastWeekEnd = moment().subtract(1, 'weeks').endOf('isoWeek');
+
+        // 주어진 옵션의 시작과 끝 날짜 파싱
+        const [start, end] = optionValue.split(' - ');
+        const startDate = moment(start, "YYYY-MM-DD");
+        const endDate = moment(end, "YYYY-MM-DD");
+
+        // 이번 주인지 확인
+        if (startDate.isSameOrAfter(startOfWeek) && endDate.isSameOrBefore(endOfWeek)) {
+            return '이번 주';
+        }
+
+        // 지난 주인지 확인
+        if (startDate.isSameOrAfter(lastWeekStart) && endDate.isSameOrBefore(lastWeekEnd)) {
+            return '지난주';
+        }
+
+        // 날짜를 MM.DD 형식으로 변환
+        return `${startDate.format('MM.DD')} - ${endDate.format('MM.DD')}`;
+    };
+
     // 세부 옵션을 동적으로 생성하는 함수
     const generateDetailOptions = (period, startDate) => {
         const options = [];
@@ -36,9 +64,12 @@ const ExerciseRecords = () => {
                     // 주의 끝을 일요일로 설정
                     let endOfWeek = moment(start).endOf('isoWeek');
                     if (endOfWeek > today) endOfWeek = today;
+
+                    // 옵션의 라벨을 변경하는 로직 추가
+                    let label = formatDetailOption(`${startOfWeek.format('YYYY-MM-DD')} - ${endOfWeek.format('YYYY-MM-DD')}`);
                     options.push({
                         value: startOfWeek.format('YYYY-MM-DD'),
-                        label: `${startOfWeek.format('YYYY-MM-DD')} - ${endOfWeek.format('YYYY-MM-DD')}`
+                        label: label
                     });
                     // 다음 주로 이동
                     start = start.add(1, 'weeks');
@@ -112,25 +143,20 @@ const ExerciseRecords = () => {
                         Authorization: token
                     },
                 });
-                // const getDayName = (date) => {
-                //   const dayNames = ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'];
-                //   return dayNames[new Date(date).getDay()];
-                // };
+                const getDayName = (date) => {
+                    const dayNames = ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'];
+                    return dayNames[new Date(date).getDay()];
+                };
 
-                // // 오전/오후 판단을 위한 함수
-                // const getMeridiem = (time) => {
-                //   const hour = parseInt(time.split(':')[0], 10);
-                //   return hour < 12 ? '오전' : '오후';
-                // };
+                // 데이터를 변환하여 새로운 배열을 만듭니다.
+                const formattedData = response.data.map(item => ({
+                    ...item,
+                    dayName: getDayName(item.date), // 요일
 
-                // // 데이터를 변환하여 새로운 배열을 만듭니다.
-                // const formattedData = response.data.map(item => ({
-                //   ...item,
-                //   dayName: getDayName(item.date), // 요일
-                //   meridiem: getMeridiem(item.time), // 오전/오후
-                // }));
+                }));
                 // 응답 데이터 설정
-                setRecords(response.data); // axios는 자동으로 응답을 JSON으로 파싱합니다.
+                setRecords(formattedData); // axios는 자동으로 응답을 JSON으로 파싱합니다.
+
 
             } catch (error) {
                 console.error("Failed to fetch records: ", error);
@@ -177,161 +203,313 @@ const ExerciseRecords = () => {
 
     };
 
+    const handleChange = (event) => {
+        setSelectedTab(event.target.id);
+        switch (event.target.value) {
+            case 'weekly':
+                setPeriod(event.target.value);
+                break;
+            case 'monthly':
+                setPeriod(event.target.value);
+                break;
+            case 'yearly':
+                setPeriod(event.target.value);
+                break;
+            case 'all':
+                setPeriod(event.target.value);
+                break;
+            default:
+
+                break;
+        }
+    };
+
+    const options = generateDetailOptions(period, startDate).map(option => ({
+        value: option.value,
+        label: option.label
+    }));
+
 
     return (
         <div>
-            <h2>나의 운동 기록</h2>
-            <select value={period} onChange={(e) => setPeriod(e.target.value)}>
-                <option value="weekly">주별</option>
-                <option value="monthly">월별</option>
-                <option value="yearly">연별</option>
-                <option value="all">전체 기간</option>
-            </select>
-            <select value={selectedDetail} onChange={(e) => setSelectedDetail(e.target.value)}>
-                {generateDetailOptions(period, startDate).map((option) => (
-                    <option key={option.value} value={option.value}>{option.label}</option>
-                ))}
-            </select>
+            <div><ScreenHeader title={"My Profile"} /></div>
+            <div className="segmented-control">
+                <input
+                    type="radio"
+                    name="radio2"
+                    value="weekly"
+                    id="tab-1"
+                    checked={selectedTab === 'tab-1'}
+                    onChange={handleChange}
+                />
+                <label htmlFor="tab-1" className="segmented-control__1">
+                    <p style={{ marginBottom: '0px' }}>주</p>
+                </label>
 
-            {/* 여기서부터 exerciseType에 따라 변경되는 부분 시작 */}
+                <input
+                    type="radio"
+                    name="radio2"
+                    value="monthly"
+                    id="tab-2"
+                    checked={selectedTab === 'tab-2'}
+                    onChange={handleChange}
+                />
+                <label htmlFor="tab-2" className="segmented-control__2">
+                    <p style={{ marginBottom: '0px' }}>월</p>
+                </label>
+
+                <input
+                    type="radio"
+                    name="radio2"
+                    value="yearly"
+                    id="tab-3"
+                    checked={selectedTab === 'tab-3'}
+                    onChange={handleChange}
+                />
+                <label htmlFor="tab-3" className="segmented-control__3">
+                    <p style={{ marginBottom: '0px' }}>년</p>
+                </label>
+
+                <input
+                    type="radio"
+                    name="radio2"
+                    value="all"
+                    id="tab-4"
+                    checked={selectedTab === 'tab-4'}
+                    onChange={handleChange}
+                />
+                <label htmlFor="tab-4" className="segmented-control__3">
+                    <p style={{ marginBottom: '0px' }}>전체</p>
+                </label>
+                <div className="segmented-control__color"></div>
+            </div>
             {exerciseType === 'squat' && (
-                <div className="activity-summary">
-                    <div className="total-SquatCount">
-                        <span className="number">{summary.totalExerciseCount}</span><br />
-                        <span className="label">스쿼트 횟수</span>
-                    </div>
-                    <div className="exercise-stats-container">
-                        <div className="stat">
-                            <span className="number">{summary.selectedItemCount}</span><br />
-                            <span className="label">스쿼트</span>
+                <>
+                    <div className="exercise-summary-data" style={{ height: '150px' }}>
+                        <div className="select-container" style={{ width: '160px' }}>
+                            <Select
+                                value={options.find(option => option.value === selectedDetail)}
+                                onChange={selectedOption => setSelectedDetail(selectedOption.value)}
+                                options={options}
+                                styles={{
+                                    control: (provided, state) => ({
+                                        ...provided,
+                                        backgroundColor: '#303234',
+                                        color: '#f5f5f5', // 텍스트 색상을 흰색으로 설정 (필요한 경우)
+                                        boxShadow: '3px 3px 8px 0px rgba(0, 0, 0, 0.30) inset',
+                                        borderColor: state.isFocused ? '#yourFocusedBorderColor' : '#initialBorderColor',
+                                        '&:hover': {
+                                            borderColor: '#hoverBorderColor', // 마우스 호버 시 테두리 색상
+                                        }
+                                    }),
+                                    singleValue: (provided) => ({
+                                        ...provided,
+                                        color: 'f5f5f5', // 선택된 항목의 텍스트 색상을 흰색으로 설정
+                                    }),
+                                    menu: (provided) => ({
+                                        ...provided,
+                                        backgroundColor: 'black', // 드롭다운 메뉴의 배경색을 검은색으로 설정
+                                    }),
+                                    option: (provided, state) => ({
+                                        ...provided,
+                                        backgroundColor: state.isFocused ? 'grey' : 'black', // 항목에 마우스를 올렸을 때의 배경색과 기본 배경색 설정
+                                        color: 'f5f5f5', // 옵션의 텍스트 색상을 흰색으로 설정
+                                    }),
+                                }}
+                            />
                         </div>
-                        <div className="stat">
-                            <span className="number">{summary.totalCalories}</span><br />
-                            <span className="label">소모 칼로리</span>
+                        <div className="exercise-stats-container">
+                            <div className="stat">
+                                <span className="number">{summary.selectedItemCount}</span><br />
+                                <span className="label">스쿼트</span>
+                            </div>
+                            <div className="stat">
+                                <span className="number">{summary.totalExerciseCount}</span><br />
+                                <span className="label">횟수</span>
+                            </div>
+                            <div className="stat">
+                                <span className="number">{summary.totalCalories}</span><br />
+                                <span className="label">칼로리</span>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </>
             )}
 
             {exerciseType === 'squat' && (
                 <div className="exercise-record-container">
                     {records.length > 0 ? (
                         records.map((item, index) => (
-                            
-                                <div key={index} className="record-item">
-                                    <img src={defaultImage} alt="Run" className="record-img" />
-                                    <div className="record-details">
-                                        <div className="record-full-date">
-                                            {`${new Date(item.date).getFullYear()}년 ${new Date(item.date).getMonth() + 1}월 ${new Date(item.date).getDate()}일`}
-                                        </div>
-                                        <div className="record-date">
-                                            {`${item.dayName} ${item.meridiem}`}
-                                        </div>
-                                        <div className="record-stats">
+
+                            <div key={index} className="exercise-record-item">
+                                <div className="record-details">
+                                    <div className="record-full-date">
+                                        {`${new Date(item.date).getFullYear()}년 ${new Date(item.date).getMonth() + 1}월 ${new Date(item.date).getDate()}일 ${item.dayName}`}
+                                    </div>
+                                    <div className="record-stats">
+                                        <span className="record-exercise-count" style={{ marginRight: '20px' }}>{item.exerciseCount} 회</span>
+                                        <span className="record-calorie">{item.calorie} 칼로리</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        ))
+                    ) : (
+                        <p style={{ marginLeft: '20px' }}>운동 기록이 없습니다.</p>
+                    )}
+                </div>
+            )}
+
+            {exerciseType === 'situp' && (
+                <>
+                    <div className="exercise-summary-data" style={{ height: '150px' }}>
+                        <div className="select-container" style={{ width: '160px' }}>
+                            <Select
+                                value={options.find(option => option.value === selectedDetail)}
+                                onChange={selectedOption => setSelectedDetail(selectedOption.value)}
+                                options={options}
+                                styles={{
+                                    control: (provided, state) => ({
+                                        ...provided,
+                                        backgroundColor: '#303234',
+                                        color: '#f5f5f5', // 텍스트 색상을 흰색으로 설정 (필요한 경우)
+                                        boxShadow: '3px 3px 8px 0px rgba(0, 0, 0, 0.30) inset',
+                                        borderColor: state.isFocused ? '#yourFocusedBorderColor' : '#initialBorderColor',
+                                        '&:hover': {
+                                            borderColor: '#hoverBorderColor', // 마우스 호버 시 테두리 색상
+                                        }
+                                    }),
+                                    singleValue: (provided) => ({
+                                        ...provided,
+                                        color: 'f5f5f5', // 선택된 항목의 텍스트 색상을 흰색으로 설정
+                                    }),
+                                    menu: (provided) => ({
+                                        ...provided,
+                                        backgroundColor: 'black', // 드롭다운 메뉴의 배경색을 검은색으로 설정
+                                    }),
+                                    option: (provided, state) => ({
+                                        ...provided,
+                                        backgroundColor: state.isFocused ? 'grey' : 'black', // 항목에 마우스를 올렸을 때의 배경색과 기본 배경색 설정
+                                        color: 'f5f5f5', // 옵션의 텍스트 색상을 흰색으로 설정
+                                    }),
+                                }}
+                            />
+                        </div>
+                        <div className="exercise-stats-container">
+                            <div className="stat">
+                                <span className="number">{summary.selectedItemCount}</span><br />
+                                <span className="label">윗몸일으키기</span>
+                            </div>
+                            <div className="stat">
+                                <span className="number">{summary.totalExerciseCount}</span><br />
+                                <span className="label">횟수</span>
+                            </div>
+                            <div className="stat">
+                                <span className="number">{summary.totalCalories}</span><br />
+                                <span className="label">칼로리</span>
+                            </div>
+                        </div>
+                    </div>
+                </>
+            )}
+
+            {exerciseType === 'situp' && (
+                <div className="exercise-record-container">
+                    {records.length > 0 ? (
+                        records.map((item, index) => (
+
+                            <div key={index} className="exercise-record-item">
+                                <div className="record-details">
+                                    <div className="record-full-date">
+                                        {`${new Date(item.date).getFullYear()}년 ${new Date(item.date).getMonth() + 1}월 ${new Date(item.date).getDate()}일 ${item.dayName}`}
+                                    </div>
+                                    <div className="record-stats">
                                         <span className="record-exercise-count">{item.exerciseCount} 회</span>
-                                        <span className="record-calorie">{item.calorie}칼로리</span>
-                                        </div>
+                                        <span className="record-calorie">{item.calorie} 칼로리</span>
                                     </div>
                                 </div>
-                         
+                            </div>
+
                         ))
                     ) : (
-                        <p>운동 기록이 없습니다.</p>
-                    )}
-                </div>
-            )}
-
-            {exerciseType === 'situp' && (
-                <div className="activity-summary">
-                    <div className="total-SquatCount">
-                        <span className="number">{summary.totalExerciseCount}</span><br />
-                        <span className="label">싯업 횟수</span>
-                    </div>
-                    <div className="exercise-stats-container">
-                        <div className="stat">
-                            <span className="number">{summary.selectedItemCount}</span><br />
-                            <span className="label">윗몸일으키기</span>
-                        </div>
-                        <div className="stat">
-                            <span className="number">{summary.totalCalories}</span><br />
-                            <span className="label">소모 칼로리</span>
-                        </div>
-                    </div>
-                </div>
-            )}
-
-            {exerciseType === 'situp' && (
-                <div className="exercise-record-container">
-                    {records.length > 0 ? (
-                        records.map((item, index) => (
-                           
-                                <div key={index} className="record-item">
-                                    <img src={defaultImage} alt="Run" className="record-img" />
-                                    <div className="record-details">
-                                        <div className="record-full-date">
-                                            {`${new Date(item.date).getFullYear()}년 ${new Date(item.date).getMonth() + 1}월 ${new Date(item.date).getDate()}일`}
-                                        </div>
-                                        <div className="record-date">
-                                            {`${item.dayName} ${item.meridiem}`}
-                                    
-                                        </div>
-                                        <div className="record-stats">
-                                            <span className="record-exercise-count">{item.exerciseCount} 회</span>
-                                            <span className="record-calorie">{item.calorie}칼로리</span>
-                                        </div>
-                                    </div>
-                                </div>
-                           
-                        ))
-                    ) : (
-                        <p>운동 기록이 없습니다.</p>
+                        <p style={{ marginLeft: '20px' }}>운동 기록이 없습니다.</p>
                     )}
                 </div>
             )}
 
             {exerciseType === 'pushup' && (
-                <div className="activity-summary">
-                    <div className="total-SquatCount">
-                        <span className="number">{summary.totalExerciseCount}</span><br />
-                        <span className="label">푸시업 횟수</span>
-                    </div>
-                    <div className="exercise-stats-container">
-                        <div className="stat">
-                            <span className="number">{summary.selectedItemCount}</span><br />
-                            <span className="label">팔굽혀펴기</span>
+                <>
+                    <div className="exercise-summary-data" style={{ height: '150px' }}>
+                        <div className="select-container" style={{ width: '160px' }}>
+                            <Select
+                                value={options.find(option => option.value === selectedDetail)}
+                                onChange={selectedOption => setSelectedDetail(selectedOption.value)}
+                                options={options}
+                                styles={{
+                                    control: (provided, state) => ({
+                                        ...provided,
+                                        backgroundColor: '#303234',
+                                        color: '#f5f5f5', // 텍스트 색상을 흰색으로 설정 (필요한 경우)
+                                        boxShadow: '3px 3px 8px 0px rgba(0, 0, 0, 0.30) inset',
+                                        borderColor: state.isFocused ? '#yourFocusedBorderColor' : '#initialBorderColor',
+                                        '&:hover': {
+                                            borderColor: '#hoverBorderColor', // 마우스 호버 시 테두리 색상
+                                        }
+                                    }),
+                                    singleValue: (provided) => ({
+                                        ...provided,
+                                        color: 'f5f5f5', // 선택된 항목의 텍스트 색상을 흰색으로 설정
+                                    }),
+                                    menu: (provided) => ({
+                                        ...provided,
+                                        backgroundColor: 'black', // 드롭다운 메뉴의 배경색을 검은색으로 설정
+                                    }),
+                                    option: (provided, state) => ({
+                                        ...provided,
+                                        backgroundColor: state.isFocused ? 'grey' : 'black', // 항목에 마우스를 올렸을 때의 배경색과 기본 배경색 설정
+                                        color: 'f5f5f5', // 옵션의 텍스트 색상을 흰색으로 설정
+                                    }),
+                                }}
+                            />
                         </div>
-                        <div className="stat">
-                            <span className="number">{summary.totalCalories}</span><br />
-                            <span className="label">소모 칼로리</span>
+                        <div className="exercise-stats-container">
+                            <div className="stat">
+                                <span className="number">{summary.selectedItemCount}</span><br />
+                                <span className="label">팔굽혀펴기</span>
+                            </div>
+                            <div className="stat">
+                                <span className="number">{summary.totalExerciseCount}</span><br />
+                                <span className="label">횟수</span>
+                            </div>
+                            <div className="stat">
+                                <span className="number">{summary.totalCalories}</span><br />
+                                <span className="label">칼로리</span>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </>
             )}
 
             {exerciseType === 'pushup' && (
                 <div className="exercise-record-container">
                     {records.length > 0 ? (
                         records.map((item, index) => (
-                          
-                                <div key={index} className="record-item">
-                                    <img src={defaultImage} alt="Run" className="record-img" />
-                                    <div className="record-details">
-                                        <div className="record-full-date">
-                                            {`${new Date(item.date).getFullYear()}년 ${new Date(item.date).getMonth() + 1}월 ${new Date(item.date).getDate()}일`}
-                                        </div>
-                                        <div className="record-date">
-                                            {`${item.dayName} ${item.meridiem}`}
-                                        </div>
-                                        <div className="record-stats">
-                                            <span className="record-exercise-count">{item.exerciseCount} 회</span>
-                                            <span className="record-calorie">{item.calorie}칼로리</span>
-                                        </div>
+
+                            <div key={index} className="exercise-record-item">
+                                <div className="record-details">
+                                    <div className="record-full-date">
+                                        {`${new Date(item.date).getFullYear()}년 ${new Date(item.date).getMonth() + 1}월 ${new Date(item.date).getDate()}일 ${item.dayName}`}
+                                    </div>
+                                    <div className="record-stats">
+                                        <span className="record-exercise-count">{item.exerciseCount} 회</span>
+                                        <span className="record-calorie">{item.calorie} 칼로리</span>
                                     </div>
                                 </div>
-                          
+                            </div>
+
                         ))
                     ) : (
-                        <p>운동 기록이 없습니다.</p>
+                        <p style={{ marginLeft: '20px' }}>운동 기록이 없습니다.</p>
                     )}
                 </div>
             )}

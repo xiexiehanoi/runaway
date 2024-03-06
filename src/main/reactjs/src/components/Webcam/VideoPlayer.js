@@ -27,19 +27,19 @@ const VideoPlayer = ({ src, mimeType, currentStory }) => {
 
                 }}
             />
-            <div className="primaryCard storyInfoContainer"
+            <div className="commonBackground storyInfoContainer"
                 style={{
-                    borderRadius: "16px 16px 8px 8px",
-                    backgroundColor: 'rgba(70, 72, 75, 0.5)',
+                    borderRadius: "16px",
+                    // backgroundColor: 'rgba(70, 72, 75, 0.5)',
                     boxShadow: 'none'
                 }}>
                 <img alt='storyProfileImg'
-                     src={currentStory.user.imageUrl}
-                     onError={handleImageError}
+                    src={currentStory.user.imageUrl}
+                    onError={handleImageError}
                     className='storyProfileImg' />
 
                 <p className="storyInfo1">
-                    User: {currentStory.user.username}
+                    {currentStory.user.username}
                 </p>
                 <p className="storyInfo2">
                     {currentStory.storyUploadTime}

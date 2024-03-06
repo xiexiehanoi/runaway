@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import "../../CSS/CommonApplicationStyle.css";
 import "./css/MyChallenge.css";
 import DonutChart from "./DonutChart.js";
+import { FaCheckCircle, FaTimesCircle, FaSpinner } from 'react-icons/fa';
+
 
 const MyChallengeRecordItem = ({ row }, { idx }) => {
     const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
@@ -53,6 +55,19 @@ const MyChallengeRecordItem = ({ row }, { idx }) => {
     const endDate = formatDate(row.end_date || row.endDate);
 
 
+    const getStatusIcon = () => {
+        if (calculateData.successCount > 0 && calculateData.failureCount === 0 && calculateData.pendingCount === 0) {
+          return <FaCheckCircle color="green" size={20} />;
+        } else if (calculateData.failureCount > 0) {
+          return <FaTimesCircle color="red" size={20} />;
+        } else if (calculateData.pendingCount > 0) {
+          return <FaSpinner color="rgba(166, 166, 166, 0.6)" size={20} />;
+        } else {
+          return null;
+        }
+      };
+    
+ 
 
 
 
@@ -62,17 +77,18 @@ const MyChallengeRecordItem = ({ row }, { idx }) => {
             className="primaryCard"
             style={{ display: "flex", margin: "10px 20px 20px 20px", padding: "16px" }}
         >
-            <div className="exercise-item" style={{ width: '96px', height: '96px', marginLeft:'18px'}}>
+            <div>{getStatusIcon()}</div>
+            <div className="exercise-item" style={{ width: '96px', height: '96px',marginTop:'16px' }}>
                 <DonutChart successCount={calculateData.successCount} failureCount={calculateData.failureCount} pendingCount={calculateData.pendingCount} />
             </div>
-            <div className="myChallengeBox" style={{marginTop:'12px'}}>
+            <div className="myChallengeBox" style={{ marginTop: '28px' ,marginLeft:'20px'}}>
                 {isExerciseChallenge ? (
                     <>
-                        <strong>{challengeData?.exercise_type}</strong>4
+                        <strong style={{fontSize:'12px' }}>{challengeData?.target_date} Days ({challengeData?.exercise_type})</strong>
                         <br />
-                        <strong>매일 </strong> {challengeData?.target_count}회<br />
+                        <strong style={{fontSize:'24px'}}>매일 {challengeData?.target_count}회 </strong ><br />
                         <strong>
-                            {startDate}~{endDate}&nbsp; ({challengeData?.target_date}일)
+                            {startDate}~{endDate}
                         </strong>
                     </>
                 ) : (

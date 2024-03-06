@@ -54,18 +54,21 @@ const MyProfile = () => {
     <div className="profile_main">
       <div className="my_info">
         <div className="rank_border">
-          <img src={`${IMAGE_URL}${userInfo?.imageUrl}`}
-            alt="profile_image"
-            className="profile_image"
-            onError={handleImageError} />
-        </div>
-        <div className='uploadProfileImg'>
-          <input type="file" id="file" style={{ display: 'none' }} onChange={uploadPhoto} />
           <label htmlFor="file">
-            {/* <ion-icon name="create"></ion-icon> */}
-            <img alt='changeProfileImg' src={changeProfileImg} className='changeProfileImg' />
+            <img src={`${IMAGE_URL}${userInfo?.imageUrl}`}
+                 alt="profile_image"
+                 className="profile_image"
+                 onError={handleImageError}/>
           </label>
+            <input type="file" id="file" style={{display: 'none'}} onChange={uploadPhoto}/>
         </div>
+        {/*<div className='uploadProfileImg'>*/}
+          {/*<input type="file" id="file" style={{display: 'none'}} onChange={uploadPhoto}/>*/}
+          {/*<label htmlFor="file">*/}
+          {/*  /!* <ion-icon name="create"></ion-icon> *!/*/}
+          {/*  <img alt='changeProfileImg' src={changeProfileImg} className='changeProfileImg' />*/}
+          {/*</label>*/}
+        {/*</div>*/}
         <div className="show_info">
           <span className="user_nickname">{userInfo.nickname}</span>
           <img alt='editProfile' src={editProfile} className='edit_button' onClick={goToEditInfoForm} />

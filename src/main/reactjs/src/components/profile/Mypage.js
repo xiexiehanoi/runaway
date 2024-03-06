@@ -122,7 +122,8 @@ const Mypage = () => {
       <ScreenHeader title={"My Profile"} />
       <MyProfile />
       {/* <div> */}
-      <div className='Exp'>
+      {/* <div className='Exp'> */}
+      <div>
         <ExpBar level={user?.grade.level} exp={user?.point} min={user?.grade.minPoint} max={user?.grade.maxPoint} />
       </div>
       {/* </div> */}
