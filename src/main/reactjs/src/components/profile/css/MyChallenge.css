@@ -177,7 +177,8 @@
   font-weight: bold;
   line-height: 1;
   margin-left:16px;
-  margin-bottom: 16px;
+  margin-bottom: 8px;
+  margin-top: 30px;
 }
 
 .total-distance .label {
@@ -223,6 +224,20 @@
   height: 150px;
 }
 
+.exercise-summary-data{
+  justify-content: space-around; /* 항목들 사이에 균일한 간격 유지 */
+  flex-wrap: wrap; /* 필요시 여러 줄로 항목을 나눔 */
+  padding: 16px 16px 30px 16px; /* 컨테이너 내부 여백 */
+  box-shadow: -9px -9px 16px rgba(73, 73, 73, 0.40), 9px 9px 16px rgba(0, 0, 0, 0.40);
+  border-radius: 10px; /* 경계선 둥글게 처리 */
+  background-color: #303234; /* 배경색 */
+  max-width: 92%; /* 컨테이너 최대 너비 */
+  margin: auto; /* 페이지 중앙 정렬 */
+  margin-top: 20px;
+  margin-bottom: 30px;
+ 
+}
+
 
 
 .exercise-stats-container .label {
@@ -258,6 +273,13 @@
   margin: auto; /* 페이지 중앙 정렬 */
   margin-top: 30px;
   margin-bottom: 30px;
-  height: 180px;
+  height: 250px;
 }
+
+
+
+
+
+
+
 

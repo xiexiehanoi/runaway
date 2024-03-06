@@ -3,6 +3,8 @@ import "../../CSS/CommonApplicationStyle.css";
 import "./css/MyChallenge.css";
 import DonutChart from "./DonutChart.js";
 
+
+
 const MyChallengeRecordItem = ({ row }, { idx }) => {
     const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
     const [myChallengeList, setMyChallengeList] = useState([]);
@@ -62,10 +64,11 @@ const MyChallengeRecordItem = ({ row }, { idx }) => {
             className="primaryCard"
             style={{ display: "flex", margin: "10px 20px 20px 20px", padding: "16px" }}
         >
-            <div className="exercise-item" style={{ width: '96px', height: '96px', marginLeft:'18px'}}>
+
+            <div className="exercise-item" style={{ width: '96px', height: '96px', marginLeft: '18px' }}>
                 <DonutChart successCount={calculateData.successCount} failureCount={calculateData.failureCount} pendingCount={calculateData.pendingCount} />
             </div>
-            <div className="myChallengeBox" style={{marginTop:'12px'}}>
+            <div className="myChallengeBox" style={{ marginTop: '20px' ,marginLeft:'20px'}}>
                 {isExerciseChallenge ? (
                     <>
                         <strong>{challengeData?.exercise_type}</strong>4
