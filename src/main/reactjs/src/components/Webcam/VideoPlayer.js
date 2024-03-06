@@ -29,21 +29,24 @@ const VideoPlayer = ({ src, mimeType, currentStory }) => {
             />
             <div className="commonBackground storyInfoContainer"
                 style={{
-                    borderRadius: "16px",
+                    borderRadius: "8px",
                     // backgroundColor: 'rgba(70, 72, 75, 0.5)',
                     boxShadow: 'none'
                 }}>
-                <img alt='storyProfileImg'
-                    src={currentStory.user.imageUrl}
-                    onError={handleImageError}
-                    className='storyProfileImg' />
-
-                <p className="storyInfo1">
-                    {currentStory.user.username}
-                </p>
-                <p className="storyInfo2">
-                    {currentStory.storyUploadTime}
-                </p>
+                <div className='storyInfoImg'>
+                    <img alt='storyProfileImg'
+                        src={currentStory.user.imageUrl}
+                        onError={handleImageError}
+                        className='storyProfileImg' />
+                </div>
+                <div className='storyInfo'>
+                    <p className="storyInfo1">
+                        {currentStory.user.username}
+                    </p>
+                    <p className="storyInfo2">
+                        {currentStory.storyUploadTime}
+                    </p>
+                </div>
             </div>
         </>
     );
