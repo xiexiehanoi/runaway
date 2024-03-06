@@ -339,21 +339,21 @@ const ExerciseRecords = () => {
             {exerciseType === 'squat' && (
                 <div className="exercise-record-container">
                     {records.length > 0 ? (
-                        records.map((item, index) => (
-
-                            <div key={index} className="exercise-record-item">
-                                <div className="record-details">
-                                    <div className="record-full-date">
-                                        {`${new Date(item.date).getFullYear()}년 ${new Date(item.date).getMonth() + 1}월 ${new Date(item.date).getDate()}일 ${item.dayName}`}
-                                    </div>
-                                    <div className="record-stats">
-                                        <span className="record-exercise-count" style={{ marginRight: '20px' }}>{item.exerciseCount} 회</span>
-                                        <span className="record-calorie">{item.calorie} 칼로리</span>
+                        records.sort((a, b) => new Date(b.date) - new Date(a.date))
+                            .map((item, index) => (
+                                <div key={index} className="exercise-record-item">
+                                    <div className="record-details">
+                                        <div className="record-full-date">
+                                            {`${new Date(item.date).getFullYear()}년 ${new Date(item.date).getMonth() + 1}월 ${new Date(item.date).getDate()}일 ${item.dayName}`}
+                                        </div>
+                                        <div className="record-stats">
+                                            <span className="record-exercise-count" style={{ marginRight: '20px' }}>{item.exerciseCount} 회</span>
+                                            <span className="record-calorie">{item.calorie} 칼로리</span>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
-                        ))
+                            ))
                     ) : (
                         <p style={{ marginLeft: '20px' }}>운동 기록이 없습니다.</p>
                     )}
@@ -416,21 +416,21 @@ const ExerciseRecords = () => {
             {exerciseType === 'situp' && (
                 <div className="exercise-record-container">
                     {records.length > 0 ? (
-                        records.map((item, index) => (
-
-                            <div key={index} className="exercise-record-item">
-                                <div className="record-details">
-                                    <div className="record-full-date">
-                                        {`${new Date(item.date).getFullYear()}년 ${new Date(item.date).getMonth() + 1}월 ${new Date(item.date).getDate()}일 ${item.dayName}`}
-                                    </div>
-                                    <div className="record-stats">
-                                        <span className="record-exercise-count">{item.exerciseCount} 회</span>
-                                        <span className="record-calorie">{item.calorie} 칼로리</span>
+                        records.sort((a, b) => new Date(b.date) - new Date(a.date))
+                            .map((item, index) => (
+                                <div key={index} className="exercise-record-item">
+                                    <div className="record-details">
+                                        <div className="record-full-date">
+                                            {`${new Date(item.date).getFullYear()}년 ${new Date(item.date).getMonth() + 1}월 ${new Date(item.date).getDate()}일 ${item.dayName}`}
+                                        </div>
+                                        <div className="record-stats">
+                                            <span className="record-exercise-count">{item.exerciseCount} 회</span>
+                                            <span className="record-calorie">{item.calorie} 칼로리</span>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
-                        ))
+                            ))
                     ) : (
                         <p style={{ marginLeft: '20px' }}>운동 기록이 없습니다.</p>
                     )}
@@ -493,21 +493,22 @@ const ExerciseRecords = () => {
             {exerciseType === 'pushup' && (
                 <div className="exercise-record-container">
                     {records.length > 0 ? (
-                        records.map((item, index) => (
+                        records.sort((a, b) => new Date(b.date) - new Date(a.date))
+                            .map((item, index) => (
 
-                            <div key={index} className="exercise-record-item">
-                                <div className="record-details">
-                                    <div className="record-full-date">
-                                        {`${new Date(item.date).getFullYear()}년 ${new Date(item.date).getMonth() + 1}월 ${new Date(item.date).getDate()}일 ${item.dayName}`}
-                                    </div>
-                                    <div className="record-stats">
-                                        <span className="record-exercise-count">{item.exerciseCount} 회</span>
-                                        <span className="record-calorie">{item.calorie} 칼로리</span>
+                                <div key={index} className="exercise-record-item">
+                                    <div className="record-details">
+                                        <div className="record-full-date">
+                                            {`${new Date(item.date).getFullYear()}년 ${new Date(item.date).getMonth() + 1}월 ${new Date(item.date).getDate()}일 ${item.dayName}`}
+                                        </div>
+                                        <div className="record-stats">
+                                            <span className="record-exercise-count">{item.exerciseCount} 회</span>
+                                            <span className="record-calorie">{item.calorie} 칼로리</span>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
-                        ))
+                            ))
                     ) : (
                         <p style={{ marginLeft: '20px' }}>운동 기록이 없습니다.</p>
                     )}
