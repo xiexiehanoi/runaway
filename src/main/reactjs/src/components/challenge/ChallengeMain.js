@@ -52,7 +52,7 @@ const ChallengeMain = () => {
                   src={exerciseImg}
                   alt="Exercise Challenge"
                   className="exercise-image"
-                  style={{ width: "50%", height: "100%" }}
+                  style={{ width: "50%", height: "auto" }}
                 />
                 <br />
               </Link>
