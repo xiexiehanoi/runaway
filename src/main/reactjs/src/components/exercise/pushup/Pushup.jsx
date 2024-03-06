@@ -68,7 +68,6 @@ const saveCountToDatabase = async (count, exerciseType) => {
       }
     );
     console.log("Count saved successfully");
-    alert("세트 하나 완료");
   } catch (error) {
     console.error("Failed to save count", error.response);
   }
