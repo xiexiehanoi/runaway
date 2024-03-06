@@ -1,32 +1,28 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap');
 
 .profile_main {
+    width: 100%;
+    position: relative;
+    left: 50%;
+    transform: translate(-50%);
 
-    /*font-family: var(--font);*/
     .my_info {
-        /*margin-top: 10%;*/
-        /*padding: 5%;*/
         display: flex;
         justify-content: center;
         align-items: center;
         flex-direction: row;
-        width: 90%;
-        /*margin-left: 5%;*/
-        /*height: 100%;*/
-        /*max-width: 100%;*/
-        /*max-height: 100%;*/
-        position: relative;
-        /* left: 50%; */
-        margin-top: 24px;
-        /* transform: translate(-50%); */
-        /*background-color: #303234;*/
-        /*border-radius: 50px;*/
-        /*box-shadow: -7px -7px 16px rgba(73, 73, 73, 0.6), 9px 9px 16px rgba(0, 0, 0, 0.40);*/
+        width: 88%;
+
+        margin-top: 16px;
 
         .profile_image {
-            width: 63px;
-            height: 63px;
-            border-radius: 64px;
+            width: 60px;
+            height: 60px;
+            border-radius: 60px;
+            border: 4px solid #5d4fad;
+            margin-bottom: 4px;
+            /* position: absolute; */
+            margin-left: -12px;
             /*position: absolute;*/
         }
 
@@ -86,7 +82,7 @@
         .show_info {
             text-align: left;
             padding-top: 18px;
-            padding-left: 12px;
+            padding-left: 8px;
             width: 200px;
         }
 
