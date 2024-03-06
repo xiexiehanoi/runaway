@@ -27,7 +27,7 @@
             width: 63px;
             height: 63px;
             border-radius: 64px;
-            position: absolute;
+            /*position: absolute;*/
         }
 
         .rank_border {
