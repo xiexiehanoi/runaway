@@ -4,7 +4,7 @@
 }
 
 /* 각 화면의 제목이 나오는 부분 */
-.header-inscreen {
+/* .header-inscreen {
     background-color: #303234;
     box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.40);
     height: 48px;
@@ -15,12 +15,13 @@
     top: -0.2%;
     font-weight: 900;
     font-size: 1.5em;
-    color: #f5f5f5;
+    color: #f5f5f5;*/
 
-    /* Flexbox 추가해서 제목이 세로 정렬 중앙에 오도록 배치 */
-    display: flex;
+/* Flexbox 추가해서 제목이 세로 정렬 중앙에 오도록 배치 */
+/* display: flex;
     align-items: center;
-}
+    justify-content: center;
+}  */
 
 
 
@@ -107,6 +108,30 @@
 
 
 
+
+/* Back Button */
+.common-backBtn {
+    /* padding: 10px 30px; */
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    z-index: 2;
+    width: 2%;
+    height: auto;
+    /* margin: 10px; */
+    position: absolute;
+    left: 0%;
+    top: 3%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+
+
+
+
 /* SweetAlert2 CSS */
 .sa2-confirm-button-class {
     background: linear-gradient(140deg, #a4b0f1 -0.5%, #5d4fad 100%) !important;
@@ -163,7 +188,7 @@
     /* right: 20%; */
     top: 50% !important;
     transform: translate(-174.7px, -346.9px) !important;
-    margin-left: -146px !important;
+    margin-left: -158px !important;
     margin-top: 49px !important;
     border-bottom-left-radius: 45px !important;
     border-bottom-right-radius: 45px !important;

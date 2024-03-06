@@ -2,18 +2,18 @@
 import React from "react";
 import { useNavigate, useLocation } from 'react-router-dom';
 import backWhite from "../image/back-white.png";
-import closeWhite from "../image/close-white.png";
+import logOut from "../image/logout.png";
 import "./ScreenHeaderCSS.css"
 import Swal from "sweetalert2";
-import {LoginAtom} from "../global/LoginAtom";
-import {useRecoilState} from "recoil";
+import { LoginAtom } from "../global/LoginAtom";
+import { useRecoilState } from "recoil";
 
 
 function BackButton() {
     const navigate = useNavigate();
     const location = useLocation();
 
-    const canGoBack = !(location.pathname === "/" || location.pathname === "/home")
+    const canGoBack = !(location.pathname === "/" || location.pathname === "/home" || location.pathname === "/story" || location.pathname === "/ranking" || location.pathname === "/my")
     const imageStyle = canGoBack ? {} : { visibility: 'hidden' };
 
     const goBack = () => {
@@ -26,8 +26,12 @@ function BackButton() {
 }
 
 function Logout() {
-    const [ isLogin, setIsLogin] = useRecoilState(LoginAtom);
+    const [isLogin, setIsLogin] = useRecoilState(LoginAtom);
     const navigate = useNavigate();
+    const location = useLocation();
+
+    const canLogOut = (location.pathname === "/my")
+    const imageStyle = canLogOut ? {} : { visibility: 'hidden' };
 
     const logoutEvent = () => {
         const token = window.localStorage.removeItem("token");
@@ -52,12 +56,13 @@ function Logout() {
     }
 
     return (
-        <img src={closeWhite} onClick={logoutEvent} alt={"logout"}/>
+        <img src={logOut} onClick={logoutEvent} alt={"logout"} style={imageStyle} className="logout" />
     )
 }
 
 
-const ScreenHeader = ({title}) => {
+const ScreenHeader = ({ title }) => {
+
     return (
         <div className="header-in-screen">
             <BackButton />
