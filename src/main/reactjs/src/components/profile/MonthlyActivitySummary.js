@@ -213,7 +213,7 @@ const MonthlyActivitySummary = ({ currentMonthlyExerciseData, start }) => {
 
     return (
         <div>
-            <div style={{ marginLeft: '15px', marginTop: '30px' }}>이번 달 운동 통계</div>
+            <div style={{ marginLeft: '24px', marginTop: '40px' }}>이번 달 운동 통계</div>
             <div className="segmented-control">
                 <input
                     type="radio"

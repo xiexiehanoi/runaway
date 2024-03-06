@@ -29,28 +29,29 @@ const ExpBar = ({ level, exp, min, max }) => {
                 level === 'Gold' ? goldIcon : platinumIcon;
 
     return (
-        // <div>
-        <div className='Exp' >
+        <div>
+            <div className='Exp' >
 
-            <div className='previousLevel' style={{ marginRight: '3%' }}>
-                <img src={previousStep} alt='previousLevel' style={{ width: '32px', height: '32px' }} />
-            </div>
-
-            <div className="progressbar">
-                <div className='bar' style={{ width: barWidth }}>
-                    <span style={{ marginLeft: '20%' }}>({exp}/{max}){barWidth}</span>
+                <div className='previousLevel' style={{ marginRight: '8px' }}>
+                    <img src={previousStep} alt='previousLevel' style={{ width: '32px', height: '32px' }} />
                 </div>
-            </div>
 
-            <div className='nextLevel' style={{ marginLeft: '3%' }}>
-                <img src={nextStep} alt='nextLevel' style={{ width: '32px', height: '32px' }} />
-            </div>
+                <div className="progressbar">
+                    <div className='bar' style={{ width: barWidth }}>
 
+                    </div>
+                </div>
+
+                <div className='nextLevel' style={{ marginLeft: '8px' }}>
+                    <img src={nextStep} alt='nextLevel' style={{ width: '32px', height: '32px' }} />
+                </div>
+
+            </div>
+            <div className='expAmount'>
+                <span >{barWidth} ({exp}/{max})</span>
+            </div>
 
         </div>
-
-
-        // </div>
     );
 };
 
