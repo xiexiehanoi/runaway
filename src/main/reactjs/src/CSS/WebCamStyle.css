@@ -243,8 +243,8 @@ img.WebCamImg {
     margin: 2% 6%;
     z-index: 3;
     position: absolute;
-    top: 30%;
-    font-size: 24px;
+    top: 23%;
+    font-size: 21px;
     line-height: 22px;
     font-weight: 700;
     left: 25%;
@@ -258,8 +258,8 @@ img.WebCamImg {
     margin: 2% 6%;
     z-index: 3;
     position: absolute;
-    top: 62%;
-    font-size: 14px;
+    top: 46%;
+    font-size: 13px;
     line-height: 14px;
     font-weight: 600;
     left: 25%;
@@ -278,7 +278,8 @@ img.WebCamImg {
         /* 버튼을 수평으로 가운데 정렬 */
         position: static;
         overflow-y: hidden;
-        width: 100vw;
+        /* width: 100vw; */
+        height: calc(100vh - 61px);
         height: 100vh;
         z-index: 1;
         background-color: rgba(99, 122, 159, 0.5);
@@ -299,6 +300,14 @@ img.WebCamImg {
         padding: 10px;
         /* 필요한 경우에 조정 */
         /* box-sizing: border-box; */
+    }
+
+    .storyInfo1 {
+        top: 30%;
+    }
+
+    .storyInfo2 {
+        top: 59%;
     }
 
     button.WebCamStartBtn,
