@@ -20,7 +20,6 @@ import Ranking from '../components/rank/Ranking';
 import RunningRecordDetail from '../components/profile/RunningRecordDetail';
 import SignUpAddForm from "../components/signup/SignUpAddForm";
 import MyChallengeList from '../components/challenge/MyChallengeList';
-import RunningRecord from '../components/profile/RunningRecord';
 import LoginRouter from "./LoginRouter";
 import LoginBackRouter from "./LoginBackRouter";
 import ExpBar from "../components/profile/ExpBar";
@@ -46,7 +45,6 @@ const RouterMain = () => {
                 <Route path="/exercisechallenge" element={<LoginRouter><ExerciseChallenge /></LoginRouter>} />
                 <Route path='mychallengerecordlist' element={<LoginRouter><MyChallengeRecordList /></LoginRouter>} ></Route>
                 <Route path="/my" element={<LoginRouter><MyPage /></LoginRouter>} />
-                <Route path='/runningRecord' element={<LoginRouter><RunningRecord /></LoginRouter>} />
                 <Route path='/runningRecords' element={<LoginRouter><RunningRecords /></LoginRouter>} />
                 <Route path='/exerciseRecords' element={<LoginRouter><ExerciseRecords /></LoginRouter>} />
                 <Route path="/runningRecordDetail/:runIdx" element={<LoginRouter><RunningRecordDetail /></LoginRouter>} />

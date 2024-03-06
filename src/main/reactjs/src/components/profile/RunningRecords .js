@@ -4,6 +4,7 @@ import { Link, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import Select from 'react-select';
 import ScreenHeader from "../../router/ScreenHeader";
+import "./css/RunningRecord.css"
 
 
 const RunningRecords = () => {
@@ -208,12 +209,14 @@ const RunningRecords = () => {
     });
 
 
-    const totalDistance = filteredRecords.reduce((acc, curr) => acc + parseFloat(curr.distance), 0);
+    const distance = filteredRecords.reduce((acc, curr) => acc + parseFloat(curr.distance), 0);
+    const totalDistance = Number(distance.toFixed(3));
     // 선택된 레코드의 개수 
     const selectedItemCount = filteredRecords.length;
 
     // 칼로리 총합 계산
-    const totalCalories = filteredRecords.reduce((acc, curr) => acc + parseFloat(curr.calorie), 0);
+    const calories = filteredRecords.reduce((acc, curr) => acc + parseFloat(curr.calorie), 0);
+    const totalCalories = Number(calories.toFixed(3));
 
     // 시간 합산 로직
     const totalSeconds = filteredRecords.reduce((total, record) => {
