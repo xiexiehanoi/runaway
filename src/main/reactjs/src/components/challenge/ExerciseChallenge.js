@@ -6,7 +6,7 @@ import "../../CSS/ChallengeList.css";
 import situpImage from "../../image/sit-up.png";
 import pushupImage from "../../image/push-up.png";
 import squatImage from "../../image/squat.png";
-import ScreenHeader from "../ScreenHeader";
+import ScreenHeader from "../../router/ScreenHeader";
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 

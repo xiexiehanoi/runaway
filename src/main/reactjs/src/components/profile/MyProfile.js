@@ -1,12 +1,14 @@
-import React, {useEffect} from 'react';
-import {useFetchUserInfo, UserInfoAtom} from "../../global/UserInfoAtom";
-import {useRecoilValue} from "recoil";
+import React, { useEffect } from 'react';
+import { useFetchUserInfo, UserInfoAtom } from "../../global/UserInfoAtom";
+import { useRecoilValue } from "recoil";
 import RunawayMaleImage from "./Img/runaway_male_image.jpg";
 import RunawayFemaleImage from "./Img/runaway_female_image.jpg";
 import "./css/MyProfile.css";
+import ChallengerIcon from "./Img/challenger_icon.jpg";
 import axios from "axios";
-import {useNavigate} from "react-router-dom";
-import RankOutside from "../profile/Img/border_img/flower.png"
+import { useNavigate } from "react-router-dom";
+import editProfile from "./Img/Edit.png";
+import changeProfileImg from "./Img/Camera.png";
 
 const MyProfile = () => {
   const fetchUserInfo = useFetchUserInfo();
@@ -16,7 +18,7 @@ const MyProfile = () => {
   const navi = useNavigate();
 
   useEffect(() => {
-      fetchUserInfo();
+    fetchUserInfo();
   }, []);
 
   const handleImageError = (e) => {
@@ -51,21 +53,27 @@ const MyProfile = () => {
   return (
     <div className="profile_main">
       <div className="my_info">
-        <img src={RankOutside} className="rank_outside"/>
         <div className="rank_border">
-          <input type="file" id="file" style={{display: 'none'}} onChange={uploadPhoto}/>
+          <img src={`${IMAGE_URL}${userInfo?.imageUrl}`}
+            alt="profile_image"
+            className="profile_image"
+            onError={handleImageError} />
+        </div>
+        <div className='uploadProfileImg'>
+          <input type="file" id="file" style={{ display: 'none' }} onChange={uploadPhoto} />
           <label htmlFor="file">
-            <img src={`${IMAGE_URL}${userInfo?.imageUrl}`}
-                 alt="profile_image"
-                 className="profile_image"
-                 onError={handleImageError}/>
+            {/* <ion-icon name="create"></ion-icon> */}
+            <img alt='changeProfileImg' src={changeProfileImg} className='changeProfileImg' />
           </label>
         </div>
         <div className="show_info">
           <span className="user_nickname">{userInfo.nickname}</span>
-          <button className="edit_button btn primaryButton-outset" onClick={goToEditInfoForm}>편집</button>
-          <p className="user_email">{userInfo.email}aaaaaaaa@naver.com</p>
+          <img alt='editProfile' src={editProfile} className='edit_button' onClick={goToEditInfoForm} />
+          <p className="user_email">{userInfo.email}</p>
         </div>
+        {/* <div className="edit_info" style={{ marginTop: "9%" }}>
+          <button className="edit_button btn primaryButton-outset" onClick={goToEditInfoForm}>수정</button>
+        </div> */}
       </div>
     </div>
   );

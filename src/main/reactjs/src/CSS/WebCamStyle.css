@@ -41,12 +41,13 @@ button.WebCamVideoUploadBtn {
     border-radius: 56px;
     cursor: pointer;
     z-index: 2;
-    width: calc(60% - 20px);
+    width: calc(65% - 20px);
     height: 52px;
     margin: 8px;
     position: absolute;
     left: auto;
     font-size: large;
+    font-weight: 700;
 }
 
 .zoom {
@@ -212,14 +213,16 @@ img.WebCamImg {
 /* storyInfo */
 .storyInfoContainer {
     position: absolute;
-    width: 100.5%;
-    height: 24%;
+    width: 101.5%;
+    height: 23.9%;
     top: 76.5%;
     /* top: 0%; */
     /* left: 7.5%; */
-    left: 0%;
+    left: -0.8%;
+    background: linear-gradient(180deg, rgba(30, 30, 30, 0.00) 0%, rgba(0, 0, 0, 0.80) 61%, #000000 100%);
     z-index: 4;
-    /* opacity: 0.7; */
+    opacity: 1;
+    border-radius: 16px;
     /* border: 2px solid black; */
 }
 
@@ -228,24 +231,25 @@ img.WebCamImg {
     height: 64px;
     border-radius: 64px;
     position: absolute;
-    top: -24px;
+    top: 20px;
     background-color: #5d4fad;
-    left: 6%;
+    left: 24px;
     border: 4px double black;
 }
 
 .storyInfo1 {
     color: #f5f5f5;
-    font-weight: 500;
+    /* font-weight: 500; */
     font-size: 1.1em;
     margin: 2% 6%;
     z-index: 3;
     position: absolute;
-    top: 6%;
-    font-size: 24px;
-    line-height: 24px;
-    font-weight: 500;
+    top: 26%;
+    font-size: 21px;
+    line-height: 22px;
+    font-weight: 700;
     left: 25%;
+    opacity: 1;
 }
 
 .storyInfo2 {
@@ -255,10 +259,10 @@ img.WebCamImg {
     margin: 2% 6%;
     z-index: 3;
     position: absolute;
-    top: 35%;
-    font-size: 14px;
+    top: 54%;
+    font-size: 13px;
     line-height: 14px;
-    font-weight: 400;
+    font-weight: 600;
     left: 25%;
 }
 
@@ -275,7 +279,8 @@ img.WebCamImg {
         /* 버튼을 수평으로 가운데 정렬 */
         position: static;
         overflow-y: hidden;
-        width: 100vw;
+        /* width: 100vw; */
+        height: calc(100vh - 61px);
         height: 100vh;
         z-index: 1;
         background-color: rgba(99, 122, 159, 0.5);
@@ -298,10 +303,20 @@ img.WebCamImg {
         /* box-sizing: border-box; */
     }
 
+    .storyInfo1 {
+        top: 19px;
+        left: 64px;
+    }
+
+    .storyInfo2 {
+        top: 43%;
+        left: 64px;
+    }
+
     button.WebCamStartBtn,
     button.WebCamStopBtn,
-    button.WebCamVideoDownloadBtn {
-        width: calc(60% - 20px);
+    button.WebCamVideoUploadBtn {
+        width: calc(66% - 20px);
         /* 버튼의 너비를 조정하여 화면 크기에 맞게 표시 */
         margin: 10px;
         /* 위아래 여백을 주어 버튼들 간격을 조정 */
@@ -314,17 +329,17 @@ img.WebCamImg {
 
 
     button.WebCamStartBtn {
-        top: 75%;
+        top: 73%;
         /* 시작 버튼의 위치 조정 */
     }
 
     button.WebCamStopBtn {
-        top: 75%;
+        top: 73%;
         /* 중지 버튼의 위치 조정 */
     }
 
-    button.WebCamVideoDownloadBtn {
-        top: 83%;
+    button.WebCamVideoUploadBtn {
+        top: 82%;
         /* 다운로드 버튼의 위치 조정 */
         padding-top: 8px;
     }
@@ -334,5 +349,31 @@ img.WebCamImg {
         width: 100%;
         margin-top: 10px;
         margin-bottom: 10px;
+    }
+
+
+    .zoom {
+        top: 63%;
+    }
+
+}
+
+@media screen and (max-width: 360px) {
+    .WebCamContainer {
+        /* 모바일에서 버튼이 표시되도록 변경 */
+        width: 100vw;
+        height: calc(100vh - 61px);
+        z-index: 1;
+        background-color: rgba(99, 122, 159, 0.5);
+    }
+
+    .storyInfo1 {
+        top: 28px;
+        left: 80px;
+    }
+
+    .storyInfo2 {
+        top: 56%;
+        left: 80px;
     }
 }

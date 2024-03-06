@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import RunningChallengeRowItem from "./RunningChallengeRowItem";
 import runningImg from "../../image/running.png";
-import ScreenHeader from "../ScreenHeader";
+import ScreenHeader from "../../router/ScreenHeader";
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 

@@ -48,19 +48,19 @@ const MyChallenge = ({ myChallengeList }) => {
   <div className="MyChallenge-items-container">
     <div className="MyChallenge-item" style={{ width: '62px', height: '62px' }}>
       <DonutChart successCount={runningData.successCount} failureCount={runningData.failureCount} pendingCount={runningData.pendingCount} />
-      <strong>Running</strong>
+      <strong className="donutChart-description">running</strong>
     </div>
     <div className="MyChallenge-item" style={{ width: '62px', height: '62px' }}>
       <DonutChart successCount={squatData.successCount} failureCount={squatData.failureCount} pendingCount={squatData.pendingCount} />
-      <strong>Squat</strong>
+      <strong className="donutChart-description">squat</strong>
     </div>
     <div className="MyChallenge-item" style={{ width: '62px', height: '62px' }}>
       <DonutChart successCount={sitUpData.successCount} failureCount={sitUpData.failureCount} pendingCount={sitUpData.pendingCount} />
-      <strong>Sit-Up</strong>
+      <strong className="donutChart-description">sit-up</strong>
     </div>
     <div className="MyChallenge-item" style={{ width: '62px', height: '62px' }}>
       <DonutChart successCount={pushUpData.successCount} failureCount={pushUpData.failureCount} pendingCount={pushUpData.pendingCount} />
-      <strong>Push-Up</strong>
+      <strong className="donutChart-description">push-up</strong>
     </div>
   </div>
 </div>

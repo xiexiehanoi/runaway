@@ -6,15 +6,18 @@ import pushupImage from "../../image/push-up.png";
 import squatImage from "../../image/squat.png";
 import { Chart as ChartJS, registerables } from 'chart.js';
 import { Line } from 'react-chartjs-2';
-import ScreenHeader from "../ScreenHeader";
+import ScreenHeader from "../../router/ScreenHeader";
 ChartJS.register(...registerables);
+
 
 const Exercise = () => {
   const chartRef1 = useRef(null);
   const chartRef2 = useRef(null);
 
+  // const navi = useNavigate();
+
   useEffect(() => {
-    const chartInstance = chartRef1.current; 
+    const chartInstance = chartRef1.current;
     if (chartInstance && chartInstance.ctx) {
       const ctx = chartInstance.ctx;
       const gradient = ctx.createLinearGradient(0, 0, ctx.canvas.width, 0);
@@ -27,13 +30,13 @@ const Exercise = () => {
   }, []);
 
   useEffect(() => {
-    const chartInstance2 = chartRef2.current; 
+    const chartInstance2 = chartRef2.current;
     if (chartInstance2 && chartInstance2.ctx) {
       const ctx = chartInstance2.ctx;
       const gradient = ctx.createLinearGradient(0, 0, ctx.canvas.width, 0);
-      gradient.addColorStop(0, 'rgba(255, 215, 0, 1)'); 
-      gradient.addColorStop(0.5, 'rgba(255, 0, 0, 1)'); 
-      gradient.addColorStop(1, 'rgba(153, 50, 204, 1)'); 
+      gradient.addColorStop(0, 'rgba(255, 215, 0, 1)');
+      gradient.addColorStop(0.5, 'rgba(255, 0, 0, 1)');
+      gradient.addColorStop(1, 'rgba(153, 50, 204, 1)');
 
       chartInstance2.data.datasets[0].borderColor = gradient;
       chartInstance2.update();
@@ -44,7 +47,7 @@ const Exercise = () => {
     id: 'glow',
     beforeDatasetsDraw: (chart, easingValue, options) => {
       const ctx = chart.ctx;
-      ctx.save(); 
+      ctx.save();
       ctx.shadowColor = 'rgba(255, 255, 255, 0.75)';
       ctx.shadowBlur = 15;
       ctx.shadowOffsetX = 0;
@@ -52,7 +55,7 @@ const Exercise = () => {
     },
     afterDatasetsDraw: (chart, easingValue, options) => {
       const ctx = chart.ctx;
-      ctx.restore(); 
+      ctx.restore();
     }
   };
   ChartJS.register(glowPlugin);
@@ -94,7 +97,7 @@ const Exercise = () => {
         pointHoverBorderWidth: 1,
         pointRadius: 1,
         pointHitRadius: 10,
-        data: [21, 43 , 92, 67, 72, 77, 83],
+        data: [21, 43, 92, 67, 72, 77, 83],
         borderWidth: 2,
       }
     ]
@@ -133,26 +136,26 @@ const Exercise = () => {
         display: true,
         labels: {
           usePointStyle: true,
-          boxWidth: 0, 
+          boxWidth: 0,
         }
       }
     },
     animation: {
-      duration: 2000, 
+      duration: 2000,
       easing: 'easeOutBack'
     },
     hover: {
-      animationDuration: 1000, 
+      animationDuration: 1000,
     },
-    responsiveAnimationDuration: 500, 
+    responsiveAnimationDuration: 500,
     elements: {
       line: {
-        tension: 0 
+        tension: 0
       }
     }
   };
 
-  
+
   return (
     <>
       <ScreenHeader title={"Exercise"} />
@@ -177,10 +180,10 @@ const Exercise = () => {
       </div>
 
       <div className="graff-container">
-        <Line ref={chartRef1} plugins={[glowPlugin]} data={data} options={options} className="graff"/>
+        <Line ref={chartRef1} plugins={[glowPlugin]} data={data} options={options} className="graff" />
       </div>
       <div className="graff-container2">
-        <Line ref={chartRef2} plugins={[glowPlugin2]} data={data2} options={options} className="graff2"/>
+        <Line ref={chartRef2} plugins={[glowPlugin2]} data={data2} options={options} className="graff2" />
       </div>
     </>
   );

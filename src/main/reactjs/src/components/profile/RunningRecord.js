@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useEffect, useState, Fragment } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import './css/RunningRecord.css'
 import defaultImage from './Img/default-img.jpg';

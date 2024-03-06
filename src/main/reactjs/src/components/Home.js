@@ -19,7 +19,7 @@ import "../CSS/Main.css";
 //이동
 import Slider from "react-slick";
 import Swal from "sweetalert2";
-import ScreenHeader from "./ScreenHeader";
+import ScreenHeader from "../router/ScreenHeader";
 
 var settings = {
   className: "center",
