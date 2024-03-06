@@ -213,15 +213,16 @@ img.WebCamImg {
 /* storyInfo */
 .storyInfoContainer {
     position: absolute;
-    width: 100.5%;
-    height: 30%;
+    width: 101.5%;
+    height: 23.9%;
     top: 76.5%;
     /* top: 0%; */
     /* left: 7.5%; */
-    left: 0%;
+    left: -0.8%;
     background: linear-gradient(180deg, rgba(30, 30, 30, 0.00) 0%, rgba(0, 0, 0, 0.80) 61%, #000000 100%);
     z-index: 4;
     opacity: 1;
+    border-radius: 16px;
     /* border: 2px solid black; */
 }
 
@@ -230,9 +231,9 @@ img.WebCamImg {
     height: 64px;
     border-radius: 64px;
     position: absolute;
-    top: 24px;
+    top: 20px;
     background-color: #5d4fad;
-    left: 6%;
+    left: 24px;
     border: 4px double black;
 }
 
@@ -243,7 +244,7 @@ img.WebCamImg {
     margin: 2% 6%;
     z-index: 3;
     position: absolute;
-    top: 23%;
+    top: 26%;
     font-size: 21px;
     line-height: 22px;
     font-weight: 700;
@@ -258,7 +259,7 @@ img.WebCamImg {
     margin: 2% 6%;
     z-index: 3;
     position: absolute;
-    top: 46%;
+    top: 54%;
     font-size: 13px;
     line-height: 14px;
     font-weight: 600;
@@ -303,11 +304,13 @@ img.WebCamImg {
     }
 
     .storyInfo1 {
-        top: 30%;
+        top: 19px;
+        left: 64px;
     }
 
     .storyInfo2 {
-        top: 59%;
+        top: 43%;
+        left: 64px;
     }
 
     button.WebCamStartBtn,
@@ -362,5 +365,15 @@ img.WebCamImg {
         height: calc(100vh - 61px);
         z-index: 1;
         background-color: rgba(99, 122, 159, 0.5);
+    }
+
+    .storyInfo1 {
+        top: 28px;
+        left: 80px;
+    }
+
+    .storyInfo2 {
+        top: 56%;
+        left: 80px;
     }
 }

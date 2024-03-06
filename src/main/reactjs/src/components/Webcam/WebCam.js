@@ -99,7 +99,8 @@ const WebCam = () => {
                             width: '85%',
                             height: '72%',
                             margin: " auto",
-                            position: 'relative'
+                            position: 'relative',
+                            borderRadius: '16px'
                         }}>
                         <StoryShow storyList={storyList} />
                     </div>

@@ -29,7 +29,7 @@ const VideoPlayer = ({ src, mimeType, currentStory }) => {
             />
             <div className="commonBackground storyInfoContainer"
                 style={{
-                    borderRadius: "16px 16px 8px 8px",
+                    borderRadius: "16px",
                     // backgroundColor: 'rgba(70, 72, 75, 0.5)',
                     boxShadow: 'none'
                 }}>
