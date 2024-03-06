@@ -50,9 +50,8 @@ const RouterMain = () => {
                 <Route path='/runningRecords' element={<LoginRouter><RunningRecords /></LoginRouter>} />
                 <Route path='/exerciseRecords' element={<LoginRouter><ExerciseRecords /></LoginRouter>} />
                 <Route path="/runningRecordDetail/:runIdx" element={<LoginRouter><RunningRecordDetail /></LoginRouter>} />
-                {/* <Route path="/story" element={<LoginRouter><WebCam /></LoginRouter>} /> */}
-                <Route path="/story" element={<WebCam />} />
-                <Route path="/addstory" element={<AddStory />} />
+                <Route path="/story" element={<LoginRouter><WebCam /></LoginRouter>} />
+                <Route path="/addstory" element={<LoginRouter><AddStory /></LoginRouter>} />
                 <Route path="/squat" element={<LoginRouter><Squat /></LoginRouter>} />
                 <Route path="/situp" element={<LoginRouter><Situp /></LoginRouter>} />
                 <Route path="/pushup" element={<LoginRouter><Pushup /></LoginRouter>} />
