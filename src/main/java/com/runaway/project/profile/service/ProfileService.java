@@ -9,6 +9,8 @@ import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
@@ -59,6 +61,10 @@ public class ProfileService {
             totalSeconds += (minutes * 60) + seconds;
 
         }
+
+        BigDecimal bd = new BigDecimal(totalDistance);
+        bd = bd.setScale(3, RoundingMode.HALF_UP); // 소수점 세 자리까지 반올림
+        totalDistance = bd.doubleValue();
 
         Map<String, Object> runningData = new HashMap<>();
 
