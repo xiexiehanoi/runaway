@@ -96,15 +96,17 @@ Runaway와 함께라면 건강한 운동 습관을 쉽게 만들 수 있습니�
 - 카메라 전면부,후면부를 전환할 수 있는 기능 구현
 </details>
 <details>
-  <summary>운동하기</summary>
+  <summary>러닝</summary>
   <br>
 
-  &nbsp; 러닝
 - Geolocation을 이용한 위치변화를 실시간으로 감지
 - 네이버 맵 상에서 내가 달린 위치를 트래킹합니다.
 - 거리, 시간,1km당 평균 페이스를 기록
+</details>
+<details>
+  <summary>맨몸운동</summary>
+  <br>
 
- &nbsp; 맨몸운동 
 - 윗몸일으키기, 스쿼트, 팔굽혀펴기 운동 가능
 - Teachable machine 을 통해 동작을 학습
 - Animation frame 을 통한 연속적인 프레임을 처리
