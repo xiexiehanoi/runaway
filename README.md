@@ -14,7 +14,7 @@ Runaway와 함께라면 건강한 운동 습관을 쉽게 만들 수 있습니�
 - 개발 기간 : 2024/01/29 ~ 2024/03/08
 - BackEnd+FrontEnd
 <div class="table-container">
-  <table>
+  <table style="width:100%;">
     <tr>
       <td style="width:14%; text-align:center;"><a href="https://github.com/xiexiehanoi"><img src="https://github.com/xiexiehanoi/runaway/assets/123315364/1a98fb9e-8479-4893-bbab-0af3e333d18c" alt="김상우" width="80" height="80"></a></td>
       <td style="width:14%; text-align:center;"><a href="https://github.com/xiexiehanoi"><img src="https://github.com/xiexiehanoi/runaway/assets/123315364/907188ca-2f7e-46c1-b2b4-660b950f1018" alt="김인식" width="80" height="80"></a></td>
