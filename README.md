@@ -1,5 +1,6 @@
 # 💻Runaway
-![image](https://github.com/xiexiehanoi/runaway/assets/123315364/c5e621b8-dc70-44c6-813a-3bf3a8c870a8)
+![Runaway_Thumbnail](https://github.com/xiexiehanoi/runaway/assets/123315364/86c008bc-34aa-4e4b-882d-56b435f854f8)
+
 <hr>
 <br/>
 
@@ -44,10 +45,101 @@ Runaway와 함께라면 건강한 운동 습관을 쉽게 만들 수 있습니�
     </tr>
   </table>
 </div>
+<hr>
+<br />
+
+## 🖥️ Tech Stack
+
+### FrontEnd
+<img src="https://img.shields.io/badge/html5-E34F26?style=for-the-badge&logo=html5&logoColor=white"> <img src="https://img.shields.io/badge/css-1572B6?style=for-the-badge&logo=css3&logoColor=white"> <img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black"> <img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black">
 
 
 
+### BackEnd
+<img src="https://img.shields.io/badge/java-007396?style=for-the-badge&logo=java&logoColor=white"> <img src="https://img.shields.io/badge/spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white"> <img src="https://img.shields.io/badge/springboot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white"> <img src="https://img.shields.io/badge/JPA-59666C?style=for-the-badge&logo=hibernate&logoColor=white"> <img src="https://img.shields.io/badge/gradle-02303A?style=for-the-badge&logo=gradle&logoColor=white"> <img src="https://img.shields.io/badge/JWT-000000?style=for-the-badge&logo=jsonwebtokens&logoColor=white">
+
+### Infra & CI/CD
+<img src="https://img.shields.io/badge/Naver Cloud-03C75A?style=for-the-badge&logo=naver&logoColor=white"> <img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=Docker&logoColor=white"> <img src="https://img.shields.io/badge/Jenkins-D24939?style=for-the-badge&logo=Jenkins&logoColor=white">
+
+### Tools
+<img src="https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=white"> <img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white"> <img src="https://img.shields.io/badge/intellij idea-000000?style=for-the-badge&logo=intellijidea&logoColor=white"> <img src="https://img.shields.io/badge/vscode-007ACC?style=for-the-badge&logo=visualstudiocode&logoColor=white">
 
 
+### Server & DataBase
+<img src="https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white"> <img src="https://img.shields.io/badge/apache tomcat-F8DC75?style=for-the-badge&logo=apachetomcat&logoColor=white"> <img src="https://img.shields.io/badge/node-339933?style=for-the-badge&logo=Node&logoColor=white">
+<hr>
+<br />
 
-🪧✅⚙️🖥️📷
+## 🎥 시연영상
+[![Video Title](http://img.youtube.com/vi/Ixm3-YG_aw4/0.jpg)](https://youtu.be/Ixm3-YG_aw4 "Watch the Video")
+<hr>
+<br />
+
+## 🧩 페이지별 기능
+
+<details>
+  <summary>🔑 회원가입,로그인</summary>
+  <br>
+
+- 이메일, 비밀번호, 이름,닉네임,성별,생년월일, 키, 몸무게 입력시 회원가입 가능
+- 아이디와 닉네임은 중복 검사를 실행
+- 구글,네이버, 카카오톡 이용해서 간편회원가입이 가능
+- 구글,카카오톡,네이버,직접 로그인이 가능
+</details>
+<details>
+  <summary>🏠 메인페이지</summary>
+  <br>
+  
+- React-slideshow-image를 통한 광고기능을 구현
+- Running,Exercise,Challenge로 이동
+</details>
+<details>
+  <summary>📸 스토리</summary>
+  <br>
+
+- React-webcam을 이용하여 영상을 업로드하는 기능을 구현
+- Scheduler을 이용해 전날 업로드한 스토리는 삭제
+- 카메라 배율 조절 기능
+- 카메라 전면부,후면부를 전환할 수 있는 기능 구현
+</details>
+<details>
+  <summary>🏃 러닝</summary>
+  <br>
+
+- Geolocation을 이용한 위치변화를 실시간으로 감지
+- 네이버 맵 상에서 내가 달린 위치를 트래킹합니다.
+- 거리, 시간,1km당 평균 페이스를 기록
+</details>
+<details>
+  <summary>🏋️ 맨몸운동</summary>
+  <br>
+
+- 윗몸일으키기, 스쿼트, 팔굽혀펴기 운동 가능
+- Teachable machine 을 통해 동작을 학습
+- Animation frame 을 통한 연속적인 프레임을 처리
+</details>
+
+<details>
+  <summary>🎯 챌린지</summary>
+  <br>
+
+- Scheduler을 이용해서 각 날짜별로 챌린지가 성공했는지 여부를 확인
+- 챌린지 완료 시 경험치가 지급되고 레벨과 랭킹에 반영
+</details>
+
+<details>
+  <summary>🥇 랭킹</summary>
+  <br>
+
+- 챌린지를 통하여 획득한 포인트로 본인의 랭킹 확인
+- 챌린지가 성공하면 획득한 포인트로 랭킹이 결정
+- Scheduler 을 이용하여 6시간마다 랭킹이 업데이트
+</details>
+
+<details>
+  <summary>👤 마이페이지</summary>
+  <br>
+
+- Running/Exercise 챌린지 결과를 도넛 차트를 이용해 출력
+- 내가 한 모든 운동 상세결과를 확인
+</details>
