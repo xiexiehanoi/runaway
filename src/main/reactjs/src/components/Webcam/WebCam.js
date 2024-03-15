@@ -6,7 +6,7 @@ import WebcamVideo from "./WebCamVideo";
 import StoryShow from "./StoryShow";
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import ScreenHeader from "../ScreenHeader";
+import ScreenHeader from "../../router/ScreenHeader";
 
 const BASE_URI = process.env.REACT_APP_BACKEND_URL;
 const token = window.localStorage.getItem("token");
@@ -72,7 +72,7 @@ const WebCam = () => {
                     <span
                         style={{
                             color: '#f5f5f5',
-                            fontWeight: '500',
+                            fontWeight: '700',
                             fontSize: '1.1em'
                         }}
                     >Add Story</span>
@@ -99,7 +99,8 @@ const WebCam = () => {
                             width: '85%',
                             height: '72%',
                             margin: " auto",
-                            position: 'relative'
+                            position: 'relative',
+                            borderRadius: '16px'
                         }}>
                         <StoryShow storyList={storyList} />
                     </div>

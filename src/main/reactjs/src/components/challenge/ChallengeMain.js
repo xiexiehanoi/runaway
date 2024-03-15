@@ -5,7 +5,7 @@ import MyChallengeList from "./MyChallengeList";
 import "../../CSS/CommonApplicationStyle.css";
 import exerciseImg from "../../image/exercise.png";
 import runningImg from "../../image/running.png";
-import ScreenHeader from "../ScreenHeader";
+import ScreenHeader from "../../router/ScreenHeader";
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
@@ -52,7 +52,7 @@ const ChallengeMain = () => {
                   src={exerciseImg}
                   alt="Exercise Challenge"
                   className="exercise-image"
-                  style={{ width: "50%", height: "100%" }}
+                  style={{ width: "50%", height: "auto" }}
                 />
                 <br />
               </Link>

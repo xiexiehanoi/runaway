@@ -28,6 +28,7 @@ const DonutChart = ({ successCount, failureCount ,pendingCount}) => {
           animateScale: true,
         },
         // 도넛 차트 내부에 텍스트 표시 등 추가 옵션 구성 가능
+        cutout: '60%', // 도넛 차트의 중심 빈 공간의 크기를 70%로 설정하여 도넛의 두께를 줄임
       },
     };
 

@@ -16,6 +16,30 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.util.List;
 
+
+enum ExerciseState {
+    UNCHECKED(0), FAIL(1), SUCCESS(2);
+
+    private final int value;
+
+    ExerciseState(int value) {
+        this.value = value;
+    }
+    public int getValue() {
+        return value;
+    }
+
+    public static ExerciseState fromInt(int value) {
+        for (ExerciseState state : ExerciseState.values()) {
+            if (state.getValue() == value) {
+                return state;
+            }
+        }
+        return UNCHECKED;
+    }
+
+}
+
 @Service
 public class ExerciseDayService {
 
@@ -79,6 +103,60 @@ public class ExerciseDayService {
             myExerciseRepository.save(myExercise);
         }
     }
+
+    @Transactional
+    public boolean getResultCallenges(Long userId) {
+        List<MyExerciseDto> myExercises = myExerciseRepository.findAllByUserId(userId);
+        boolean isSuccess = false;
+
+        for (MyExerciseDto myExercise : myExercises) {
+            if (myExercise.getEnd_date().isBefore(LocalDate.now())) continue;
+            if (myExercise.getSuccessStatus() == ExerciseState.SUCCESS.ordinal()) continue;
+
+            ExerciseChallengeDto challenge = myExercise.getExerciseChallengeDto();
+            List<ExerciseDayDto> exerciseDays = myExercise.getExerciseDays();
+
+            int dayCount = 0;
+
+            for (ExerciseDayDto exerciseDay : exerciseDays) {
+                if (exerciseDay.getSuccessStatus() == ExerciseState.SUCCESS.ordinal()) {
+                    dayCount += 1;
+                    continue;
+                } else if (exerciseDay.getSuccessStatus() == ExerciseState.FAIL.ordinal()) {
+                    break;
+                }
+
+                if (exerciseDay.getDate().isBefore(LocalDate.now()) || exerciseDay.getDate().isEqual(LocalDate.now())) {
+                    int totalExerciseCount = exerciseRepository.sumExerciseCountByDateAndType(
+                            exerciseDay.getDate(),
+                            challenge.getExercise_type(),
+                            myExercise.getUser().getId()
+                    );
+
+                    if (totalExerciseCount >= challenge.getTarget_count()) {
+                        exerciseDay.setSuccessStatus(ExerciseState.SUCCESS.ordinal());
+                        dayCount += 1;
+                    } else {
+                        exerciseDay.setSuccessStatus(ExerciseState.FAIL.ordinal());
+                    }
+                }
+            }
+
+            if (dayCount >= myExercise.getExerciseChallengeDto().getTarget_date()) {
+                myExercise.setSuccessStatus(ExerciseState.SUCCESS.ordinal());
+                User user = myExercise.getUser();
+                user.addPoints(challenge.getExp(), gradeRepository);
+                userRepository.save(user);
+
+                isSuccess = true;
+            }
+
+            myExerciseRepository.save(myExercise);
+        }
+
+        return isSuccess;
+    }
+
 }
 
 

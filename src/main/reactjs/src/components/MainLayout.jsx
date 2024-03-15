@@ -96,12 +96,12 @@ const MainLayout = ({ children }) => {
       <div className="main-container">
         <div id="phone-container">
           <div id="Iphone">
-            <div id="Iphone-header">
-              <div className="operator-name">18:22</div>
-              <img alt='phoneHeader' src={phoneHeader} className="phone-header" />
-              <div className="operator-5g">5G</div>
-              <div className="battery">100</div>
-            </div>
+          </div>
+          <div id="Iphone-header">
+            <div className="operator-name">18:22</div>
+            <img alt='phoneHeader' src={phoneHeader} className="phone-header" />
+            <div className="operator-5g">5G</div>
+            <div className="battery">100</div>
           </div>
 
           <div id="screen-container">

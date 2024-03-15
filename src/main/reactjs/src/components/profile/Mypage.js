@@ -1,12 +1,11 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import Logout from "../login/Logout";
 import MyChallenge from './MyChallenge';
 import ExpBar from './ExpBar';
 import MonthlyActivitySummary from './MonthlyActivitySummary';
 import MyProfile from "./MyProfile";
-import ScreenHeader from "../ScreenHeader";
+import ScreenHeader from "../../router/ScreenHeader";
 
 
 //import './css/Mypage.css'
@@ -120,13 +119,14 @@ const Mypage = () => {
 
   return (
     <div className="mypage-container">
-      <ScreenHeader title={"MY INFO"} />
+      <ScreenHeader title={"My Profile"} />
       <MyProfile />
+      {/* <div> */}
+      {/* <div className='Exp'> */}
       <div>
-        <div className='Exp'>
-          <ExpBar level={user?.grade.level} exp={user?.point} min={user?.grade.minPoint} max={user?.grade.maxPoint} />
-        </div>
+        <ExpBar level={user?.grade.level} exp={user?.point} min={user?.grade.minPoint} max={user?.grade.maxPoint} />
       </div>
+      {/* </div> */}
       <div className="challenge-info">
         <div>
           <MyChallenge myChallengeList={myChallengeList} />

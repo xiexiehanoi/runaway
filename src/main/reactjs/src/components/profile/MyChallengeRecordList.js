@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./css/MyChallenge.css";
 import axios from "axios";
 import MyChallengeRecordItem from "./MyChallengeRecordItem.js";
+import ScreenHeader from "../../router/ScreenHeader";
 
 const MyChallengeRecordList = () => {
   const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
@@ -38,7 +39,8 @@ const MyChallengeRecordList = () => {
 
   return (
     <div>
-      <div style={{ display: "flex" ,marginLeft:'110px'}}>
+      <div style={{marginBottom:'30px'}}><ScreenHeader title={"Challenge"} /></div>
+      <div style={{ display: "flex" ,marginLeft:'160px'}}>
                     <div style={{ display: "flex", alignItems: "center", marginBottom: "5px", marginRight:'5px'}}>
                         <div style={{ width: "8px", height: "8px", backgroundColor: "rgba(75, 192, 192, 0.6)", marginRight: "5px" }}></div>
                         <span style={{fontSize:'10px'}}>Success</span>

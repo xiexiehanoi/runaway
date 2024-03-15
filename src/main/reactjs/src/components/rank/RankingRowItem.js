@@ -7,7 +7,6 @@ import downArrow from "../../image/down-arrow.png";
 
 const RankingRowItem = (props) => {
     const {row, idx} = props;
-    console.log(row);
 
     console.log("row:"+row.rankChange)
     return (

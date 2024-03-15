@@ -1,18 +1,18 @@
-import React, { useEffect, useRef, useState } from 'react';
-import {  useNavigate  } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 
-const MonthlyActivitySummary = ({ currentMonthlyExerciseData , start }) => {
+const MonthlyActivitySummary = ({ currentMonthlyExerciseData, start }) => {
     const [selectedTab, setSelectedTab] = useState('tab-1');
     const [selectedData, setSelectedData] = useState(currentMonthlyExerciseData?.[0] ?? {}); // 초기 값은 첫 번째 탭에 해당하는 데이터
-    const navigate  = useNavigate();
+    const navigate = useNavigate();
     useEffect(() => {
         // props가 업데이트되면 초기 탭의 데이터를 다시 설정
         setSelectedData(currentMonthlyExerciseData?.[0] ?? {});
     }, [currentMonthlyExerciseData]);
 
 
-    
+
 
     const handleChange = (event) => {
         setSelectedTab(event.target.id);
@@ -36,35 +36,35 @@ const MonthlyActivitySummary = ({ currentMonthlyExerciseData , start }) => {
     };
 
     // Running 탭에 대한 handleClick 함수
-const handleRunningClick = () => {
-    // 새로운 페이지로 이동하면서 데이터를 전달
-    const runningStartDate=start.runningStartDate;
-    navigate("/runningRecords", { state: { startDate: runningStartDate , exerciseType:'running'} });
-};
+    const handleRunningClick = () => {
+        // 새로운 페이지로 이동하면서 데이터를 전달
+        const runningStartDate = start.runningStartDate;
+        navigate("/runningRecords", { state: { startDate: runningStartDate, exerciseType: 'running' } });
+    };
 
-// Squat 탭에 대한 handleClick 함수
-const handleSquatClick = () => {
-    // 새로운 페이지로 이동하면서 데이터를 전달
-    const squatStartDate=start.squatStartDate;
-    navigate("/exerciseRecords", { state: { startDate:squatStartDate , exerciseType:'squat' } });
-};
+    // Squat 탭에 대한 handleClick 함수
+    const handleSquatClick = () => {
+        // 새로운 페이지로 이동하면서 데이터를 전달
+        const squatStartDate = start.squatStartDate;
+        navigate("/exerciseRecords", { state: { startDate: squatStartDate, exerciseType: 'squat' } });
+    };
 
-// Sit-Up 탭에 대한 handleClick 함수
-const handleSitupClick = () => {
-    // 새로운 페이지로 이동하면서 데이터를 전달
-    const situpStartDate=start.situpStartDate;
-    navigate("/exerciseRecords", { state: { startDate: situpStartDate , exerciseType:'situp'} });
-};
+    // Sit-Up 탭에 대한 handleClick 함수
+    const handleSitupClick = () => {
+        // 새로운 페이지로 이동하면서 데이터를 전달
+        const situpStartDate = start.situpStartDate;
+        navigate("/exerciseRecords", { state: { startDate: situpStartDate, exerciseType: 'situp' } });
+    };
 
-// Push-Up 탭에 대한 handleClick 함수
-const handlePushupClick = () => {
-    // 새로운 페이지로 이동하면서 데이터를 전달
-    const pushupStartDate=start.pushupStartDate;
-    navigate("/exerciseRecords", { state: { startDate: pushupStartDate , exerciseType:'pushup'} });
-};
+    // Push-Up 탭에 대한 handleClick 함수
+    const handlePushupClick = () => {
+        // 새로운 페이지로 이동하면서 데이터를 전달
+        const pushupStartDate = start.pushupStartDate;
+        navigate("/exerciseRecords", { state: { startDate: pushupStartDate, exerciseType: 'pushup' } });
+    };
 
 
-    
+
 
 
 
@@ -81,23 +81,23 @@ const handlePushupClick = () => {
 
         // 시간에 대해서만 선행 0을 제외하고 포매팅
         const formattedTime = `${hours}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-        
-        
 
-        
-        
+
+
+
+
         switch (selectedTab) {
             case 'tab-1': // Running
                 return (
                     <>
-                        <div className="activity-summary">
+                        <div className="running-summary">
                             <div className="date">
                                 <div> {year}년 {month}월</div>
-                                <button onClick={handleRunningClick}>+</button>
+                                <button className="show-all-data-btn" onClick={handleRunningClick}>+</button>
                             </div>
                             <div className="total-distance">
                                 <span className="number">{selectedData.totalDistance}</span><br />
-                                <span className="label">킬로미터</span>
+                                <div className="label">킬로미터</div>
                             </div>
                             <div className="runningstats-container">
                                 <div className="stat">
@@ -123,20 +123,21 @@ const handlePushupClick = () => {
             case 'tab-2': // Squat
                 return (
                     <>
-                        <div className="activity-summary">
+                        <div className="exercise-summary">
                             <div className="date">
                                 <div> {year}년 {month}월</div>
-                                <button onClick={handleSquatClick}>+</button>
-                            </div>
-                            <div className="total-SquatCount">
-                                <span className="number">{selectedData.totalSquatCount}</span><br />
-                                <span className="label">횟수</span>
+                                <button className="show-all-data-btn" onClick={handleSquatClick}>+</button>
                             </div>
                             <div className="exercise-stats-container">
                                 <div className="stat">
                                     <span className="number">{selectedData.squatDays}</span><br />
                                     <span className="label">스쿼트</span>
                                 </div>
+                                <div className="stat">
+                                    <span className="number">{selectedData.totalSquatCount}</span><br />
+                                    <span className="label">횟수</span>
+                                </div>
+
 
                                 <div className="stat">
                                     <span className="number">{selectedData.totalSquatCalorie}</span><br />
@@ -150,26 +151,26 @@ const handlePushupClick = () => {
             case 'tab-3': // SitUp
                 return (
                     <>
-                        <div className="activity-summary">
+                        <div className="exercise-summary">
                             <div className="date">
                                 <div> {year}년 {month}월</div>
-                                <button onClick={handleSitupClick}>+</button>
+                                <button className="show-all-data-btn" onClick={handleSitupClick} >+</button>
                             </div>
-                            <div className="total-SquatCount">
-                                <span className="number">{selectedData.totalSitUpCount}</span><br />
-                                <span className="label">횟수</span>
-                            </div>
+
                             <div className="exercise-stats-container">
                                 <div className="stat">
                                     <span className="number">{selectedData.situpDays}</span><br />
                                     <span className="label">윗몸일으키기</span>
+                                </div>
+                                <div className="stat">
+                                    <span className="number">{selectedData.totalSitUpCount}</span><br />
+                                    <span className="label">횟수</span>
                                 </div>
 
                                 <div className="stat">
                                     <span className="number">{selectedData.totalSitUpCalorie}</span><br />
                                     <span className="label">칼로리</span>
                                 </div>
-
                             </div>
                         </div>
                     </>
@@ -177,19 +178,20 @@ const handlePushupClick = () => {
             case 'tab-4': // PushUp
                 return (
                     <>
-                        <div className="activity-summary">
+                        <div className="exercise-summary">
                             <div className="date">
                                 <div> {year}년 {month}월</div>
-                                <button onClick={handlePushupClick}>+</button>
+                                <button className="show-all-data-btn" onClick={handlePushupClick}>+</button>
                             </div>
-                            <div className="total-SquatCount">
-                                <span className="number">{selectedData.totalPushUpCount}</span><br />
-                                <span className="label">횟수</span>
-                            </div>
+
                             <div className="exercise-stats-container">
                                 <div className="stat">
                                     <span className="number">{selectedData.pushupDays}</span><br />
                                     <span className="label">팔굽혀펴기</span>
+                                </div>
+                                <div className="stat">
+                                    <span className="number">{selectedData.totalPushUpCount}</span><br />
+                                    <span className="label">횟수</span>
                                 </div>
 
                                 <div className="stat">
@@ -211,7 +213,7 @@ const handlePushupClick = () => {
 
     return (
         <div>
-            <div style={{marginLeft:'15px', marginTop:'30px'}}>이번 달 운동 통계</div>
+            <div style={{ marginLeft: '24px', marginTop: '40px' }}>이번 달 운동 통계</div>
             <div className="segmented-control">
                 <input
                     type="radio"
@@ -222,7 +224,7 @@ const handlePushupClick = () => {
                     onChange={handleChange}
                 />
                 <label htmlFor="tab-1" className="segmented-control__1">
-                    <p>Running</p>
+                    <p style={{ marginBottom: '0px' }}>running</p>
                 </label>
 
                 <input
@@ -234,7 +236,7 @@ const handlePushupClick = () => {
                     onChange={handleChange}
                 />
                 <label htmlFor="tab-2" className="segmented-control__2">
-                    <p>Squat</p>
+                    <p style={{ marginBottom: '0px' }}>squat</p>
                 </label>
 
                 <input
@@ -246,7 +248,7 @@ const handlePushupClick = () => {
                     onChange={handleChange}
                 />
                 <label htmlFor="tab-3" className="segmented-control__3">
-                    <p>Sit-Up</p>
+                    <p style={{ marginBottom: '0px' }}>situp</p>
                 </label>
 
                 <input
@@ -258,13 +260,12 @@ const handlePushupClick = () => {
                     onChange={handleChange}
                 />
                 <label htmlFor="tab-4" className="segmented-control__3">
-                    <p>Push-Up</p>
+                    <p style={{ marginBottom: '0px' }}>pushup</p>
                 </label>
                 <div className="segmented-control__color"></div>
             </div>
-            <div className="currentMonthMyChallenge-container">
-                {renderContentBasedOnExercise()}
-            </div>
+
+            {renderContentBasedOnExercise()}
 
         </div>
     );
