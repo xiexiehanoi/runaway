@@ -1,5 +1,6 @@
 # 💻Runaway
-![image](https://github.com/xiexiehanoi/runaway/assets/123315364/c5e621b8-dc70-44c6-813a-3bf3a8c870a8)
+![Runaway_Thumbnail](https://github.com/xiexiehanoi/runaway/assets/123315364/86c008bc-34aa-4e4b-882d-56b435f854f8)
+
 <hr>
 <br/>
 
@@ -66,10 +67,16 @@ Runaway와 함께라면 건강한 운동 습관을 쉽게 만들 수 있습니�
 
 ### Server & DataBase
 <img src="https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white"> <img src="https://img.shields.io/badge/apache tomcat-F8DC75?style=for-the-badge&logo=apachetomcat&logoColor=white"> <img src="https://img.shields.io/badge/node-339933?style=for-the-badge&logo=Node&logoColor=white">
+<hr>
+<br />
 
 ## 🎥 시연영상
+[![Video Title](http://img.youtube.com/vi/Ixm3-YG_aw4/0.jpg)](https://youtu.be/Ixm3-YG_aw4 "Watch the Video")
+<hr>
+<br />
 
 ## 🧩 페이지별 기능
+
 <details>
   <summary>🔑 회원가입,로그인</summary>
   <br>
