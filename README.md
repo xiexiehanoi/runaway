@@ -82,7 +82,7 @@ Runaway와 함께라면 건강한 운동 습관을 쉽게 만들 수 있습니�
 <details>
   <summary>메인페이지</summary>
   <br>
-
+  
 - React-slideshow-image를 통한 광고기능을 구현
 - Running,Exercise,Challenge로 이동
 </details>
@@ -99,12 +99,12 @@ Runaway와 함께라면 건강한 운동 습관을 쉽게 만들 수 있습니�
   <summary>운동하기</summary>
   <br>
 
-  러닝
+  &nbsp; 러닝
 - Geolocation을 이용한 위치변화를 실시간으로 감지
 - 네이버 맵 상에서 내가 달린 위치를 트래킹합니다.
 - 거리, 시간,1km당 평균 페이스를 기록
 
-맨몸운동
+ &nbsp; 맨몸운동 
 - 윗몸일으키기, 스쿼트, 팔굽혀펴기 운동 가능
 - Teachable machine 을 통해 동작을 학습
 - Animation frame 을 통한 연속적인 프레임을 처리
