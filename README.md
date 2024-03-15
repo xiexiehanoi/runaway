@@ -71,7 +71,7 @@ Runaway와 함께라면 건강한 운동 습관을 쉽게 만들 수 있습니�
 
 ## 🧩 페이지별 기능
 <details>
-  <summary>회원가입,로그인</summary>
+  <summary>🔑 회원가입,로그인</summary>
   <br>
 
 - 이메일, 비밀번호, 이름,닉네임,성별,생년월일, 키, 몸무게 입력시 회원가입 가능
@@ -80,7 +80,7 @@ Runaway와 함께라면 건강한 운동 습관을 쉽게 만들 수 있습니�
 - 구글,카카오톡,네이버,직접 로그인이 가능
 </details>
 <details>
-  <summary>메인페이지</summary>
+  <summary>🏠 메인페이지</summary>
   <br>
   
 - React-slideshow-image를 통한 광고기능을 구현
@@ -128,11 +128,9 @@ Runaway와 함께라면 건강한 운동 습관을 쉽게 만들 수 있습니�
 </details>
 
 <details>
-  <summary>마이페이지</summary>
+  <summary>👤 마이페이지</summary>
   <br>
 
 - Running/Exercise 챌린지 결과를 도넛 차트를 이용해 출력
 - 내가 한 모든 운동 상세결과를 확인
 </details>
-
-🪧✅⚙️🖥️📷
