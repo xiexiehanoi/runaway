@@ -87,7 +87,7 @@ Runaway와 함께라면 건강한 운동 습관을 쉽게 만들 수 있습니�
 - Running,Exercise,Challenge로 이동
 </details>
 <details>
-  <summary>스토리</summary>
+  <summary>📸 스토리</summary>
   <br>
 
 - React-webcam을 이용하여 영상을 업로드하는 기능을 구현
@@ -96,7 +96,7 @@ Runaway와 함께라면 건강한 운동 습관을 쉽게 만들 수 있습니�
 - 카메라 전면부,후면부를 전환할 수 있는 기능 구현
 </details>
 <details>
-  <summary>러닝</summary>
+  <summary>🏃 러닝</summary>
   <br>
 
 - Geolocation을 이용한 위치변화를 실시간으로 감지
@@ -104,7 +104,7 @@ Runaway와 함께라면 건강한 운동 습관을 쉽게 만들 수 있습니�
 - 거리, 시간,1km당 평균 페이스를 기록
 </details>
 <details>
-  <summary>맨몸운동</summary>
+  <summary>🏋️ 맨몸운동</summary>
   <br>
 
 - 윗몸일으키기, 스쿼트, 팔굽혀펴기 운동 가능
@@ -113,7 +113,7 @@ Runaway와 함께라면 건강한 운동 습관을 쉽게 만들 수 있습니�
 </details>
 
 <details>
-  <summary>챌린지</summary>
+  <summary>🎯 챌린지</summary>
   <br>
 
 - Scheduler을 이용해서 각 날짜별로 챌린지가 성공했는지 여부를 확인
@@ -121,7 +121,7 @@ Runaway와 함께라면 건강한 운동 습관을 쉽게 만들 수 있습니�
 </details>
 
 <details>
-  <summary>랭킹</summary>
+  <summary>🥇 랭킹</summary>
   <br>
 
 - 챌린지를 통하여 획득한 포인트로 본인의 랭킹 확인
